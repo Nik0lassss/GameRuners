@@ -1,0 +1,11 @@
+other_car_4_2.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+other_car_4_2
+  rotate: false
+  xy: 0, 0
+  size: 75, 80
+  orig: 75, 80
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,11 @@
+insane_mode_alpha_left.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+insane_mode_alpha_left
+  rotate: false
+  xy: 0, 0
+  size: 136, 34
+  orig: 136, 34
+  offset: 0, 0
+  index: -1

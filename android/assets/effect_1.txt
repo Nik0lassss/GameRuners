@@ -1,0 +1,11 @@
+effect_1.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_1
+  rotate: false
+  xy: 0, 0
+  size: 320, 146
+  orig: 320, 146
+  offset: 0, 0
+  index: -1

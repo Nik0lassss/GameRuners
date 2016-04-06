@@ -1,0 +1,32 @@
+muscle_car_1.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+muscle_car_1
+  rotate: false
+  xy: 0, 0
+  size: 62, 96
+  orig: 62, 96
+  offset: 0, 0
+  index: -1
+muscle_car_2
+  rotate: false
+  xy: 62, 0
+  size: 62, 96
+  orig: 62, 96
+  offset: 0, 0
+  index: -1
+muscle_car_3
+  rotate: false
+  xy: 124, 0
+  size: 62, 96
+  orig: 62, 96
+  offset: 0, 0
+  index: -1
+muscle_car_4
+   rotate: false
+   xy: 186, 0
+   size: 62, 96
+   orig: 62, 96
+   offset: 0, 0
+   index: -1

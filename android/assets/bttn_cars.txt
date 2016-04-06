@@ -1,0 +1,11 @@
+bttn_cars.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bttn_cars
+  rotate: false
+  xy: 0, 0
+  size: 43, 49
+  orig: 43, 49
+  offset: 0, 0
+  index: -1

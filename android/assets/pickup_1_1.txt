@@ -1,0 +1,32 @@
+pickup_1_1.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+pickup_1_1
+  rotate: false
+  xy: 0, 0
+  size: 66, 84
+  orig: 66, 84
+  offset: 0, 0
+  index: -1
+pickup_1_2
+  rotate: false
+  xy: 66, 0
+  size: 66, 84
+  orig: 66, 84
+  offset: 0, 0
+  index: -1
+pickup_1_3
+  rotate: false
+  xy: 132, 0
+  size: 66, 84
+  orig: 66, 84
+  offset: 0, 0
+  index: -1
+pickup_1_4
+   rotate: false
+   xy: 198, 0
+   size: 66, 84
+   orig: 66, 84
+   offset: 0, 0
+   index: -1

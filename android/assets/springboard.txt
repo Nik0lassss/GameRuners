@@ -1,0 +1,11 @@
+springboard.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+springboard
+  rotate: false
+  xy: 0, 0
+  size: 77, 43
+  orig: 77, 43
+  offset: 0, 0
+  index: -1

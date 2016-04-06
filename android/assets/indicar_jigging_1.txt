@@ -1,0 +1,18 @@
+indicar_jigging_1.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+indicar_jigging_1
+  rotate: false
+  xy: 0, 0
+  size: 62, 79
+  orig: 62, 79
+  offset: 0, 0
+  index: -1
+indicar_jigging_2
+  rotate: false
+  xy: 62, 0
+  size: 62, 79
+  orig: 62, 79
+  offset: 0, 0
+  index: -1

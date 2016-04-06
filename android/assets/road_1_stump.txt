@@ -1,0 +1,11 @@
+road_1_stump.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+road_1_stump
+  rotate: false
+  xy: 0, 0
+  size: 36, 27
+  orig: 36, 27
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,11 @@
+road_1_lighter_l.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+road_1_lighter_l_move_1
+  rotate: false
+  xy: 0, 0
+  size: 136, 120
+  orig: 136, 120
+  offset: 0, 0
+  index: -1

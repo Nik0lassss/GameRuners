@@ -1,0 +1,32 @@
+car_cabriolet_1_1.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+car_cabriolet_1_1
+  rotate: false
+  xy: 0, 0
+  size: 62, 81
+  orig: 62, 81
+  offset: 0, 0
+  index: -1
+car_cabriolet_1_2
+  rotate: false
+  xy: 62, 0
+  size: 62, 81
+  orig: 62, 81
+  offset: 0, 0
+  index: -1
+car_cabriolet_1_3
+  rotate: false
+  xy: 124, 0
+  size: 62, 81
+  orig: 62, 81
+  offset: 0, 0
+  index: -1
+car_cabriolet_1_4
+  rotate: false
+  xy: 186, 0
+  size: 62, 81
+  orig: 62, 81
+  offset: 0, 0
+  index: -1

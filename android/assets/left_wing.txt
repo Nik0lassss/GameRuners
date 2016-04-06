@@ -1,0 +1,11 @@
+left_wing.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+left_wing
+  rotate: false
+  xy: 0, 0
+  size: 22, 19
+  orig: 22, 19
+  offset: 0, 0
+  index: -1

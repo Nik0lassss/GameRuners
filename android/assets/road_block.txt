@@ -1,0 +1,11 @@
+road_block.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+road_block
+  rotate: false
+  xy: 0, 0
+  size: 69, 25
+  orig: 69, 25
+  offset: 0, 0
+  index: -1

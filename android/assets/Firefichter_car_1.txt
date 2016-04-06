@@ -1,0 +1,32 @@
+Firefichter_car_1.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Firefichter_car_1
+  rotate: false
+  xy: 0, 0
+  size: 61, 82
+  orig: 61, 82
+  offset: 0, 0
+  index: -1
+Firefichter_car_2
+  rotate: false
+  xy: 61, 0
+  size: 61, 82
+  orig: 61, 82
+  offset: 0, 0
+  index: -1
+Firefichter_car_3
+  rotate: false
+  xy: 122, 0
+  size: 61, 82
+  orig: 61, 82
+  offset: 0, 0
+  index: -1
+Firefichter_car_4
+  rotate: false
+  xy: 183, 0
+  size: 62, 82
+  orig: 62, 82
+  offset: 0, 0
+  index: -1

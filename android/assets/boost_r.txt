@@ -1,0 +1,11 @@
+boost_r.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boost_r
+  rotate: false
+  xy: 0, 0
+  size: 16, 25
+  orig: 16, 25
+  offset: 0, 0
+  index: -1

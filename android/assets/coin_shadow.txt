@@ -1,0 +1,11 @@
+coin_shadow.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+shadow
+  rotate: false
+  xy: 0, 0
+  size: 18, 4
+  orig: 18, 4
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,11 @@
+road_1_tree_1.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+road_1_tree_1_move_1
+  rotate: false
+  xy: 0, 0
+  size: 95, 81
+  orig: 95, 81
+  offset: 0, 0
+  index: -1

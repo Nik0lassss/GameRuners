@@ -1,0 +1,32 @@
+street_racing_car_2_1.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+street_racing_car_2_1
+  rotate: false
+  xy: 0, 0
+  size: 65, 79
+  orig: 65, 79
+  offset: 0, 0
+  index: -1
+street_racing_car_2_2
+  rotate: false
+  xy: 65, 0
+  size: 65, 79
+  orig: 65, 79
+  offset: 0, 0
+  index: -1
+street_racing_car_2_3
+  rotate: false
+  xy: 130, 0
+  size: 65, 79
+  orig: 65, 79
+  offset: 0, 0
+  index: -1
+street_racing_car_2_4
+  rotate: false
+  xy: 195, 0
+  size: 65, 79
+  orig: 65, 79
+  offset: 0, 0
+  index: -1

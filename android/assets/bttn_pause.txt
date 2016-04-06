@@ -1,0 +1,18 @@
+pause_bttn.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bttn_pause
+  rotate: false
+  xy: 0, 0
+  size: 24, 25
+  orig: 24, 25
+  offset: 0, 0
+  index: -1
+bttn_pause_prssd
+  rotate: false
+  xy: 24, 0
+  size: 24, 25
+  orig: 24, 25
+  offset: 0, 0
+  index: -1

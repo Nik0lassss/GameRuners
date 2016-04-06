@@ -1,0 +1,11 @@
+skull_on_road.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+skull_on_road
+  rotate: false
+  xy: 0, 0
+  size: 23, 24
+  orig: 23, 24
+  offset: 0, 0
+  index: -1

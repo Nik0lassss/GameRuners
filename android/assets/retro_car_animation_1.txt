@@ -1,0 +1,32 @@
+retro_car_animation_1.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+retro_car_animation_1
+  rotate: false
+  xy: 0, 0
+  size: 62, 77
+  orig: 62, 77
+  offset: 0, 0
+  index: -1
+retro_car_animation_2
+  rotate: false
+  xy: 62, 0
+  size: 62, 77
+  orig: 62, 77
+  offset: 0, 0
+  index: -1
+retro_car_animation_3
+  rotate: false
+  xy: 124, 0
+  size: 62, 77
+  orig: 62, 77
+  offset: 0, 0
+  index: -1
+retro_car_animation_4
+   rotate: false
+   xy: 186, 0
+   size: 62, 77
+   orig: 62, 77
+   offset: 0, 0
+   index: -1

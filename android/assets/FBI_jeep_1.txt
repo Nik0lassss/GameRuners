@@ -1,0 +1,32 @@
+FBI_jeep_1.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+FBI_jeep_1
+  rotate: false
+  xy: 0, 0
+  size: 62, 82
+  orig: 62, 82
+  offset: 0, 0
+  index: -1
+FBI_jeep_2
+  rotate: false
+  xy: 62, 0
+  size: 62, 82
+  orig: 62, 82
+  offset: 0, 0
+  index: -1
+FBI_jeep_3
+  rotate: false
+  xy: 124, 0
+  size: 62, 82
+  orig: 62, 82
+  offset: 0, 0
+  index: -1
+FBI_jeep_4
+  rotate: false
+  xy: 180, 0
+  size: 62, 82
+  orig: 62, 82
+  offset: 0, 0
+  index: -1
