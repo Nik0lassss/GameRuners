@@ -126,12 +126,12 @@ public class PasserCar extends Car {
         body = world.createBody(bodyDef);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(carAnimation.getKeyFrames()[0].getRegionWidth() / 2/Constants.PIXELS_TO_METERS, carAnimation.getKeyFrames()[0].getRegionHeight()
-                / 2/Constants.PIXELS_TO_METERS);
+        shape.setAsBox(carAnimation.getKeyFrames()[0].getRegionWidth() / 2 / Constants.PIXELS_TO_METERS, carAnimation.getKeyFrames()[0].getRegionHeight()
+                / 2 / Constants.PIXELS_TO_METERS);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
-        fixtureDef.density =1f;
+        fixtureDef.density = 1f;
         fixtureDef.restitution = 1f;
 
 //        setHeight(carAnimation.getKeyFrames()[0].getRegionHeight());
@@ -298,31 +298,31 @@ public class PasserCar extends Car {
             stateTime += dt;
         } else if (passerCarDataType.isBlow()) {
 
-            Vector2 fv1 = new Vector2(-GameManager.getContactPointX(), -GameManager.getContactPointY());
-
-            if (isLeft) angelt += 2;
-            else angelt -= 4;
-            world.setGravity(new Vector2(0f, -20f));
-            if (isLeft)
-                body.applyLinearImpulse(500000, 500000f, -GameManager.getContactPointX(), -GameManager.getContactPointY(), true);
-            else
-                body.applyLinearImpulse(-500000, 500000f, -GameManager.getContactPointX(), -GameManager.getContactPointY(), true);
-
-
-            body.setTransform(body.getPosition().x, body.getPosition().y, angelt);
-
-            bounds.setPosition(body.getPosition().x, body.getPosition().y);
-
-            setPosition(body.getPosition().x, body.getPosition().y);
-            stateTime += dt;
+//            Vector2 fv1 = new Vector2(-GameManager.getContactPointX(), -GameManager.getContactPointY());
+//
+//            if (isLeft) angelt += 2;
+//            else angelt -= 4;
+//            world.setGravity(new Vector2(0f, -20f));
+//            if (isLeft)
+//                body.applyLinearImpulse(500000, 500000f, -GameManager.getContactPointX(), -GameManager.getContactPointY(), true);
+//            else
+//                body.applyLinearImpulse(-500000, 500000f, -GameManager.getContactPointX(), -GameManager.getContactPointY(), true);
+//
+//
+//            body.setTransform(body.getPosition().x, body.getPosition().y, angelt);
+//
+//            bounds.setPosition(body.getPosition().x, body.getPosition().y);
+//
+//            setPosition(body.getPosition().x, body.getPosition().y);
+//            stateTime += dt;
             timer += dt;
-
-            GameManager.setCurrentSpeed(GameManager.getGearShifts().get(0).getSpeeds().get(0));
+//
+//            GameManager.setCurrentSpeed(GameManager.getGearShifts().get(0).getSpeeds().get(0));
 
 
             if (timer > 0.4) {
                 GameManager.pauseGame = true;
-
+                System.out.println("Pause");
                 timer = 0;
             }
 

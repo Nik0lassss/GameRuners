@@ -119,6 +119,8 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
     private boolean isLadle = false;
     private ParticleEffect pf;
     private ParticleEffect pfl;
+
+    private float timer = 0;
     //private ParticleEffect collision;
 
     final float PIXELS_TO_METERS = 100f;
@@ -853,6 +855,29 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
         myCar.updateAnimations(isGamePause());
         if (!GameManager.pauseGame && !isMyCarCollision) myCar.update(dt);
         stage.act(Gdx.graphics.getDeltaTime());
+        if (isMyCarCollision) {
+            timer += dt;
+//
+//            GameManager.setCurrentSpeed(GameManager.getGearShifts().get(0).getSpeeds().get(0));
+            for (PasserCar passerCar : passerCars) {
+                passerCar.body.setLinearVelocity(passerCar.body.getLinearVelocity().x < 0 ? 0 : passerCar.body.getLinearVelocity().x - 1f, passerCar.body.getLinearVelocity().y < 0 ? 0 : passerCar.body.getLinearVelocity().y - 1f);
+                // passerCar.body.setTransform(passerCar.body.getPosition(), passerCar.body.getAngle() - 0.2f);
+                // System.out.println("passerCar.body.getLinearVelocity().scl(-10,-10) "+passerCar.body.getLinearVelocity().scl(-10,-10));
+                // passerCar.body.setLinearVelocity(passerCar.body.getLinearVelocity().scl(-10,-10));
+                //passerCar.body.applyForce(0f,,passerCar.body.getPosition().x,passerCar.body.getPosition().y,true);
+            }
+            GameManager.setIsCollision(true);
+
+            GameManager.setCollisionSpeed(GameManager.getCurrentSpeed() <= 0 ? 0 : GameManager.getCurrentSpeed() - 10);
+
+            //myCar.body.setTransform(myCar.body.getPosition(),myCar.body.getAngle()-0.2f);
+            myCar.body.setLinearVelocity(myCar.body.getLinearVelocity().x <= 0 ? 0 : myCar.body.getLinearVelocity().x - 1f, myCar.body.getLinearVelocity().y < 0 ? 0 : myCar.body.getLinearVelocity().y - 1f);
+            if (timer > 1) {
+                GameManager.pauseGame = true;
+                System.out.println("Pause");
+                timer = 0;
+            }
+        }
 
 
     }
@@ -1026,6 +1051,7 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
         } else
             sb.draw(myCar.getMyCarAnimation().getKeyFrame(myCar.getStateTime(), true), myCar.body.getPosition().x, myCar.body.getPosition().y - myCar.getCarTexture().getRegionHeight() / 2, myCar.getOriginX() + myCar.getCarTexture().getRegionWidth() / 2, myCar.getOriginY() + myCar.getCarTexture().getRegionHeight() / 2, myCar.getCarTexture().getRegionWidth(), myCar.getCarTexture().getRegionHeight(), 1, 1, (float) Math.toDegrees(myCar.body.getAngle()));
         //sb.draw(myCar.getMyCarAnimation().getKeyFrame(myCar.getStateTime(), true), myCar.body.getPosition().x, myCar.body.getPosition().y);
+        sb.draw(new Texture("contact_point.png"), myCar.body.getPosition().x * PIXELS_TO_METERS, myCar.body.getPosition().y * PIXELS_TO_METERS);
 
         for (RoadLighter roadLighter : roadLighters) {
             sb.draw(roadLighter.getRoadLighterTexture(), roadLighter.getPosition().x, roadLighter.getPosition().y);
@@ -1237,12 +1263,14 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
         for (Action action : actions) {
             myCar.removeAction(action);
         }
+        // world.setGravity(new Vector2(0,-200));
         for (PasserCar passerCar : passerCars) {
             if (((PasserCarDataType) passerCar.body.getUserData()).isContact()) {
-                passerCar.body.setLinearVelocity(0, GameManager.getCurrentSpeed());
+                // passerCar.body.setLinearVelocity(0, GameManager.getCurrentSpeed());
             }
         }
-        System.out.println("myCar.isTurnRun() " + myCar.isTurnRun());
+
+        //System.out.println("myCar.isTurnRun() " + myCar.isTurnRun());
         isMyCarCollision = true;
         if (myCar.isLeft())
             myCar.body.setLinearVelocity(-100, GameManager.getCurrentSpeed());

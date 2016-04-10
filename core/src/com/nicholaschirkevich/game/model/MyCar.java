@@ -65,7 +65,7 @@ public class MyCar extends Car {
         PolygonShape shape = new PolygonShape();
 
 
-        shape.setAsBox(carAnimation.getKeyFrames()[0].getRegionWidth() / 2 / Constants.PIXELS_TO_METERS, carAnimation.getKeyFrames()[0].getRegionHeight()
+        shape.setAsBox((carAnimation.getKeyFrames()[0].getRegionWidth() -20)/ 2 / Constants.PIXELS_TO_METERS, carAnimation.getKeyFrames()[0].getRegionHeight()
                 / 2 / Constants.PIXELS_TO_METERS);
 
 
@@ -105,7 +105,7 @@ public class MyCar extends Car {
         PolygonShape shape = new PolygonShape();
 
 
-        shape.setAsBox(carAnimation.getKeyFrames()[0].getRegionWidth() / 2 / Constants.PIXELS_TO_METERS, carAnimation.getKeyFrames()[0].getRegionHeight()
+        shape.setAsBox((carAnimation.getKeyFrames()[0].getRegionWidth()-20) / 2 / Constants.PIXELS_TO_METERS, carAnimation.getKeyFrames()[0].getRegionHeight()
                 / 2 / Constants.PIXELS_TO_METERS);
 
 

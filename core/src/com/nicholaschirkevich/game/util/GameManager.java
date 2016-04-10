@@ -28,9 +28,14 @@ public class GameManager {
     private static float contactPointX = 0, contactPointY = 0;
     //private static float boosterSpeed =0;
     private static float lastSpeed = 0;
+    private static boolean isCollision = false;
 
     public static void setCurrentSpeed(float currentSpeed) {
         CurrentSpeed = currentSpeed;
+    }
+
+    public static void setcurrentSpeed(float currentspeed) {
+        currentSpeed = currentspeed;
     }
 
     private static String currentCarID = "CC1023";
@@ -62,6 +67,16 @@ public class GameManager {
 
     private static float allTime = 0;
 
+    public static float getCollisionSpeed() {
+        return collisionSpeed;
+    }
+
+    public static void setCollisionSpeed(float collisionSpeed) {
+        GameManager.collisionSpeed = collisionSpeed;
+    }
+
+    private static float collisionSpeed = 0;
+
 
     public static void loadData() {
         gearShifts = XmlHelper.getShifts();
@@ -84,12 +99,13 @@ public class GameManager {
 
     public static void resetSpeed() {
         gear = 0;
+        isCollision=false;
     }
 
     public static void resetTime() {
         allTime = 0;
-        dtTime=0;
-        dtTimeAhive=0;
+        dtTime = 0;
+        dtTimeAhive = 0;
     }
 
     private static void loadPreferences() {
@@ -141,31 +157,36 @@ public class GameManager {
         dtTimeAhive += dt;
         allTime += dt;
         toSpeed = gearShift.getSpeeds().get(gear);
-
+        // System.out.println("isCollision " + isCollision);
         if (gear == 0) currentSpeed = toSpeed;
         if (currentSpeed < toSpeed) currentSpeed = currentSpeed + 1f;
+        if (isCollision) currentSpeed = collisionSpeed;
         GameManager.setCurrentSpeed(currentSpeed);
+        System.out.println("current speed " + currentSpeed);
+        System.out.println("Current speed " + CurrentSpeed);
         label.setText(String.valueOf(currentSpeed));
         timeLabel.setText(String.valueOf(allTime));
         stageChild.setText("stageChild " + String.valueOf(stageGameManager.getActors().size));
         worldChild.setText("worldChild " + String.valueOf(worldGameManager.getBodyCount()));
-       // System.out.println("Gear "+gear);
+        // System.out.println("Gear "+gear);
         if (dtTime > gearShift.getTimes().get(gear)) {
 
             if (gear + 1 < gearShift.getTimes().size()) {
                 gear++;
                 stageGameManager.addActor(GearView.getView(gear));
             }
+
             GameManager.setCurrentSpeed(currentSpeed);
             dtTime = 0;
         }
-        if (dtTimeAhive > gearShift.getTimes().get(gear)+ 1) {
+        if (dtTimeAhive > gearShift.getTimes().get(gear) + 1) {
 
             if (gear + 1 < gearShift.getTimes().size()) {
-               Actor actor = AchiveView.getView(gear);
+                Actor actor = AchiveView.getView(gear);
                 if (actor != null)
                     stageGameManager.addActor(AchiveView.getView(gear));
             }
+
             GameManager.setCurrentSpeed(currentSpeed);
             dtTimeAhive = 0;
         }
@@ -261,5 +282,14 @@ public class GameManager {
 
     public static int getGear() {
         return gear;
+    }
+
+
+    public static boolean isCollision() {
+        return isCollision;
+    }
+
+    public static void setIsCollision(boolean isCollision) {
+        GameManager.isCollision = isCollision;
     }
 }
