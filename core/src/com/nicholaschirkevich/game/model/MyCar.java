@@ -65,28 +65,29 @@ public class MyCar extends Car {
         PolygonShape shape = new PolygonShape();
 
 
-        shape.setAsBox(carAnimation.getKeyFrames()[0].getRegionWidth() / 2, carAnimation.getKeyFrames()[0].getRegionHeight()
-                / 2);
+        shape.setAsBox(carAnimation.getKeyFrames()[0].getRegionWidth() / 2 / Constants.PIXELS_TO_METERS, carAnimation.getKeyFrames()[0].getRegionHeight()
+                / 2 / Constants.PIXELS_TO_METERS);
 
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
-        fixtureDef.density = 0.9f;
+        fixtureDef.density = 0.1f;
         fixtureDef.restitution = 1f;
         MyCarDataType myCarDataType = new MyCarDataType();
         myCarDataType.setBounds(bounds);
         body.setUserData(myCarDataType);
+        bodyDef.bullet = true;
 
         fixtureDef.filter.categoryBits = MyCar.MY_CAR_FILTER_ENTITY;
         //fixtureDef.filter.maskBits = MyCar.MY_CAR_FILTER_ENTITY;
-        fixtureDef.filter.maskBits= PasserCar.PASSER_CAR_FILTER_ENTITY;
+        fixtureDef.filter.maskBits = PasserCar.PASSER_CAR_FILTER_ENTITY;
         body.createFixture(fixtureDef);
         stateTime = 0f;
     }
 
     public MyCar(World world, int y, int movement, boolean ifLeft, String key) {
         super(y, movement, key);
-        setBounds(position.x, y, carAnimation.getKeyFrames()[0].getRegionWidth(), carAnimation.getKeyFrames()[0].getRegionHeight());
+        setBounds(position.x, y, carAnimation.getKeyFrames()[0].getRegionWidth() / Constants.PIXELS_TO_METERS, carAnimation.getKeyFrames()[0].getRegionHeight() / Constants.PIXELS_TO_METERS);
         this.world = world;
         isLeft = true;
         //coinAnimation = AssetsManager.getAnimation(Constants.MY_CAR_ASSETS_ID);
@@ -100,12 +101,12 @@ public class MyCar extends Car {
         setUpMoveToLeftAction();
         setUpMoveToStartLineAction();
         body = world.createBody(bodyDef);
-       // body.setUserData(new MyCarDataType());
+        // body.setUserData(new MyCarDataType());
         PolygonShape shape = new PolygonShape();
 
 
-        shape.setAsBox(carAnimation.getKeyFrames()[0].getRegionWidth() / 2, carAnimation.getKeyFrames()[0].getRegionHeight()
-                / 2);
+        shape.setAsBox(carAnimation.getKeyFrames()[0].getRegionWidth() / 2 / Constants.PIXELS_TO_METERS, carAnimation.getKeyFrames()[0].getRegionHeight()
+                / 2 / Constants.PIXELS_TO_METERS);
 
 
         FixtureDef fixtureDef = new FixtureDef();
@@ -125,22 +126,21 @@ public class MyCar extends Car {
     }
 
 
-
     @Override
     public void update(float dt) {
         MyCarDataType myCarDataType = (MyCarDataType) body.getUserData();
 
         if (getActions().size == 1) isTurnRun = false;
         //sprite.setPosition(getX(), getY());
-        bounds.setPosition(getX(),getY());
-        body.setTransform(getX(), getY(), getRotation());
+
 //        if (isLeft && position.x > leftSide) {
-//            if(!isBlow()) {
-//                velosity.set(-turnSpeed, 0, 0);
-//                velosity.scl(dt);
-//                position.add(velosity.x, 0, 0);
-//                sprite.setPosition(position.x, position.y);
+//            if(myCarDataType.isBlow()) {
+//                MoveToAction moveToAction = new MoveToAction();
+//
+//                //sprite.setPosition(position.x, position.y);
 //            }
+        bounds.setPosition(getX(), getY());
+        body.setTransform(getX(), getY(), getRotation());
 ////            velosity.scl(1 / dt);
 //        } else if (!isLeft && position.x < rightSide) {
 //            if(!isBlow()) {
@@ -152,12 +152,11 @@ public class MyCar extends Car {
 ////            velosity.scl(1 / dt);
 //        }
         if (myCarDataType.isBlow()) {
-            angelt+=5;
+            angelt += 5;
             setRotation(angelt);
             removeAction(sequenceAction);
 
 
-            //myCarDataType.setIsBlow(false);
         }
         if (isPlayAnimation)
             stateTime += dt;
@@ -238,27 +237,25 @@ public class MyCar extends Car {
     }
 
 
-
-
     @Override
     public void turn() {
         if (!isTurnRun) {
-        isTurnRun = true;
-        if (isLeft) {
-            //sequenceAction.reset();
-            setUpMoveToRightAction();
-            addAction(sequenceAction);
+            isTurnRun = true;
+            if (isLeft) {
+                //sequenceAction.reset();
+                setUpMoveToRightAction();
+                addAction(sequenceAction);
 
-            isLeft = false;
-        } else {
-            setUpMoveToLeftAction();
-            //moveToLeftAction.reset();
-            addAction(sequenceAction);
-            isLeft = true;
-        }
-        //sprite.setPosition(getX(), getY());
-        bounds.setPosition(getX(), getY());
-        body.setTransform(getX(), getY(), getRotation());
+                isLeft = false;
+            } else {
+                setUpMoveToLeftAction();
+                //moveToLeftAction.reset();
+                addAction(sequenceAction);
+                isLeft = true;
+            }
+            //sprite.setPosition(getX(), getY());
+            bounds.setPosition(getX(), getY());
+            body.setTransform(getX(), getY(), getRotation());
         }
     }
 
@@ -288,5 +285,13 @@ public class MyCar extends Car {
 
     public float getStateTime() {
         return stateTime;
+    }
+
+    public boolean isTurnRun() {
+        return isTurnRun;
+    }
+
+    public void setIsTurnRun(boolean isTurnRun) {
+        this.isTurnRun = isTurnRun;
     }
 }

@@ -5,7 +5,7 @@ repeat: none
 ladle_on_road
   rotate: false
   xy: 0, 0
-  size: 58, 55
-  orig: 58, 55
+  size: 20, 19
+  orig: 20, 19
   offset: 0, 0
   index: -1

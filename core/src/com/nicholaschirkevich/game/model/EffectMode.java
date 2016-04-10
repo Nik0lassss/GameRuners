@@ -2,6 +2,7 @@ package com.nicholaschirkevich.game.model;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -29,7 +30,10 @@ public class EffectMode {
     private static int posX = 0;
     private static int posXLeft = 200;
     private int size = 20;
-
+    private boolean isAlfa = false;
+    private boolean isStartAlfa = false;
+    private float alfaTime = 0;
+    private float alfa = 1;
 
     private ArrayList<Vector2> positionsEffectLeft = new ArrayList<Vector2>();
     private ArrayList<Vector2> positionsEffectRight = new ArrayList<Vector2>();
@@ -62,12 +66,23 @@ public class EffectMode {
 
 
     public void update(Camera camera, float dt) {
-
-        for (int i = 0; i < size; i++) {
-            if (camera.position.y  < positionsEffectLeft.get(i).y - effectAnimationModeLeft.getKeyFrames()[0].getRegionHeight()*2) {
-                positionsEffectLeft.get(i).add(0, -effectAnimationModeLeft.getKeyFrames()[0].getRegionHeight() * size);
+        if (isStartAlfa) alfaTime += dt;
+        if (alfaTime > 0.3) {
+            if (isAlfa) {
+                isAlfa = false;
+                alfa = 1;
+            } else {
+                isAlfa = true;
+                alfa = 0;
             }
+            alfaTime = 0;
         }
+//        System.out.println("alfa"+alfa);
+//        for (int i = 0; i < size; i++) {
+//            if (camera.position.y  < positionsEffectLeft.get(i).y - effectAnimationModeLeft.getKeyFrames()[0].getRegionHeight()*2) {
+//                positionsEffectLeft.get(i).add(0, -effectAnimationModeLeft.getKeyFrames()[0].getRegionHeight() * size);
+//            }
+//        }
 
 //        if (camera.position.y + camera.viewportHeight < posEffectBoost1.y + effectAnimationModeLeft.getKeyFrames()[0].getRegionHeight()) {
 //            posEffectBoost1.add(0,- effectAnimationModeLeft.getKeyFrames()[0].getRegionHeight() * 2);
@@ -79,9 +94,9 @@ public class EffectMode {
 //
 //        }
 
-        for (int i = 0; i < size; i++) {
-            positionsEffectLeft.get(i).set(0, positionsEffectLeft.get(i).y + 100 * dt);
-        }
+//        for (int i = 0; i < size; i++) {
+//            positionsEffectLeft.get(i).set(0, positionsEffectLeft.get(i).y + 100 * dt);
+//        }
 //        posEffectBoost1.set(0, posEffectBoost1.y + (+GameManager.getCurrentSpeed()) * dt);
 //        posEffectBoost2.set(0, posEffectBoost2.y + (+GameManager.getCurrentSpeed()) * dt);
 
@@ -90,12 +105,17 @@ public class EffectMode {
 
 
     public void draw(SpriteBatch sb) {
+        Color color = sb.getColor();
+        sb.setColor(color.r, color.g, color.b, alfa);
+
         for (int i = 0; i < size; i++) {
+
             sb.draw(effectAnimationModeLeft.getKeyFrames()[0].getTexture(), positionsEffectLeft.get(i).x, positionsEffectLeft.get(i).y);
         }
         for (int i = 0; i < size; i++) {
             sb.draw(effectAnimationModeRight.getKeyFrames()[0].getTexture(), positionsEffectRight.get(i).x, positionsEffectRight.get(i).y);
         }
+        sb.setColor(color.r, color.g, color.b, 1f);
     }
 
     public TextureRegion getEffect1() {
@@ -123,4 +143,11 @@ public class EffectMode {
     }
 
 
+    public boolean isStartAlfa() {
+        return isStartAlfa;
+    }
+
+    public void setIsStartAlfa(boolean isStartAlfa) {
+        this.isStartAlfa = isStartAlfa;
+    }
 }

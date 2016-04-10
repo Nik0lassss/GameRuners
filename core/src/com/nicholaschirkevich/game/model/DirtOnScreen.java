@@ -2,6 +2,7 @@ package com.nicholaschirkevich.game.model;
 
 
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -32,7 +33,10 @@ public class DirtOnScreen extends Prize {
     public Body body;
     private int type = 0;
 
-
+    private boolean isAlfa = false;
+    private boolean isStartAlfa = false;
+    private float alfaTime = 0;
+    private float alfa = 1;
     private float stateTime;
 
     public DirtOnScreen(World world, int x, int y, int movement) {
@@ -124,6 +128,9 @@ public class DirtOnScreen extends Prize {
     }
 
     public void draw(SpriteBatch batch) {
+        Color color = batch.getColor();
+        //batch.draw(getCoinShadowTexture(), position.x, position.y - 10);
+        batch.setColor(color.r, color.g, color.b, alfa);
         switch (type) {
             case 1:
                 batch.draw(getDirtOnScreen_1_Texture(), position.x, position.y);
@@ -141,13 +148,18 @@ public class DirtOnScreen extends Prize {
                 batch.draw(getDirtOnScreen_5_Texture(), position.x, position.y);
                 break;
         }
+        batch.setColor(color.r, color.g, color.b, 1f);
         //batch.draw(getCoinShadowTexture(), position.x, position.y - 10);
        // batch.draw(getBlockTexture(), position.x, position.y);
     }
 
     @Override
     public void update(float dt) {
-
+        System.out.println("isStartAlfa"+isStartAlfa);
+        if (isStartAlfa)
+        {
+            alfa-=0.007;
+        }
        // position.add(0, (-GameManager.getCurrentSpeed()) * dt, 0);
 
         //sprite.setPosition(position.x, position.y);
@@ -223,5 +235,13 @@ public class DirtOnScreen extends Prize {
 
     public Animation getCoinAnimation() {
         return coinAnimation;
+    }
+
+    public boolean isStartAlfa() {
+        return isStartAlfa;
+    }
+
+    public void setIsStartAlfa(boolean isStartAlfa) {
+        this.isStartAlfa = isStartAlfa;
     }
 }

@@ -28,7 +28,7 @@ public class Prize {
         time += dt;
         if (time > timeToGeneratePrize) {
             if (RandomUtil.getRandomBoolean()) {
-//                System.out.println("prize");
+                System.out.println("prize");
               int pos = 0;
                 for (int i = 0; i < 4; i++) {
                     if(i==0)coins.add(new com.nicholaschirkevich.game.model.Coin(world, 90, (int) posYLastCar + 270 + pos, 10));
@@ -37,34 +37,34 @@ public class Prize {
 
                 }
                 //springboards.add(new Springboard(world,90,(int)posYLastCar+270,10));
-                //skulls.add(new Skull(world, 90, (int) posYLastCar + 270, 10, !isLeftLastCar));
-                 //ladles.add(new Ladle(world, 90,(int) posYLastCar + 600, 10,isLeftLastCar));
-                //flySpringboards.add(new FlySpringboard(world, 90,(int) posYLastCar + 600, 10));
-                // boosters.add(new Booster(world, 90,(int) posYLastCar + 650, 10,!isLeftLastCar));
-                // dirts.add(new Dirt(world,90,(int)posYLastCar+270,10));
+               // skulls.add(new Skull(world, 90, (int) posYLastCar + 270, 10, !isLeftLastCar));
+               //  ladles.add(new Ladle(world, 90,(int) posYLastCar + 270, 10,isLeftLastCar));
+               // flySpringboards.add(new FlySpringboard(world, 90,(int) posYLastCar + 600, 10));
+                 //boosters.add(new Booster(world, 90,(int) posYLastCar + 650, 10,!isLeftLastCar));
+                 //dirts.add(new Dirt(world,90,(int)posYLastCar+270,10,isLeftLastCar));
             } else {
-                //dirts.add(new Dirt(world,90,(int)posYLastCar+270,10));
+               // dirts.add(new Dirt(world,90,(int)posYLastCar+270,10,isLeftLastCar));
                 //springboards.add(new Springboard(world,90,(int)posYLastCar+270,10));
                 //skulls.add(new Skull(world, 90, (int) posYLastCar + 270, 10, !isLeftLastCar));
-                  //ladles.add(new Ladle(world, 90,(int) posYLastCar + 600, 10,isLeftLastCar));
+                 // ladles.add(new Ladle(world, 90,(int) posYLastCar + 270, 10,isLeftLastCar));
                 //flySpringboards.add(new FlySpringboard(world, 90,(int) posYLastCar + 600, 10));
                  //boosters.add(new Booster(world, 90,(int) posYLastCar + 650, 10,!isLeftLastCar));
-//                switch (RandomUtil.getRand(1, 4)) {
-//                    case 1:
-//                        ladles.add(new Ladle(world, 90, (int) posYLastCar + 290, 10,isLeftLastCar));
-//                        break;
-//                    case 2:
-//                        boosters.add(new Booster(world, 90,(int) posYLastCar + 290, 10,isLeftLastCar));
-//                        break;
-//                    case 3:
-//                        skulls.add(new Skull(world, 90, (int) posYLastCar + 290, 10,isLeftLastCar));
-//                       break;
-//                    case 4:
-//                        dirts.add(new Dirt(world,90,(int)posYLastCar+290,10,isLeftLastCar));
-//                        break;
+                switch (RandomUtil.getRand(1, 4)) {
+                    case 1:
+                        ladles.add(new Ladle(world, 90, (int) posYLastCar + 290, 10,isLeftLastCar));
+                        break;
+                    case 2:
+                        boosters.add(new Booster(world, 90,(int) posYLastCar + 290, 10,isLeftLastCar));
+                        break;
+                    case 3:
+                        skulls.add(new Skull(world, 90, (int) posYLastCar + 290, 10,isLeftLastCar));
+                       break;
+                    case 4:
+                        dirts.add(new Dirt(world,90,(int)posYLastCar+290,10,isLeftLastCar));
+                        break;
 //
 ////
-//                }
+                }
 //
 //
 //                System.out.println("else prize");

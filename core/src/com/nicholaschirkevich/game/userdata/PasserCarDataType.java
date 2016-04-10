@@ -14,6 +14,7 @@ public class PasserCarDataType extends UserData {
     protected boolean isAfterHoleCollision = false;
     protected boolean isCollisionWhithPasser = false;
     protected boolean isContact = false;
+    protected boolean isDangerEvolution = false;
     protected Float x = 0f;
     protected Float y = 0f;
     protected Rectangle bounds;
@@ -120,5 +121,13 @@ public class PasserCarDataType extends UserData {
 
     public void setIsContact(boolean isContact) {
         this.isContact = isContact;
+    }
+
+    public boolean isDangerEvolution() {
+        return isDangerEvolution;
+    }
+
+    public void setIsDangerEvolution(boolean isDangerEvolution) {
+        this.isDangerEvolution = isDangerEvolution;
     }
 }

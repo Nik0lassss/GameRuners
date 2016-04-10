@@ -2,6 +2,7 @@ package com.nicholaschirkevich.game.model;
 
 
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -29,6 +30,8 @@ public class Dirt extends Prize {
     private int defaultX;
     private int defaultY;
     public Body body;
+
+
 
 
     private float stateTime;
@@ -121,8 +124,9 @@ public class Dirt extends Prize {
 //    }
 
     public void draw(SpriteBatch batch) {
-        //batch.draw(getCoinShadowTexture(), position.x, position.y - 10);
+
         batch.draw(getDirtTexture(), position.x, position.y);
+
 
     }
 
@@ -206,4 +210,6 @@ public class Dirt extends Prize {
     public Animation getCoinAnimation() {
         return coinAnimation;
     }
+
+
 }

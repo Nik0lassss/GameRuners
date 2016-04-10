@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.nicholaschirkevich.game.interfaces.DirtListener;
 import com.nicholaschirkevich.game.interfaces.ListenerAddBoost;
 import com.nicholaschirkevich.game.interfaces.ListenerAddLadle;
+import com.nicholaschirkevich.game.interfaces.OnSetCollisionCars;
 import com.nicholaschirkevich.game.interfaces.PauseAfterCollision;
 import com.nicholaschirkevich.game.interfaces.SetGodMode;
 import com.nicholaschirkevich.game.interfaces.ZoomCarListener;
@@ -47,8 +48,9 @@ public class CarFilter implements ContactFilter {
     private ZoomCarListener zoomCarListenerInterface;
     private SetGodMode setGodModeInterface;
     private DirtListener dirtListenerInterface;
+    private OnSetCollisionCars onSetCollisionCarsInterface;
 
-    public CarFilter(GameStateManager gameStateManager, State state, PauseAfterCollision pauseAfterCollision, ListenerAddBoost listenerAddBoost, ListenerAddLadle listenerAddLadle, SetGodMode setGodMode, ZoomCarListener zoomCarListener, DirtListener dirtListener) {
+    public CarFilter(GameStateManager gameStateManager, State state, PauseAfterCollision pauseAfterCollision, ListenerAddBoost listenerAddBoost, ListenerAddLadle listenerAddLadle, SetGodMode setGodMode, ZoomCarListener zoomCarListener, DirtListener dirtListener, OnSetCollisionCars onSetCollisionCars) {
         this.gsm = gameStateManager;
         this.gameState = (GameState) state;
         this.pauseAfterCollision = pauseAfterCollision;
@@ -57,6 +59,7 @@ public class CarFilter implements ContactFilter {
         this.setGodModeInterface = setGodMode;
         this.zoomCarListenerInterface = zoomCarListener;
         this.dirtListenerInterface = dirtListener;
+        this.onSetCollisionCarsInterface = onSetCollisionCars;
     }
 
     @Override
@@ -132,7 +135,7 @@ public class CarFilter implements ContactFilter {
         }
 
         if ((filterA.categoryBits == LadleOnCar.LADLE_MASK && filterB.categoryBits == PasserCar.PASSER_CAR_FILTER_ENTITY) ||
-                (filterB.categoryBits == LadleOnCar.LADLE_MASK&& filterA.categoryBits == PasserCar.PASSER_CAR_FILTER_ENTITY)) {
+                (filterB.categoryBits == LadleOnCar.LADLE_MASK && filterA.categoryBits == PasserCar.PASSER_CAR_FILTER_ENTITY)) {
             PasserCarDataType passerCarDataType = new PasserCarDataType();
             if (BodyUtils.bodyIsPasserCar(fixtureA.getBody())) {
                 passerCarDataType = (PasserCarDataType) fixtureA.getBody().getUserData();
@@ -170,9 +173,12 @@ public class CarFilter implements ContactFilter {
             } else if (myCarDataType.isFly()) {
                 return false;
             } else {
-                passerCarDataType.setIsBlow(true);
-                myCarDataType.setIsBlow(true);
+                onSetCollisionCarsInterface.onCollision();
+                passerCarDataType.setIsContact(true);
+                // passerCarDataType.setIsBlow(true);
+                //myCarDataType.setIsBlow(true);
                 Gdx.input.vibrate(500);
+                return true;
             }
 
 //

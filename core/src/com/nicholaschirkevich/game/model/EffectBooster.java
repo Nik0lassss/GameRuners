@@ -1,6 +1,7 @@
 package com.nicholaschirkevich.game.model;
 
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -24,7 +25,10 @@ public class EffectBooster {
     private Rectangle boundsRoad1, boundsRoad2;
     private static int posX = 0;
     private int size = 6;
-
+    private boolean isAlfa = false;
+    private boolean isStartAlfa = false;
+    private float alfaTime = 0;
+    private float alfa = 1;
 
     private ArrayList<Vector2> positionsEffectBoost = new ArrayList<Vector2>();
     private ArrayList<Rectangle> boundArrayList = new ArrayList<Rectangle>();
@@ -33,7 +37,7 @@ public class EffectBooster {
         effectAnimation = AssetsManager.getAnimation(Constants.EFFECT_BOOST_ASSETS_ID);
 
         for (int i = 0; i < size; i++) {
-            positionsEffectBoost.add(new Vector2(posX, i == 0 ? 20 : (positionsEffectBoost.get(i - 1).y +146)));
+            positionsEffectBoost.add(new Vector2(posX, i == 0 ? 20 : (positionsEffectBoost.get(i - 1).y + 146)));
             boundArrayList.add(new Rectangle(positionsEffectBoost.get(i).x, positionsEffectBoost.get(i).y, effectAnimation.getKeyFrames()[0].getRegionWidth(), effectAnimation.getKeyFrames()[0].getRegionHeight()));
         }
 //        posEffectBoost1 = new Vector2(posX, 0);
@@ -49,8 +53,20 @@ public class EffectBooster {
 
     public void update(Camera camera, float dt) {
 
+        if (isStartAlfa) alfaTime += dt;
+        if (alfaTime > 0.3) {
+            if (isAlfa) {
+                isAlfa = false;
+                alfa = 1;
+            } else {
+                isAlfa = true;
+                alfa = 0;
+            }
+            alfaTime = 0;
+        }
+
         for (int i = 0; i < size; i++) {
-            if (camera.position.y  < positionsEffectBoost.get(i).y - effectAnimation.getKeyFrames()[0].getRegionHeight()*2) {
+            if (camera.position.y < positionsEffectBoost.get(i).y - effectAnimation.getKeyFrames()[0].getRegionHeight() * 2) {
                 positionsEffectBoost.get(i).add(0, -effectAnimation.getKeyFrames()[0].getRegionHeight() * size);
             }
         }
@@ -66,7 +82,7 @@ public class EffectBooster {
 //        }
 
         for (int i = 0; i < size; i++) {
-            positionsEffectBoost.get(i).set(0, positionsEffectBoost.get(i).y + 100* dt);
+            positionsEffectBoost.get(i).set(0, positionsEffectBoost.get(i).y + 100 * dt);
         }
 //        posEffectBoost1.set(0, posEffectBoost1.y + (+GameManager.getCurrentSpeed()) * dt);
 //        posEffectBoost2.set(0, posEffectBoost2.y + (+GameManager.getCurrentSpeed()) * dt);
@@ -76,9 +92,14 @@ public class EffectBooster {
 
 
     public void draw(SpriteBatch sb) {
+        Color color = sb.getColor();
+        sb.setColor(color.r, color.g, color.b, alfa);
         for (int i = 0; i < size; i++) {
+
+
             sb.draw(effectAnimation.getKeyFrames()[0].getTexture(), positionsEffectBoost.get(i).x, positionsEffectBoost.get(i).y);
         }
+        sb.setColor(color.r, color.g, color.b, 1f);
     }
 
     public TextureRegion getEffect1() {
@@ -106,4 +127,19 @@ public class EffectBooster {
     }
 
 
+    public boolean isAlfa() {
+        return isAlfa;
+    }
+
+    public void setIsAlfa(boolean isAlfa) {
+        this.isAlfa = isAlfa;
+    }
+
+    public boolean isStartAlfa() {
+        return isStartAlfa;
+    }
+
+    public void setIsStartAlfa(boolean isStartAlfa) {
+        this.isStartAlfa = isStartAlfa;
+    }
 }

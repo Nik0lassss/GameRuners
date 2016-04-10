@@ -18,7 +18,7 @@ public class Constants {
     public static final float CAR_POS_Y = -90;
     public static final float CAR_TURN_SPEED = 0;
     public static final float CAR_SPEED = 0;
-
+    public static final float PIXELS_TO_METERS = 1;
     public static final String ROAD_ASSETS_ID = "road";
     public static final String ROAD_IMAGE_PATH = "road_1_tile.png";
     public static final String CAR_ATLAS_PATH = "car_f1_1_1.txt";

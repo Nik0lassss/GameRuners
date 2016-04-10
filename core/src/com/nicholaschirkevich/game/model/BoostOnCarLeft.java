@@ -142,4 +142,5 @@ public class BoostOnCarLeft extends BoostOnCarBasicLeft {
     public Animation getboosOnCarLeft() {
         return boosOnCarLeft;
     }
+
 }

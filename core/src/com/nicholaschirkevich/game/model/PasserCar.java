@@ -72,19 +72,19 @@ public class PasserCar extends Car {
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set((carAnimation.getKeyFrames()[0].getRegionX() + carAnimation.getKeyFrames()[0].getRegionWidth() / 2)
+        bodyDef.position.set((carAnimation.getKeyFrames()[0].getRegionX() + carAnimation.getKeyFrames()[0].getRegionWidth() / 2) / Constants.PIXELS_TO_METERS
                 ,
-                (carAnimation.getKeyFrames()[0].getRegionY() + carAnimation.getKeyFrames()[0].getRegionHeight() / 2) - 500);
+                ((carAnimation.getKeyFrames()[0].getRegionY() + carAnimation.getKeyFrames()[0].getRegionHeight() / 2) - 500) / Constants.PIXELS_TO_METERS);
 
         body = world.createBody(bodyDef);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(carAnimation.getKeyFrames()[0].getRegionWidth() / 2, carAnimation.getKeyFrames()[0].getRegionHeight()
-                / 2);
+        shape.setAsBox(carAnimation.getKeyFrames()[0].getRegionWidth() / 2 / Constants.PIXELS_TO_METERS, carAnimation.getKeyFrames()[0].getRegionHeight()
+                / 2 / Constants.PIXELS_TO_METERS);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
-        fixtureDef.density = 0.1f;
+        fixtureDef.density = 1f;
         fixtureDef.restitution = 1f;
 
 
@@ -119,20 +119,20 @@ public class PasserCar extends Car {
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set((carAnimation.getKeyFrames()[0].getRegionX() + carAnimation.getKeyFrames()[0].getRegionWidth() / 2)
+        bodyDef.position.set((carAnimation.getKeyFrames()[0].getRegionX() + carAnimation.getKeyFrames()[0].getRegionWidth() / 2) / Constants.PIXELS_TO_METERS
                 ,
-                (carAnimation.getKeyFrames()[0].getRegionY() + carAnimation.getKeyFrames()[0].getRegionHeight() / 2));
+                (carAnimation.getKeyFrames()[0].getRegionY() + carAnimation.getKeyFrames()[0].getRegionHeight() / 2) / Constants.PIXELS_TO_METERS);
 
         body = world.createBody(bodyDef);
 
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(carAnimation.getKeyFrames()[0].getRegionWidth() / 2, carAnimation.getKeyFrames()[0].getRegionHeight()
-                / 2);
+        shape.setAsBox(carAnimation.getKeyFrames()[0].getRegionWidth() / 2/Constants.PIXELS_TO_METERS, carAnimation.getKeyFrames()[0].getRegionHeight()
+                / 2/Constants.PIXELS_TO_METERS);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
-        fixtureDef.density = 0.1f;
-        fixtureDef.restitution = 0.5f;
+        fixtureDef.density =1f;
+        fixtureDef.restitution = 1f;
 
 //        setHeight(carAnimation.getKeyFrames()[0].getRegionHeight());
 //        setWidth(carAnimation.getKeyFrames()[0].getRegionWidth());
@@ -302,25 +302,21 @@ public class PasserCar extends Car {
 
             if (isLeft) angelt += 2;
             else angelt -= 4;
+            world.setGravity(new Vector2(0f, -20f));
             if (isLeft)
                 body.applyLinearImpulse(500000, 500000f, -GameManager.getContactPointX(), -GameManager.getContactPointY(), true);
             else
                 body.applyLinearImpulse(-500000, 500000f, -GameManager.getContactPointX(), -GameManager.getContactPointY(), true);
 
-            //body.applyLinearImpulse(GameManager.getContactPointX(),GameManager.getContactPointY(),position.x,position.y,false);
+
             body.setTransform(body.getPosition().x, body.getPosition().y, angelt);
-            //setRotation(angelt);
-            //body.setTransform(0,0,20f);
-            // position.add(-100*dt, 0, 0);
-            //body.applyForce(1000, 1000, 100, 100, true);
-            //body.setLinearVelocity(100,100);
-            //sprite.setPosition(position.x, position.y);
+
             bounds.setPosition(body.getPosition().x, body.getPosition().y);
-            //body.setTransform(body.getPosition().x, body.getPosition().y, 0.0f);
+
             setPosition(body.getPosition().x, body.getPosition().y);
             stateTime += dt;
             timer += dt;
-            // System.out.println("time " + timer);
+
             GameManager.setCurrentSpeed(GameManager.getGearShifts().get(0).getSpeeds().get(0));
 
 
@@ -385,6 +381,7 @@ public class PasserCar extends Car {
     public static boolean getIsLeftLastCar(ArrayList<PasserCar> passerCars) {
         return passerCars.size() != 0 ? passerCars.get(passerCars.size() - 1).getIsLeft() : false;
     }
+
     public static void updateCars(boolean isRelaxZone, ArrayList<PasserCar> passerCars, Camera camera, float dt, GenerateHoleAfterLadle generateHoleAfterLadle) {
 
         if (isBlocks == false)
