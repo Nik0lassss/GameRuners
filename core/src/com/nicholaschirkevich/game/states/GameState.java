@@ -109,7 +109,9 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
     ArrayList<Springboard> springboards;
     Skin uiSkin = new Skin(Gdx.files.internal("uiskin_digit.json"));
     SequenceAction sequenceAction = new SequenceAction();
+    SequenceAction sequenceActionCountCar = new SequenceAction();
     Label label = new Label("+50", uiSkin);
+    Label labelCountCar = new Label("", uiSkin);
     private float timeToCoin = 0;
     private float achives = 0;
     private Texture textureCollisisonPoint;
@@ -154,6 +156,7 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
     private boolean isUpdateGodeMode = false;
     private float dirTime = 0;
     private boolean isMyCarCollision = false;
+    private int carsCountTurn = 0;
 
 
     private ArrayList<BoostOnCarLeft> boostOnCarLeft = new ArrayList<BoostOnCarLeft>();
@@ -535,7 +538,7 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
 //        }
         for (int i = 0; i < roadLighters.size(); i++) {
 
-            if (roadLighters.get(i).getPosition().y < 0) {
+            if (roadLighters.get(i).getPosition().y < -100) {
                 roadLighters.remove(i);
 
             }
@@ -665,7 +668,7 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
             if (isAutoTurn) {
                 boostTime += dt;
                 autoTurn(passerCars, myCar);
-
+                carCountBooster(passerCars, myCar);
                 pfl.update(dt);
                 pfl.setPosition(boostOnCarRight.get(0).body.getPosition().x + boostOnCarRight.get(0).getboosOnCarLeft().getKeyFrames()[0].getRegionWidth() / 2, boostOnCarRight.get(0).body.getPosition().y - boostOnCarRight.get(0).getboosOnCarLeft().getKeyFrames()[0].getRegionHeight() - 10);
 
@@ -685,7 +688,10 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
                     boostOnCarLeft.clear();
                     boostOnCarRight.clear();
                     boostTime = 0;
+                    carsCountTurn = 0;
                     GameManager.setLastSpeed();
+                    labelCountCar.remove();
+                    effectBooster.setIsStartAlfa(false);
                 }
 
 
@@ -860,22 +866,24 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
 //
 //            GameManager.setCurrentSpeed(GameManager.getGearShifts().get(0).getSpeeds().get(0));
             for (PasserCar passerCar : passerCars) {
-                passerCar.body.setLinearVelocity(passerCar.body.getLinearVelocity().x < 0 ? 0 : passerCar.body.getLinearVelocity().x - 1f, passerCar.body.getLinearVelocity().y < 0 ? 0 : passerCar.body.getLinearVelocity().y - 1f);
-                float angelPasserCar = (float) Math.toDegrees(myCar.body.getAngle());
-                if (angelPasserCar < -120 && angelPasserCar > 0) {
-                    //float angel = (float) Math.toDegrees(myCar.body.getAngle());
-                    //if (angel > 0) angel -= 0.5;
-                    passerCar.body.setTransform(passerCar.body.getPosition(), (float) Math.toRadians(angelPasserCar+20));
+                if (((PasserCarDataType) passerCar.body.getUserData()).isContact()) {
+                    passerCar.body.setLinearVelocity(passerCar.body.getLinearVelocity().x < 0 ? 0 : passerCar.body.getLinearVelocity().x - 1f, passerCar.body.getLinearVelocity().y < 0 ? 0 : passerCar.body.getLinearVelocity().y - 1f);
+                    float angelPasserCar = (float) Math.toDegrees(myCar.body.getAngle());
+//                    if (angelPasserCar < -120 && angelPasserCar > 0) {
+//                        //float angel = (float) Math.toDegrees(myCar.body.getAngle());
+//                        //if (angel > 0) angel -= 0.5;
+//                        passerCar.body.setTransform(passerCar.body.getPosition(), (float) Math.toRadians(angelPasserCar + 20));
+//                    }
+//                    if (angelPasserCar > 120 && angelPasserCar > 0) {
+//                        //float angel = (float) Math.toDegrees(myCar.body.getAngle());
+//                        //if (angel > 0) angel -= 0.5;
+//                        passerCar.body.setTransform(passerCar.body.getPosition(), (float) Math.toRadians(angelPasserCar - 20));
+//                    }
+                    // passerCar.body.setTransform(passerCar.body.getPosition(), passerCar.body.getAngle() - 0.2f);
+                    // System.out.println("passerCar.body.getLinearVelocity().scl(-10,-10) "+passerCar.body.getLinearVelocity().scl(-10,-10));
+                    // passerCar.body.setLinearVelocity(passerCar.body.getLinearVelocity().scl(-10,-10));
+                    //passerCar.body.applyForce(0f,,passerCar.body.getPosition().x,passerCar.body.getPosition().y,true);
                 }
-                if (angelPasserCar > 120 && angelPasserCar > 0) {
-                    //float angel = (float) Math.toDegrees(myCar.body.getAngle());
-                    //if (angel > 0) angel -= 0.5;
-                    passerCar.body.setTransform(passerCar.body.getPosition(), (float) Math.toRadians(angelPasserCar-20));
-                }
-                // passerCar.body.setTransform(passerCar.body.getPosition(), passerCar.body.getAngle() - 0.2f);
-                // System.out.println("passerCar.body.getLinearVelocity().scl(-10,-10) "+passerCar.body.getLinearVelocity().scl(-10,-10));
-                // passerCar.body.setLinearVelocity(passerCar.body.getLinearVelocity().scl(-10,-10));
-                //passerCar.body.applyForce(0f,,passerCar.body.getPosition().x,passerCar.body.getPosition().y,true);
             }
             GameManager.setIsCollision(true);
 
@@ -885,12 +893,12 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
             if (angelMyCar < -120 && angelMyCar > 0 && !GameManager.pauseGame) {
                 //float angel = (float) Math.toDegrees(myCar.body.getAngle());
                 //if (angel > 0) angel -= 0.5;
-                myCar.body.setTransform(myCar.body.getPosition(), (float) Math.toRadians(angelMyCar+0.5));
+                myCar.body.setTransform(myCar.body.getPosition(), (float) Math.toRadians(angelMyCar + 0.5));
             }
             if (angelMyCar > 120 && angelMyCar > 0 && !GameManager.pauseGame) {
                 //float angel = (float) Math.toDegrees(myCar.body.getAngle());
                 //if (angel > 0) angel -= 0.5;
-                myCar.body.setTransform(myCar.body.getPosition(), (float) Math.toRadians(angelMyCar-0.5));
+                myCar.body.setTransform(myCar.body.getPosition(), (float) Math.toRadians(angelMyCar - 0.5));
             }
 //            if (angel < 180) {
 //                //float angel = (float) Math.toDegrees(myCar.body.getAngle());
@@ -922,9 +930,38 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
         for (PasserCar passerCar : passerCars) {
 
             if (passerCar.getIsLeft() == myCar.isLeft() && passerCar.getY() - myCar.getY() < 200 && passerCar.getY() - myCar.getY() > 0) {
+
+                //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
+
+
                 myCar.turn();
 
-                System.out.println("turn");
+                // System.out.println("turn");
+            }
+        }
+    }
+
+    private void carCountBooster(ArrayList<PasserCar> passerCars, MyCar myCar) {
+        for (PasserCar passerCar : passerCars) {
+            if (!((PasserCarDataType) passerCar.body.getUserData()).isOvertaking()) {
+                if (passerCar.getY() - myCar.getY() < 50 && passerCar.getY() - myCar.getY() > 0) {
+                    ((PasserCarDataType) passerCar.body.getUserData()).setOvertaking(true);
+                    carsCountTurn++;
+                    achives+=100;
+//                sequenceActionCountCar.addAction(Actions.delay(2f));
+//                sequenceActionCountCar.addAction(Actions.removeActor());
+                    labelCountCar.addAction(sequenceActionCountCar);
+                    labelCountCar.setColor(1f, 0.2f, 0f, 1f);
+                    labelCountCar.setFontScale(0.7f, 0.7f);
+                    //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
+
+                    labelCountCar.setPosition(GameRuners.WIDTH / 4-50, GameRuners.HEIGHT / 4+50);
+                    labelCountCar.setText("Cars " + carsCountTurn);
+                    stage.addActor(labelCountCar);
+
+
+                    // System.out.println("turn");
+                }
             }
         }
     }
@@ -1074,10 +1111,10 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
                 zoomMyCarX -= 0.02f;
                 zoomMyCarY -= 0.02f;
             } else isZoomOut = false;
-            sb.draw(myCar.getMyCarAnimation().getKeyFrame(myCar.getStateTime(), true), myCar.body.getPosition().x, myCar.body.getPosition().y - myCar.getCarTexture().getRegionHeight() / 2, myCar.getOriginX() + myCar.getCarTexture().getRegionWidth() / 2, myCar.getOriginY() + myCar.getCarTexture().getRegionHeight() / 2, myCar.getCarTexture().getRegionWidth(), myCar.getCarTexture().getRegionHeight(), zoomMyCarX, zoomMyCarY, (float) Math.toDegrees(myCar.body.getAngle()));
+            sb.draw(myCar.getMyCarAnimation().getKeyFrame(myCar.getStateTime(), true), myCar.body.getPosition().x, myCar.body.getPosition().y - myCar.getCarTexture().getRegionHeight() / 2, myCar.getOriginX() + myCar.getCarTexture().getRegionWidth() / 2 + 5, myCar.getOriginY() + myCar.getCarTexture().getRegionHeight() / 2 + 5, myCar.getCarTexture().getRegionWidth(), myCar.getCarTexture().getRegionHeight(), 1, 1, (float) Math.toDegrees(myCar.body.getAngle()));
 
         } else
-            sb.draw(myCar.getMyCarAnimation().getKeyFrame(myCar.getStateTime(), true), myCar.body.getPosition().x, myCar.body.getPosition().y - myCar.getCarTexture().getRegionHeight() / 2, myCar.getOriginX() + myCar.getCarTexture().getRegionWidth() / 2, myCar.getOriginY() + myCar.getCarTexture().getRegionHeight() / 2, myCar.getCarTexture().getRegionWidth(), myCar.getCarTexture().getRegionHeight(), 1, 1, (float) Math.toDegrees(myCar.body.getAngle()));
+            sb.draw(myCar.getMyCarAnimation().getKeyFrame(myCar.getStateTime(), true), myCar.body.getPosition().x, myCar.body.getPosition().y - myCar.getCarTexture().getRegionHeight() / 2, myCar.getOriginX() + myCar.getCarTexture().getRegionWidth() / 2 + 5, myCar.getOriginY() + myCar.getCarTexture().getRegionHeight() / 2 + 5, myCar.getCarTexture().getRegionWidth(), myCar.getCarTexture().getRegionHeight(), 1, 1, (float) Math.toDegrees(myCar.body.getAngle()));
         //sb.draw(myCar.getMyCarAnimation().getKeyFrame(myCar.getStateTime(), true), myCar.body.getPosition().x, myCar.body.getPosition().y);
         sb.draw(new Texture("contact_point.png"), myCar.body.getPosition().x * PIXELS_TO_METERS, myCar.body.getPosition().y * PIXELS_TO_METERS);
 
@@ -1102,8 +1139,8 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
         }
 
         if (wingOnCarLeft.size() != 0 && wingOnCarRight.size() != 0 && isZoomCarUpdate) {
-            sb.draw(wingOnCarLeft.get(0).getBoostOnCar(), wingOnCarLeft.get(0).body.getPosition().x, wingOnCarLeft.get(0).body.getPosition().y, wingOnCarLeft.get(0).getOriginX() + wingOnCarLeft.get(0).getBoostOnCar().getRegionWidth(), wingOnCarLeft.get(0).getOriginY() + wingOnCarLeft.get(0).getBoostOnCar().getRegionHeight(), wingOnCarLeft.get(0).getBoostOnCar().getRegionWidth(), wingOnCarLeft.get(0).getBoostOnCar().getRegionHeight(), zoomMyCarX, zoomMyCarY, myCar.body.getAngle());
-            sb.draw(wingOnCarRight.get(0).getBoostOnCar(), wingOnCarRight.get(0).body.getPosition().x, wingOnCarRight.get(0).body.getPosition().y, wingOnCarRight.get(0).getOriginX() + wingOnCarRight.get(0).getBoostOnCar().getRegionWidth(), wingOnCarRight.get(0).getOriginY() + wingOnCarRight.get(0).getBoostOnCar().getRegionHeight(), wingOnCarRight.get(0).getBoostOnCar().getRegionWidth(), wingOnCarRight.get(0).getBoostOnCar().getRegionHeight(), zoomMyCarX, zoomMyCarY, myCar.body.getAngle());
+            sb.draw(wingOnCarLeft.get(0).getBoostOnCar(), wingOnCarLeft.get(0).body.getPosition().x - 7f, wingOnCarLeft.get(0).body.getPosition().y, wingOnCarLeft.get(0).getOriginX() + wingOnCarLeft.get(0).getBoostOnCar().getRegionWidth(), wingOnCarLeft.get(0).getOriginY() + wingOnCarLeft.get(0).getBoostOnCar().getRegionHeight(), wingOnCarLeft.get(0).getBoostOnCar().getRegionWidth(), wingOnCarLeft.get(0).getBoostOnCar().getRegionHeight(), 1, 1, myCar.body.getAngle());
+            sb.draw(wingOnCarRight.get(0).getBoostOnCar(), wingOnCarRight.get(0).body.getPosition().x + 5f, wingOnCarRight.get(0).body.getPosition().y, wingOnCarRight.get(0).getOriginX() + wingOnCarRight.get(0).getBoostOnCar().getRegionWidth(), wingOnCarRight.get(0).getOriginY() + wingOnCarRight.get(0).getBoostOnCar().getRegionHeight(), wingOnCarRight.get(0).getBoostOnCar().getRegionWidth(), wingOnCarRight.get(0).getBoostOnCar().getRegionHeight(), 1, 1, myCar.body.getAngle());
 
         }
         if (boostOnCarRight.size() != 0 && boostOnCarLeft.size() != 0) {

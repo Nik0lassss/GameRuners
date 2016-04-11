@@ -38,20 +38,20 @@ public class Prize {
 //                }
                 //springboards.add(new Springboard(world,90,(int)posYLastCar+270,10));
                // skulls.add(new Skull(world, 90, (int) posYLastCar + 270, 10, !isLeftLastCar));
-                ladles.add(new Ladle(world, 90,(int) posYLastCar + 290, 10,isLeftLastCar));
-               // flySpringboards.add(new FlySpringboard(world, 90,(int) posYLastCar + 600, 10));
-                 //boosters.add(new Booster(world, 90,(int) posYLastCar + 650, 10,!isLeftLastCar));
+               // ladles.add(new Ladle(world, 90,(int) posYLastCar + 290, 10,isLeftLastCar));
+                //flySpringboards.add(new FlySpringboard(world, 90,(int) posYLastCar + 270, 10,isLeftLastCar));
+                 boosters.add(new Booster(world, 90,(int) posYLastCar + 650, 10,!isLeftLastCar));
                  //dirts.add(new Dirt(world,90,(int)posYLastCar+270,10,isLeftLastCar));
             } else {
                // dirts.add(new Dirt(world,90,(int)posYLastCar+270,10,isLeftLastCar));
-                //springboards.add(new Springboard(world,90,(int)posYLastCar+270,10));
+               // springboards.add(new Springboard(world,90,(int)posYLastCar+270,10));
                 //skulls.add(new Skull(world, 90, (int) posYLastCar + 270, 10, !isLeftLastCar));
                  // ladles.add(new Ladle(world, 90,(int) posYLastCar + 270, 10,isLeftLastCar));
-                //flySpringboards.add(new FlySpringboard(world, 90,(int) posYLastCar + 600, 10));
-                 //boosters.add(new Booster(world, 90,(int) posYLastCar + 650, 10,!isLeftLastCar));
+               //flySpringboards.add(new FlySpringboard(world, 90,(int) posYLastCar + 270, 10,isLeftLastCar));
+                 boosters.add(new Booster(world, 90,(int) posYLastCar + 650, 10,!isLeftLastCar));
 //                switch (RandomUtil.getRand(1, 4)) {
 //                    case 1:
-                        ladles.add(new Ladle(world, 90, (int) posYLastCar + 290, 10,isLeftLastCar));
+//                        ladles.add(new Ladle(world, 90, (int) posYLastCar + 290, 10,isLeftLastCar));
 //                        break;
 //                    case 2:
 //                        boosters.add(new Booster(world, 90,(int) posYLastCar + 290, 10,isLeftLastCar));

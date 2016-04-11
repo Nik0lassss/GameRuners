@@ -84,8 +84,9 @@ public class PasserCar extends Car {
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
-        fixtureDef.density = 1f;
+        fixtureDef.density = 0.5f;
         fixtureDef.restitution = 1f;
+        fixtureDef.friction=0.8f;
 
 
         fixtureDef.filter.categoryBits = WORLD_ENTITY;
@@ -131,8 +132,9 @@ public class PasserCar extends Car {
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
-        fixtureDef.density = 1f;
+        fixtureDef.density = 0.5f;
         fixtureDef.restitution = 1f;
+        fixtureDef.friction=0.8f;
 
 //        setHeight(carAnimation.getKeyFrames()[0].getRegionHeight());
 //        setWidth(carAnimation.getKeyFrames()[0].getRegionWidth());

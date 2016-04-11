@@ -35,16 +35,17 @@ public class FlySpringboard extends Prize {
 
     private float stateTime;
 
-    public FlySpringboard(World world, int x, int y, int movement) {
+    public FlySpringboard(World world, int x, int y, int movement, boolean isleft) {
         super(x, y, movement);
         defaultX = x;
         defaultY = y;
-        rand = new Random();
-        isLeft = rand.nextBoolean();
-        //if (isLeft)
-            position.x = Constants.getCarPostitionXLeft(springboardAnimation.getKeyFrames()[0].getRegionWidth());
-//        else
-//            position.x = Constants.getCarPostitionXRight(springboardAnimation.getKeyFrames()[0].getRegionWidth());
+        isLeft = isleft;
+//        rand = new Random();
+//        isLeft = rand.nextBoolean();
+        if (isLeft)
+        position.x = Constants.getCarPostitionXLeft(springboardAnimation.getKeyFrames()[0].getRegionWidth());
+       else
+            position.x = Constants.getCarPostitionXRight(springboardAnimation.getKeyFrames()[0].getRegionWidth());
 
         this.world = world;
         //sprite = new Sprite(carTexture);
@@ -74,67 +75,67 @@ public class FlySpringboard extends Prize {
         body.setUserData(new FlySpringBoardDataType());
         body.createFixture(fixtureDef);
         stateTime = 0f;
-        for(int i =0;i<3;i++){
-          blocks.add(new Block(world,(int)position.x+i*69,(int)position.y+150,10));
+        for (int i = 0; i < 3; i++) {
+            blocks.add(new Block(world, (int) position.x + i * 69, (int) position.y + 150, 10));
         }
-        for(int i =0;i<3;i++){
-            blocks.add(new Block(world,(int)position.x+i*69,(int)position.y+100,10));
-        }
-    }
-
-
-    public FlySpringboard(World world, int x, int y, int movement, boolean ifLeft) {
-        super(x, y, movement);
-        defaultX = x;
-        defaultY = y;
-
-        isLeft = ifLeft;
-      //  if (isLeft)
-            position.x = Constants.getCarPostitionXLeft(springboardAnimation.getKeyFrames()[0].getRegionWidth())-15;
-//        else
-//            position.x = Constants.getCarPostitionXRight(springboardAnimation.getKeyFrames()[0].getRegionWidth());
-
-        this.world = world;
-        //sprite = new Sprite(carTexture);
-        //sprite.setPosition(x, y);
-        //passerCarAnimation = AssetsManager.getAnimation(animation_asset_id);
-
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set((springboardAnimation.getKeyFrames()[0].getRegionX() + springboardAnimation.getKeyFrames()[0].getRegionWidth() / 2)
-                ,
-                (springboardAnimation.getKeyFrames()[0].getRegionY() + springboardAnimation.getKeyFrames()[0].getRegionHeight() / 2));
-
-        body = world.createBody(bodyDef);
-
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(springboardAnimation.getKeyFrames()[0].getRegionWidth() / 2, springboardAnimation.getKeyFrames()[0].getRegionHeight()
-                / 2);
-
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = shape;
-        fixtureDef.density = 0.1f;
-        fixtureDef.restitution = 0.5f;
-
-
-        fixtureDef.filter.categoryBits = SPRING_BOARD_MASK;
-        fixtureDef.filter.maskBits = MyCar.MY_CAR_FILTER_ENTITY;
-
-        body.createFixture(fixtureDef);
-        stateTime = 0f;
-        for(int i =0;i<3;i++){
-            blocks.add(new Block(world,(int)position.x+i*69,(int)position.y+150,10));
-        }
-        for(int i =0;i<3;i++){
-            blocks.add(new Block(world,(int)position.x+i*69,(int)position.y+100,10));
+        for (int i = 0; i < 3; i++) {
+            blocks.add(new Block(world, (int) position.x + i * 69, (int) position.y + 100, 10));
         }
     }
 
+
+//    public FlySpringboard(World world, int x, int y, int movement, boolean ifLeft) {
+//        super(x, y, movement);
+//        defaultX = x;
+//        defaultY = y;
+//
+//        isLeft = ifLeft;
+//        //  if (isLeft)
+//        position.x = Constants.getCarPostitionXLeft(springboardAnimation.getKeyFrames()[0].getRegionWidth()) - 15;
+////        else
+////            position.x = Constants.getCarPostitionXRight(springboardAnimation.getKeyFrames()[0].getRegionWidth());
+//
+//        this.world = world;
+//        //sprite = new Sprite(carTexture);
+//        //sprite.setPosition(x, y);
+//        //passerCarAnimation = AssetsManager.getAnimation(animation_asset_id);
+//
+//        BodyDef bodyDef = new BodyDef();
+//        bodyDef.type = BodyDef.BodyType.DynamicBody;
+//        bodyDef.position.set((springboardAnimation.getKeyFrames()[0].getRegionX() + springboardAnimation.getKeyFrames()[0].getRegionWidth() / 2)
+//                ,
+//                (springboardAnimation.getKeyFrames()[0].getRegionY() + springboardAnimation.getKeyFrames()[0].getRegionHeight() / 2));
+//
+//        body = world.createBody(bodyDef);
+//
+//        PolygonShape shape = new PolygonShape();
+//        shape.setAsBox(springboardAnimation.getKeyFrames()[0].getRegionWidth() / 2, springboardAnimation.getKeyFrames()[0].getRegionHeight()
+//                / 2);
+//
+//        FixtureDef fixtureDef = new FixtureDef();
+//        fixtureDef.shape = shape;
+//        fixtureDef.density = 0.1f;
+//        fixtureDef.restitution = 0.5f;
+//
+//
+//        fixtureDef.filter.categoryBits = SPRING_BOARD_MASK;
+//        fixtureDef.filter.maskBits = MyCar.MY_CAR_FILTER_ENTITY;
+//
+//        body.createFixture(fixtureDef);
+//        stateTime = 0f;
+//        for (int i = 0; i < 3; i++) {
+//            blocks.add(new Block(world, (int) position.x + i * 69, (int) position.y + 150, 10));
+//        }
+//        for (int i = 0; i < 3; i++) {
+//            blocks.add(new Block(world, (int) position.x + i * 69, (int) position.y + 100, 10));
+//        }
+//    }
+//
     public void draw(SpriteBatch batch) {
+
         //batch.draw(getCoinShadowTexture(), position.x, position.y - 10);
-        batch.draw(getFlySpringboardAnimation().getKeyFrame(stateTime,true), position.x, position.y);
-        for (Block block:blocks)
-        {
+        batch.draw(getFlySpringboardAnimation().getKeyFrame(stateTime, true), position.x, position.y);
+        for (Block block : blocks) {
             block.draw(batch);
             //System.out.println("draw blocks");
         }
@@ -197,7 +198,7 @@ public class FlySpringboard extends Prize {
         if (camera.viewportHeight - busterses.get(busterses.size() - 1).getPosition().y > Constants.coinDistance) {
 //            boolean isBigCar = rand.nextBoolean();
 //            if (!isBigCar)
-            busterses.add(new FlySpringboard(world, 90, (int) camera.viewportHeight + 20, 10));
+            //busterses.add(new FlySpringboard(world, 90, (int) camera.viewportHeight + 20, 10));
 //            else
 //                passerCars.add(new PasserCar(world, 90, (int) camera.viewportHeight + 200, 10, true, Constants.OTHERCAR_2_1_ASSETS_ID));
 //

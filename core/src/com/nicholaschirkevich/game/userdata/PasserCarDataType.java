@@ -21,6 +21,16 @@ public class PasserCarDataType extends UserData {
     protected Rectangle myCarBounds;
     protected CollisionPasserCarType collisionPasserCarType = CollisionPasserCarType.NONE;
 
+    public boolean isOvertaking() {
+        return overtaking;
+    }
+
+    public void setOvertaking(boolean overtaking) {
+        this.overtaking = overtaking;
+    }
+
+    protected boolean overtaking = false;
+
     public PasserCarDataType() {
         isBlow = false;
         isLadleCollision = false;
