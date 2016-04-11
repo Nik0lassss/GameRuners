@@ -220,7 +220,7 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
     public void setUpWorld() {
         world = new World(new Vector2(0f, 0f), false);
         carFilter = new CarFilter(gsm, this, this, this, this, this, this, this, this);
-        world.setContactListener(new CarContactListener());
+        world.setContactListener(new CarContactListener(this));
         world.setContactFilter(carFilter);
         bushsArrayLeft = new ArrayList<Bushs>();
         bushsArrayRight = new ArrayList<Bushs>();
@@ -861,6 +861,17 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
 //            GameManager.setCurrentSpeed(GameManager.getGearShifts().get(0).getSpeeds().get(0));
             for (PasserCar passerCar : passerCars) {
                 passerCar.body.setLinearVelocity(passerCar.body.getLinearVelocity().x < 0 ? 0 : passerCar.body.getLinearVelocity().x - 1f, passerCar.body.getLinearVelocity().y < 0 ? 0 : passerCar.body.getLinearVelocity().y - 1f);
+                float angelPasserCar = (float) Math.toDegrees(myCar.body.getAngle());
+                if (angelPasserCar < -120 && angelPasserCar > 0) {
+                    //float angel = (float) Math.toDegrees(myCar.body.getAngle());
+                    //if (angel > 0) angel -= 0.5;
+                    passerCar.body.setTransform(passerCar.body.getPosition(), (float) Math.toRadians(angelPasserCar+20));
+                }
+                if (angelPasserCar > 120 && angelPasserCar > 0) {
+                    //float angel = (float) Math.toDegrees(myCar.body.getAngle());
+                    //if (angel > 0) angel -= 0.5;
+                    passerCar.body.setTransform(passerCar.body.getPosition(), (float) Math.toRadians(angelPasserCar-20));
+                }
                 // passerCar.body.setTransform(passerCar.body.getPosition(), passerCar.body.getAngle() - 0.2f);
                 // System.out.println("passerCar.body.getLinearVelocity().scl(-10,-10) "+passerCar.body.getLinearVelocity().scl(-10,-10));
                 // passerCar.body.setLinearVelocity(passerCar.body.getLinearVelocity().scl(-10,-10));
@@ -869,6 +880,23 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
             GameManager.setIsCollision(true);
 
             GameManager.setCollisionSpeed(GameManager.getCurrentSpeed() <= 0 ? 0 : GameManager.getCurrentSpeed() - 10);
+
+            float angelMyCar = (float) Math.toDegrees(myCar.body.getAngle());
+            if (angelMyCar < -120 && angelMyCar > 0 && !GameManager.pauseGame) {
+                //float angel = (float) Math.toDegrees(myCar.body.getAngle());
+                //if (angel > 0) angel -= 0.5;
+                myCar.body.setTransform(myCar.body.getPosition(), (float) Math.toRadians(angelMyCar+0.5));
+            }
+            if (angelMyCar > 120 && angelMyCar > 0 && !GameManager.pauseGame) {
+                //float angel = (float) Math.toDegrees(myCar.body.getAngle());
+                //if (angel > 0) angel -= 0.5;
+                myCar.body.setTransform(myCar.body.getPosition(), (float) Math.toRadians(angelMyCar-0.5));
+            }
+//            if (angel < 180) {
+//                //float angel = (float) Math.toDegrees(myCar.body.getAngle());
+//                //if (angel > 0) angel -= 0.5;
+//                myCar.body.setTransform(myCar.body.getPosition(), 180);
+//            }
 
             //myCar.body.setTransform(myCar.body.getPosition(),myCar.body.getAngle()-0.2f);
             myCar.body.setLinearVelocity(myCar.body.getLinearVelocity().x <= 0 ? 0 : myCar.body.getLinearVelocity().x - 1f, myCar.body.getLinearVelocity().y < 0 ? 0 : myCar.body.getLinearVelocity().y - 1f);

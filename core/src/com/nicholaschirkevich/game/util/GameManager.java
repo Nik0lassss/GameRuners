@@ -162,8 +162,6 @@ public class GameManager {
         if (currentSpeed < toSpeed) currentSpeed = currentSpeed + 1f;
         if (isCollision) currentSpeed = collisionSpeed;
         GameManager.setCurrentSpeed(currentSpeed);
-        System.out.println("current speed " + currentSpeed);
-        System.out.println("Current speed " + CurrentSpeed);
         label.setText(String.valueOf(currentSpeed));
         timeLabel.setText(String.valueOf(allTime));
         stageChild.setText("stageChild " + String.valueOf(stageGameManager.getActors().size));

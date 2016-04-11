@@ -171,10 +171,10 @@ public class PasserCar extends Car {
             }
             if (isLeft) {
                 //angeltCrashLadle += 2.5;
-                position.add(-(380) * dt, -10 * dt, 0);
+                position.add(-(480) * dt, -10 * dt, 0);
             } else {
                 //angeltCrashLadle -= 2.5;
-                position.add((380) * dt, -10 * dt, 0);
+                position.add((480) * dt, -10 * dt, 0);
             }
 
 
@@ -464,6 +464,13 @@ public class PasserCar extends Car {
                     world.destroyBody(passerCars.get(i).body);
                 passerCars.remove(i);
 
+            }
+            if (((PasserCarDataType) passerCars.get(i).body.getUserData()).isLadleCollision()) {
+                passerCars.get(i).generateHoleAfterLadleInterface.generateHoleAfterLadle(passerCars.get(i).body.getPosition().x, passerCars.get(i).body.getPosition().y);
+                world.destroyBody(passerCars.get(i).body);
+                passerCars.get(i).remove();
+                passerCars.remove(i);
+                break;
             }
             if (((PasserCarDataType) passerCars.get(i).body.getUserData()).isCollisionWhithPasser()) {
                 passerCars.get(i).generateHoleAfterLadleInterface.generateHoleAfterLadle(passerCars.get(i).body.getPosition().x, passerCars.get(i).body.getPosition().y);

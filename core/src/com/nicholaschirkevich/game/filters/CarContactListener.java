@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 import com.nicholaschirkevich.game.enums.CollisionPasserCarType;
+import com.nicholaschirkevich.game.interfaces.ListenerAddLadle;
 import com.nicholaschirkevich.game.model.LadleOnCar;
 import com.nicholaschirkevich.game.model.MyCar;
 import com.nicholaschirkevich.game.model.PasserCar;
@@ -22,6 +23,12 @@ import com.nicholaschirkevich.game.util.GameManager;
  * Created by Nikolas on 19.03.2016.
  */
 public class CarContactListener implements ContactListener {
+    private ListenerAddLadle listenerAddLadleInterface;
+
+    public CarContactListener(ListenerAddLadle listenerAddLadle) {
+        this.listenerAddLadleInterface = listenerAddLadle;
+    }
+
     @Override
     public void beginContact(Contact contact) {
         WorldManifold worldManifold = null;
@@ -31,9 +38,22 @@ public class CarContactListener implements ContactListener {
         //print the contact point and the normal
 
         if (contact.getFixtureA().getFilterData().categoryBits == LadleOnCar.LADLE_MASK && contact.getFixtureB().getFilterData().categoryBits == PasserCar.PASSER_CAR_FILTER_ENTITY ||
-                (contact.getFixtureB().getFilterData().categoryBits == LadleOnCar.LADLE_MASK&& contact.getFixtureA().getFilterData().categoryBits ==PasserCar.PASSER_CAR_FILTER_ENTITY ))
-        {
-System.out.println(" LadleOnCar.LADLE_MASK ");
+                (contact.getFixtureB().getFilterData().categoryBits == LadleOnCar.LADLE_MASK && contact.getFixtureA().getFilterData().categoryBits == PasserCar.PASSER_CAR_FILTER_ENTITY)) {
+//            PasserCarDataType passerCarData = new PasserCarDataType();
+//            MyCarDataType myCarData = new MyCarDataType();
+//            if (BodyUtils.bodyIsMyCar(contact.getFixtureA().getBody())) {
+//                myCarDataType = (MyCarDataType) contact.getFixtureA().getBody().getUserData();
+//            } else if (BodyUtils.bodyIsMyCar(contact.getFixtureB().getBody())) {
+//                myCarDataType = (MyCarDataType) contact.getFixtureB().getBody().getUserData();
+//            }
+//            if (BodyUtils.bodyIsPasserCar(contact.getFixtureA().getBody())) {
+//                passerCarDataType = (PasserCarDataType) contact.getFixtureA().getBody().getUserData();
+//            } else if (BodyUtils.bodyIsPasserCar(contact.getFixtureB().getBody())) {
+//                passerCarDataType = (PasserCarDataType) contact.getFixtureB().getBody().getUserData();
+//            }
+//            passerCarDataType.setIsLadleCollision(true);
+//            listenerAddLadleInterface.removeLadle();
+            //System.out.println(" LadleOnCar.LADLE_MASK ");
         }
 
         if (contact.getFixtureA().getFilterData().categoryBits == MyCar.MY_CAR_FILTER_ENTITY && contact.getFixtureB().getFilterData().categoryBits == PasserCar.PASSER_CAR_FILTER_ENTITY ||
@@ -80,8 +100,8 @@ System.out.println(" LadleOnCar.LADLE_MASK ");
         GameManager.setContactPointX(worldManifold.getPoints()[0].x);
         GameManager.setContactPointY(worldManifold.getPoints()[0].y);
         GameManager.setIsCollisionWithCar(true);
-        System.out.println("worldManifold.getPoints()[0].x " + worldManifold.getPoints()[0].x);
-        System.out.println(" worldManifold.getPoints()[0].y" + worldManifold.getPoints()[0].y);
+//        System.out.println("worldManifold.getPoints()[0].x " + worldManifold.getPoints()[0].x);
+//        System.out.println(" worldManifold.getPoints()[0].y" + worldManifold.getPoints()[0].y);
     }
 
     @Override
