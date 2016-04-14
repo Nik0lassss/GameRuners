@@ -44,7 +44,7 @@ public class Ladle extends Prize {
         if (isLeft)
             position.x = Constants.getCarPostitionXLeft(ladleOnRoadAnimation.getKeyFrames()[0].getRegionWidth());
         else
-            position.x = Constants.getCarPostitionXRight(ladleOnRoadAnimation.getKeyFrames()[0].getRegionWidth());
+            position.x = Constants.getCarPostitionXRight(ladleOnRoadAnimation.getKeyFrames()[0].getRegionWidth()+25);
 
         this.world = world;
         //sprite = new Sprite(carTexture);

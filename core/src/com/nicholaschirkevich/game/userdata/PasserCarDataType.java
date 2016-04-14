@@ -7,6 +7,7 @@ import com.nicholaschirkevich.game.enums.CollisionPasserCarType;
  * Created by Nikolas on 16.03.2016.
  */
 public class PasserCarDataType extends UserData {
+
     protected boolean isBlow = false;
     protected boolean isLadleCollision = false;
     protected boolean isGodMode = false;
@@ -15,10 +16,21 @@ public class PasserCarDataType extends UserData {
     protected boolean isCollisionWhithPasser = false;
     protected boolean isContact = false;
     protected boolean isDangerEvolution = false;
+    protected boolean flyCarContact = false;
     protected Float x = 0f;
     protected Float y = 0f;
     protected Rectangle bounds;
     protected Rectangle myCarBounds;
+
+    public boolean isBefore() {
+        return before;
+    }
+
+    public void setBefore(boolean before) {
+        this.before = before;
+    }
+
+    protected boolean before = true;
     protected CollisionPasserCarType collisionPasserCarType = CollisionPasserCarType.NONE;
 
     public boolean isOvertaking() {
@@ -139,5 +151,13 @@ public class PasserCarDataType extends UserData {
 
     public void setIsDangerEvolution(boolean isDangerEvolution) {
         this.isDangerEvolution = isDangerEvolution;
+    }
+
+    public boolean isFlyCarContact() {
+        return flyCarContact;
+    }
+
+    public void setFlyCarContact(boolean flyCarContact) {
+        this.flyCarContact = flyCarContact;
     }
 }

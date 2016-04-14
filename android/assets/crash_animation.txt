@@ -1,0 +1,47 @@
+crash_animation.png
+size: 256,64
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+clash_anim_left_right_6
+  rotate: false
+  xy: 2, 2
+  size: 54, 56
+  orig: 54, 56
+  offset: 0, 0
+  index: -1
+clash_anim_left_right_5
+  rotate: false
+  xy: 58, 10
+  size: 44, 48
+  orig: 44, 48
+  offset: 0, 0
+  index: -1
+clash_anim_left_right_4
+  rotate: false
+  xy: 104, 14
+  size: 38, 44
+  orig: 38, 44
+  offset: 0, 0
+  index: -1
+clash_anim_left_right_3
+  rotate: false
+  xy: 144, 18
+  size: 34, 40
+  orig: 34, 40
+  offset: 0, 0
+  index: -1
+clash_anim_left_right_2
+  rotate: false
+  xy: 180, 30
+  size: 20, 28
+  orig: 20, 28
+  offset: 0, 0
+  index: -1
+clash_anim_left_right_1
+  rotate: false
+  xy: 202, 46
+  size: 8, 12
+  orig: 8, 12
+  offset: 0, 0
+  index: -1

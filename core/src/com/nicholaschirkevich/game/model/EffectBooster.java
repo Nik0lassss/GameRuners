@@ -54,7 +54,7 @@ public class EffectBooster {
     public void update(Camera camera, float dt) {
 
         if (isStartAlfa) alfaTime += dt;
-        if (alfaTime > 0.3) {
+        if (alfaTime > 0.7) {
             if (isAlfa) {
                 isAlfa = false;
                 alfa = 1;
@@ -141,5 +141,13 @@ public class EffectBooster {
 
     public void setIsStartAlfa(boolean isStartAlfa) {
         this.isStartAlfa = isStartAlfa;
+    }
+
+    public float getAlfa() {
+        return alfa;
+    }
+
+    public void setAlfa(float alfa) {
+        this.alfa = alfa;
     }
 }

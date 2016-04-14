@@ -3,6 +3,7 @@ package com.nicholaschirkevich.game.filters;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -35,6 +36,8 @@ public class CarContactListener implements ContactListener {
         worldManifold = contact.getWorldManifold();
         PasserCarDataType passerCarDataType = null;
         MyCarDataType myCarDataType = null;
+        Body passerCarBody = null;
+        Body myCarBody = null;
         //print the contact point and the normal
 
         if (contact.getFixtureA().getFilterData().categoryBits == LadleOnCar.LADLE_MASK && contact.getFixtureB().getFilterData().categoryBits == PasserCar.PASSER_CAR_FILTER_ENTITY ||
@@ -63,13 +66,17 @@ public class CarContactListener implements ContactListener {
         myCarDataType = new MyCarDataType();
         if (BodyUtils.bodyIsMyCar(contact.getFixtureA().getBody())) {
             myCarDataType = (MyCarDataType) contact.getFixtureA().getBody().getUserData();
+            myCarBody = contact.getFixtureA().getBody();
         } else if (BodyUtils.bodyIsMyCar(contact.getFixtureB().getBody())) {
             myCarDataType = (MyCarDataType) contact.getFixtureB().getBody().getUserData();
+            myCarBody = contact.getFixtureB().getBody();
         }
         if (BodyUtils.bodyIsPasserCar(contact.getFixtureA().getBody())) {
             passerCarDataType = (PasserCarDataType) contact.getFixtureA().getBody().getUserData();
+            passerCarBody = contact.getFixtureA().getBody();
         } else if (BodyUtils.bodyIsPasserCar(contact.getFixtureB().getBody())) {
             passerCarDataType = (PasserCarDataType) contact.getFixtureB().getBody().getUserData();
+            passerCarBody = contact.getFixtureB().getBody();
         }
         if (passerCarDataType != null) {
             // passerCarDataType.setIsGodMode(true);
@@ -96,10 +103,30 @@ public class CarContactListener implements ContactListener {
 //                    }
 //        }
         //Intersects with bottom side
+        if(passerCarDataType != null && passerCarBody != null && myCarBody != null && passerCarBody.getPosition().y==0 && myCarBody.getPosition().y==0)
+        {
+            passerCarDataType.setBefore(true);
+        }
+       else  if (passerCarDataType != null && passerCarBody != null && myCarBody != null && passerCarBody.getPosition().y -70< myCarBody.getPosition().y)
+        {
+            passerCarDataType.setBefore(false);
+        }
+        else if(passerCarDataType != null && passerCarBody != null && myCarBody != null && passerCarBody.getPosition().y > myCarBody.getPosition().y){
 
-        GameManager.setContactPointX(worldManifold.getPoints()[0].x);
-        GameManager.setContactPointY(worldManifold.getPoints()[0].y);
+            passerCarDataType.setBefore(true);
+        }
+
+            if (passerCarBody != null && myCarBody != null && passerCarBody.getPosition().y < myCarBody.getPosition().y) {
+                GameManager.setContactPointX(worldManifold.getPoints()[0].x);
+                GameManager.setContactPointY(worldManifold.getPoints()[0].y - 10);
+
+            } else {
+                GameManager.setContactPointX(worldManifold.getPoints()[0].x);
+                GameManager.setContactPointY(worldManifold.getPoints()[0].y);
+
+            }
         GameManager.setIsCollisionWithCar(true);
+
 //        System.out.println("worldManifold.getPoints()[0].x " + worldManifold.getPoints()[0].x);
 //        System.out.println(" worldManifold.getPoints()[0].y" + worldManifold.getPoints()[0].y);
     }

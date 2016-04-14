@@ -171,7 +171,7 @@ public class GameManager {
 
             if (gear + 1 < gearShift.getTimes().size()) {
                 gear++;
-                stageGameManager.addActor(GearView.getView(gear));
+                //stageGameManager.addActor(GearView.getView(gear));
             }
 
             GameManager.setCurrentSpeed(currentSpeed);
@@ -180,9 +180,9 @@ public class GameManager {
         if (dtTimeAhive > gearShift.getTimes().get(gear) + 1) {
 
             if (gear + 1 < gearShift.getTimes().size()) {
-                Actor actor = AchiveView.getView(gear);
-                if (actor != null)
-                    stageGameManager.addActor(AchiveView.getView(gear));
+//                Actor actor = AchiveView.getView(gear);
+//                if (actor != null)
+//                    stageGameManager.addActor(AchiveView.getView(gear));
             }
 
             GameManager.setCurrentSpeed(currentSpeed);

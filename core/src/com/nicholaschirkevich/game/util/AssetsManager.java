@@ -88,6 +88,7 @@ public class AssetsManager {
     private static TextureAtlas fly_springboard;
     private static TextureAtlas left_wing;
     private static TextureAtlas right_wing;
+    private static TextureAtlas car_crash_animation;
     private static BitmapFont smallFont;
     private static BitmapFont smallestFont;
     private static BitmapFont largeFont;
@@ -198,6 +199,7 @@ public class AssetsManager {
         road_1_lighter_l_rexture_atlas = new TextureAtlas(Constants.ROAR_1_LIGHTER_L_ATLAS_PATH);
         road_1_lighter_r_rexture_atlas = new TextureAtlas(Constants.ROAR_1_LIGHTER_R_ATLAS_PATH);
 
+        car_crash_animation = new TextureAtlas(Constants.CRASH_ATLAS_PATH);
         other_car_1_1_texture_atlas = new TextureAtlas(Constants.OTHERCAR_1_1_ATLAS_PATH);
         other_car_1_2_texture_atlas = new TextureAtlas(Constants.OTHERCAR_1_2_ATLAS_PATH);
         other_car_1_3_texture_atlas = new TextureAtlas(Constants.OTHERCAR_1_3_ATLAS_PATH);
@@ -285,6 +287,9 @@ public class AssetsManager {
 
         animationsMap.put(Constants.LEFT_WING_ASSETS_ID, createAnimation(left_wing, Constants.LEFT_WING_REGION_NAMES));
         animationsMap.put(Constants.RIGHT_WING_ASSETS_ID, createAnimation(right_wing, Constants.RIGHT_WING_REGION_NAMES));
+
+        animationsMap.put(Constants.CRASH_ASSETS_ID, createAnimation(car_crash_animation, Constants.CRASH_REGION_NAMES));
+
     }
 
     public static TextureRegion getTextureRegion(String key) {

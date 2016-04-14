@@ -152,6 +152,7 @@ public class CarFilter implements ContactFilter {
 
             PasserCarDataType passerCarDataType = new PasserCarDataType();
             MyCarDataType myCarDataType = new MyCarDataType();
+
             if (BodyUtils.bodyIsMyCar(fixtureA.getBody())) {
                 myCarDataType = (MyCarDataType) fixtureA.getBody().getUserData();
             } else if (BodyUtils.bodyIsMyCar(fixtureB.getBody())) {
@@ -171,10 +172,16 @@ public class CarFilter implements ContactFilter {
                 System.out.println("Collide isGodMode");
                 passerCarDataType.setIsGodMode(true);
             } else if (myCarDataType.isFly()) {
+                if (!passerCarDataType.isFlyCarContact()){
+                    passerCarDataType.setFlyCarContact(true);
+                    onSetCollisionCarsInterface.onFlyCollision();
+                }
                 return false;
             } else {
                 onSetCollisionCarsInterface.onCollision();
                 passerCarDataType.setIsContact(true);
+                myCarDataType.setIsContact(true);
+
                 // passerCarDataType.setIsBlow(true);
                 //myCarDataType.setIsBlow(true);
                 Gdx.input.vibrate(500);

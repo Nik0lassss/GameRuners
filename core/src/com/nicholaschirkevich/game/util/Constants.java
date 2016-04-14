@@ -36,6 +36,7 @@ public class Constants {
     public static final String OTHERCAR_5_1_ATLAS_PATH = "other_car_5_1_animation.txt";
     public static final String OTHERCAR_5_2_ATLAS_PATH = "other_car_5_2_animation.txt";
     public static final String OTHERCAR_5_3_ATLAS_PATH = "other_car_5_3_animation.txt";
+    public static final String CRASH_ATLAS_PATH = "crash_animation.txt";
     public static final String COIN_ATLAS_PATH = "coin.txt";
     public static final String COIN_SHADOW_ATLAS_PATH = "coin_shadow.txt";
     public static final String SKULL_ON_ROAD_ATLAS_PATH = "skull_on_road.txt";
@@ -83,7 +84,7 @@ public class Constants {
     public static final String[] BACK_BUTTON_REGION_NAMES = new String[]{"bttn_back"};
     public static final String[] BTTN_PAUSE_REGION_NAMES = new String[]{"bttn_pause", "bttn_pause_prssd"};
 
-    public static final String[] FLY_SPRINGBOARD_REGION_NAMES= new String[]{"bp_1","bp_2","bp_2","bp_3","bp_4","bp_5","bp_6","bp_7","bp_8","bp_9","bp_10","bp_11","bp_12","bp_13"};
+    public static final String[] FLY_SPRINGBOARD_REGION_NAMES = new String[]{"bp_1", "bp_2", "bp_2", "bp_3", "bp_4", "bp_5", "bp_6", "bp_7", "bp_8", "bp_9", "bp_10", "bp_11", "bp_12", "bp_13"};
     public static final String[] MY_CAR_REGION_NAMES = new String[]{"car_f1_1_1", "car_f1_1_2", "car_f1_1_3", "car_f1_1_4"};
     public static final String[] OTHERCAR_1_1_REGION_NAMES = new String[]{"car_move_1"};
     public static final String[] OTHERCAR_1_2_REGION_NAMES = new String[]{"other_car_1_2"};
@@ -99,6 +100,7 @@ public class Constants {
     public static final String[] OTHERCAR_5_1_REGION_NAMES = new String[]{"other_car_5_1"};
     public static final String[] OTHERCAR_5_2_REGION_NAMES = new String[]{"other_car_5_2"};
     public static final String[] OTHERCAR_5_3_REGION_NAMES = new String[]{"other_car_5_3"};
+    public static final String[] CRASH_REGION_NAMES = new String[]{"clash_anim_left_right_1","clash_anim_left_right_2","clash_anim_left_right_3","clash_anim_left_right_4","clash_anim_left_right_5","clash_anim_left_right_6"};
     public static final String[] LEFT_WING_REGION_NAMES = new String[]{"left_wing"};
     public static final String[] RIGHT_WING_REGION_NAMES = new String[]{"right_wing"};
     public static final String[] EFFECT_BOOST_REGION_NAMES = new String[]{"effect_1"};
@@ -159,6 +161,7 @@ public class Constants {
     public static final String DIRT_ON_SCREEN_4_ASSETS_ID = "dirt_on_screen_4";
     public static final String DIRT_ON_SCREEN_5_ASSETS_ID = "dirt_on_screen_5";
     public static final String DIRT_ON_SCREEN_6_ASSETS_ID = "dirt_on_screen_6";
+    public static final String CRASH_ASSETS_ID = "crash_car_animation";
     public static final String EFFECT_BOOST_ASSETS_ID = "effect_1";
     public static final String COIN_ASSETS_ID = "coin";
     public static final String SKULL_ON_ROAD_ASSETS_ID = "skull_on_road";
@@ -198,7 +201,6 @@ public class Constants {
     public static final String X4_id = "x4";
     public static final String X5_id = "x5";
     public static final String X6_id = "x6";
-
 
 
     //public static final String MY_CAR_1_IMAGE_PATH = "car_f1_1_1.png";
@@ -295,6 +297,11 @@ public class Constants {
     public static final String CARS_TYPE_CAR_NAME_IMEGE = "CarNameImage";
 
 
+
+    public static final float PASSER_CAR_LINEAR_DUMPING = 1f;
+    public static final float PASSER_CAR_ANGULAR_DUMPING = 1f;
+    public static final float MY_CAR_LINEAR_DUMPING = 2f;
+    public static final float MY_CAR_ANGULAR_DUMPING = 3f;
 //Cars animation atlas path
 
 

@@ -77,16 +77,17 @@ public class PasserCar extends Car {
                 ((carAnimation.getKeyFrames()[0].getRegionY() + carAnimation.getKeyFrames()[0].getRegionHeight() / 2) - 500) / Constants.PIXELS_TO_METERS);
 
         body = world.createBody(bodyDef);
-
+        body.setLinearDamping(Constants.PASSER_CAR_LINEAR_DUMPING);
+        body.setAngularDamping(Constants.PASSER_CAR_ANGULAR_DUMPING);
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(carAnimation.getKeyFrames()[0].getRegionWidth() / 2 / Constants.PIXELS_TO_METERS, carAnimation.getKeyFrames()[0].getRegionHeight()
                 / 2 / Constants.PIXELS_TO_METERS);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
-        fixtureDef.density = 0.5f;
-        fixtureDef.restitution = 1f;
-        fixtureDef.friction=0.8f;
+        fixtureDef.density = 0.0001f;
+        fixtureDef.restitution = 0f;
+        //fixtureDef.friction=0.8f;
 
 
         fixtureDef.filter.categoryBits = WORLD_ENTITY;
@@ -125,16 +126,17 @@ public class PasserCar extends Car {
                 (carAnimation.getKeyFrames()[0].getRegionY() + carAnimation.getKeyFrames()[0].getRegionHeight() / 2) / Constants.PIXELS_TO_METERS);
 
         body = world.createBody(bodyDef);
-
+        body.setLinearDamping(Constants.PASSER_CAR_LINEAR_DUMPING);
+        body.setAngularDamping(Constants.PASSER_CAR_ANGULAR_DUMPING);
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(carAnimation.getKeyFrames()[0].getRegionWidth() / 2 / Constants.PIXELS_TO_METERS, carAnimation.getKeyFrames()[0].getRegionHeight()
                 / 2 / Constants.PIXELS_TO_METERS);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
-        fixtureDef.density = 0.5f;
-        fixtureDef.restitution = 1f;
-        fixtureDef.friction=0.8f;
+        fixtureDef.density = 0.0001f;
+        fixtureDef.restitution = 0f;
+        //fixtureDef.friction=0.8f;
 
 //        setHeight(carAnimation.getKeyFrames()[0].getRegionHeight());
 //        setWidth(carAnimation.getKeyFrames()[0].getRegionWidth());
@@ -165,18 +167,24 @@ public class PasserCar extends Car {
 
         if (passerCarDataType.getCollisionPasserCarType().equals(passerCarDataType.getCollisionPasserCarType().SIDE_COLLISION)) {
             sideCollisionTime += dt;
-            if (sideCollisionTime > 0.2) {
-
-
+            if (!isLeft && position.x > 240) {
                 passerCarDataType.setIsAfterHoleCollision(true);
-                sideCollisionTime = 0;
             }
+            if (isLeft && position.x < 10) {
+                passerCarDataType.setIsAfterHoleCollision(true);
+            }
+//            if (sideCollisionTime > 0.1) {
+//
+//
+//                passerCarDataType.setIsAfterHoleCollision(true);
+//                sideCollisionTime = 0;
+//            }
             if (isLeft) {
                 //angeltCrashLadle += 2.5;
-                position.add(-(480) * dt, -10 * dt, 0);
+                position.add(-(880) * dt, -10 * dt, 0);
             } else {
                 //angeltCrashLadle -= 2.5;
-                position.add((480) * dt, -10 * dt, 0);
+                position.add((880) * dt, -10 * dt, 0);
             }
 
 
@@ -245,15 +253,23 @@ public class PasserCar extends Car {
 //                        }
 //            }
             //( (passerCarDataType.getX()>85 || passerCarDataType.getX()<65) || (passerCarDataType.getX()>185 || passerCarDataType.getX()<170))
-            if (!((passerCarDataType.getX() < 125 && passerCarDataType.getX() > 115 && isLeft) || (passerCarDataType.getX() < 230 && passerCarDataType.getX() > 205 && !isLeft))) {
-                passerCarDataType.setCollisionPasserCarType(CollisionPasserCarType.SIDE_COLLISION);
-
-                System.out.println("Sude collision");
+//            if (((passerCarDataType.getX() < 85 && passerCarDataType.getX() > 115 && isLeft) || (passerCarDataType.getX() < 230 && passerCarDataType.getX() > 205 && !isLeft))) {
+//                passerCarDataType.setCollisionPasserCarType(CollisionPasserCarType.SIDE_COLLISION);
 //
-                bounds.setPosition(position.x, position.y);
-                body.setTransform(position.x, position.y, angeltCrashLadle);
+//                System.out.println("Sude collision");
+////
+//                bounds.setPosition(position.x, position.y);
+//                body.setTransform(position.x, position.y, angeltCrashLadle);
+//
 
-            } else {
+        if(!passerCarDataType.isBefore()){
+            passerCarDataType.setCollisionPasserCarType(CollisionPasserCarType.SIDE_COLLISION);
+//
+//                System.out.println("Sude collision");
+////
+//                bounds.setPosition(position.x, position.y);
+//                body.setTransform(position.x, position.y, angeltCrashLadle);
+        } else {
                 passerCarDataType.setCollisionPasserCarType(CollisionPasserCarType.COUNTER_COLLISION);
                 position.set(position.x, position.y, 0);
                 System.out.println("Counter collision");

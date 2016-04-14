@@ -67,7 +67,7 @@ public class EffectMode {
 
     public void update(Camera camera, float dt) {
         if (isStartAlfa) alfaTime += dt;
-        if (alfaTime > 0.3) {
+        if (alfaTime > 0.7) {
             if (isAlfa) {
                 isAlfa = false;
                 alfa = 1;

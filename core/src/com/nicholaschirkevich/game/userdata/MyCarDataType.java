@@ -11,6 +11,7 @@ public class MyCarDataType extends UserData {
     protected boolean isHaveLadle = false;
     protected boolean isGodMode = false;
     protected boolean isFly = false;
+    protected boolean isContact = false;
     protected Integer x = 0;
     protected Integer y = 0;
     Rectangle bounds;
@@ -73,5 +74,13 @@ public class MyCarDataType extends UserData {
 
     public Rectangle getBounds() {
         return bounds;
+    }
+
+    public boolean isContact() {
+        return isContact;
+    }
+
+    public void setIsContact(boolean isContact) {
+        this.isContact = isContact;
     }
 }

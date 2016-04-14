@@ -62,17 +62,19 @@ public class MyCar extends Car {
         setUpMoveToLeftAction();
         setUpMoveToStartLineAction();
         body = world.createBody(bodyDef);
+        body.setLinearDamping(Constants.MY_CAR_LINEAR_DUMPING);
+        body.setAngularDamping(Constants.MY_CAR_ANGULAR_DUMPING);
         PolygonShape shape = new PolygonShape();
 
 
-        shape.setAsBox((carAnimation.getKeyFrames()[0].getRegionWidth() -20)/ 2 / Constants.PIXELS_TO_METERS, carAnimation.getKeyFrames()[0].getRegionHeight()
+        shape.setAsBox((carAnimation.getKeyFrames()[0].getRegionWidth() - 20) / 2 / Constants.PIXELS_TO_METERS, carAnimation.getKeyFrames()[0].getRegionHeight()
                 / 2 / Constants.PIXELS_TO_METERS);
 
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
-        fixtureDef.density = 0.1f;
-        fixtureDef.restitution = 1f;
+        fixtureDef.density = 0.0001f;
+        fixtureDef.restitution = 0f;
         MyCarDataType myCarDataType = new MyCarDataType();
         myCarDataType.setBounds(bounds);
         body.setUserData(myCarDataType);
@@ -101,18 +103,20 @@ public class MyCar extends Car {
         setUpMoveToLeftAction();
         setUpMoveToStartLineAction();
         body = world.createBody(bodyDef);
+        body.setLinearDamping(Constants.MY_CAR_LINEAR_DUMPING);
+        body.setAngularDamping(Constants.MY_CAR_ANGULAR_DUMPING);
         // body.setUserData(new MyCarDataType());
         PolygonShape shape = new PolygonShape();
 
 
-        shape.setAsBox((carAnimation.getKeyFrames()[0].getRegionWidth()-20) / 2 / Constants.PIXELS_TO_METERS, carAnimation.getKeyFrames()[0].getRegionHeight()
+        shape.setAsBox((carAnimation.getKeyFrames()[0].getRegionWidth() - 20) / 2 / Constants.PIXELS_TO_METERS, carAnimation.getKeyFrames()[0].getRegionHeight()
                 / 2 / Constants.PIXELS_TO_METERS);
 
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
-        fixtureDef.density = 0.9f;
-        fixtureDef.restitution = 1f;
+        fixtureDef.density = 0.001f;
+        fixtureDef.restitution = 0f;
 
 
         fixtureDef.filter.categoryBits = MyCar.MY_CAR_FILTER_ENTITY;
@@ -130,7 +134,9 @@ public class MyCar extends Car {
     public void update(float dt) {
         MyCarDataType myCarDataType = (MyCarDataType) body.getUserData();
 
-        if (getActions().size == 1) isTurnRun = false;
+        if (getActions().size == 0) isTurnRun = false;
+        if(isTurnRun()==true)    System.out.println("IsTurn " + isTurnRun());
+
         //sprite.setPosition(getX(), getY());
 
 //        if (isLeft && position.x > leftSide) {
@@ -239,7 +245,7 @@ public class MyCar extends Car {
 
     @Override
     public void turn() {
-        if (!isTurnRun) {
+        if (getActions().size<=1) {
             isTurnRun = true;
             if (isLeft) {
                 //sequenceAction.reset();
