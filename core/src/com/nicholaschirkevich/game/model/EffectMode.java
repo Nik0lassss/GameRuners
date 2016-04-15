@@ -150,4 +150,12 @@ public class EffectMode {
     public void setIsStartAlfa(boolean isStartAlfa) {
         this.isStartAlfa = isStartAlfa;
     }
+
+    public float getAlfa() {
+        return alfa;
+    }
+
+    public void setAlfa(float alfa) {
+        this.alfa = alfa;
+    }
 }

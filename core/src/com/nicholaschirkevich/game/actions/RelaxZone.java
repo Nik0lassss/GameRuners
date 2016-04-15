@@ -12,8 +12,8 @@ public class RelaxZone {
     private static OnStartRelaxZone onStartRelaxZone;
     private static float time;
     private static float timerSpringBoard;
-    private static float timeToRelaxZone = 50;
-    private static float timeToRSpringBoard = 50;
+    private static float timeToRelaxZone = 22;
+    private static float timeToRSpringBoard = 22;
 
 
     public static void resetTime() {

@@ -1,7 +1,9 @@
 package com.nicholaschirkevich.game.model;
 
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Intersector;
@@ -12,6 +14,9 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.actions.RelaxZone;
 import com.nicholaschirkevich.game.enums.CollisionPasserCarType;
 import com.nicholaschirkevich.game.interfaces.GenerateHoleAfterLadle;
@@ -42,7 +47,8 @@ public class PasserCar extends Car {
     private int defaultY;
     public Body body;
     private float sideCollisionTime = 0;
-
+    private Skin uiSkin = new Skin(Gdx.files.internal("uiskin_digit.json"));
+    private Label carLabel = new Label("", uiSkin);
     private static boolean isBlocks = false;
     private static int bloksCount = 0;
     private static float bocksTime = 6;
@@ -262,14 +268,14 @@ public class PasserCar extends Car {
 //                body.setTransform(position.x, position.y, angeltCrashLadle);
 //
 
-        if(!passerCarDataType.isBefore()){
-            passerCarDataType.setCollisionPasserCarType(CollisionPasserCarType.SIDE_COLLISION);
+            if (!passerCarDataType.isBefore()) {
+                passerCarDataType.setCollisionPasserCarType(CollisionPasserCarType.SIDE_COLLISION);
 //
 //                System.out.println("Sude collision");
 ////
 //                bounds.setPosition(position.x, position.y);
 //                body.setTransform(position.x, position.y, angeltCrashLadle);
-        } else {
+            } else {
                 passerCarDataType.setCollisionPasserCarType(CollisionPasserCarType.COUNTER_COLLISION);
                 position.set(position.x, position.y, 0);
                 System.out.println("Counter collision");
@@ -540,7 +546,7 @@ public class PasserCar extends Car {
                 world.destroyBody(passerCars.get(i).body);
                 passerCars.get(i).remove();
                 passerCars.remove(i);
-
+                generateHoleAfterLadle.onCollisionWithPasserCar();
                 break;
             }
             if ((((PasserCarDataType) passerCars.get(i).body.getUserData()).getCollisionPasserCarType().equals(CollisionPasserCarType.SIDE_COLLISION)) && ((PasserCarDataType) passerCars.get(i).body.getUserData()).isAfterHoleCollision()) {
@@ -548,6 +554,7 @@ public class PasserCar extends Car {
                 world.destroyBody(passerCars.get(i).body);
                 passerCars.get(i).remove();
                 passerCars.remove(i);
+                generateHoleAfterLadle.addAchives();
                 break;
             }
 

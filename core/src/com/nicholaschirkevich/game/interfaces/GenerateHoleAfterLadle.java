@@ -5,4 +5,6 @@ package com.nicholaschirkevich.game.interfaces;
  */
 public interface GenerateHoleAfterLadle {
     void generateHoleAfterLadle(float posX, float posY);
+    void addAchives();
+    void onCollisionWithPasserCar();
 }

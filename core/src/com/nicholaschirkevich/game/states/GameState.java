@@ -109,21 +109,37 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
     Skin uiSkin = new Skin(Gdx.files.internal("uiskin_digit.json"));
     SequenceAction sequenceAction = new SequenceAction();
     SequenceAction sequenceActionCountCar = new SequenceAction();
+
     SequenceAction sequenceBonusCarCount = new SequenceAction();
     SequenceAction sequenceBonusText = new SequenceAction();
+
     SequenceAction sequenceLadleBonusText = new SequenceAction();
     SequenceAction sequenceLAdleBonus = new SequenceAction();
+
+    SequenceAction sequenceFlyBonusCount = new SequenceAction();
+    SequenceAction sequenceFlyeBonus = new SequenceAction();
 
     Label label = new Label("Bonus +50", uiSkin);
     Label labelCountCar = new Label("", uiSkin);
     Label labelCars = new Label("", uiSkin);
 
+    Label labelFlyText = new Label("", uiSkin);
+    Label labelFlyCount = new Label("", uiSkin);
+    Label labelFlyBonus = new Label("", uiSkin);
+
     Label boosterBonus = new Label("", uiSkin);
     Label labelBonusText = new Label("", uiSkin);
     Label ladleBonus = new Label("", uiSkin);
+
+    Label skullBonus = new Label("", uiSkin);
+    Label skullBonusText = new Label("", uiSkin);
+    Label skullBonusCountCar = new Label("", uiSkin);
+    private float skullAchives = 0;
+    private float skullCarCount = 0;
     private float timeToCoin = 0;
     private float achives = 0;
     private float achivesBooster = 0;
+    private float achivesFly = 0;
     private Texture textureCollisisonPoint;
     private boolean isBost = false;
     private boolean isDirt = false;
@@ -146,7 +162,7 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
     private StartGameButton startGameButton;
     private PauseButton pauseButton;
 
-
+    private float contactFlyCars = 1;
     private float playTimeAnimation = 0;
     private boolean isPause = true;
     private boolean isGameStart = false;
@@ -734,6 +750,7 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
                     labelCountCar.setText(String.valueOf((int) achivesBooster));
                     stage.addActor(labelCountCar);
                     achives += achivesBooster;
+                    achivesBooster = 0;
                     effectBooster.setAlfa(1);
                     effectBooster.setIsStartAlfa(false);
 
@@ -792,6 +809,8 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
             if (isZoomCarUpdate) {
 
                 springBoardTime += dt;
+                if (springBoardTime > 3)
+                    effectBooster.setIsStartAlfa(true);
                 if (springBoardTime > 5 && !PasserCar.isBlocks()) {
                     if (landing == null) {
                         for (PasserCar passerCar : passerCars) {
@@ -811,7 +830,42 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
                                 wingOnCarRight.get(0).remove();
                                 wingOnCarRight.remove(0);
                                 wingOnCarLeft.remove(0);
+                                labelFlyText.remove();
+                                labelFlyCount.remove();
                                 ((MyCarDataType) myCar.body.getUserData()).setIsFly(false);
+                                sequenceFlyeBonus.reset();
+                                sequenceFlyBonusCount.reset();
+                                sequenceFlyeBonus.addAction(Actions.delay(2f));
+                                sequenceFlyeBonus.addAction(Actions.removeActor());
+                                sequenceFlyBonusCount.addAction(Actions.delay(2f));
+                                sequenceFlyBonusCount.addAction(Actions.removeActor());
+
+                                labelFlyBonus.addAction(sequenceFlyeBonus);
+                                //boosterBonus.setColor(0.3f, 0.3f, 1f, 1f);
+                                labelFlyBonus.setColor(Color.ORANGE);
+                                labelFlyBonus.setFontScale(0.7f, 0.7f);
+                                //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
+
+                                labelFlyBonus.setPosition(GameRuners.WIDTH / 4 - 45, GameRuners.HEIGHT / 4 + 220);
+                                labelFlyBonus.setText("Bonus");
+                                stage.addActor(labelFlyBonus);
+
+                                labelFlyCount.addAction(sequenceFlyBonusCount);
+                                //boosterBonus.setColor(0.3f, 0.3f, 1f, 1f);
+                                labelFlyCount.setColor(Color.WHITE);
+                                labelFlyCount.setFontScale(0.7f, 0.7f);
+                                //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
+
+                                labelFlyCount.setPosition(GameRuners.WIDTH / 4 - 25, GameRuners.HEIGHT / 4 + 180);
+                                labelFlyCount.setText(String.valueOf((int) achivesFly));
+                                stage.addActor(labelFlyCount);
+                                contactFlyCars = 1;
+
+                                achives += achivesFly;
+                                achivesFly = 0;
+                                effectBooster.setIsStartAlfa(false);
+                                effectBooster.setAlfa(1);
+
                             }
                         }
                     } else {
@@ -829,6 +883,42 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
                             wingOnCarLeft.remove(0);
                             ((MyCarDataType) myCar.body.getUserData()).setIsFly(false);
                             landing = null;
+
+                            labelFlyText.remove();
+                            labelFlyCount.remove();
+                            sequenceFlyeBonus.reset();
+                            sequenceFlyBonusCount.reset();
+                            sequenceFlyeBonus.addAction(Actions.delay(2f));
+                            sequenceFlyeBonus.addAction(Actions.removeActor());
+                            sequenceFlyBonusCount.addAction(Actions.delay(2f));
+                            sequenceFlyBonusCount.addAction(Actions.removeActor());
+
+                            labelFlyBonus.addAction(sequenceFlyeBonus);
+                            //boosterBonus.setColor(0.3f, 0.3f, 1f, 1f);
+                            labelFlyBonus.setColor(Color.ORANGE);
+                            labelFlyBonus.setFontScale(0.7f, 0.7f);
+                            //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
+
+                            labelFlyBonus.setPosition(GameRuners.WIDTH / 4 - 45, GameRuners.HEIGHT / 4 + 220);
+                            labelFlyBonus.setText("Bonus");
+                            stage.addActor(labelFlyBonus);
+
+                            labelFlyCount.addAction(sequenceFlyBonusCount);
+                            //boosterBonus.setColor(0.3f, 0.3f, 1f, 1f);
+                            labelFlyCount.setColor(Color.WHITE);
+                            labelFlyCount.setFontScale(0.7f, 0.7f);
+                            //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
+
+                            labelFlyCount.setPosition(GameRuners.WIDTH / 4 - 25, GameRuners.HEIGHT / 4 + 180);
+                            labelFlyCount.setText(String.valueOf((int) achivesFly));
+                            stage.addActor(labelFlyCount);
+                            contactFlyCars = 1;
+
+                            achives += achivesFly;
+                            achivesFly = 0;
+                            effectBooster.setIsStartAlfa(false);
+                            effectBooster.setAlfa(1);
+
                         }
                     }
 
@@ -867,6 +957,42 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
                     isUpdateGodeMode = false;
                     ((MyCarDataType) myCar.body.getUserData()).setIsGodMode(false);
                     godMedeTime = 0;
+                    effectMode.setIsStartAlfa(false);
+                    effectMode.setAlfa(1);
+                    skullBonusCountCar.remove();
+                    skullBonusText.remove();
+                    achives += skullAchives;
+                    skullCarCount = 0;
+                    sequenceFlyeBonus.reset();
+                    sequenceFlyBonusCount.reset();
+                    sequenceFlyeBonus.addAction(Actions.delay(2f));
+                    sequenceFlyeBonus.addAction(Actions.removeActor());
+                    sequenceFlyBonusCount.addAction(Actions.delay(2f));
+                    sequenceFlyBonusCount.addAction(Actions.removeActor());
+
+                    labelFlyBonus.addAction(sequenceFlyeBonus);
+                    //boosterBonus.setColor(0.3f, 0.3f, 1f, 1f);
+                    labelFlyBonus.setColor(Color.ORANGE);
+                    labelFlyBonus.setFontScale(0.7f, 0.7f);
+                    //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
+
+                    labelFlyBonus.setPosition(GameRuners.WIDTH / 4 - 45, GameRuners.HEIGHT / 4 + 220);
+                    labelFlyBonus.setText("Bonus");
+                    stage.addActor(labelFlyBonus);
+
+                    labelFlyCount.addAction(sequenceFlyBonusCount);
+                    //boosterBonus.setColor(0.3f, 0.3f, 1f, 1f);
+                    labelFlyCount.setColor(Color.WHITE);
+                    labelFlyCount.setFontScale(0.7f, 0.7f);
+                    //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
+
+                    labelFlyCount.setPosition(GameRuners.WIDTH / 4 - 25, GameRuners.HEIGHT / 4 + 180);
+                    labelFlyCount.setText(String.valueOf((int) skullAchives));
+                    stage.addActor(labelFlyCount);
+
+                    skullAchives = 0;
+
+
                 }
                 effectMode.update(camera, dt);
             }
@@ -885,7 +1011,8 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
             if (updateLadle)
                 ladleOnCar.update(dt, myCar.getX(), myCar.getY() + myCar.getCarTexture().getRegionHeight() / 2 + ladleOnCar.getLadleOnCar().getRegionHeight() / 2);
             if (!updateLadle && ladleOnCar != null) {
-                achives+=100;
+                achives += 100;
+                sequenceLAdleBonus.reset();
                 sequenceLAdleBonus.addAction(Actions.delay(2f));
                 sequenceLAdleBonus.addAction(Actions.removeActor());
                 ladleBonus.addAction(sequenceLAdleBonus);
@@ -898,6 +1025,7 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
                 ladleBonus.setText("Bonus ");
                 stage.addActor(ladleBonus);
 
+                sequenceLadleBonusText.reset();
                 sequenceLadleBonusText.addAction(Actions.delay(2f));
                 sequenceLadleBonusText.addAction(Actions.removeActor());
                 labelBonusText.addAction(sequenceLadleBonusText);
@@ -1098,7 +1226,7 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
     private void dangerousEvolution(ArrayList<PasserCar> passerCars, MyCar myCar) {
         for (PasserCar passerCar : passerCars) {
             if (!((PasserCarDataType) passerCar.body.getUserData()).isDangerEvolution())
-                if (!isAutoTurn && passerCar.getIsLeft() == !myCar.isLeft() && myCar.isTurnRun() && passerCar.getY() - myCar.getY() < 70 && passerCar.getY() - myCar.getY() > 0) {
+                if (!isAutoTurn && !isZoomCarUpdate && !isUpdateGodeMode && passerCar.getIsLeft() == !myCar.isLeft() && myCar.isTurnRun() && passerCar.getY() - myCar.getY() < 70 && passerCar.getY() - myCar.getY() > 0) {
                     achives += 50;
                     sequenceAction.addAction(Actions.delay(0.5f));
                     sequenceAction.addAction(Actions.removeActor());
@@ -1107,7 +1235,7 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
                     label.setFontScale(0.65f, 0.65f);
                     //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
 
-                    label.setPosition(GameRuners.WIDTH / 4 - 45, GameRuners.HEIGHT / 4 + 200);
+                    label.setPosition(GameRuners.WIDTH / 4 - 65, GameRuners.HEIGHT / 4 + 200);
                     stage.addActor(label);
 
                     //stage.addActor(new TurnBonusView(new Rectangle(GameRuners.WIDTH/4-(40/2), GameRuners.HEIGHT/4-(50/2), 40, 50), Constants.GEAR_1_ID));
@@ -1451,6 +1579,52 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
     }
 
     @Override
+    public void addAchives() {
+        skullBonusText.setColor(Color.RED);
+        skullBonusText.setFontScale(0.7f, 0.7f);
+        //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
+
+        skullBonusText.setPosition(GameRuners.WIDTH / 4 - 25, GameRuners.HEIGHT / 4 + 220);
+        skullBonusText.setText("Car");
+        stage.addActor(skullBonusText);
+
+        skullBonusCountCar.setColor(Color.WHITE);
+        skullBonusCountCar.setFontScale(0.7f, 0.7f);
+        //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
+
+        skullBonusCountCar.setPosition(GameRuners.WIDTH / 4 - 10, GameRuners.HEIGHT / 4 + 180);
+        skullCarCount++;
+        skullBonusCountCar.setText(String.valueOf((int) skullCarCount));
+        stage.addActor(skullBonusCountCar);
+
+        skullAchives += 100;
+    }
+
+    @Override
+    public void onCollisionWithPasserCar() {
+        if (isUpdateGodeMode) {
+            skullBonusText.setColor(Color.RED);
+            skullBonusText.setFontScale(0.7f, 0.7f);
+            //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
+
+            skullBonusText.setPosition(GameRuners.WIDTH / 4 - 25, GameRuners.HEIGHT / 4 + 220);
+            skullBonusText.setText("Car");
+            stage.addActor(skullBonusText);
+
+            skullBonusCountCar.setColor(Color.WHITE);
+            skullBonusCountCar.setFontScale(0.7f, 0.7f);
+            //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
+
+            skullBonusCountCar.setPosition(GameRuners.WIDTH / 4 - 10, GameRuners.HEIGHT / 4 + 180);
+            skullCarCount++;
+            skullBonusCountCar.setText(String.valueOf((int) skullCarCount));
+            stage.addActor(skullBonusCountCar);
+
+            skullAchives += 100;
+        }
+    }
+
+    @Override
     public void setGodMode() {
         isMode = true;
 
@@ -1500,6 +1674,31 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
 
     @Override
     public void onFlyCollision() {
-        
+//        sequenceFlyBonusText.addAction(Actions.delay(2f));
+//        sequenceFlyBonusText.addAction(Actions.removeActor());
+//        labelFlyText.addAction(sequenceFlyBonusText);
+//
+//        sequenceFlyeBonus.addAction(Actions.delay(2f));
+//        sequenceFlyeBonus.addAction(Actions.removeActor());
+//        labelFlyCount.addAction(sequenceFlyeBonus);
+
+        achivesFly += 100;
+        labelFlyText.setColor(Color.RED);
+        labelFlyText.setFontScale(0.7f, 0.7f);
+        //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
+
+        labelFlyText.setPosition(GameRuners.WIDTH / 4 - 35, GameRuners.HEIGHT / 4 + 220);
+        labelFlyText.setText("Cars");
+        stage.addActor(labelFlyText);
+
+        labelFlyCount.setColor(Color.WHITE);
+        labelFlyCount.setFontScale(0.7f, 0.7f);
+        //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
+
+        labelFlyCount.setPosition(GameRuners.WIDTH / 4 - 5, GameRuners.HEIGHT / 4 + 180);
+        labelFlyCount.setText(String.valueOf((int) contactFlyCars++));
+        stage.addActor(labelFlyCount);
+
+
     }
 }
