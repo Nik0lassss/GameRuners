@@ -12,8 +12,8 @@ public class RelaxZone {
     private static OnStartRelaxZone onStartRelaxZone;
     private static float time;
     private static float timerSpringBoard;
-    private static float timeToRelaxZone = 22;
-    private static float timeToRSpringBoard = 22;
+    private static float timeToRelaxZone = 30;
+    private static float timeToRSpringBoard = 33;
 
 
     public static void resetTime() {
@@ -29,7 +29,7 @@ public class RelaxZone {
             System.out.println("RelaxZone");
             onStartRelaxZone.onStartRelaxZone(true,dt);
         }
-        if (time>timeToRelaxZone+5)
+        if (time>timeToRelaxZone+10)
         {
             onStartRelaxZone.onStartRelaxZone(false,dt);
             time=0;

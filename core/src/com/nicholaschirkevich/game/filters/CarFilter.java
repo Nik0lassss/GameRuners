@@ -113,7 +113,7 @@ public class CarFilter implements ContactFilter {
         if ((filterA.categoryBits == MyCar.MY_CAR_FILTER_ENTITY && filterB.categoryBits == Springboard.SPRING_BOARD_MASK) ||
                 (filterB.categoryBits == MyCar.MY_CAR_FILTER_ENTITY && filterA.categoryBits == Springboard.SPRING_BOARD_MASK)) {
             System.out.println("springboard collision");
-            zoomCarListenerInterface.onZoomCar();
+            zoomCarListenerInterface.onZoomJump();
 
 
             return false;

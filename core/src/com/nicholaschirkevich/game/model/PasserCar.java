@@ -47,8 +47,6 @@ public class PasserCar extends Car {
     private int defaultY;
     public Body body;
     private float sideCollisionTime = 0;
-    private Skin uiSkin = new Skin(Gdx.files.internal("uiskin_digit.json"));
-    private Label carLabel = new Label("", uiSkin);
     private static boolean isBlocks = false;
     private static int bloksCount = 0;
     private static float bocksTime = 6;

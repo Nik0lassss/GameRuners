@@ -173,12 +173,15 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
     private boolean updateLadle = false;
     private boolean isZoomCar = false;
     private boolean isZoomCarUpdate = false;
+    private boolean isJumpCar = false;
+    private boolean isJumpCarUpdate = false;
     private float boostTime = 0;
     private float zoomMyCarX = 1;
     private float zoomMyCarY = 1;
     private float godMedeTime = 0;
     private boolean isZoomOut = false;
     private float springBoardTime = 0;
+    private float springJumpTime = 0;
     private LadleOnCar ladleOnCar;
     private boolean isMode = false;
     private boolean isUpdateGodeMode = false;
@@ -801,6 +804,18 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
             updatSpringboards(springboards, dt);
             updatFlySpringboards(flySpringBoards, dt);
             updatDirts(dirts, dt);
+
+            if (isJumpCar) {
+                isJumpCar = false;
+            }
+            if (isJumpCarUpdate) {
+                springJumpTime += dt;
+                if (springJumpTime > 0.4) {
+                    isJumpCarUpdate = false;
+                    isZoomOut = true;
+                }
+            }
+
             if (isZoomCar) {
                 setUpWingOnCarLeft();
                 setUpWingOnCarRight();
@@ -1357,7 +1372,7 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
             //  sb.draw(coins.get(0).getCoinTexture(),coins.get(0).getPosition().x,coins.get(0).getPosition().y);
             //     sb.draw(car.getPasserCarAnimation().getKeyFrame(myCar.getStateTime(), true), car.body.getPosition().x, car.body.getPosition().y);
         }
-        if (isZoomCarUpdate) {
+        if (isZoomCarUpdate || isJumpCarUpdate) {
             if (zoomMyCarX < 1.3 && zoomMyCarY < 1.3) {
                 zoomMyCarX += 0.02f;
                 zoomMyCarY += 0.02f;
@@ -1539,10 +1554,6 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
 
         if (isStart == false)
             setUpPasserCars();
-        if (timeToCoin > 0.4) {
-            setUpCoins();
-            timeToCoin = 0;
-        }
     }
 
     @Override
@@ -1636,6 +1647,12 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
         isZoomCar = true;
         isZoomCarUpdate = true;
         ((MyCarDataType) myCar.body.getUserData()).setIsFly(true);
+    }
+
+    @Override
+    public void onZoomJump() {
+        isJumpCar = true;
+        isJumpCarUpdate = true;
     }
 
     @Override
