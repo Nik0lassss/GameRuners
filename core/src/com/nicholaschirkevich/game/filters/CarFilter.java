@@ -32,6 +32,7 @@ import com.nicholaschirkevich.game.userdata.MyCarDataType;
 import com.nicholaschirkevich.game.userdata.PasserCarDataType;
 import com.nicholaschirkevich.game.userdata.SkullOnRoadDataType;
 import com.nicholaschirkevich.game.util.BodyUtils;
+import com.nicholaschirkevich.game.util.Constants;
 import com.nicholaschirkevich.game.util.GameManager;
 
 /**
@@ -92,8 +93,8 @@ public class CarFilter implements ContactFilter {
 //            return false;
 //        }
 
-        if ((filterA.categoryBits == PasserCar.PASSER_CAR_FILTER_ENTITY && filterB.categoryBits == PasserCar.PASSER_CAR_FILTER_ENTITY) ||
-                (filterB.categoryBits == PasserCar.PASSER_CAR_FILTER_ENTITY && filterA.categoryBits == PasserCar.PASSER_CAR_FILTER_ENTITY)) {
+        if ((filterA.categoryBits == Constants.PASSER_CAR_FILTER_ENTITY && filterB.categoryBits == Constants.PASSER_CAR_FILTER_ENTITY) ||
+                (filterB.categoryBits == Constants.PASSER_CAR_FILTER_ENTITY && filterA.categoryBits == Constants.PASSER_CAR_FILTER_ENTITY)) {
 
 
             PasserCarDataType passerCarDataType1 = new PasserCarDataType();
@@ -110,16 +111,16 @@ public class CarFilter implements ContactFilter {
             return false;
         }
 
-        if ((filterA.categoryBits == MyCar.MY_CAR_FILTER_ENTITY && filterB.categoryBits == Springboard.SPRING_BOARD_MASK) ||
-                (filterB.categoryBits == MyCar.MY_CAR_FILTER_ENTITY && filterA.categoryBits == Springboard.SPRING_BOARD_MASK)) {
+        if ((filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterB.categoryBits == Constants.SPRING_BOARD_MASK) ||
+                (filterB.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterA.categoryBits == Constants.SPRING_BOARD_MASK)) {
             System.out.println("springboard collision");
             zoomCarListenerInterface.onZoomJump();
 
 
             return false;
         }
-        if ((filterA.categoryBits == MyCar.MY_CAR_FILTER_ENTITY && filterB.categoryBits == FlySpringboard.SPRING_BOARD_MASK) ||
-                (filterB.categoryBits == MyCar.MY_CAR_FILTER_ENTITY && filterA.categoryBits == FlySpringboard.SPRING_BOARD_MASK)) {
+        if ((filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterB.categoryBits == Constants.FLY_SPRING_BOARD_MASK) ||
+                (filterB.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterA.categoryBits == Constants.FLY_SPRING_BOARD_MASK)) {
             System.out.println("springboard collision");
             zoomCarListenerInterface.onZoomCar();
 
@@ -127,15 +128,15 @@ public class CarFilter implements ContactFilter {
             return false;
         }
 
-        if ((filterA.categoryBits == MyCar.MY_CAR_FILTER_ENTITY && filterB.categoryBits == Dirt.DIRT_MASK) ||
-                (filterB.categoryBits == MyCar.MY_CAR_FILTER_ENTITY && filterA.categoryBits == Dirt.DIRT_MASK)) {
+        if ((filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterB.categoryBits == Dirt.DIRT_MASK) ||
+                (filterB.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterA.categoryBits == Dirt.DIRT_MASK)) {
             dirtListenerInterface.onDirt();
 
             return false;
         }
 
-        if ((filterA.categoryBits == LadleOnCar.LADLE_MASK && filterB.categoryBits == PasserCar.PASSER_CAR_FILTER_ENTITY) ||
-                (filterB.categoryBits == LadleOnCar.LADLE_MASK && filterA.categoryBits == PasserCar.PASSER_CAR_FILTER_ENTITY)) {
+        if ((filterA.categoryBits == LadleOnCar.LADLE_MASK && filterB.categoryBits == Constants.PASSER_CAR_FILTER_ENTITY) ||
+                (filterB.categoryBits == LadleOnCar.LADLE_MASK && filterA.categoryBits == Constants.PASSER_CAR_FILTER_ENTITY)) {
             PasserCarDataType passerCarDataType = new PasserCarDataType();
             if (BodyUtils.bodyIsPasserCar(fixtureA.getBody())) {
                 passerCarDataType = (PasserCarDataType) fixtureA.getBody().getUserData();
@@ -147,8 +148,8 @@ public class CarFilter implements ContactFilter {
 
         }
 
-        if ((filterA.categoryBits == MyCar.MY_CAR_FILTER_ENTITY && filterB.categoryBits == PasserCar.PASSER_CAR_FILTER_ENTITY) ||
-                (filterB.categoryBits == PasserCar.PASSER_CAR_FILTER_ENTITY && filterA.categoryBits == MyCar.MY_CAR_FILTER_ENTITY)) {
+        if ((filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterB.categoryBits == Constants.PASSER_CAR_FILTER_ENTITY) ||
+                (filterB.categoryBits == Constants.PASSER_CAR_FILTER_ENTITY && filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY)) {
 
             PasserCarDataType passerCarDataType = new PasserCarDataType();
             MyCarDataType myCarDataType = new MyCarDataType();
@@ -194,8 +195,8 @@ public class CarFilter implements ContactFilter {
 //
         }
 
-        if ((filterA.categoryBits == ThronsOnCarRight.THORN && filterB.categoryBits == PasserCar.PASSER_CAR_FILTER_ENTITY) ||
-                (filterB.categoryBits == PasserCar.PASSER_CAR_FILTER_ENTITY && filterA.categoryBits == ThronsOnCarRight.THORN)) {
+        if ((filterA.categoryBits == ThronsOnCarRight.THORN && filterB.categoryBits == Constants.PASSER_CAR_FILTER_ENTITY) ||
+                (filterB.categoryBits == Constants.PASSER_CAR_FILTER_ENTITY && filterA.categoryBits == ThronsOnCarRight.THORN)) {
 
             PasserCarDataType passerCarDataType = new PasserCarDataType();
 //
@@ -215,8 +216,8 @@ public class CarFilter implements ContactFilter {
         // System.out.println("Constact filter");
         /*&& ((fixtureA.getUserData().equals("player") && fixtureB.getUserData().equals("p"))||
                 (fixtureB.getUserData().equals("player") && fixtureA.getUserData().equals("p")))*/
-        if ((filterA.categoryBits == MyCar.MY_CAR_FILTER_ENTITY && filterB.categoryBits == Coin.COIN_MASK) ||
-                (filterB.categoryBits == Coin.COIN_MASK && filterA.categoryBits == MyCar.MY_CAR_FILTER_ENTITY)) {
+        if ((filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterB.categoryBits == Coin.COIN_MASK) ||
+                (filterB.categoryBits == Coin.COIN_MASK && filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY)) {
 //            String stringA =(String) fixtureA.getBody().getUserData();
 //            String stringB =(String)fixtureB.getBody().getUserData();
             CoinDataType coinDataType = new CoinDataType();
@@ -238,8 +239,8 @@ public class CarFilter implements ContactFilter {
             //Log.e("don't","+");
             return false;
         }
-        if ((filterA.categoryBits == MyCar.MY_CAR_FILTER_ENTITY && filterB.categoryBits == Skull.SKULL_MASK) ||
-                (filterB.categoryBits == Skull.SKULL_MASK && filterA.categoryBits == MyCar.MY_CAR_FILTER_ENTITY)) {
+        if ((filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterB.categoryBits == Constants.SKULL_MASK) ||
+                (filterB.categoryBits == Constants.SKULL_MASK && filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY)) {
 //            String stringA =(String) fixtureA.getBody().getUserData();
 //            String stringB =(String)fixtureB.getBody().getUserData();
             SkullOnRoadDataType skullDataType = new SkullOnRoadDataType();
@@ -271,8 +272,8 @@ public class CarFilter implements ContactFilter {
             //Log.e("don't","+");
             return false;
         }
-        if ((filterA.categoryBits == MyCar.MY_CAR_FILTER_ENTITY && filterB.categoryBits == Booster.BUSTER_MASK) ||
-                (filterB.categoryBits == Booster.BUSTER_MASK && filterA.categoryBits == MyCar.MY_CAR_FILTER_ENTITY)) {
+        if ((filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterB.categoryBits == Booster.BUSTER_MASK) ||
+                (filterB.categoryBits == Booster.BUSTER_MASK && filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY)) {
 //            String stringA =(String) fixtureA.getBody().getUserData();
 //            String stringB =(String)fixtureB.getBody().getUserData();
             BoosterDataType boosterDataType = new BoosterDataType();
@@ -296,8 +297,8 @@ public class CarFilter implements ContactFilter {
             return false;
         }
 
-        if ((filterA.categoryBits == MyCar.MY_CAR_FILTER_ENTITY && filterB.categoryBits == Ladle.LADLE_MASK) ||
-                (filterB.categoryBits == Ladle.LADLE_MASK && filterA.categoryBits == MyCar.MY_CAR_FILTER_ENTITY)) {
+        if ((filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterB.categoryBits == Ladle.LADLE_MASK) ||
+                (filterB.categoryBits == Ladle.LADLE_MASK && filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY)) {
 //            String stringA =(String) fixtureA.getBody().getUserData();
 //            String stringB =(String)fixtureB.getBody().getUserData();
             LadleOnRoadDataType coinDataType = new LadleOnRoadDataType();

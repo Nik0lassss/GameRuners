@@ -1,27 +1,16 @@
 package com.nicholaschirkevich.game.model;
 
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.nicholaschirkevich.game.GameRuners;
-import com.nicholaschirkevich.game.actions.RelaxZone;
 import com.nicholaschirkevich.game.enums.CollisionPasserCarType;
 import com.nicholaschirkevich.game.interfaces.GenerateHoleAfterLadle;
-import com.nicholaschirkevich.game.states.GameState;
-import com.nicholaschirkevich.game.userdata.LadleOnRoadDataType;
 import com.nicholaschirkevich.game.userdata.PasserCarDataType;
 import com.nicholaschirkevich.game.util.Constants;
 import com.nicholaschirkevich.game.util.GameManager;
@@ -40,9 +29,7 @@ public class PasserCar extends Car {
     private float angelt = 0;
     private float angeltCrashLadle = 0;
     //public Sprite sprite;
-    public static final short PASSER_CAR_FILTER_ENTITY = 0x1 << 1; // 0010 or 0x2 in hex
-    public final short PHYSICS_ENTITY = 0x1;    // 0001
-    public final short WORLD_ENTITY = 0x1 << 1; // 0010 or 0x2 in hex
+ // 0010 or 0x2 in hex
     private int defaultX;
     private int defaultY;
     public Body body;
@@ -94,8 +81,8 @@ public class PasserCar extends Car {
         //fixtureDef.friction=0.8f;
 
 
-        fixtureDef.filter.categoryBits = WORLD_ENTITY;
-        fixtureDef.filter.maskBits = MyCar.MY_CAR_FILTER_ENTITY;
+        fixtureDef.filter.categoryBits = Constants.WORLD_ENTITY;
+        fixtureDef.filter.maskBits = Constants.MY_CAR_FILTER_ENTITY;
 //        fixtureDef.filter.maskBits = PHYSICS_ENTITY;
         PasserCarDataType passerCarDataType = new PasserCarDataType();
         passerCarDataType.setBounds(bounds);
@@ -144,8 +131,8 @@ public class PasserCar extends Car {
 
 //        setHeight(carAnimation.getKeyFrames()[0].getRegionHeight());
 //        setWidth(carAnimation.getKeyFrames()[0].getRegionWidth());
-        fixtureDef.filter.categoryBits = WORLD_ENTITY;
-        fixtureDef.filter.maskBits = MyCar.MY_CAR_FILTER_ENTITY;
+        fixtureDef.filter.categoryBits = Constants.WORLD_ENTITY;
+        fixtureDef.filter.maskBits = Constants.MY_CAR_FILTER_ENTITY;
 //        fixtureDef.filter.maskBits = MyCar.MY_CAR_FILTER_ENTITY | LadleOnCar.LADLE_MASK;
         //fixtureDef.filter.maskBits = PHYSICS_ENTITY | LadleOnCar.LADLE_MASK;
         PasserCarDataType passerCarDataType = new PasserCarDataType();
@@ -404,12 +391,12 @@ public class PasserCar extends Car {
         return passerCars.size() != 0 ? passerCars.get(passerCars.size() - 1).getIsLeft() : false;
     }
 
-    public static void updateCars(boolean isRelaxZone, ArrayList<PasserCar> passerCars, Camera camera, float dt, GenerateHoleAfterLadle generateHoleAfterLadle) {
+    public static void updateCars(ArrayList<PasserCar> passerCars, Camera camera, float dt, GenerateHoleAfterLadle generateHoleAfterLadle) {
 
         if (isBlocks == false)
-            PasserCar.updatePasserCars(isRelaxZone, passerCars, camera, dt, generateHoleAfterLadle);
+            PasserCar.updatePasserCars(passerCars, camera, dt, generateHoleAfterLadle);
         else {
-            PasserCar.generatePasserCarsBloks(isRelaxZone, passerCars, camera, dt, generateHoleAfterLadle);
+            PasserCar.generatePasserCarsBloks(passerCars, camera, dt, generateHoleAfterLadle);
         }
         PasserCar.generateBlocks(dt);
 
@@ -456,29 +443,30 @@ public class PasserCar extends Car {
         }
     }
 
-    public static void generatePasserCarsBloks(boolean isRelaxZone, ArrayList<PasserCar> passerCars, Camera camera, float dt, GenerateHoleAfterLadle generateHoleAfterLadle) {
+    public static void generatePasserCarsBloks(ArrayList<PasserCar> passerCars, Camera camera, float dt, GenerateHoleAfterLadle generateHoleAfterLadle) {
 
+        if (!GameManager.isStopGeneratePasserCars()) {
+            if (bloksCount > 0) {
 
-        if (bloksCount > 0) {
-            //System.out.println(bloksCount);
-            if (passerCars.size() != 0 && camera.viewportHeight - passerCars.get(passerCars.size() - 1).getPosition().y > 100) {
-//                boolean isBigCar = rand.nextBoolean();
-//                if (!isBigCar)
-                // passerCars.add(new PasserCar(world, 90, (int) camera.viewportHeight + 200, 10, true, Constants.OTHERCAR_1_1_ASSETS_ID));
-                // else
+                if (passerCars.size() != 0 && camera.viewportHeight - passerCars.get(passerCars.size() - 1).getPosition().y > 100) {
 
-                if (!isRelaxZone) {
                     passerCars.add(new PasserCar(world, 90, (int) camera.viewportHeight + 170, 10, bloksIsLeftStart, RandomUtil.getRandomOtherCarType().getKey(), generateHoleAfterLadle));
                     if (bloksIsLeftStart) bloksIsLeftStart = false;
                     else bloksIsLeftStart = true;
-                    //System.out.println("Blocks");
+
                     bloksCount--;
+
+
                 }
 
+            } else isBlocks = false;
+        } else {
+            if (isBlocks) {
+                isBlocks = false;
+                bloksCount = 0;
             }
 
-        } else isBlocks = false;
-
+        }
         for (int i = 0; i < passerCars.size(); i++) {
 
             if (passerCars.get(i).getPosition().y < 0) {
@@ -487,14 +475,14 @@ public class PasserCar extends Car {
                 passerCars.remove(i);
 
             }
-            if (((PasserCarDataType) passerCars.get(i).body.getUserData()).isLadleCollision()) {
+            if (passerCars.size() != 0 && ((PasserCarDataType) passerCars.get(i).body.getUserData()).isLadleCollision()) {
                 passerCars.get(i).generateHoleAfterLadleInterface.generateHoleAfterLadle(passerCars.get(i).body.getPosition().x, passerCars.get(i).body.getPosition().y);
                 world.destroyBody(passerCars.get(i).body);
                 passerCars.get(i).remove();
                 passerCars.remove(i);
                 break;
             }
-            if (((PasserCarDataType) passerCars.get(i).body.getUserData()).isCollisionWhithPasser()) {
+            if (passerCars.size() != 0 && ((PasserCarDataType) passerCars.get(i).body.getUserData()).isCollisionWhithPasser()) {
                 passerCars.get(i).generateHoleAfterLadleInterface.generateHoleAfterLadle(passerCars.get(i).body.getPosition().x, passerCars.get(i).body.getPosition().y);
                 world.destroyBody(passerCars.get(i).body);
                 passerCars.get(i).remove();
@@ -502,7 +490,7 @@ public class PasserCar extends Car {
                 break;
 
             }
-            if ((((PasserCarDataType) passerCars.get(i).body.getUserData()).getCollisionPasserCarType().equals(CollisionPasserCarType.SIDE_COLLISION)) && ((PasserCarDataType) passerCars.get(i).body.getUserData()).isAfterHoleCollision()) {
+            if (passerCars.size() != 0 && (((PasserCarDataType) passerCars.get(i).body.getUserData()).getCollisionPasserCarType().equals(CollisionPasserCarType.SIDE_COLLISION)) && ((PasserCarDataType) passerCars.get(i).body.getUserData()).isAfterHoleCollision()) {
                 passerCars.get(i).generateHoleAfterLadleInterface.generateHoleAfterLadle(passerCars.get(i).body.getPosition().x, passerCars.get(i).body.getPosition().y);
                 world.destroyBody(passerCars.get(i).body);
                 passerCars.get(i).remove();
@@ -510,26 +498,23 @@ public class PasserCar extends Car {
                 break;
             }
 
-            passerCars.get(i).update(dt);
+            if (passerCars.size() != 0) passerCars.get(i).update(dt);
         }
 
     }
 
 
-    public static void updatePasserCars(boolean isRelaxZone, ArrayList<PasserCar> passerCars, Camera camera, float dt, GenerateHoleAfterLadle generateHoleAfterLadle) {
+    public static void updatePasserCars(ArrayList<PasserCar> passerCars, Camera camera, float dt, GenerateHoleAfterLadle generateHoleAfterLadle) {
 
-        if (passerCars.size() != 0 && camera.viewportHeight - passerCars.get(passerCars.size() - 1).getPosition().y > Constants.passerCarDistance) {
-//            boolean isBigCar = rand.nextBoolean();
-//            if (!isBigCar)
-            if (!isRelaxZone)
+        if (!GameManager.isStopGeneratePasserCars()) {
+            if (passerCars.size() != 0 && camera.viewportHeight - passerCars.get(passerCars.size() - 1).getPosition().y > Constants.passerCarDistance) {
                 passerCars.add(new PasserCar(world, 90, (int) camera.viewportHeight + 200, 10, RandomUtil.getRandomOtherCarType().getKey(), generateHoleAfterLadle));
-//            else
-//                passerCars.add(new PasserCar(world, 90, (int) camera.viewportHeight + 200, 10, true, Constants.OTHERCAR_2_1_ASSETS_ID));
-//
-        }
-        if (!isRelaxZone && passerCars.size() == 0)
-            passerCars.add(new PasserCar(world, 90, (int) camera.viewportHeight + 200, 10, RandomUtil.getRandomOtherCarType().getKey(), generateHoleAfterLadle));
+            }
 
+        }
+        if (!GameManager.isStopGeneratePasserCars() && passerCars.size() == 0) {
+            passerCars.add(new PasserCar(world, 90, (int) camera.viewportHeight + 200, 10, RandomUtil.getRandomOtherCarType().getKey(), generateHoleAfterLadle));
+        }
         for (int i = 0; i < passerCars.size(); i++) {
 
             if (((PasserCarDataType) passerCars.get(i).body.getUserData()).isLadleCollision()) {
@@ -556,10 +541,6 @@ public class PasserCar extends Car {
                 break;
             }
 
-//            if(((PasserCarDataType) passerCars.get(i).body.getUserData()).isBlow())
-//            {
-//
-//            }
             if (passerCars.get(i).getPosition().y < 0) {
                 world.destroyBody(passerCars.get(i).body);
                 passerCars.remove(i);

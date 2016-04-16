@@ -70,7 +70,7 @@ public class Booster extends Prize {
 
 
         fixtureDef.filter.categoryBits = BUSTER_MASK;
-        fixtureDef.filter.maskBits = MyCar.MY_CAR_FILTER_ENTITY;
+        fixtureDef.filter.maskBits = Constants.MY_CAR_FILTER_ENTITY;
         body.setUserData(new BoosterDataType());
         body.createFixture(fixtureDef);
         stateTime = 0f;

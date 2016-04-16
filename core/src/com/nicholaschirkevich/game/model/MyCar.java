@@ -35,7 +35,7 @@ public class MyCar extends Car {
     MoveToAction moveToStartLineAction;
     MoveToAction moveToLeftActionTwoPart;
     SequenceAction sequenceAction;
-    public static final short MY_CAR_FILTER_ENTITY = 0x8;    // 0001
+       // 0001
 
 
     private float stateTime;
@@ -80,9 +80,9 @@ public class MyCar extends Car {
         body.setUserData(myCarDataType);
         bodyDef.bullet = true;
 
-        fixtureDef.filter.categoryBits = MyCar.MY_CAR_FILTER_ENTITY;
+        fixtureDef.filter.categoryBits = Constants.MY_CAR_FILTER_ENTITY;
         //fixtureDef.filter.maskBits = MyCar.MY_CAR_FILTER_ENTITY;
-        fixtureDef.filter.maskBits = PasserCar.PASSER_CAR_FILTER_ENTITY;
+        fixtureDef.filter.maskBits = Constants.PASSER_CAR_FILTER_ENTITY;
         body.createFixture(fixtureDef);
         stateTime = 0f;
     }
@@ -119,8 +119,8 @@ public class MyCar extends Car {
         fixtureDef.restitution = 0f;
 
 
-        fixtureDef.filter.categoryBits = MyCar.MY_CAR_FILTER_ENTITY;
-        fixtureDef.filter.maskBits = PasserCar.PASSER_CAR_FILTER_ENTITY;
+        fixtureDef.filter.categoryBits = Constants.MY_CAR_FILTER_ENTITY;
+        fixtureDef.filter.maskBits = Constants.PASSER_CAR_FILTER_ENTITY;
 //        fixtureDef.filter.maskBits = PasserCar.PASSER_CAR_FILTER_ENTITY|LadleOnCar.LADLE_MASK;
         MyCarDataType myCarDataType = new MyCarDataType();
         myCarDataType.setBounds(bounds);

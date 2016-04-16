@@ -25,7 +25,7 @@ public class FlySpringboard extends Prize {
     private static World world;
 
     // public static final short PASSER_CAR_FILTER_ENTITY = 0x1 << 1; // 0010 or 0x2 in hex
-    public static final short SPRING_BOARD_MASK = 0x14;    // 0001
+    // 0001
     ; // 0010 or 0x2 in hex
     private int defaultX;
     private int defaultY;
@@ -70,8 +70,8 @@ public class FlySpringboard extends Prize {
         fixtureDef.restitution = 0.5f;
 
 
-        fixtureDef.filter.categoryBits = SPRING_BOARD_MASK;
-        fixtureDef.filter.maskBits = MyCar.MY_CAR_FILTER_ENTITY;
+        fixtureDef.filter.categoryBits =Constants.FLY_SPRING_BOARD_MASK;
+        fixtureDef.filter.maskBits = Constants.MY_CAR_FILTER_ENTITY;
         body.setUserData(new FlySpringBoardDataType());
         body.createFixture(fixtureDef);
         stateTime = 0f;

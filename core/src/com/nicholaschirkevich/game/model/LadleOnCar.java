@@ -69,7 +69,7 @@ public class LadleOnCar extends Equipment {
 
 
         fixtureDef.filter.categoryBits = LADLE_MASK;
-        fixtureDef.filter.maskBits = PasserCar.PASSER_CAR_FILTER_ENTITY;
+        fixtureDef.filter.maskBits = Constants.PASSER_CAR_FILTER_ENTITY;
         //body.setTransform(x, y, 0);
         body.createFixture(fixtureDef);
         stateTime = 0f;

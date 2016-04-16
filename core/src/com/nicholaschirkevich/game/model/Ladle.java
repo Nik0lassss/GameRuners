@@ -70,7 +70,7 @@ public class Ladle extends Prize {
 
 
         fixtureDef.filter.categoryBits = LADLE_MASK;
-        fixtureDef.filter.maskBits = MyCar.MY_CAR_FILTER_ENTITY;
+        fixtureDef.filter.maskBits = Constants.MY_CAR_FILTER_ENTITY;
         body.setUserData(new LadleOnRoadDataType());
         body.createFixture(fixtureDef);
         stateTime = 0f;

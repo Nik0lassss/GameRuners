@@ -21,6 +21,8 @@ import java.util.ArrayList;
  * Created by Nikolas on 11.03.2016.
  */
 public class GameManager {
+
+
     private static ArrayList<GearShift> gearShifts = new ArrayList<GearShift>();
     private static ArrayList<CarsType> carsTypes = new ArrayList<CarsType>();
     private static Car currentCar = new Car();
@@ -47,7 +49,17 @@ public class GameManager {
     }
 
     private static float CurrentSpeed = 0;
-    private static float ToSpeed = 0;
+
+
+    public static boolean isStopGeneratePasserCars() {
+        return stopGeneratePasserCars;
+    }
+
+    public static void setStopGeneratePasserCars(boolean stopGeneratePasserCars) {
+        GameManager.stopGeneratePasserCars = stopGeneratePasserCars;
+    }
+
+    private static boolean stopGeneratePasserCars = false;
 
     private static int gear = 0;
     private static GearShift gearShift;
@@ -64,6 +76,14 @@ public class GameManager {
 
     private static World worldGameManager;
     private static Stage stageGameManager;
+
+    public static float getAllTime() {
+        return allTime;
+    }
+
+    public static void setAllTime(float allTime) {
+        GameManager.allTime = allTime;
+    }
 
     private static float allTime = 0;
 

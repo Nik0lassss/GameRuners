@@ -302,6 +302,19 @@ public class Constants {
     public static final float PASSER_CAR_ANGULAR_DUMPING = 3f;
     public static final float MY_CAR_LINEAR_DUMPING = 2f;
     public static final float MY_CAR_ANGULAR_DUMPING = 3f;
+
+    public static final float TIME_RELAX_ZONE_START=30;
+    public static final float DURATION_RELAX_ZONE=2;
+    public static final float TIME_SPRINGBOARD=31;
+
+    public static final short MY_CAR_FILTER_ENTITY = 0x8;
+    public static final short FLY_SPRING_BOARD_MASK = 0x14;
+    public static final short SKULL_MASK = 0x4;
+    public static final short BLOCK_MASK = 0x11;
+    public static final short SPRING_BOARD_MASK = 0x10;
+    public static final short PASSER_CAR_FILTER_ENTITY = 0x1 << 1; // 0010 or 0x2 in hex
+    public static final short PHYSICS_ENTITY = 0x1;    // 0001
+    public static final short WORLD_ENTITY = 0x1 << 1;
 //Cars animation atlas path
 
 

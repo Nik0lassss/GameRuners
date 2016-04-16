@@ -72,7 +72,7 @@ public class Dirt extends Prize {
 
 
         fixtureDef.filter.categoryBits = DIRT_MASK;
-        fixtureDef.filter.maskBits = MyCar.MY_CAR_FILTER_ENTITY;
+        fixtureDef.filter.maskBits = Constants.MY_CAR_FILTER_ENTITY;
         body.setUserData(new DirtDataType());
         body.createFixture(fixtureDef);
         stateTime = 0f;

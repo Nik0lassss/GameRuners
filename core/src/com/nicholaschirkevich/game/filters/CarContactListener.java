@@ -17,6 +17,7 @@ import com.nicholaschirkevich.game.model.PasserCar;
 import com.nicholaschirkevich.game.userdata.MyCarDataType;
 import com.nicholaschirkevich.game.userdata.PasserCarDataType;
 import com.nicholaschirkevich.game.util.BodyUtils;
+import com.nicholaschirkevich.game.util.Constants;
 import com.nicholaschirkevich.game.util.GameManager;
 
 
@@ -40,8 +41,8 @@ public class CarContactListener implements ContactListener {
         Body myCarBody = null;
         //print the contact point and the normal
 
-        if (contact.getFixtureA().getFilterData().categoryBits == LadleOnCar.LADLE_MASK && contact.getFixtureB().getFilterData().categoryBits == PasserCar.PASSER_CAR_FILTER_ENTITY ||
-                (contact.getFixtureB().getFilterData().categoryBits == LadleOnCar.LADLE_MASK && contact.getFixtureA().getFilterData().categoryBits == PasserCar.PASSER_CAR_FILTER_ENTITY)) {
+        if (contact.getFixtureA().getFilterData().categoryBits == LadleOnCar.LADLE_MASK && contact.getFixtureB().getFilterData().categoryBits == Constants.PASSER_CAR_FILTER_ENTITY ||
+                (contact.getFixtureB().getFilterData().categoryBits == LadleOnCar.LADLE_MASK && contact.getFixtureA().getFilterData().categoryBits == Constants.PASSER_CAR_FILTER_ENTITY)) {
 //            PasserCarDataType passerCarData = new PasserCarDataType();
 //            MyCarDataType myCarData = new MyCarDataType();
 //            if (BodyUtils.bodyIsMyCar(contact.getFixtureA().getBody())) {
@@ -59,8 +60,8 @@ public class CarContactListener implements ContactListener {
             //System.out.println(" LadleOnCar.LADLE_MASK ");
         }
 
-        if (contact.getFixtureA().getFilterData().categoryBits == MyCar.MY_CAR_FILTER_ENTITY && contact.getFixtureB().getFilterData().categoryBits == PasserCar.PASSER_CAR_FILTER_ENTITY ||
-                (contact.getFixtureB().getFilterData().categoryBits == PasserCar.PASSER_CAR_FILTER_ENTITY && contact.getFixtureA().getFilterData().categoryBits == MyCar.MY_CAR_FILTER_ENTITY))
+        if (contact.getFixtureA().getFilterData().categoryBits == Constants.MY_CAR_FILTER_ENTITY && contact.getFixtureB().getFilterData().categoryBits == Constants.PASSER_CAR_FILTER_ENTITY ||
+                (contact.getFixtureB().getFilterData().categoryBits == Constants.PASSER_CAR_FILTER_ENTITY && contact.getFixtureA().getFilterData().categoryBits == Constants.MY_CAR_FILTER_ENTITY))
 
             passerCarDataType = new PasserCarDataType();
         myCarDataType = new MyCarDataType();
@@ -135,8 +136,8 @@ public class CarContactListener implements ContactListener {
     public void endContact(Contact contact) {
         PasserCarDataType passerCarDataType = null;
         MyCarDataType myCarDataType = null;
-        if (contact.getFixtureA().getFilterData().categoryBits == MyCar.MY_CAR_FILTER_ENTITY && contact.getFixtureB().getFilterData().categoryBits == PasserCar.PASSER_CAR_FILTER_ENTITY ||
-                (contact.getFixtureB().getFilterData().categoryBits == PasserCar.PASSER_CAR_FILTER_ENTITY && contact.getFixtureA().getFilterData().categoryBits == MyCar.MY_CAR_FILTER_ENTITY)) {
+        if (contact.getFixtureA().getFilterData().categoryBits == Constants.MY_CAR_FILTER_ENTITY && contact.getFixtureB().getFilterData().categoryBits == Constants.PASSER_CAR_FILTER_ENTITY ||
+                (contact.getFixtureB().getFilterData().categoryBits == Constants.PASSER_CAR_FILTER_ENTITY && contact.getFixtureA().getFilterData().categoryBits == Constants.MY_CAR_FILTER_ENTITY)) {
             System.out.println("endContact car");
             passerCarDataType = new PasserCarDataType();
             myCarDataType = new MyCarDataType();
@@ -168,8 +169,8 @@ public class CarContactListener implements ContactListener {
     public void postSolve(Contact contact, ContactImpulse impulse) {
         PasserCarDataType passerCarDataType = null;
         MyCarDataType myCarDataType = null;
-        if (contact.getFixtureA().getFilterData().categoryBits == MyCar.MY_CAR_FILTER_ENTITY && contact.getFixtureB().getFilterData().categoryBits == PasserCar.PASSER_CAR_FILTER_ENTITY ||
-                (contact.getFixtureB().getFilterData().categoryBits == PasserCar.PASSER_CAR_FILTER_ENTITY && contact.getFixtureA().getFilterData().categoryBits == MyCar.MY_CAR_FILTER_ENTITY)) {
+        if (contact.getFixtureA().getFilterData().categoryBits == Constants.MY_CAR_FILTER_ENTITY && contact.getFixtureB().getFilterData().categoryBits == Constants.PASSER_CAR_FILTER_ENTITY ||
+                (contact.getFixtureB().getFilterData().categoryBits == Constants.PASSER_CAR_FILTER_ENTITY && contact.getFixtureA().getFilterData().categoryBits == Constants.MY_CAR_FILTER_ENTITY)) {
             //System.out.println("postSolve");
             passerCarDataType = new PasserCarDataType();
             myCarDataType = new MyCarDataType();

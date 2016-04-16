@@ -24,12 +24,11 @@ public class Block extends Prize {
     private static World world;
 
     // public static final short PASSER_CAR_FILTER_ENTITY = 0x1 << 1; // 0010 or 0x2 in hex
-    public static final short BLOCK_MASK = 0x11;    // 0001
+    // 0001
     ; // 0010 or 0x2 in hex
     private int defaultX;
     private int defaultY;
     public Body body;
-
 
 
     private float stateTime;
@@ -68,8 +67,8 @@ public class Block extends Prize {
         fixtureDef.restitution = 0.5f;
 
 
-        fixtureDef.filter.categoryBits = BLOCK_MASK;
-        fixtureDef.filter.maskBits = MyCar.MY_CAR_FILTER_ENTITY;
+        fixtureDef.filter.categoryBits = Constants.BLOCK_MASK;
+        fixtureDef.filter.maskBits = Constants.MY_CAR_FILTER_ENTITY;
         body.setUserData(new SpringBoardDataType());
         body.createFixture(fixtureDef);
         stateTime = 0f;
@@ -111,8 +110,8 @@ public class Block extends Prize {
         fixtureDef.restitution = 0.5f;
 
 
-        fixtureDef.filter.categoryBits = BLOCK_MASK;
-        fixtureDef.filter.maskBits = MyCar.MY_CAR_FILTER_ENTITY;
+        fixtureDef.filter.categoryBits = Constants.BLOCK_MASK;
+        fixtureDef.filter.maskBits = Constants.MY_CAR_FILTER_ENTITY;
 
         body.createFixture(fixtureDef);
         stateTime = 0f;

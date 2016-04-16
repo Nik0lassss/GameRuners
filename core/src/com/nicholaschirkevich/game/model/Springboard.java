@@ -24,7 +24,7 @@ public class Springboard extends Prize {
     private static World world;
 
     // public static final short PASSER_CAR_FILTER_ENTITY = 0x1 << 1; // 0010 or 0x2 in hex
-    public static final short SPRING_BOARD_MASK = 0x10;    // 0001
+    // 0001
     ; // 0010 or 0x2 in hex
     private int defaultX;
     private int defaultY;
@@ -40,10 +40,10 @@ public class Springboard extends Prize {
         defaultY = y;
         rand = new Random();
         isLeft = rand.nextBoolean();
-        //if (isLeft)
-            position.x = Constants.getCarPostitionXLeft(springboardAnimation.getKeyFrames()[0].getRegionWidth())-15;
-//        else
-//            position.x = Constants.getCarPostitionXRight(springboardAnimation.getKeyFrames()[0].getRegionWidth());
+        if (isLeft)
+            position.x = Constants.getCarPostitionXLeft(springboardAnimation.getKeyFrames()[0].getRegionWidth())-10;
+        else
+            position.x = Constants.getCarPostitionXRight(springboardAnimation.getKeyFrames()[0].getRegionWidth());
 
         this.world = world;
         //sprite = new Sprite(carTexture);
@@ -68,16 +68,16 @@ public class Springboard extends Prize {
         fixtureDef.restitution = 0.5f;
 
 
-        fixtureDef.filter.categoryBits = SPRING_BOARD_MASK;
-        fixtureDef.filter.maskBits = MyCar.MY_CAR_FILTER_ENTITY;
+        fixtureDef.filter.categoryBits = Constants.SPRING_BOARD_MASK;
+        fixtureDef.filter.maskBits = Constants.MY_CAR_FILTER_ENTITY;
         body.setUserData(new SpringBoardDataType());
         body.createFixture(fixtureDef);
         stateTime = 0f;
         for(int i =0;i<3;i++){
-          blocks.add(new Block(world,(int)position.x+i*69,(int)position.y+150,10));
+          blocks.add(new Block(world,(int)Constants.getCarPostitionXLeft(springboardAnimation.getKeyFrames()[0].getRegionWidth())-15+i*69,(int)position.y+150,10));
         }
         for(int i =0;i<3;i++){
-            blocks.add(new Block(world,(int)position.x+i*69,(int)position.y+100,10));
+            blocks.add(new Block(world,(int)Constants.getCarPostitionXLeft(springboardAnimation.getKeyFrames()[0].getRegionWidth())-15+i*69,(int)position.y+100,10));
         }
     }
 
@@ -116,8 +116,8 @@ public class Springboard extends Prize {
         fixtureDef.restitution = 0.5f;
 
 
-        fixtureDef.filter.categoryBits = SPRING_BOARD_MASK;
-        fixtureDef.filter.maskBits = MyCar.MY_CAR_FILTER_ENTITY;
+        fixtureDef.filter.categoryBits = Constants.SPRING_BOARD_MASK;
+        fixtureDef.filter.maskBits = Constants.MY_CAR_FILTER_ENTITY;
 
         body.createFixture(fixtureDef);
         stateTime = 0f;

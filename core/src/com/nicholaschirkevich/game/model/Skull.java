@@ -24,7 +24,7 @@ public class Skull extends Prize {
     private static World world;
 
     // public static final short PASSER_CAR_FILTER_ENTITY = 0x1 << 1; // 0010 or 0x2 in hex
-    public static final short SKULL_MASK = 0x4;    // 0001
+    // 0001
     ; // 0010 or 0x2 in hex
     private int defaultX;
     private int defaultY;
@@ -39,7 +39,7 @@ public class Skull extends Prize {
         defaultY = y;
         rand = new Random();
         isLeft = left;
-       // isLeft = rand.nextBoolean();
+        // isLeft = rand.nextBoolean();
         if (isLeft)
             position.x = Constants.getCarPostitionXLeft(skullOnRoadAnimation.getKeyFrames()[0].getRegionWidth());
         else
@@ -68,8 +68,8 @@ public class Skull extends Prize {
         fixtureDef.restitution = 0.5f;
 
 
-        fixtureDef.filter.categoryBits = SKULL_MASK;
-        fixtureDef.filter.maskBits = MyCar.MY_CAR_FILTER_ENTITY;
+        fixtureDef.filter.categoryBits = Constants.SKULL_MASK;
+        fixtureDef.filter.maskBits = Constants.MY_CAR_FILTER_ENTITY;
         body.setUserData(new SkullOnRoadDataType());
         body.createFixture(fixtureDef);
         stateTime = 0f;
