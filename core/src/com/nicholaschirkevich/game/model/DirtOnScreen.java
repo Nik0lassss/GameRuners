@@ -30,12 +30,21 @@ public class DirtOnScreen extends Prize {
     ; // 0010 or 0x2 in hex
     private int defaultX;
     private int defaultY;
-    public Body body;
+    //public Body body;
     private int type = 0;
 
     private boolean isAlfa = false;
     private boolean isStartAlfa = false;
     private float alfaTime = 0;
+
+    public float getAlfa() {
+        return alfa;
+    }
+
+    public void setAlfa(float alfa) {
+        this.alfa = alfa;
+    }
+
     private float alfa = 1;
     private float stateTime;
 
@@ -64,7 +73,7 @@ public class DirtOnScreen extends Prize {
                 ,
                 (springboardAnimation.getKeyFrames()[0].getRegionY() + springboardAnimation.getKeyFrames()[0].getRegionHeight() / 2));
 
-        body = world.createBody(bodyDef);
+       // body = world.createBody(bodyDef);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(springboardAnimation.getKeyFrames()[0].getRegionWidth() / 2, springboardAnimation.getKeyFrames()[0].getRegionHeight()
@@ -78,8 +87,8 @@ public class DirtOnScreen extends Prize {
 
 //        fixtureDef.filter.categoryBits = BLOCK_MASK;
 //        fixtureDef.filter.maskBits = MyCar.MY_CAR_FILTER_ENTITY;
-        body.setUserData(new SpringBoardDataType());
-        body.createFixture(fixtureDef);
+//        body.setUserData(new SpringBoardDataType());
+//        body.createFixture(fixtureDef);
         stateTime = 0f;
 
     }
@@ -107,7 +116,7 @@ public class DirtOnScreen extends Prize {
                 ,
                 (springboardAnimation.getKeyFrames()[0].getRegionY() + springboardAnimation.getKeyFrames()[0].getRegionHeight() / 2));
 
-        body = world.createBody(bodyDef);
+        //body = world.createBody(bodyDef);
 
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(springboardAnimation.getKeyFrames()[0].getRegionWidth() / 2, springboardAnimation.getKeyFrames()[0].getRegionHeight()
@@ -122,7 +131,7 @@ public class DirtOnScreen extends Prize {
 //        fixtureDef.filter.categoryBits = BLOCK_MASK;
 //        fixtureDef.filter.maskBits = MyCar.MY_CAR_FILTER_ENTITY;
 
-        body.createFixture(fixtureDef);
+       // body.createFixture(fixtureDef);
         stateTime = 0f;
 
     }
@@ -155,16 +164,16 @@ public class DirtOnScreen extends Prize {
 
     @Override
     public void update(float dt) {
-        System.out.println("isStartAlfa"+isStartAlfa);
+        //System.out.println("isStartAlfa"+isStartAlfa);
         if (isStartAlfa)
         {
-            alfa-=0.007;
+            alfa-=0.02;
         }
        // position.add(0, (-GameManager.getCurrentSpeed()) * dt, 0);
 
         //sprite.setPosition(position.x, position.y);
         bounds.setPosition(position.x, position.y);
-        body.setTransform(position.x, position.y, 0.0f);
+       // body.setTransform(position.x, position.y, 0.0f);
         setPosition(position.x, position.y);
         stateTime += dt;
     }
@@ -174,7 +183,7 @@ public class DirtOnScreen extends Prize {
 
         //sprite.setPosition(position.x, position.y);
         bounds.setPosition(position.x, position.y);
-        body.setTransform(position.x, position.y, 0.0f);
+      //  body.setTransform(position.x, position.y, 0.0f);
 
     }
 
@@ -190,7 +199,7 @@ public class DirtOnScreen extends Prize {
         position.add(0, defaultY + randomY + 600, 0);
         //sprite.setPosition(position.x, position.y);
         bounds.setPosition(position.x, position.y);
-        body.setTransform(position.x, position.y, 0.0f);
+        //body.setTransform(position.x, position.y, 0.0f);
     }
 
     @Override
@@ -218,7 +227,7 @@ public class DirtOnScreen extends Prize {
         for (int i = 0; i < busterses.size(); i++) {
 
             if (busterses.get(i).getPosition().y < 0) {
-                world.destroyBody(busterses.get(i).body);
+                //world.destroyBody(busterses.get(i).body);
                 busterses.remove(i);
 
 

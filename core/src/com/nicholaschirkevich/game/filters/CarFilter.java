@@ -115,7 +115,14 @@ public class CarFilter implements ContactFilter {
                 (filterB.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterA.categoryBits == Constants.SPRING_BOARD_MASK)) {
             System.out.println("springboard collision");
             zoomCarListenerInterface.onZoomJump();
+            MyCarDataType myCarDataType = new MyCarDataType();
 
+            if (BodyUtils.bodyIsMyCar(fixtureA.getBody())) {
+                myCarDataType = (MyCarDataType) fixtureA.getBody().getUserData();
+            } else if (BodyUtils.bodyIsMyCar(fixtureB.getBody())) {
+                myCarDataType = (MyCarDataType) fixtureB.getBody().getUserData();
+            }
+            myCarDataType.setIsJump(true);
 
             return false;
         }
@@ -126,6 +133,27 @@ public class CarFilter implements ContactFilter {
 
 
             return false;
+        }
+
+        if ((filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterB.categoryBits == Constants.BLOCK_MASK) ||
+                (filterB.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterA.categoryBits == Constants.BLOCK_MASK)) {
+            System.out.println("block collision");
+//            zoomCarListenerInterface.onZoomCar();
+            MyCarDataType myCarDataType = new MyCarDataType();
+
+            if (BodyUtils.bodyIsMyCar(fixtureA.getBody())) {
+                myCarDataType = (MyCarDataType) fixtureA.getBody().getUserData();
+            } else if (BodyUtils.bodyIsMyCar(fixtureB.getBody())) {
+                myCarDataType = (MyCarDataType) fixtureB.getBody().getUserData();
+            }
+            if(!myCarDataType.isJump())
+            {
+                onSetCollisionCarsInterface.onBlockCollision();
+            }
+
+
+
+            return true;
         }
 
         if ((filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterB.categoryBits == Dirt.DIRT_MASK) ||
@@ -170,7 +198,6 @@ public class CarFilter implements ContactFilter {
                 listenerAddLadleInterface.removeLadle();
             } else if (myCarDataType.isGodMode()) {
                 passerCarDataType.setMyCarBounds(myCarDataType.getBounds());
-                System.out.println("Collide isGodMode");
                 passerCarDataType.setIsGodMode(true);
             } else if (myCarDataType.isFly()) {
                 if (!passerCarDataType.isFlyCarContact()){

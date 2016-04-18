@@ -64,7 +64,7 @@ public class Block extends Prize {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         fixtureDef.density = 0.1f;
-        fixtureDef.restitution = 0.5f;
+        fixtureDef.restitution = 1f;
 
 
         fixtureDef.filter.categoryBits = Constants.BLOCK_MASK;
@@ -107,7 +107,7 @@ public class Block extends Prize {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         fixtureDef.density = 0.1f;
-        fixtureDef.restitution = 0.5f;
+        fixtureDef.restitution = 1f;
 
 
         fixtureDef.filter.categoryBits = Constants.BLOCK_MASK;

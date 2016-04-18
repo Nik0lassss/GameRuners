@@ -119,13 +119,20 @@ public class GameManager {
 
     public static void resetSpeed() {
         gear = 0;
-        isCollision=false;
+        isCollision = false;
     }
 
     public static void resetTime() {
         allTime = 0;
         dtTime = 0;
         dtTimeAhive = 0;
+        contactPointX=0;
+        contactPointY=0;
+    }
+    public static void resetContactPoint()
+    {
+        contactPointX=0;
+        contactPointY=0;
     }
 
     private static void loadPreferences() {
@@ -255,7 +262,8 @@ public class GameManager {
     }
 
     public static void setContactPointX(float contactPointX) {
-        GameManager.contactPointX = contactPointX;
+        if (GameManager.isCollision() &&  GameManager.getContactPointX()==0)
+            GameManager.contactPointX = contactPointX;
     }
 
     public static float getContactPointY() {
@@ -263,6 +271,7 @@ public class GameManager {
     }
 
     public static void setContactPointY(float contactPointY) {
+        if (GameManager.isCollision() && GameManager.getContactPointY()==0)
         GameManager.contactPointY = contactPointY;
     }
 

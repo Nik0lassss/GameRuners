@@ -44,7 +44,7 @@ public class Dirt extends Prize {
         isLeft = left;
         // isLeft = rand.nextBoolean();
         if (isLeft)
-            position.x = Constants.getCarPostitionXLeft(springboardAnimation.getKeyFrames()[0].getRegionWidth());
+            position.x = Constants.getCarPostitionXLeft(springboardAnimation.getKeyFrames()[0].getRegionWidth())-30;
         else
             position.x = Constants.getCarPostitionXRight(springboardAnimation.getKeyFrames()[0].getRegionWidth()) - 30;
 

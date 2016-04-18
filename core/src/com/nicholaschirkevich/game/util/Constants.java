@@ -298,7 +298,7 @@ public class Constants {
 
 
 
-    public static final float PASSER_CAR_LINEAR_DUMPING = 1f;
+    public static final float PASSER_CAR_LINEAR_DUMPING = 2.2f;
     public static final float PASSER_CAR_ANGULAR_DUMPING = 3f;
     public static final float MY_CAR_LINEAR_DUMPING = 2f;
     public static final float MY_CAR_ANGULAR_DUMPING = 3f;

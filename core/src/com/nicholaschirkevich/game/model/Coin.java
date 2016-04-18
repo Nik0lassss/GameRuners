@@ -35,12 +35,13 @@ public class Coin extends Prize {
 
     private float stateTime;
 
-    public Coin(World world, int x, int y, int movement) {
+    public Coin(World world, int x, int y, int movement,boolean isleft) {
         super(x, y, movement);
         defaultX = x;
         defaultY = y;
         rand = new Random();
-        isLeft = rand.nextBoolean();
+        this.isLeft=isleft;
+        //isLeft = rand.nextBoolean();
         if (isLeft)
             position.x = Constants.getCarPostitionXLeft(coinAnimation.getKeyFrames()[0].getRegionWidth());
         else
@@ -78,47 +79,47 @@ public class Coin extends Prize {
     }
 
 
-    public Coin(World world, int x, int y, int movement, boolean ifLeft) {
-        super(x, y, movement);
-        defaultX = x;
-        defaultY = y;
-
-        isLeft = ifLeft;
-        if (isLeft)
-            position.x = Constants.getCarPostitionXLeft(coinAnimation.getKeyFrames()[0].getRegionWidth());
-        else
-            position.x = Constants.getCarPostitionXRight(coinAnimation.getKeyFrames()[0].getRegionWidth());
-
-        this.world = world;
-        //sprite = new Sprite(carTexture);
-        //sprite.setPosition(x, y);
-        //passerCarAnimation = AssetsManager.getAnimation(animation_asset_id);
-
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set((coinAnimation.getKeyFrames()[0].getRegionX() + coinAnimation.getKeyFrames()[0].getRegionWidth() / 2)
-                ,
-                (coinAnimation.getKeyFrames()[0].getRegionY() + coinAnimation.getKeyFrames()[0].getRegionHeight() / 2));
-
-        body = world.createBody(bodyDef);
-
-        PolygonShape shape = new PolygonShape();
-        shape.setAsBox(coinAnimation.getKeyFrames()[0].getRegionWidth() / 2, coinAnimation.getKeyFrames()[0].getRegionHeight()
-                / 2);
-
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = shape;
-        fixtureDef.density = 0.1f;
-        fixtureDef.restitution = 0.5f;
-
-
-        fixtureDef.filter.categoryBits = COIN_MASK;
-        fixtureDef.filter.maskBits = Constants.MY_CAR_FILTER_ENTITY;
-        body.setUserData(new CoinDataType());
-        body.createFixture(fixtureDef);
-        stateTime = 0f;
-
-    }
+//    public Coin(World world, int x, int y, int movement, boolean ifLeft) {
+//        super(x, y, movement);
+//        defaultX = x;
+//        defaultY = y;
+//
+//        isLeft = ifLeft;
+//        if (isLeft)
+//            position.x = Constants.getCarPostitionXLeft(coinAnimation.getKeyFrames()[0].getRegionWidth());
+//        else
+//            position.x = Constants.getCarPostitionXRight(coinAnimation.getKeyFrames()[0].getRegionWidth());
+//
+//        this.world = world;
+//        //sprite = new Sprite(carTexture);
+//        //sprite.setPosition(x, y);
+//        //passerCarAnimation = AssetsManager.getAnimation(animation_asset_id);
+//
+//        BodyDef bodyDef = new BodyDef();
+//        bodyDef.type = BodyDef.BodyType.DynamicBody;
+//        bodyDef.position.set((coinAnimation.getKeyFrames()[0].getRegionX() + coinAnimation.getKeyFrames()[0].getRegionWidth() / 2)
+//                ,
+//                (coinAnimation.getKeyFrames()[0].getRegionY() + coinAnimation.getKeyFrames()[0].getRegionHeight() / 2));
+//
+//        body = world.createBody(bodyDef);
+//
+//        PolygonShape shape = new PolygonShape();
+//        shape.setAsBox(coinAnimation.getKeyFrames()[0].getRegionWidth() / 2, coinAnimation.getKeyFrames()[0].getRegionHeight()
+//                / 2);
+//
+//        FixtureDef fixtureDef = new FixtureDef();
+//        fixtureDef.shape = shape;
+//        fixtureDef.density = 0.1f;
+//        fixtureDef.restitution = 0.5f;
+//
+//
+//        fixtureDef.filter.categoryBits = COIN_MASK;
+//        fixtureDef.filter.maskBits = Constants.MY_CAR_FILTER_ENTITY;
+//        body.setUserData(new CoinDataType());
+//        body.createFixture(fixtureDef);
+//        stateTime = 0f;
+//
+//    }
 
 
     public boolean isLeft()
@@ -182,7 +183,7 @@ public class Coin extends Prize {
         if (camera.viewportHeight - coins.get(coins.size() - 1).getPosition().y > Constants.coinDistance) {
 //            boolean isBigCar = rand.nextBoolean();
 //            if (!isBigCar)
-            coins.add(new Coin(world, 90, (int) camera.viewportHeight + 20, 10));
+           // coins.add(new Coin(world, 90, (int) camera.viewportHeight + 20, 10));
 //            else
 //                passerCars.add(new PasserCar(world, 90, (int) camera.viewportHeight + 200, 10, true, Constants.OTHERCAR_2_1_ASSETS_ID));
 //

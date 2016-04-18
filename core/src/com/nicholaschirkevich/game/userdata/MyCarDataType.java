@@ -12,6 +12,16 @@ public class MyCarDataType extends UserData {
     protected boolean isGodMode = false;
     protected boolean isFly = false;
     protected boolean isContact = false;
+
+    public boolean isJump() {
+        return isJump;
+    }
+
+    public void setIsJump(boolean isJump) {
+        this.isJump = isJump;
+    }
+
+    protected boolean isJump = false;
     protected Integer x = 0;
     protected Integer y = 0;
     Rectangle bounds;
