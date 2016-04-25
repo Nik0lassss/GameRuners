@@ -381,6 +381,7 @@ public class PasserCar extends Car {
         bounds.setPosition(position.x, position.y);
         body.setTransform(position.x, position.y, 0.0f);
 
+
     }
 
     public static Float getPosYLastCar(ArrayList<PasserCar> passerCars) {
@@ -390,6 +391,7 @@ public class PasserCar extends Car {
     public static boolean getIsLeftLastCar(ArrayList<PasserCar> passerCars) {
         return passerCars.size() != 0 ? passerCars.get(passerCars.size() - 1).getIsLeft() : false;
     }
+
 
     public static void updateCars(ArrayList<PasserCar> passerCars, Camera camera, float dt, GenerateHoleAfterLadle generateHoleAfterLadle) {
 
@@ -490,14 +492,21 @@ public class PasserCar extends Car {
                 break;
 
             }
-            if (passerCars.size() != 0 && (((PasserCarDataType) passerCars.get(i).body.getUserData()).getCollisionPasserCarType().equals(CollisionPasserCarType.SIDE_COLLISION)) && ((PasserCarDataType) passerCars.get(i).body.getUserData()).isAfterHoleCollision()) {
+//            if (passerCars.size() != 0 && (((PasserCarDataType) passerCars.get(i).body.getUserData()).getCollisionPasserCarType().equals(CollisionPasserCarType.SIDE_COLLISION)) && ((PasserCarDataType) passerCars.get(i).body.getUserData()).isAfterHoleCollision()) {
+//                passerCars.get(i).generateHoleAfterLadleInterface.generateHoleAfterLadle(passerCars.get(i).body.getPosition().x, passerCars.get(i).body.getPosition().y);
+//                world.destroyBody(passerCars.get(i).body);
+//                passerCars.get(i).remove();
+//                passerCars.remove(i);
+//                break;
+//            }
+            if ((((PasserCarDataType) passerCars.get(i).body.getUserData()).getCollisionPasserCarType().equals(CollisionPasserCarType.SIDE_COLLISION)) && ((PasserCarDataType) passerCars.get(i).body.getUserData()).isAfterHoleCollision()) {
                 passerCars.get(i).generateHoleAfterLadleInterface.generateHoleAfterLadle(passerCars.get(i).body.getPosition().x, passerCars.get(i).body.getPosition().y);
                 world.destroyBody(passerCars.get(i).body);
                 passerCars.get(i).remove();
                 passerCars.remove(i);
+                generateHoleAfterLadle.addAchives();
                 break;
             }
-
             if (passerCars.size() != 0) passerCars.get(i).update(dt);
         }
 

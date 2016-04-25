@@ -245,9 +245,34 @@ public class Constants {
 
     public static final float RESUME_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
     public static final float RESUME_BTTN_X_INVISIBLE = GameRuners.WIDTH / 4;
-    public static final float RESUME_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 4.835f;
+    public static final float RESUME_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 12f;
     public static final float RESUME_BTTN_Y_INVISIBLE = -200;
 
+    public static final float PLAY_ONLINE_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
+    public static final float PLAY_ONLINE_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 7f;
+
+    public static final float CAR_SHOP_BTTN_X_VISIBLE = GameRuners.WIDTH / 20f;
+    public static final float CAR_SHOP_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 18f;
+
+    public static final float COIN_SHOP_BTTN_X_VISIBLE = GameRuners.WIDTH / 20f;
+    public static final float COIN_SHOP_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 9.5f;
+
+    public static final float LEADERBOARDS_BTTN_X_VISIBLE = GameRuners.WIDTH /2.2f;
+    public static final float LEADERBOARDS_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 6.5f;
+
+    public static final float LEADERBOARD_BTTN_X_VISIBLE = GameRuners.WIDTH /2.2f;
+    public static final float LEADERBOARD_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 9.5f;
+    public static final float SETTING_BTTN_X_VISIBLE = GameRuners.WIDTH /2.2f;
+    public static final float SETTING_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 18f;
+
+    public static final float PRIZE_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
+    public static final float PRIZE_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 5f;
+
+    public static final float LOGO_POSITION_X= GameRuners.WIDTH / 28;
+    public static final float LOGO_POSITION_Y = GameRuners.HEIGHT / 3.2f;
+
+    public static final float SAVE_ME_BONUS_X= GameRuners.WIDTH / 3.35f;
+    public static final float SAVE_ME_BONUS_Y = GameRuners.HEIGHT / 5.3f;
 
     public static final String GEAR_SHIFT_FILE_PATH = "gear_shift.xml";
     public static final String GEAR_SHIFT_FILE_SPEED_KEY = "speeds";

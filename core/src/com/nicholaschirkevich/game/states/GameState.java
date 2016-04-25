@@ -41,6 +41,7 @@ import com.nicholaschirkevich.game.interfaces.SetGodMode;
 import com.nicholaschirkevich.game.interfaces.UpdateCoinCount;
 import com.nicholaschirkevich.game.interfaces.ZoomCarListener;
 import com.nicholaschirkevich.game.menu.GarageButton;
+import com.nicholaschirkevich.game.menu.MenuTest;
 import com.nicholaschirkevich.game.menu.PauseButton;
 import com.nicholaschirkevich.game.menu.ResumeButton;
 import com.nicholaschirkevich.game.menu.StartGameButton;
@@ -160,8 +161,8 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
     //    private BitmapFont bitmapFont;
 //    private Random rand;
     private Stage stage;
-    private GarageButton garageButton;
-    private ResumeButton resumeButton;
+    //private GarageButton garageButton;
+    //private ResumeButton resumeButton;
     private StartGameButton startGameButton;
     private PauseButton pauseButton;
 
@@ -230,9 +231,10 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
         ladles = new ArrayList<Ladle>();
         boosters = new ArrayList<Booster>();
         springboards = new ArrayList<Springboard>();
-        setUpResume();
+
+        //setUpResume();
         setPauseButton();
-        setGarageButton();
+        //setGarageButton();
         setUpStartButton();
         setUpPasserCars();
         setUpBushs();
@@ -242,7 +244,7 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
         setUpImageCoinCount();
         setUpCoinCountLabel();
         setUpAchivesCountLabel();
-
+        stage.addActor(new MenuTest(this, gsm, stage));
 
         if (isFromGarage) startFromGarage();
         textureCollisisonPoint = new Texture("contact_point.png");
@@ -803,6 +805,7 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
                     dirtOnScreen.update(dt);
                 }
             }
+
             udateBlows(passerCars, myCar);
             if (!isMyCarCollision && !isMyCarCollisionWithBlocks)
                 PasserCar.updateCars(passerCars, camera, dt, this);
@@ -1176,13 +1179,13 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
 
     }
 
-    private void setUpResume() {
-
-        float x = Constants.RESUME_BTTN_X_VISIBLE, y = Constants.RESUME_BTTN_Y_VISIBLE, width = 70, height = 55;
-        resumeButton = new ResumeButton(x - (width / 2), y - (height / 2), width, height, this);
-        stage.addActor(resumeButton);
-
-    }
+//    private void setUpResume() {
+//
+//        float x = Constants.RESUME_BTTN_X_VISIBLE, y = Constants.RESUME_BTTN_Y_VISIBLE, width = 70, height = 55;
+//        resumeButton = new ResumeButton(x - (width / 2), y - (height / 2), width, height, this);
+//        stage.addActor(resumeButton);
+//
+//    }
 
     private void autoTurn(ArrayList<PasserCar> passerCars, MyCar myCar) {
         for (PasserCar passerCar : passerCars) {
@@ -1278,13 +1281,13 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
 
     }
 
-    private void setGarageButton() {
-
-        float width = 43, height = 49;
-        garageButton = new GarageButton(Constants.GARAGE_BTTN_X_VISIBLE, Constants.GARAGE_BTTN_Y - (height / 2), width, height, gsm);
-        stage.addActor(garageButton);
-
-    }
+//    private void setGarageButton() {
+//
+//        float width = 43, height = 49;
+//        garageButton = new GarageButton(Constants.GARAGE_BTTN_X_VISIBLE, Constants.GARAGE_BTTN_Y - (height / 2), width, height, gsm);
+//        stage.addActor(garageButton);
+//
+//    }
 
     public void setUpStartButton() {
         float x = Constants.RESUME_BTTN_X_VISIBLE, y = Constants.RESUME_BTTN_Y_INVISIBLE - 190, width = 70, height = 55;
@@ -1422,20 +1425,19 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
         }
 
 
-
-            if (boostOnCarRight.size() != 0 && boostOnCarLeft.size() != 0) {
+        if (boostOnCarRight.size() != 0 && boostOnCarLeft.size() != 0) {
 
 //            sb.draw(boostOnCarLeft.get(0).getBoostOnCar(), boostOnCarLeft.get(0).body.getPosition().x - GameManager.getCurrentCar().getBrakeLines().getLeftLineStart() + GameManager.getCurrentCar().getLeftRocketPosition().getX() - boostOnCarLeft.get(0).getBoostOnCar().getRegionWidth(), boostOnCarLeft.get(0).body.getPosition().y - myCar.getCarTexture().getRegionHeight() / 2 - GameManager.getCurrentCar().getLeftRocketPosition().getY() - boostOnCarLeft.get(0).getBoostOnCar().getRegionHeight());
-                sb.draw(boostOnCarLeft.get(0).getBoostOnCar(), boostOnCarLeft.get(0).body.getPosition().x, boostOnCarLeft.get(0).body.getPosition().y);
-                sb.draw(boostOnCarRight.get(0).getBoostOnCar(), boostOnCarRight.get(0).body.getPosition().x, boostOnCarRight.get(0).body.getPosition().y);
-                pf.draw(sb);
-                if (pf.isComplete())
-                    pf.reset();
-                pfl.draw(sb);
-                if (pfl.isComplete())
-                    pfl.reset();
+            sb.draw(boostOnCarLeft.get(0).getBoostOnCar(), boostOnCarLeft.get(0).body.getPosition().x, boostOnCarLeft.get(0).body.getPosition().y);
+            sb.draw(boostOnCarRight.get(0).getBoostOnCar(), boostOnCarRight.get(0).body.getPosition().x, boostOnCarRight.get(0).body.getPosition().y);
+            pf.draw(sb);
+            if (pf.isComplete())
+                pf.reset();
+            pfl.draw(sb);
+            if (pfl.isComplete())
+                pfl.reset();
 //            sb.draw(boostOnCarRight.get(0).getBoostOnCar(), boostOnCarRight.get(0).body.getPosition().x , boostOnCarLeft.get(0).body.getPosition().y - myCar.getCarTexture().getRegionHeight() / 2 - GameManager.getCurrentCar().getLeftRocketPosition().getY() - boostOnCarLeft.get(0).getBoostOnCar().getRegionHeight());
-            }
+        }
         if (isUpdateGodeMode && thronsOnCarLeft.size() != 0 && thronsOnCarRight.size() != 0) {
             sb.draw(thronsOnCarLeft.get(0).getBoostOnCar(), thronsOnCarLeft.get(0).body.getPosition().x - GameManager.getCurrentCar().getBrakeLines().getLeftLineStart() + GameManager.getCurrentCar().getLeftRocketPosition().getX() - thronsOnCarLeft.get(0).getBoostOnCar().getRegionWidth(), thronsOnCarLeft.get(0).body.getPosition().y - myCar.getCarTexture().getRegionHeight() / 2 - GameManager.getCurrentCar().getLeftRocketPosition().getY() - thronsOnCarLeft.get(0).getBoostOnCar().getRegionHeight());
 //            sb.draw(thronsOnCarRight.get(0).getBoostOnCar(), thronsOnCarRight.get(0).body.getPosition().x + GameManager.getCurrentCar().getRightRocketPosition().getX(), thronsOnCarRight.get(0).body.getPosition().y - myCar.getCarTexture().getRegionHeight() / 2 - GameManager.getCurrentCar().getLeftRocketPosition().getY() - thronsOnCarRight.get(0).getBoostOnCar().getRegionHeight());
@@ -1506,7 +1508,7 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
 
         if (isGameStart) StartGame();
         isStartTrafficLighter = true;
-        garageButton.hide();
+        //garageButton.hide();
 
     }
 
@@ -1514,9 +1516,9 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
     public void startFromGarage() {
 
         isStartTrafficLighter = true;
-        garageButton.hide();
+        // garageButton.hide();
         pauseButton.show();
-        resumeButton.hide();
+        //resumeButton.hide();
         //isFromGarage = false;
     }
 
@@ -1529,8 +1531,9 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
         pauseGame();
         isAfterPause = true;
         pauseButton.hide();
-        resumeButton.show();
-        garageButton.show();
+        stage.addActor(new MenuTest(this, gsm,stage));
+        //resumeButton.show();
+        //garageButton.show();
     }
 
     @Override

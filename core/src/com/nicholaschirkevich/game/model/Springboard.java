@@ -41,7 +41,7 @@ public class Springboard extends Prize {
         rand = new Random();
         isLeft = rand.nextBoolean();
         if (isLeft)
-            position.x = Constants.getCarPostitionXLeft(springboardAnimation.getKeyFrames()[0].getRegionWidth())-10;
+            position.x = Constants.getCarPostitionXLeft(springboardAnimation.getKeyFrames()[0].getRegionWidth());
         else
             position.x = Constants.getCarPostitionXRight(springboardAnimation.getKeyFrames()[0].getRegionWidth());
 
