@@ -1,4 +1,4 @@
-package com.nicholaschirkevich.game.menu;
+package com.nicholaschirkevich.game.menu.items;
 
 /**
  * Created by Nikolas on 20.04.2016.
@@ -20,15 +20,17 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
+import com.nicholaschirkevich.game.menu.MenuSetting;
+import com.nicholaschirkevich.game.states.GameState;
 import com.nicholaschirkevich.game.states.GameStateManager;
 import com.nicholaschirkevich.game.states.GarageState;
-import com.nicholaschirkevich.game.util.AssetsManager;
 import com.nicholaschirkevich.game.util.Constants;
+import com.nicholaschirkevich.game.util.GameManager;
 
 /**
  * Created by Nikolas on 10.03.2016.
  */
-public class MenuTest extends Group {
+public class MenuSaveMe extends Group {
     Texture slot_vehicle;
     Skin uiSkin = new Skin(Gdx.files.internal("uiskin_digit.json"));
     Texture speed_text;
@@ -49,7 +51,7 @@ public class MenuTest extends Group {
     Group groupView;
 
 
-    public MenuTest(ResumeButtonListener listener, GameStateManager gsm) {
+    public MenuSaveMe(ResumeButtonListener listener, GameStateManager gsm) {
 
 
         //car_texture = new  Texture("other_car_2_1.png");
@@ -105,7 +107,7 @@ public class MenuTest extends Group {
         carShopImageDown = new Image(carShopTextureDown);
         this.gsm = gsm;
 
-        setUpBackgroung(false);
+        setUpBackgroung();
         setUpResume();
         setUpImageLogo();
         setUpPlayOnline();
@@ -129,9 +131,9 @@ public class MenuTest extends Group {
 
     private void setUpImageLogo() {
 
-        Texture logo = new Texture("sr_logo.png");
+        Texture logo = new Texture("game_over.png");
         imageLogo = new Image(logo);
-        imageLogo.setBounds(Constants.LOGO_POSITION_X, Constants.LOGO_POSITION_Y, imageLogo.getWidth(), imageLogo.getHeight());
+        imageLogo.setBounds(Constants.GAME_OVER_LOGO_POSITION_X, Constants.GAME_OVER_LOGO_POSITION_Y, imageLogo.getWidth(), imageLogo.getHeight());
         addActor(imageLogo);
     }
 
@@ -148,11 +150,11 @@ public class MenuTest extends Group {
         addActor(imageLogo);
     }
 
-    private void setUpBackgroung(boolean selected) {
-        if (selected) {
-            slot_vehicle = new Texture("slot_vehicle_2_selected.png");
-        } else slot_vehicle = new Texture("slot_vehicle.png");
+    private void setUpBackgroung() {
+
+        slot_vehicle = new Texture("back_tile.png");
         background = new Image(slot_vehicle);
+        background.setColor(0,0,0.5f,0.5f);
         background.setBounds(0, -20, GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2 + 50);
         addActor(background);
 
@@ -225,6 +227,7 @@ public class MenuTest extends Group {
                                         @Override
                                         public boolean act(float delta) {
                                             gsm.push(new GarageState(gsm));
+                                            GameManager.pauseGame = false;
                                             return true;
                                         }
                                     });
@@ -263,7 +266,7 @@ public class MenuTest extends Group {
                 sequenceSetting.addAction(new Action() {
                     @Override
                     public boolean act(float delta) {
-                        getStage().addActor(new MenuSetting(listener,gsm));
+                        getStage().addActor(new MenuSetting(listener, gsm));
                         return true;
                     }
                 });
@@ -317,11 +320,17 @@ public class MenuTest extends Group {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 
                 sequence.addAction(Actions.delay(0.3f));
+
                 sequence.addAction(new Action() {
                     @Override
                     public boolean act(float delta) {
-                        listener.resumeButtonOnResume();
+                        GameManager.setDefaultSpeed();
+                        GameManager.pauseGame = false;
+                        GameManager.resetTime();
+                        gsm.set(new GameState(gsm, false, true));
+
                         return true;
+
                     }
                 });
                 sequence.addAction(Actions.removeActor());
@@ -334,7 +343,6 @@ public class MenuTest extends Group {
         addActor(resumeButton);
 
     }
-
 
 
     @Override

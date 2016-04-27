@@ -137,7 +137,7 @@ public class CarFilter implements ContactFilter {
 
         if ((filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterB.categoryBits == Constants.BLOCK_MASK) ||
                 (filterB.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterA.categoryBits == Constants.BLOCK_MASK)) {
-            System.out.println("block collision");
+
 //            zoomCarListenerInterface.onZoomCar();
             MyCarDataType myCarDataType = new MyCarDataType();
 
@@ -146,11 +146,9 @@ public class CarFilter implements ContactFilter {
             } else if (BodyUtils.bodyIsMyCar(fixtureB.getBody())) {
                 myCarDataType = (MyCarDataType) fixtureB.getBody().getUserData();
             }
-            if(!myCarDataType.isJump())
-            {
+            if (!myCarDataType.isJump()) {
                 onSetCollisionCarsInterface.onBlockCollision();
             }
-
 
 
             return true;
@@ -200,15 +198,17 @@ public class CarFilter implements ContactFilter {
                 passerCarDataType.setMyCarBounds(myCarDataType.getBounds());
                 passerCarDataType.setIsGodMode(true);
             } else if (myCarDataType.isFly()) {
-                if (!passerCarDataType.isFlyCarContact()){
+                if (!passerCarDataType.isFlyCarContact()) {
                     passerCarDataType.setFlyCarContact(true);
                     onSetCollisionCarsInterface.onFlyCollision();
                 }
                 return false;
             } else {
-                onSetCollisionCarsInterface.onCollision();
-                passerCarDataType.setIsContact(true);
-                myCarDataType.setIsContact(true);
+                if (myCarDataType != null && passerCarDataType != null) {
+                    onSetCollisionCarsInterface.onCollision();
+                    passerCarDataType.setIsContact(true);
+                    myCarDataType.setIsContact(true);
+                }
 
                 // passerCarDataType.setIsBlow(true);
                 //myCarDataType.setIsBlow(true);

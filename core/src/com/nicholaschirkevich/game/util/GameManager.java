@@ -180,6 +180,16 @@ public class GameManager {
 
 
     public static void updateGear(float dt) {
+        System.out.println("gearShift.getSpeeds().get(gear) "+gearShift.getSpeeds().get(gear));
+        System.out.println("currentSpeed "+currentSpeed);
+        System.out.println("CurrentSpeed "+CurrentSpeed);
+        System.out.println("dtTime "+dtTime);
+        System.out.println("dtTimeAhive "+dtTimeAhive);
+        System.out.println("allTime "+allTime);
+        System.out.println("isCollision "+isCollision);
+        System.out.println("toSpeed "+toSpeed);
+        System.out.println("-----------------------------");
+
         dtTime += dt;
         dtTimeAhive += dt;
         allTime += dt;
@@ -230,6 +240,15 @@ public class GameManager {
         timeLabel.setBounds(GameRuners.WIDTH / 2 - 60, GameRuners.HEIGHT / 2 - 80, label.getWidth(), label.getHeight());
         stageGameManager.addActor(timeLabel);
     }
+    public static void setDefaultSpeed()
+    {
+        isCollision = false;
+//        gear=0;
+        currentSpeed=gearShift.getSpeeds().get(gear);
+        CurrentSpeed=gearShift.getSpeeds().get(gear);
+        toSpeed =gearShift.getSpeeds().get(gear);
+
+    }
 
     public static void setUpWorldChildLabetDebug() {
         Skin uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
@@ -262,7 +281,7 @@ public class GameManager {
     }
 
     public static void setContactPointX(float contactPointX) {
-        if (GameManager.isCollision() &&  GameManager.getContactPointX()==0)
+       if (GameManager.isCollision() &&  GameManager.getContactPointX()==0)
             GameManager.contactPointX = contactPointX;
     }
 
@@ -318,5 +337,6 @@ public class GameManager {
 
     public static void setIsCollision(boolean isCollision) {
         GameManager.isCollision = isCollision;
+        System.out.println("GameManager.isCollision "+GameManager.isCollision);
     }
 }

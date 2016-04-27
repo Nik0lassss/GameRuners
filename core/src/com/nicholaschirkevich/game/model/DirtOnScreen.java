@@ -55,8 +55,8 @@ public class DirtOnScreen extends Prize {
         rand = new Random();
         isLeft = rand.nextBoolean();
         type= RandomUtil.getRand(1, 5);
-        position.x = RandomUtil.getRand(0,270);
-        position.y = RandomUtil.getRand(0,700);
+        position.x = RandomUtil.getRand(0,250);
+        position.y = RandomUtil.getRand(0,500);
 //        if (isLeft)
 //            position.x = Constants.getCarPostitionXLeft(springboardAnimation.getKeyFrames()[0].getRegionWidth());
 //        else

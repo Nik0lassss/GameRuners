@@ -2,6 +2,7 @@ package com.nicholaschirkevich.game.menu.items;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
@@ -155,8 +156,12 @@ public class CarGarageItem extends Group implements UpdateGarageCarItem {
 
     private void setUpIconSpeedBar() {
 
-        Image iconSpeedBar = new Image(speed_bar);
-        iconSpeedBar.setBounds(getX() + 93, getY() + 30, 90, 8);
+
+        TextureRegion speedBar = new TextureRegion(speed_bar);
+        speedBar.setRegion(0,0,car.getSpeed(),8);
+        Image iconSpeedBar = new Image(speedBar);
+        iconSpeedBar.setX(getX() + 93);
+        iconSpeedBar.setY(getY() + 30);
         addActor(iconSpeedBar);
     }
 
@@ -168,10 +173,18 @@ public class CarGarageItem extends Group implements UpdateGarageCarItem {
     }
 
     private void setUpIconWeightBar() {
-        Image iconWeightBar = new Image(weight_bar);
-        iconWeightBar.setOrigin(40, 8);
+
+//        Image iconWeightBar = new Image(weight_bar);
+//        iconWeightBar.setOrigin(40, 8);
+        TextureRegion weigthBar  = new TextureRegion(weight_bar);
+        weigthBar.setRegion(0,0, car.getWeight(),8);
+        weigthBar.split(10, weigthBar.getRegionHeight());
+        Image  iconWeightBar = new Image(weigthBar);
+
+        iconWeightBar.setX(getX() + 93);
+        iconWeightBar.setY(getY() + 10);
         //iconWeightBar.setScaling(Scaling.fillY);
-        iconWeightBar.setBounds(getX() + 93, getY() + 10, 20, 8);
+        //iconWeightBar.setBounds(getX() + 93, getY() + 10, 90, 8);
         addActor(iconWeightBar);
     }
 

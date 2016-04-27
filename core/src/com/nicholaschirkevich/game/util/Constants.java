@@ -243,6 +243,27 @@ public class Constants {
     public static final float GARAGE_BTTN_X_INVISIBLE = -50;
     public static final float GARAGE_BTTN_Y = GameRuners.HEIGHT / 2 - 500;
 
+    public static final float SOUND_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
+    public static final float SOUND_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 2.8f;
+
+    public static final float CONTROL_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
+    public static final float CONTROL_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 3.4f;
+
+    public static final float BLOCK_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
+    public static final float BLOCK_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 4.2f;
+
+    public static final float RESTORE_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
+    public static final float RESTORE_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 5.5f;
+
+    public static final float SING_IN_VK_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
+    public static final float SING_IN_VK_Y_VISIBLE = GameRuners.HEIGHT / 8f;
+
+    public static final float SING_IN_FB_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
+    public static final float SING_IN_FB_Y_VISIBLE = GameRuners.HEIGHT / 14f;
+
+    public static final float BACK_BTTN_X_VISIBLE = GameRuners.WIDTH / 20f;
+    public static final float BACK_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 18f;
+
     public static final float RESUME_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
     public static final float RESUME_BTTN_X_INVISIBLE = GameRuners.WIDTH / 4;
     public static final float RESUME_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 12f;
@@ -270,6 +291,13 @@ public class Constants {
 
     public static final float LOGO_POSITION_X= GameRuners.WIDTH / 28;
     public static final float LOGO_POSITION_Y = GameRuners.HEIGHT / 3.2f;
+
+
+    public static final float GAME_OVER_LOGO_POSITION_X= GameRuners.WIDTH / 6.8f;
+    public static final float GAME_OVER_LOGO_POSITION_Y = GameRuners.HEIGHT / 2.4f;
+
+    public static final float SETTING_LOGO_POSITION_X= GameRuners.WIDTH / 20;
+    public static final float SETTING_LOGO_POSITION_Y = GameRuners.HEIGHT /2.3f;
 
     public static final float SAVE_ME_BONUS_X= GameRuners.WIDTH / 3.35f;
     public static final float SAVE_ME_BONUS_Y = GameRuners.HEIGHT / 5.3f;

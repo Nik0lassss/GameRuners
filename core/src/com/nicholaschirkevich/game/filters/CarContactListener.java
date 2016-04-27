@@ -121,7 +121,7 @@ public class CarContactListener implements ContactListener {
                 GameManager.setContactPointX(worldManifold.getPoints()[0].x);
                 GameManager.setContactPointY(worldManifold.getPoints()[0].y - 10);
 
-            } else if(!myCarDataType.isFly()){
+            } else if(!myCarDataType.isFly() && passerCarBody != null && myCarBody != null){
                 GameManager.setContactPointX(worldManifold.getPoints()[0].x);
                 GameManager.setContactPointY(worldManifold.getPoints()[0].y);
 
