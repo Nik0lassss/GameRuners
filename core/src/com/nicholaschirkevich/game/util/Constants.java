@@ -269,6 +269,15 @@ public class Constants {
     public static final float RESUME_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 12f;
     public static final float RESUME_BTTN_Y_INVISIBLE = -200;
 
+    public static final float SAVE_ME_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
+    public static final float SAVE_ME_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 8f;
+
+    public static final float SAVE_ME_BAR_X_VISIBLE = GameRuners.WIDTH / 9f;
+    public static final float SAVE_ME_BAR_Y_VISIBLE = GameRuners.HEIGHT / 6.02f;
+
+    public static final float SAVE_ME_BAR_BORDER_X_VISIBLE = GameRuners.WIDTH / 9.2f;
+    public static final float SAVE_ME_BAR_BORDER_Y_VISIBLE = GameRuners.HEIGHT / 6.1f;
+
     public static final float PLAY_ONLINE_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
     public static final float PLAY_ONLINE_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 7f;
 

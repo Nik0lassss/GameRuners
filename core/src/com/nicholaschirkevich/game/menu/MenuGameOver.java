@@ -33,16 +33,13 @@ public class MenuGameOver extends Group {
     Texture slot_vehicle;
     Skin uiSkin = new Skin(Gdx.files.internal("uiskin_digit.json"));
     Texture speed_text;
-    Texture speed_bar;
-    Texture weight_text;
-    Texture weight_bar;
-    Texture delimiterTexture;
+
     TextButton resumeButton, playOnline, prizeButton;
     ImageButton carShop, coinShop, settingMenu, leaderBoard, leaderBoards;
     Image background;
     Image resumeButtonUpImage, resumeButtonDownImage, playOnlineDownImage, playOnlineUpImage, getPrizeUpButtonImage, getPrizeDownButtonImage, carShopImageUp, carShopImageDown, coinShomImageUp, coinShopImageDown, settingMenuImageUp, settingMenuImageDown, leaderBoardImageUp, leaderBoardImageDown, leaderBoardsImageUp, leaderBoardsImageDown;
     Texture resumeButtonUp, resumeButtonDown, playOnlineDownImageTexture, playOnlineUpImageTexture, getPrizeUpButtonImageTexture, getPrizeDownButtonImageTexture, carShopTextureUp, carShopTextureDown, coinShopTextureUp, coinShopTextureDown, settingMenuTextureUp, settingMenuTextureDown, leaderBoardTextureUp, leaderBoardTextureDown, leaderBoardsTextureUp, leaderBoardsTextureDown;
-    Image imageLogo, bonusSaveMe;
+    Image imageLogo;
     ResumeButtonListener listener;
     SequenceAction sequence, sequenceCarShop, sequenceSetting;
     GameStateManager gsm;
@@ -50,12 +47,11 @@ public class MenuGameOver extends Group {
     Group groupView;
 
 
-    public MenuGameOver(ResumeButtonListener listener, GameStateManager gsm) {
+    public MenuGameOver( GameStateManager gsm) {
 
 
         //car_texture = new  Texture("other_car_2_1.png");
         this.groupView = this;
-        this.listener = listener;
         this.parentStage = parentStage;
         resumeButtonUp = new Texture("button_play_big.png");
         resumeButtonDown = new Texture("button_play_big_pressed.png");

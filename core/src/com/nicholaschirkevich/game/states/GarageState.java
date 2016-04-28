@@ -294,6 +294,11 @@ public class GarageState extends State implements ResumeButtonListener, UpdateGa
 
     }
 
+    @Override
+    public void onSaveMe() {
+
+    }
+
 
     @Override
     public void updateTable() {

@@ -43,6 +43,7 @@ import com.nicholaschirkevich.game.interfaces.UpdateCoinCount;
 import com.nicholaschirkevich.game.interfaces.ZoomCarListener;
 import com.nicholaschirkevich.game.menu.GarageButton;
 import com.nicholaschirkevich.game.menu.MenuGameOver;
+import com.nicholaschirkevich.game.menu.MenuSaveMe;
 import com.nicholaschirkevich.game.menu.MenuSetting;
 import com.nicholaschirkevich.game.menu.MenuTest;
 import com.nicholaschirkevich.game.menu.PauseButton;
@@ -1175,7 +1176,8 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
 
             if (timer > 1) {
                 GameManager.pauseGame = true;
-                stage.addActor(new MenuGameOver(this, gsm));
+               // stage.addActor(new MenuGameOver(this, gsm));
+                stage.addActor(new MenuSaveMe(this, gsm));
                 System.out.println("Pause");
                 timer = 0;
             }
@@ -1531,6 +1533,14 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
         isStartTrafficLighter = true;
         //garageButton.hide();
 
+    }
+
+    @Override
+    public void onSaveMe() {
+        isPause=false;
+        isMyCarCollision=false;
+        GameManager.setIsCollisionWithCar(false);
+        GameManager.setIsCollision(false);
     }
 
 

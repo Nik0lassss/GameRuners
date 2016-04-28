@@ -13,4 +13,9 @@ public class ResumeListener implements ResumeButtonListener {
     public void resumeButtonOnResume() {
 
     }
+
+    @Override
+    public void onSaveMe() {
+
+    }
 }

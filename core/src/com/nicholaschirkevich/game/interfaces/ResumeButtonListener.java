@@ -5,4 +5,5 @@ package com.nicholaschirkevich.game.interfaces;
  */
 public interface ResumeButtonListener {
     void resumeButtonOnResume();
+    void onSaveMe();
 }
