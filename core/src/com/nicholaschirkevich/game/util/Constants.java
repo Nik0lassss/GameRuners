@@ -11,6 +11,7 @@ public class Constants {
     public static String PREFERENCES_KEY = "SRGameKey";
     public static String PREFERENCES_KEY_CAR_ID = "PRefsCarId";
     public static String PREFERENCES_KEY_COIN_COUNT_ID = "PRefsCoinCount";
+    public static String PREFERENCES_KEY_ACHIVES_COUNT_ID = "PRefsBestAchivesCount";
 
     public static final float CAR_POS_X_LEFT = 120;
     public static final float CAR_POS_X_RIGHT = 215;
@@ -304,6 +305,19 @@ public class Constants {
 
     public static final float GAME_OVER_LOGO_POSITION_X= GameRuners.WIDTH / 6.8f;
     public static final float GAME_OVER_LOGO_POSITION_Y = GameRuners.HEIGHT / 2.4f;
+
+    public static final float GAME_OVER_ACHIVE_X_VISIBLE = GameRuners.WIDTH /5.7f;
+    public static final float GAME_OVER_ACHIVE_Y_VISIBLE = GameRuners.HEIGHT / 2.8f;
+
+    public static final float GAME_OVER_ACHIVE_COUNT_X_VISIBLE = GameRuners.WIDTH /4.3f;
+    public static final float GAME_OVER_ACHIVE_COUNT_Y_VISIBLE = GameRuners.HEIGHT /3f;
+
+    public static final float GAME_OVER_BEST_ACHIVE_X_VISIBLE = GameRuners.WIDTH /8.5f;
+    public static final float GAME_OVER_BEST_ACHIVE_Y_VISIBLE = GameRuners.HEIGHT / 3.5f;
+
+    public static final float GAME_OVER_BEST_ACHIVE_COUNT_X_VISIBLE = GameRuners.WIDTH /4.3f;
+    public static final float GAME_OVER_BEST_ACHIVE_COUNT_Y_VISIBLE = GameRuners.HEIGHT / 4f;
+
 
     public static final float SETTING_LOGO_POSITION_X= GameRuners.WIDTH / 20;
     public static final float SETTING_LOGO_POSITION_Y = GameRuners.HEIGHT /2.3f;

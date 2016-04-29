@@ -30,6 +30,13 @@ public class GameManager {
     private static float contactPointX = 0, contactPointY = 0;
     //private static float boosterSpeed =0;
     private static float lastSpeed = 0;
+    private static float achives = 0;
+
+    public static float getBestAchives() {
+        return bestAchives;
+    }
+
+    private static float bestAchives = 0;
     private static boolean isCollision = false;
 
     public static void setCurrentSpeed(float currentSpeed) {
@@ -126,13 +133,17 @@ public class GameManager {
         allTime = 0;
         dtTime = 0;
         dtTimeAhive = 0;
-        contactPointX=0;
-        contactPointY=0;
+        contactPointX = 0;
+        contactPointY = 0;
     }
-    public static void resetContactPoint()
-    {
-        contactPointX=0;
-        contactPointY=0;
+
+    public static void resetContactPoint() {
+        contactPointX = 0;
+        contactPointY = 0;
+    }
+
+    public void resetAchives() {
+        achives = 0;
     }
 
     private static void loadPreferences() {
@@ -143,6 +154,7 @@ public class GameManager {
         } else currentCarID = loadId;
 
         coinCounter = preferences.getInteger(Constants.PREFERENCES_KEY_COIN_COUNT_ID, 0);
+        bestAchives = preferences.getInteger(Constants.PREFERENCES_KEY_ACHIVES_COUNT_ID, 0);
 
     }
 
@@ -178,16 +190,25 @@ public class GameManager {
         preferences.flush();
     }
 
+    public static void setBestAchives()
+    {
+        if(achives>bestAchives)
+        {
+            bestAchives =achives;
+            preferences.putInteger(Constants.PREFERENCES_KEY_ACHIVES_COUNT_ID,(int) bestAchives);
+            preferences.flush();
+        }
+    }
 
     public static void updateGear(float dt) {
-        System.out.println("gearShift.getSpeeds().get(gear) "+gearShift.getSpeeds().get(gear));
-        System.out.println("currentSpeed "+currentSpeed);
-        System.out.println("CurrentSpeed "+CurrentSpeed);
-        System.out.println("dtTime "+dtTime);
-        System.out.println("dtTimeAhive "+dtTimeAhive);
-        System.out.println("allTime "+allTime);
-        System.out.println("isCollision "+isCollision);
-        System.out.println("toSpeed "+toSpeed);
+        System.out.println("gearShift.getSpeeds().get(gear) " + gearShift.getSpeeds().get(gear));
+        System.out.println("currentSpeed " + currentSpeed);
+        System.out.println("CurrentSpeed " + CurrentSpeed);
+        System.out.println("dtTime " + dtTime);
+        System.out.println("dtTimeAhive " + dtTimeAhive);
+        System.out.println("allTime " + allTime);
+        System.out.println("isCollision " + isCollision);
+        System.out.println("toSpeed " + toSpeed);
         System.out.println("-----------------------------");
 
         dtTime += dt;
@@ -240,13 +261,13 @@ public class GameManager {
         timeLabel.setBounds(GameRuners.WIDTH / 2 - 60, GameRuners.HEIGHT / 2 - 80, label.getWidth(), label.getHeight());
         stageGameManager.addActor(timeLabel);
     }
-    public static void setDefaultSpeed()
-    {
+
+    public static void setDefaultSpeed() {
         isCollision = false;
 //        gear=0;
-        currentSpeed=gearShift.getSpeeds().get(gear);
-        CurrentSpeed=gearShift.getSpeeds().get(gear);
-        toSpeed =gearShift.getSpeeds().get(gear);
+        currentSpeed = gearShift.getSpeeds().get(gear);
+        CurrentSpeed = gearShift.getSpeeds().get(gear);
+        toSpeed = gearShift.getSpeeds().get(gear);
 
     }
 
@@ -281,7 +302,7 @@ public class GameManager {
     }
 
     public static void setContactPointX(float contactPointX) {
-       if (GameManager.isCollision() &&  GameManager.getContactPointX()==0)
+        if (GameManager.isCollision() && GameManager.getContactPointX() == 0)
             GameManager.contactPointX = contactPointX;
     }
 
@@ -290,8 +311,8 @@ public class GameManager {
     }
 
     public static void setContactPointY(float contactPointY) {
-        if (GameManager.isCollision() && GameManager.getContactPointY()==0)
-        GameManager.contactPointY = contactPointY;
+        if (GameManager.isCollision() && GameManager.getContactPointY() == 0)
+            GameManager.contactPointY = contactPointY;
     }
 
 
@@ -337,6 +358,14 @@ public class GameManager {
 
     public static void setIsCollision(boolean isCollision) {
         GameManager.isCollision = isCollision;
-        System.out.println("GameManager.isCollision "+GameManager.isCollision);
+        System.out.println("GameManager.isCollision " + GameManager.isCollision);
+    }
+
+    public static float getAchives() {
+        return achives;
+    }
+
+    public static void setAchives(float achives) {
+        GameManager.achives = achives;
     }
 }

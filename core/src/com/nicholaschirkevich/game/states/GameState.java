@@ -221,6 +221,7 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
 
 
         GameManager.initial(world, stage);
+        GameManager.resetSpeed();
         setUpCamera();
         setUpTrafficLighter();
         carsTypes = GameManager.getCarsTypes();
@@ -673,6 +674,7 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
     public void update(float dt) {
         handleInput();
         if (isStartTrafficLighter && isGameStart == false) trafficLight.update(dt);
+        GameManager.setAchives(achives);
         if (GameManager.pauseGame) {
 
 
@@ -1176,14 +1178,14 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
 
             if (timer > 1) {
                 GameManager.pauseGame = true;
-               // stage.addActor(new MenuGameOver(this, gsm));
+                // stage.addActor(new MenuGameOver(this, gsm));
                 stage.addActor(new MenuSaveMe(this, gsm));
                 System.out.println("Pause");
                 timer = 0;
             }
         }
         if (isMyCarCollisionWithBlocks) {
-            timer += dt;
+            if (!GameManager.pauseGame)  timer += dt;
 
 
             GameManager.setIsCollision(true);
@@ -1193,6 +1195,7 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
 
             if (timer > 1) {
                 GameManager.pauseGame = true;
+                stage.addActor(new MenuSaveMe(this, gsm));
                 System.out.println("Pause");
                 timer = 0;
             }
@@ -1271,7 +1274,7 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
                     });
                     label.addAction(sequenceAction);
                     label.setColor(Color.YELLOW);
-                            label.setFontScale(0.65f, 0.65f);
+                    label.setFontScale(0.65f, 0.65f);
                     label.setText("Bonus +50");
                     //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
 
@@ -1537,10 +1540,17 @@ public class GameState extends State implements OnSetCollisionCars, OnTrafficLig
 
     @Override
     public void onSaveMe() {
-        isPause=false;
-        isMyCarCollision=false;
+        for (int i = 0; i < passerCars.size() - 1; i++) {
+            passerCars.get(i).remove();
+            world.destroyBody(passerCars.get(i).body);
+            passerCars.remove(i);
+        }
+        playTimeAnimation = 0;
+        isPause = false;
+        isMyCarCollision = false;
         GameManager.setIsCollisionWithCar(false);
         GameManager.setIsCollision(false);
+        GameManager.resetContactPoint();
     }
 
 

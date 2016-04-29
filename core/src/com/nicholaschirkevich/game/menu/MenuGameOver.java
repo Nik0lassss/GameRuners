@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -45,11 +46,15 @@ public class MenuGameOver extends Group {
     GameStateManager gsm;
     Stage parentStage;
     Group groupView;
+    Label achive, achiveCount, bestAchive, bestAchiveCount;
 
 
-    public MenuGameOver( GameStateManager gsm) {
+    public MenuGameOver(GameStateManager gsm) {
 
-
+        achive = new Label("", uiSkin);
+        achiveCount = new Label("", uiSkin);
+        bestAchive = new Label("", uiSkin);
+        bestAchiveCount = new Label("", uiSkin);
         //car_texture = new  Texture("other_car_2_1.png");
         this.groupView = this;
         this.parentStage = parentStage;
@@ -101,7 +106,7 @@ public class MenuGameOver extends Group {
         carShopImageUp = new Image(carShopTextureUp);
         carShopImageDown = new Image(carShopTextureDown);
         this.gsm = gsm;
-
+        GameManager.setBestAchives();
         setUpBackgroung();
         setUpResume();
         setUpImageLogo();
@@ -113,16 +118,49 @@ public class MenuGameOver extends Group {
         setSettingMenu();
         setLeaderBoard();
         setLeadersBoard();
-        //setUpIcon();
-        //setUpIconSpeed();
-        //setUpIconWeight();
-        //setUpIconSpeedBar();
-        //setUpIconWeightBar();
-        //setUpDelimiterSpeedBar();
+        setUpAchive();
+        setUpBestAchive();
+        setUpBestAchiveCount();
+
+        setUpAchiveCount();
 
         setBounds(0, 0, GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2);
     }
 
+
+    public void setUpAchive() {
+        achive.setX(Constants.GAME_OVER_ACHIVE_X_VISIBLE);
+        achive.setY(Constants.GAME_OVER_ACHIVE_Y_VISIBLE);
+        achive.setText("Achives:");
+        achive.setFontScale(0.6f,0.6f);
+        addActor(achive);
+    }
+
+    public void setUpAchiveCount() {
+        achiveCount.setText(String.valueOf((int) GameManager.getAchives()));
+        achiveCount.setX(Constants.GAME_OVER_ACHIVE_COUNT_X_VISIBLE-achiveCount.getPrefWidth()/2);
+        achiveCount.setY(Constants.GAME_OVER_ACHIVE_COUNT_Y_VISIBLE);
+
+        achiveCount.setFontScale(0.6f,0.6f);
+        addActor(achiveCount);
+    }
+
+    public void setUpBestAchive() {
+        bestAchive.setX(Constants.GAME_OVER_BEST_ACHIVE_X_VISIBLE);
+        bestAchive.setY(Constants.GAME_OVER_BEST_ACHIVE_Y_VISIBLE);
+        bestAchive.setText("Best achives:");
+        bestAchive.setFontScale(0.6f,0.6f);
+        addActor(bestAchive);
+    }
+
+    public void setUpBestAchiveCount() {
+        bestAchiveCount.setText(String.valueOf((int) GameManager.getBestAchives()));
+        bestAchiveCount.setX(Constants.GAME_OVER_BEST_ACHIVE_COUNT_X_VISIBLE-bestAchiveCount.getPrefWidth()/2);
+        bestAchiveCount.setY(Constants.GAME_OVER_BEST_ACHIVE_COUNT_Y_VISIBLE);
+
+        bestAchiveCount.setFontScale(0.6f,0.6f);
+        addActor(bestAchiveCount);
+    }
 
     private void setUpImageLogo() {
 
@@ -149,7 +187,7 @@ public class MenuGameOver extends Group {
 
         slot_vehicle = new Texture("back_tile.png");
         background = new Image(slot_vehicle);
-        background.setColor(0,0,0.5f,0.5f);
+        background.setColor(0, 0, 0.5f, 0.5f);
         background.setBounds(0, -20, GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2 + 50);
         addActor(background);
 
