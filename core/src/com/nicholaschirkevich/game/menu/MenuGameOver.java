@@ -7,6 +7,7 @@ package com.nicholaschirkevich.game.menu;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -47,7 +48,7 @@ public class MenuGameOver extends Group {
     GameStateManager gsm;
     Stage parentStage;
     Group groupView;
-    Label achive, achiveCount, bestAchive, bestAchiveCount;
+    Label achive, achiveCount, bestAchive, bestAchiveCount,distance_label,boosters_label;
 
 
     public MenuGameOver(GameStateManager gsm) {
@@ -56,6 +57,8 @@ public class MenuGameOver extends Group {
         achiveCount = new Label("", uiSkin);
         bestAchive = new Label("", uiSkin);
         bestAchiveCount = new Label("", uiSkin);
+        distance_label = new Label("",uiSkin);
+        boosters_label =new Label("",uiSkin);
         //car_texture = new  Texture("other_car_2_1.png");
         this.groupView = this;
         this.parentStage = parentStage;
@@ -109,40 +112,70 @@ public class MenuGameOver extends Group {
         this.gsm = gsm;
         GameManager.setBestAchives();
         setUpBackgroung();
-        setUpResume();
-        setUpImageLogo();
-        setUpPlayOnline();
+        // setUpResume();
+//        setUpImageLogo();
+        //setUpPlayOnline();
         //setUpPrize();
         //setUpSaveMe();
-        setCarShop();
-        setCoinShop();
-        setSettingMenu();
-        setLeaderBoard();
-        setLeadersBoard();
+//        setCarShop();
+//        setCoinShop();
+//        setSettingMenu();
+//        setLeaderBoard();
+//        setLeadersBoard();
         setUpAchive();
-        setUpBestAchive();
-        setUpBestAchiveCount();
+//        setUpBestAchive();
+//        setUpBestAchiveCount();
 
         setUpAchiveCount();
+        setUpBagroundRectagnle();
+        setUpDistance();
+        setUpBoosters();
 
         setBounds(0, 0, GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2);
     }
 
 
+    public void setUpBagroundRectagnle() {
+        addActor(new GameOverRectangle());
+    }
+
+
+    public void setUpDistance()
+    {
+
+        distance_label.setFontScale(0.5f, 0.5f);
+        distance_label.setColor(Color.ORANGE);
+        distance_label.setBounds(Constants.DISTANCE_LABEL_X-distance_label.getPrefWidth(), Constants.DISTANCE_LABEL_Y,distance_label.getPrefWidth() , distance_label.getPrefHeight());
+        distance_label.setText("Distance:");
+        addActor(distance_label);
+    }
+
+
+
+    public void setUpBoosters()
+    {
+
+        boosters_label.setFontScale(0.5f, 0.5f);
+        boosters_label.setColor(Color.YELLOW);
+        boosters_label.setBounds(Constants.BOOSTERS_GAME_OVER_LABEL_X-boosters_label.getPrefWidth(), Constants.BOOSTERS_GAME_OVER_LABEL_Y,distance_label.getPrefWidth() , distance_label.getPrefHeight());
+        boosters_label.setText("Boosters:");
+        addActor(boosters_label);
+    }
     public void setUpAchive() {
         achive.setX(Constants.GAME_OVER_ACHIVE_X_VISIBLE);
         achive.setY(Constants.GAME_OVER_ACHIVE_Y_VISIBLE);
-        achive.setText("Score:");
-        achive.setFontScale(0.6f,0.6f);
+        achive.setText("  You  Score:");
+        achive.setColor(Color.ORANGE);
+        achive.setFontScale(0.8f, 0.8f);
         addActor(achive);
     }
 
     public void setUpAchiveCount() {
         achiveCount.setText(String.valueOf((int) GameManager.getAchives()));
-        achiveCount.setX(Constants.GAME_OVER_ACHIVE_COUNT_X_VISIBLE-achiveCount.getPrefWidth()/3);
+        achiveCount.setX(Constants.GAME_OVER_ACHIVE_COUNT_X_VISIBLE - achiveCount.getPrefWidth() / 3);
         achiveCount.setY(Constants.GAME_OVER_ACHIVE_COUNT_Y_VISIBLE);
 
-        achiveCount.setFontScale(0.6f,0.6f);
+        achiveCount.setFontScale(0.9f, 0.9f);
         addActor(achiveCount);
     }
 
@@ -150,16 +183,16 @@ public class MenuGameOver extends Group {
         bestAchive.setX(Constants.GAME_OVER_BEST_ACHIVE_X_VISIBLE);
         bestAchive.setY(Constants.GAME_OVER_BEST_ACHIVE_Y_VISIBLE);
         bestAchive.setText("Best score:");
-        bestAchive.setFontScale(0.6f,0.6f);
+        bestAchive.setFontScale(0.6f, 0.6f);
         addActor(bestAchive);
     }
 
     public void setUpBestAchiveCount() {
         bestAchiveCount.setText(String.valueOf((int) GameManager.getBestAchives()));
-        bestAchiveCount.setX(Constants.GAME_OVER_BEST_ACHIVE_COUNT_X_VISIBLE-bestAchiveCount.getPrefWidth()/3);
+        bestAchiveCount.setX(Constants.GAME_OVER_BEST_ACHIVE_COUNT_X_VISIBLE - bestAchiveCount.getPrefWidth() / 3);
         bestAchiveCount.setY(Constants.GAME_OVER_BEST_ACHIVE_COUNT_Y_VISIBLE);
 
-        bestAchiveCount.setFontScale(0.6f,0.6f);
+        bestAchiveCount.setFontScale(0.6f, 0.6f);
         addActor(bestAchiveCount);
     }
 
