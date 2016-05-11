@@ -201,15 +201,15 @@ public class GameManager {
     }
 
     public static void updateGear(float dt) {
-        System.out.println("gearShift.getSpeeds().get(gear) " + gearShift.getSpeeds().get(gear));
-        System.out.println("currentSpeed " + currentSpeed);
-        System.out.println("CurrentSpeed " + CurrentSpeed);
-        System.out.println("dtTime " + dtTime);
-        System.out.println("dtTimeAhive " + dtTimeAhive);
-        System.out.println("allTime " + allTime);
-        System.out.println("isCollision " + isCollision);
-        System.out.println("toSpeed " + toSpeed);
-        System.out.println("-----------------------------");
+//        System.out.println("gearShift.getSpeeds().get(gear) " + gearShift.getSpeeds().get(gear));
+//        System.out.println("currentSpeed " + currentSpeed);
+//        System.out.println("CurrentSpeed " + CurrentSpeed);
+//        System.out.println("dtTime " + dtTime);
+//        System.out.println("dtTimeAhive " + dtTimeAhive);
+//        System.out.println("allTime " + allTime);
+//        System.out.println("isCollision " + isCollision);
+//        System.out.println("toSpeed " + toSpeed);
+//        System.out.println("-----------------------------");
 
         dtTime += dt;
         dtTimeAhive += dt;

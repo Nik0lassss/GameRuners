@@ -3,6 +3,7 @@ package com.nicholaschirkevich.game.model;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.nicholaschirkevich.game.enums.CollisionPasserCarType;
 import com.nicholaschirkevich.game.interfaces.GenerateHoleAfterLadle;
+import com.nicholaschirkevich.game.model.abstarct_model.Model;
 import com.nicholaschirkevich.game.userdata.PasserCarDataType;
 import com.nicholaschirkevich.game.util.Constants;
 import com.nicholaschirkevich.game.util.GameManager;
@@ -22,14 +24,13 @@ import java.util.Random;
 /**
  * Created by Nikolas on 13.02.2016.
  */
-public class PasserCar extends Car {
+public class PasserCar extends com.nicholaschirkevich.game.model.side_objects.Car implements Model {
     private Random rand;
     private static World world;
-    //private Animation passerCarAnimation;
+
     private float angelt = 0;
     private float angeltCrashLadle = 0;
-    //public Sprite sprite;
- // 0010 or 0x2 in hex
+
     private int defaultX;
     private int defaultY;
     public Body body;
@@ -57,9 +58,7 @@ public class PasserCar extends Car {
             position.x = Constants.getCarPostitionXRight(carAnimation.getKeyFrames()[0].getRegionWidth());
 
         this.world = world;
-        //sprite = new Sprite(carTexture);
-        //sprite.setPosition(x, y);
-        //passerCarAnimation = AssetsManager.getAnimation(animation_asset_id);
+
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -78,12 +77,11 @@ public class PasserCar extends Car {
         fixtureDef.shape = shape;
         fixtureDef.density = 0.0001f;
         fixtureDef.restitution = 0f;
-        //fixtureDef.friction=0.8f;
 
 
         fixtureDef.filter.categoryBits = Constants.WORLD_ENTITY;
         fixtureDef.filter.maskBits = Constants.MY_CAR_FILTER_ENTITY;
-//        fixtureDef.filter.maskBits = PHYSICS_ENTITY;
+
         PasserCarDataType passerCarDataType = new PasserCarDataType();
         passerCarDataType.setBounds(bounds);
         body.setUserData(passerCarDataType);
@@ -106,9 +104,7 @@ public class PasserCar extends Car {
             position.x = Constants.getCarPostitionXRight(carAnimation.getKeyFrames()[0].getRegionWidth());
 
         this.world = world;
-        //sprite = new Sprite(carTexture);
-        //sprite.setPosition(x, y);
-        //passerCarAnimation = AssetsManager.getAnimation(animation_asset_id);
+
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -127,14 +123,9 @@ public class PasserCar extends Car {
         fixtureDef.shape = shape;
         fixtureDef.density = 0.0001f;
         fixtureDef.restitution = 0f;
-        //fixtureDef.friction=0.8f;
 
-//        setHeight(carAnimation.getKeyFrames()[0].getRegionHeight());
-//        setWidth(carAnimation.getKeyFrames()[0].getRegionWidth());
         fixtureDef.filter.categoryBits = Constants.WORLD_ENTITY;
         fixtureDef.filter.maskBits = Constants.MY_CAR_FILTER_ENTITY;
-//        fixtureDef.filter.maskBits = MyCar.MY_CAR_FILTER_ENTITY | LadleOnCar.LADLE_MASK;
-        //fixtureDef.filter.maskBits = PHYSICS_ENTITY | LadleOnCar.LADLE_MASK;
         PasserCarDataType passerCarDataType = new PasserCarDataType();
         passerCarDataType.setBounds(bounds);
         body.setUserData(passerCarDataType);
@@ -152,6 +143,11 @@ public class PasserCar extends Car {
     }
 
     @Override
+    public void draw(SpriteBatch sb) {
+
+    }
+
+    @Override
     public void update(float dt) {
 
         PasserCarDataType passerCarDataType = (PasserCarDataType) body.getUserData();
@@ -164,22 +160,16 @@ public class PasserCar extends Car {
             if (isLeft && position.x < 10) {
                 passerCarDataType.setIsAfterHoleCollision(true);
             }
-//            if (sideCollisionTime > 0.1) {
-//
-//
-//                passerCarDataType.setIsAfterHoleCollision(true);
-//                sideCollisionTime = 0;
-//            }
+
             if (isLeft) {
-                //angeltCrashLadle += 2.5;
+
                 position.add(-(880) * dt, -10 * dt, 0);
             } else {
-                //angeltCrashLadle -= 2.5;
+
                 position.add((880) * dt, -10 * dt, 0);
             }
 
 
-            //sprite.setPosition(position.x, position.y);
             bounds.setPosition(position.x, position.y);
             body.setTransform(position.x, position.y, angeltCrashLadle);
             System.out.println(sideCollisionTime);
@@ -188,78 +178,11 @@ public class PasserCar extends Car {
 
         if (passerCarDataType.isGodMode()) {
             Rectangle intersaction = new Rectangle();
-//            if (passerCarDataType != null && !passerCarDataType.isContact()) {
-//                Intersector.intersectRectangles(passerCarDataType.getBounds(), passerCarDataType.getMyCarBounds(), intersaction);
-//                if (intersaction.x > passerCarDataType.getMyCarBounds().x) {
-//                    System.out.println("Intersects with right side");
-//                    passerCarDataType.setCollisionPasserCarType(CollisionPasserCarType.SIDE_COLLISION);
-//                    passerCarDataType.setIsContact(true);
-//                    System.out.println("Sude collision");
-////                if (isLeft) {
-////                    //angeltCrashLadle += 2.5;
-////                    position.add(-(GameManager.getCurrentSpeed() - 200) * dt, -10 * dt, 0);
-////                } else {
-////                    //angeltCrashLadle -= 2.5;
-////                    position.add((GameManager.getCurrentSpeed() - 200) * dt, -10 * dt, 0);
-////                }
-//
-//
-//                    //sprite.setPosition(position.x, position.y);
-//                    bounds.setPosition(position.x, position.y);
-//                    body.setTransform(position.x, position.y, angeltCrashLadle);
-//                } else if (intersaction.x + intersaction.width < passerCarDataType.getMyCarBounds().x + passerCarDataType.getMyCarBounds().width && !passerCarDataType.isContact()) {
-//                    System.out.println("Intersects with left side    ");
-//                    passerCarDataType.setCollisionPasserCarType(CollisionPasserCarType.SIDE_COLLISION);
-//                    passerCarDataType.setIsContact(true);
-//                    System.out.println("Sude collision");
-////                if (isLeft) {
-////                    //angeltCrashLadle += 2.5;
-////                    position.add(-(GameManager.getCurrentSpeed() - 200) * dt, -10 * dt, 0);
-////                } else {
-////                    //angeltCrashLadle -= 2.5;
-////                    position.add((GameManager.getCurrentSpeed() - 200) * dt, -10 * dt, 0);
-////                }
-//
-//
-//                    //sprite.setPosition(position.x, position.y);
-//                    bounds.setPosition(position.x, position.y);
-//                    body.setTransform(position.x, position.y, angeltCrashLadle);
-//                } else
-//                    //Intersects with right side
-//                    if (intersaction.y > passerCarDataType.getMyCarBounds().y && !passerCarDataType.isContact()) {
-//                        System.out.println("Intersects with top side   ");
-//                        passerCarDataType.setCollisionPasserCarType(CollisionPasserCarType.COUNTER_COLLISION);
-//                        position.set(position.x, position.y, 0);
-//                        System.out.println("Counter collision");
-//                        passerCarDataType.setIsContact(true);
-//                        bounds.setPosition(position.x, position.y);
-//                        body.setTransform(position.x, position.y, 0.0f);
-//                        setPosition(position.x, position.y);
-//                    } else
-//                        //Intersects with top side
-//
-//                        //Intersects with left side
-//                        if (intersaction.y + intersaction.height < passerCarDataType.getMyCarBounds().y + passerCarDataType.getMyCarBounds().height) {
-//                            System.out.println("Intersects with with bottom side     ");
-//                        }
-//            }
-            //( (passerCarDataType.getX()>85 || passerCarDataType.getX()<65) || (passerCarDataType.getX()>185 || passerCarDataType.getX()<170))
-//            if (((passerCarDataType.getX() < 85 && passerCarDataType.getX() > 115 && isLeft) || (passerCarDataType.getX() < 230 && passerCarDataType.getX() > 205 && !isLeft))) {
-//                passerCarDataType.setCollisionPasserCarType(CollisionPasserCarType.SIDE_COLLISION);
-//
-//                System.out.println("Sude collision");
-////
-//                bounds.setPosition(position.x, position.y);
-//                body.setTransform(position.x, position.y, angeltCrashLadle);
-//
+
 
             if (!passerCarDataType.isBefore()) {
                 passerCarDataType.setCollisionPasserCarType(CollisionPasserCarType.SIDE_COLLISION);
-//
-//                System.out.println("Sude collision");
-////
-//                bounds.setPosition(position.x, position.y);
-//                body.setTransform(position.x, position.y, angeltCrashLadle);
+
             } else {
                 passerCarDataType.setCollisionPasserCarType(CollisionPasserCarType.COUNTER_COLLISION);
                 position.set(position.x, position.y, 0);
@@ -269,64 +192,21 @@ public class PasserCar extends Car {
                 body.setTransform(position.x, position.y, 0.0f);
                 setPosition(position.x, position.y);
             }
-            //passerCarDataType.setIsGodMode(false);
-            //stateTime += dt;
-            //stateTime += dt;
+
         } else if (passerCarDataType.isCollisionThrons()) {
-//            if (isLeft) {
-//                position.set(-70*dt, position.y, 0);
-//
-//                //sprite.setPosition(position.x, position.y);
-//                bounds.setPosition(position.x, position.y);
-//                body.setTransform(position.x, position.y, 0.0f);
-//                setPosition(position.x, position.y);
-//                stateTime += dt;
-//            }
-//            else {
-//                position.set(70*dt, position.y, 0);
-//
-//                //sprite.setPosition(position.x, position.y);
-//                bounds.setPosition(position.x, position.y);
-//                body.setTransform(position.x, position.y, 0.0f);
-//                setPosition(position.x, position.y);
-//                stateTime += dt;
-//            }
-            System.out.println("passerCarDataType.isCollisionThrons()");
-//            body.setTransform(0, 0, 20f);
-//            position.add(-100 * dt, 0, 0);
-//            //body.applyForce(1000, 1000, 100, 100, true);
-//            body.setLinearVelocity(100, 100);
+
 
         } else if (!passerCarDataType.isBlow() && !passerCarDataType.isLadleCollision()) {
             position.add(0, (-GameManager.getCurrentSpeed() + 56) * dt, 0);
 
-            //sprite.setPosition(position.x, position.y);
             bounds.setPosition(position.x, position.y);
             body.setTransform(position.x, position.y, 0.0f);
             setPosition(position.x, position.y);
             stateTime += dt;
         } else if (passerCarDataType.isBlow()) {
 
-//            Vector2 fv1 = new Vector2(-GameManager.getContactPointX(), -GameManager.getContactPointY());
-//
-//            if (isLeft) angelt += 2;
-//            else angelt -= 4;
-//            world.setGravity(new Vector2(0f, -20f));
-//            if (isLeft)
-//                body.applyLinearImpulse(500000, 500000f, -GameManager.getContactPointX(), -GameManager.getContactPointY(), true);
-//            else
-//                body.applyLinearImpulse(-500000, 500000f, -GameManager.getContactPointX(), -GameManager.getContactPointY(), true);
-//
-//
-//            body.setTransform(body.getPosition().x, body.getPosition().y, angelt);
-//
-//            bounds.setPosition(body.getPosition().x, body.getPosition().y);
-//
-//            setPosition(body.getPosition().x, body.getPosition().y);
-//            stateTime += dt;
+
             timer += dt;
-//
-//            GameManager.setCurrentSpeed(GameManager.getGearShifts().get(0).getSpeeds().get(0));
 
 
             if (timer > 0.4) {
@@ -338,38 +218,8 @@ public class PasserCar extends Car {
         } else if (passerCarDataType.isLadleCollision()) {
 
 
-//            world.destroyBody(body);
-//            remove();
-
-//            position.set(position.x, position.y, 0);
-//            //position.add(100 * dt, (-GameManager.getCurrentSpeed() + 56) * dt, 0);
-//            if (isLeft) {
-//                //angeltCrashLadle += 2.5;
-//                position.add(-(GameManager.getCurrentSpeed() - 200) * dt, -10 * dt, 0);
-//            } else {
-//                //angeltCrashLadle -= 2.5;
-//                position.add((GameManager.getCurrentSpeed() - 200) * dt, -10 * dt, 0);
-//            }
-//            //sprite.setPosition(position.x, position.y);
-//            bounds.setPosition(position.x, position.y);
-//            body.setTransform(position.x, position.y, angeltCrashLadle);
-//            setPosition(position.x, position.y);
             stateTime += dt;
-            //stateTime += dt;
-//            if (isLeft)  body.applyLinearImpulse(-50,0, -GameManager.getContactPointX(), -GameManager.getContactPointY(), true);
-//            else  body.applyLinearImpulse(50, 0, -GameManager.getContactPointX(), -GameManager.getContactPointY(), true);
-//
-//            //body.applyLinearImpulse(GameManager.getContactPointX(),GameManager.getContactPointY(),position.x,position.y,false);
-//            body.setTransform(body.getPosition().x, body.getPosition().y, angeltCrashLadle);
-//            //setRotation(angelt);
-//            //body.setTransform(0,0,20f);
-//            // position.add(-100*dt, 0, 0);
-//            //body.applyForce(1000, 1000, 100, 100, true);
-//            //body.setLinearVelocity(100,100);
-//            //sprite.setPosition(position.x, position.y);
-//            bounds.setPosition(body.getPosition().x, body.getPosition().y);
-//            //body.setTransform(body.getPosition().x, body.getPosition().y, 0.0f);
-//            setPosition(body.getPosition().x, body.getPosition().y);
+
         }
 
     }
@@ -377,7 +227,6 @@ public class PasserCar extends Car {
     public void setDefaultPosition(int x) {
         position.set(0, x, 0);
 
-        //sprite.setPosition(position.x, position.y);
         bounds.setPosition(position.x, position.y);
         body.setTransform(position.x, position.y, 0.0f);
 
@@ -413,7 +262,7 @@ public class PasserCar extends Car {
         else
             position.x = Constants.CAR_POS_X_RIGHT - carAnimation.getKeyFrames()[0].getRegionHeight() / 2;
         position.add(0, defaultY + randomY + 600, 0);
-        //sprite.setPosition(position.x, position.y);
+
         bounds.setPosition(position.x, position.y);
         body.setTransform(position.x, position.y, 0.0f);
     }
@@ -430,7 +279,7 @@ public class PasserCar extends Car {
 
     public static void generateBlocksCount() {
         bloksCount = RandomUtil.getRandBocksCount();
-        //System.out.println(bloksCount);
+
     }
 
     public static void generateBlocks(float dt) {
@@ -492,13 +341,7 @@ public class PasserCar extends Car {
                 break;
 
             }
-//            if (passerCars.size() != 0 && (((PasserCarDataType) passerCars.get(i).body.getUserData()).getCollisionPasserCarType().equals(CollisionPasserCarType.SIDE_COLLISION)) && ((PasserCarDataType) passerCars.get(i).body.getUserData()).isAfterHoleCollision()) {
-//                passerCars.get(i).generateHoleAfterLadleInterface.generateHoleAfterLadle(passerCars.get(i).body.getPosition().x, passerCars.get(i).body.getPosition().y);
-//                world.destroyBody(passerCars.get(i).body);
-//                passerCars.get(i).remove();
-//                passerCars.remove(i);
-//                break;
-//            }
+
             if ((((PasserCarDataType) passerCars.get(i).body.getUserData()).getCollisionPasserCarType().equals(CollisionPasserCarType.SIDE_COLLISION)) && ((PasserCarDataType) passerCars.get(i).body.getUserData()).isAfterHoleCollision()) {
                 passerCars.get(i).generateHoleAfterLadleInterface.generateHoleAfterLadle(passerCars.get(i).body.getPosition().x, passerCars.get(i).body.getPosition().y);
                 world.destroyBody(passerCars.get(i).body);

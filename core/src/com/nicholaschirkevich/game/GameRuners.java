@@ -2,6 +2,8 @@ package com.nicholaschirkevich.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.nicholaschirkevich.game.states.GameState;
@@ -28,7 +30,9 @@ public class GameRuners extends ApplicationAdapter {
         AssetsManager.loadAssets();
 
 
-         gsm.push(new GameState(gsm, true,false));
+        gsm.push(new GameState(gsm, true, false));
+
+
         //gsm.push(new GarageState(gsm));
 
     }

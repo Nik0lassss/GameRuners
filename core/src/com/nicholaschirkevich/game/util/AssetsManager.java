@@ -124,6 +124,11 @@ public class AssetsManager {
         //passer Car 1
         texturesMap.put(Constants.PASSER_CAR_1_ID,
                 new TextureRegion(new Texture(Gdx.files.internal(Constants.PASSER_CAR_1_IMAGE_PATH))));
+
+        texturesMap.put(Constants.COIN_SHOP_STANDART_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.COIN_SHOP_STANDART_RESOURCE))));
+        texturesMap.put(Constants.COIN_SHOP_2_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.COIN_SHOP_2_RESOURCE))));
+        texturesMap.put(Constants.COIN_SHOP_3_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.COIN_SHOP_3_RESOURCE))));
+        texturesMap.put(Constants.COIN_SHOP_4_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.COIN_SHOP_4_RESOURCE))));
         //passer Car 1
         texturesMap.put(Constants.PASSER_CAR_2_ID,
                 new TextureRegion(new Texture(Gdx.files.internal(Constants.PASSER_CAR_2_IMAGE_PATH))));

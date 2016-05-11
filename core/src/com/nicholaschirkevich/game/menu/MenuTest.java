@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
+import com.nicholaschirkevich.game.states.CoinShopState;
 import com.nicholaschirkevich.game.states.GameStateManager;
 import com.nicholaschirkevich.game.states.GarageState;
 import com.nicholaschirkevich.game.util.AssetsManager;
@@ -43,19 +44,17 @@ public class MenuTest extends Group {
     Texture resumeButtonUp, resumeButtonDown, playOnlineDownImageTexture, playOnlineUpImageTexture, getPrizeUpButtonImageTexture, getPrizeDownButtonImageTexture, carShopTextureUp, carShopTextureDown, coinShopTextureUp, coinShopTextureDown, settingMenuTextureUp, settingMenuTextureDown, leaderBoardTextureUp, leaderBoardTextureDown, leaderBoardsTextureUp, leaderBoardsTextureDown;
     Image imageLogo, bonusSaveMe;
     ResumeButtonListener listener;
-    SequenceAction sequence, sequenceCarShop, sequenceSetting;
+    SequenceAction sequence, sequenceCarShop, sequenceSetting,sequenceCoinShop;
     GameStateManager gsm;
-    Stage parentStage;
     Group groupView;
 
 
     public MenuTest(ResumeButtonListener listener, GameStateManager gsm) {
 
 
-        //car_texture = new  Texture("other_car_2_1.png");
+
         this.groupView = this;
         this.listener = listener;
-        this.parentStage = parentStage;
         resumeButtonUp = new Texture("button_play_big.png");
         resumeButtonDown = new Texture("button_play_big_pressed.png");
         playOnlineDownImageTexture = new Texture("button_multiplayer_pressed.png");
@@ -81,6 +80,7 @@ public class MenuTest extends Group {
         coinShopImageDown = new Image(coinShopTextureDown);
 
         sequenceSetting = new SequenceAction();
+        sequenceCoinShop = new SequenceAction();
         sequence = new SequenceAction();
         sequenceCarShop = new SequenceAction();
         resumeButtonUpImage = new Image(resumeButtonUp);
@@ -109,8 +109,8 @@ public class MenuTest extends Group {
         setUpResume();
         setUpImageLogo();
         setUpPlayOnline();
-        setUpPrize();
-        setUpSaveMe();
+        //setUpPrize();
+        //setUpSaveMe();
         setCarShop();
         setCoinShop();
         setSettingMenu();
@@ -245,7 +245,25 @@ public class MenuTest extends Group {
 
         coinShop = new ImageButton(coinShomImageUp.getDrawable(), coinShopImageDown.getDrawable());
         coinShop.setBounds(x - coinShomImageUp.getWidth() / 2, y - coinShomImageUp.getHeight() / 2, coinShomImageUp.getWidth(), coinShomImageUp.getHeight());
+        coinShop.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                sequenceCoinShop.addAction(Actions.delay(0.1f));
+                sequenceCoinShop.addAction(new Action() {
+                    @Override
+                    public boolean act(float delta) {
+
+                        getStage().addActor(new CoinShopState(listener,gsm));
+                        return true;
+                    }
+                });
+                sequenceCoinShop.addAction(Actions.removeActor(groupView));
+                coinShop.addAction(sequenceCoinShop);
+                return true;
+            }
+        });
         addActor(coinShop);
+
 
     }
 

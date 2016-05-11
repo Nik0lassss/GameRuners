@@ -1,33 +1,32 @@
 package com.nicholaschirkevich.game.model;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
-import com.nicholaschirkevich.game.states.GameState;
-import com.nicholaschirkevich.game.userdata.LadleOnRoadDataType;
 import com.nicholaschirkevich.game.userdata.MyCarDataType;
-import com.nicholaschirkevich.game.util.AssetsManager;
 import com.nicholaschirkevich.game.util.Constants;
-import com.nicholaschirkevich.game.util.GameManager;
 
 /**
  * Created by Nikolas on 12.02.2016.
  */
-public class MyCar extends Car {
+public class MyCar extends com.nicholaschirkevich.game.model.side_objects.Car {
     public Body body;
     World world;
-    //private Animation coinAnimation;
     private boolean isPlayAnimation = true;
     private boolean isTurnRun = false;
-    //public Sprite sprite;
     private float angelt = 0;
+
+    public void setAlfa(float alfa) {
+        this.alfa = alfa;
+    }
+
+    private float alfa = 1;
+    private boolean isLowAlfa = false;
     public boolean isBlow = false;
     MoveToAction moveToLeftAction;
     MoveToAction moveToRightAction;
@@ -35,7 +34,6 @@ public class MyCar extends Car {
     MoveToAction moveToStartLineAction;
     MoveToAction moveToLeftActionTwoPart;
     SequenceAction sequenceAction;
-       // 0001
 
 
     private float stateTime;
@@ -52,9 +50,6 @@ public class MyCar extends Car {
         setBounds(x, y, carAnimation.getKeyFrames()[0].getRegionWidth(), carAnimation.getKeyFrames()[0].getRegionHeight());
         this.world = world;
         isLeft = true;
-        //coinAnimation = AssetsManager.getAnimation(Constants.MY_CAR_ASSETS_ID);
-        //sprite = new Sprite(coinAnimation);
-        //sprite.setPosition(x, y);
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(position.x, position.y);
@@ -81,7 +76,6 @@ public class MyCar extends Car {
         bodyDef.bullet = true;
 
         fixtureDef.filter.categoryBits = Constants.MY_CAR_FILTER_ENTITY;
-        //fixtureDef.filter.maskBits = MyCar.MY_CAR_FILTER_ENTITY;
         fixtureDef.filter.maskBits = Constants.PASSER_CAR_FILTER_ENTITY;
         body.createFixture(fixtureDef);
         stateTime = 0f;
@@ -92,9 +86,6 @@ public class MyCar extends Car {
         setBounds(position.x, y, carAnimation.getKeyFrames()[0].getRegionWidth() / Constants.PIXELS_TO_METERS, carAnimation.getKeyFrames()[0].getRegionHeight() / Constants.PIXELS_TO_METERS);
         this.world = world;
         isLeft = true;
-        //coinAnimation = AssetsManager.getAnimation(Constants.MY_CAR_ASSETS_ID);
-        //sprite = new Sprite(coinAnimation);
-        //sprite.setPosition(x, y);
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(position.x, position.y);
@@ -105,7 +96,6 @@ public class MyCar extends Car {
         body = world.createBody(bodyDef);
         body.setLinearDamping(Constants.MY_CAR_LINEAR_DUMPING);
         body.setAngularDamping(Constants.MY_CAR_ANGULAR_DUMPING);
-        // body.setUserData(new MyCarDataType());
         PolygonShape shape = new PolygonShape();
 
 
@@ -135,28 +125,11 @@ public class MyCar extends Car {
         MyCarDataType myCarDataType = (MyCarDataType) body.getUserData();
 
         if (getActions().size == 0) isTurnRun = false;
-        if(isTurnRun()==true)    System.out.println("IsTurn " + isTurnRun());
+        if (isTurnRun() == true) System.out.println("IsTurn " + isTurnRun());
 
-        //sprite.setPosition(getX(), getY());
-
-//        if (isLeft && position.x > leftSide) {
-//            if(myCarDataType.isBlow()) {
-//                MoveToAction moveToAction = new MoveToAction();
-//
-//                //sprite.setPosition(position.x, position.y);
-//            }
         bounds.setPosition(getX(), getY());
         body.setTransform(getX(), getY(), getRotation());
-////            velosity.scl(1 / dt);
-//        } else if (!isLeft && position.x < rightSide) {
-//            if(!isBlow()) {
-//                velosity.set(turnSpeed, 0, 0);
-//                velosity.scl(dt);
-//                position.add(velosity.x, 0, 0);
-//                sprite.setPosition(position.x, position.y);
-//            }
-////            velosity.scl(1 / dt);
-//        }
+
         if (myCarDataType.isBlow()) {
             angelt += 5;
             setRotation(angelt);
@@ -166,8 +139,6 @@ public class MyCar extends Car {
         }
         if (isPlayAnimation)
             stateTime += dt;
-
-        //body.setTransform(sprite.getX(), sprite.getY(), 0.0f);
 
 
     }
@@ -183,25 +154,6 @@ public class MyCar extends Car {
         return isLeft;
     }
 
-    public void moveToStartLine(float dt, float startLinePosition, float speedMoveToStartLine) {
-        if (position.y < 280) {
-            velosity.set(0, 300, 0);
-            velosity.scl(dt);
-            position.add(0, velosity.y, 0);
-            //sprite.setPosition(position.x, position.y);
-        }
-    }
-
-//    public void moveToStartLine(float dt) {
-//        if (position.y < 280) {
-//            velosity.set(0, 300, 0);
-//            velosity.scl(dt);
-//            position.add(0, velosity.y, 0);
-//            sprite.setPosition(position.x, position.y);
-//            //sprite.setRotation(100);
-//        }
-//    }
-
 
     public void setUpMoveToStartLineAction() {
         moveToStartLineAction = new MoveToAction();
@@ -214,10 +166,18 @@ public class MyCar extends Car {
         addAction(moveToStartLineAction);
     }
 
+    public void setLeft()
+    {
+        setX(Constants.getCarPostitionXLeft(carAnimation.getKeyFrames()[0].getRegionWidth()));
+    }
+
+    public void setRight()
+    {
+        setX(Constants.getCarPostitionXRight(carAnimation.getKeyFrames()[0].getRegionWidth()));
+    }
+
     public void setUpMoveToRightAction() {
         sequenceAction = new SequenceAction();
-        //sequenceAction.addAction(Actions.delay(1.5f));
-//        sequenceAction.addAction(Actions.removeActor());
         moveToRightAction = new MoveToAction();
         moveToRightActionTwoPart = new MoveToAction();
         moveToRightAction.setPosition(Constants.getCarPostitionXRight(carAnimation.getKeyFrames()[0].getRegionWidth() - 20), 250);
@@ -245,37 +205,24 @@ public class MyCar extends Car {
 
     @Override
     public void turn() {
-        if (getActions().size<=1) {
+        if (getActions().size<=1 && !isTurnRun()) {
             isTurnRun = true;
             if (isLeft) {
-                //sequenceAction.reset();
                 setUpMoveToRightAction();
                 addAction(sequenceAction);
 
                 isLeft = false;
             } else {
                 setUpMoveToLeftAction();
-                //moveToLeftAction.reset();
                 addAction(sequenceAction);
                 isLeft = true;
             }
-            //sprite.setPosition(getX(), getY());
+
             bounds.setPosition(getX(), getY());
             body.setTransform(getX(), getY(), getRotation());
         }
     }
 
-    public void blow_sideways(float dt) {
-        velosity.set(20, 180, 0);
-        velosity.scl(dt);
-        position.add(velosity.x, velosity.y, 0);
-
-//        sprite.setPosition(position.x, position.y);
-
-//        sprite.setRotation(sprite.getRotation() + 7);
-        bounds.setPosition(position.x, position.y);
-        body.setTransform(getX(), getY(), getRotation());
-    }
 
     public boolean isBlow() {
         return isBlow;
@@ -299,5 +246,17 @@ public class MyCar extends Car {
 
     public void setIsTurnRun(boolean isTurnRun) {
         this.isTurnRun = isTurnRun;
+    }
+
+    public float getAlfa() {
+        return alfa;
+    }
+
+    public boolean isLowAlfa() {
+        return isLowAlfa;
+    }
+
+    public void setIsLowAlfa(boolean isLowAlfa) {
+        this.isLowAlfa = isLowAlfa;
     }
 }

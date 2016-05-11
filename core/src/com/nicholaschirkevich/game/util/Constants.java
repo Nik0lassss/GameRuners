@@ -101,7 +101,7 @@ public class Constants {
     public static final String[] OTHERCAR_5_1_REGION_NAMES = new String[]{"other_car_5_1"};
     public static final String[] OTHERCAR_5_2_REGION_NAMES = new String[]{"other_car_5_2"};
     public static final String[] OTHERCAR_5_3_REGION_NAMES = new String[]{"other_car_5_3"};
-    public static final String[] CRASH_REGION_NAMES = new String[]{"clash_anim_left_right_1","clash_anim_left_right_2","clash_anim_left_right_3","clash_anim_left_right_4","clash_anim_left_right_5","clash_anim_left_right_6"};
+    public static final String[] CRASH_REGION_NAMES = new String[]{"clash_anim_left_right_1", "clash_anim_left_right_2", "clash_anim_left_right_3", "clash_anim_left_right_4", "clash_anim_left_right_5", "clash_anim_left_right_6"};
     public static final String[] LEFT_WING_REGION_NAMES = new String[]{"left_wing"};
     public static final String[] RIGHT_WING_REGION_NAMES = new String[]{"right_wing"};
     public static final String[] EFFECT_BOOST_REGION_NAMES = new String[]{"effect_1"};
@@ -203,6 +203,17 @@ public class Constants {
     public static final String X5_id = "x5";
     public static final String X6_id = "x6";
 
+    public static final String COIN_SHOP_STANDART_ID = "coins_1";
+    public static final String COIN_SHOP_STANDART_RESOURCE = "coins_1.png";
+
+    public static final String COIN_SHOP_2_ID = "coins_2";
+    public static final String COIN_SHOP_2_RESOURCE = "coins_2.png";
+
+    public static final String COIN_SHOP_3_ID = "coins_3";
+    public static final String COIN_SHOP_3_RESOURCE = "coins_3.png";
+
+    public static final String COIN_SHOP_4_ID = "coins_4";
+    public static final String COIN_SHOP_4_RESOURCE = "coins_4.png";
 
     //public static final String MY_CAR_1_IMAGE_PATH = "car_f1_1_1.png";
     public static final String PASSER_CAR_1_IMAGE_PATH = "other_car_1_1.png";
@@ -245,84 +256,90 @@ public class Constants {
     public static final float GARAGE_BTTN_Y = GameRuners.HEIGHT / 2 - 500;
 
     public static final float SOUND_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
-    public static final float SOUND_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 2.8f;
+    public static final float SOUND_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 2.5f;
 
     public static final float CONTROL_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
-    public static final float CONTROL_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 3.4f;
+    public static final float CONTROL_BTTN_Y_VISIBLE = SOUND_BTTN_Y_VISIBLE - 60;
 
     public static final float BLOCK_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
-    public static final float BLOCK_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 4.2f;
+    public static final float BLOCK_BTTN_Y_VISIBLE = CONTROL_BTTN_Y_VISIBLE - 60;
 
     public static final float RESTORE_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
-    public static final float RESTORE_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 5.5f;
+    public static final float RESTORE_BTTN_Y_VISIBLE = BLOCK_BTTN_Y_VISIBLE - 60;
 
     public static final float SING_IN_VK_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
-    public static final float SING_IN_VK_Y_VISIBLE = GameRuners.HEIGHT / 8f;
+    public static final float SING_IN_VK_Y_VISIBLE = RESTORE_BTTN_Y_VISIBLE - 60;
 
     public static final float SING_IN_FB_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
-    public static final float SING_IN_FB_Y_VISIBLE = GameRuners.HEIGHT / 14f;
+    public static final float SING_IN_FB_Y_VISIBLE = SING_IN_VK_Y_VISIBLE - 60;
 
     public static final float BACK_BTTN_X_VISIBLE = GameRuners.WIDTH / 20f;
     public static final float BACK_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 18f;
 
     public static final float RESUME_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
     public static final float RESUME_BTTN_X_INVISIBLE = GameRuners.WIDTH / 4;
-    public static final float RESUME_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 12f;
+    public static final float RESUME_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 12f - 30;
     public static final float RESUME_BTTN_Y_INVISIBLE = -200;
 
     public static final float SAVE_ME_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
-    public static final float SAVE_ME_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 8f;
+    public static final float SAVE_ME_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 3.4f;
+
+    public static final float RESUME_PAUSE_BTTN_X_VISIBLE = GameRuners.WIDTH / 3.2f;
+    public static final float RESUME_PAUSE_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 3f;
+
+    public static final float EXIT_PAUSE_BTTN_X_VISIBLE = GameRuners.WIDTH / 5.6f;
+    public static final float EXIT_PAUSE_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 3f;
 
     public static final float SAVE_ME_BAR_X_VISIBLE = GameRuners.WIDTH / 9f;
-    public static final float SAVE_ME_BAR_Y_VISIBLE = GameRuners.HEIGHT / 6.02f;
+    public static final float SAVE_ME_BAR_Y_VISIBLE = GameRuners.HEIGHT / 4.1f;
 
     public static final float SAVE_ME_BAR_BORDER_X_VISIBLE = GameRuners.WIDTH / 9.2f;
-    public static final float SAVE_ME_BAR_BORDER_Y_VISIBLE = GameRuners.HEIGHT / 6.1f;
+    public static final float SAVE_ME_BAR_BORDER_Y_VISIBLE = GameRuners.HEIGHT / 4.13f;
 
     public static final float PLAY_ONLINE_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
-    public static final float PLAY_ONLINE_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 7f;
+    public static final float PLAY_ONLINE_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 7f - 30;
 
     public static final float CAR_SHOP_BTTN_X_VISIBLE = GameRuners.WIDTH / 20f;
-    public static final float CAR_SHOP_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 18f;
+    public static final float CAR_SHOP_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 18f - 30;
 
     public static final float COIN_SHOP_BTTN_X_VISIBLE = GameRuners.WIDTH / 20f;
-    public static final float COIN_SHOP_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 9.5f;
+    public static final float COIN_SHOP_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 9.5f - 30;
 
-    public static final float LEADERBOARDS_BTTN_X_VISIBLE = GameRuners.WIDTH /2.2f;
-    public static final float LEADERBOARDS_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 6.5f;
+    public static final float LEADERBOARDS_BTTN_X_VISIBLE = GameRuners.WIDTH / 2.2f;
+    public static final float LEADERBOARDS_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 9.5f - 30;
 
-    public static final float LEADERBOARD_BTTN_X_VISIBLE = GameRuners.WIDTH /2.2f;
-    public static final float LEADERBOARD_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 9.5f;
-    public static final float SETTING_BTTN_X_VISIBLE = GameRuners.WIDTH /2.2f;
-    public static final float SETTING_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 18f;
+    public static final float LEADERBOARD_BTTN_X_VISIBLE = GameRuners.WIDTH / 20f;
+    public static final float LEADERBOARD_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 6.5f - 30;
+    public static final float SETTING_BTTN_X_VISIBLE = GameRuners.WIDTH / 2.2f;
+    public static final float SETTING_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 18f - 30;
 
     public static final float PRIZE_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
     public static final float PRIZE_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 5f;
 
-    public static final float LOGO_POSITION_X= GameRuners.WIDTH / 28;
+    public static final float LOGO_POSITION_X = GameRuners.WIDTH / 28;
     public static final float LOGO_POSITION_Y = GameRuners.HEIGHT / 3.2f;
 
 
-    public static final float GAME_OVER_LOGO_POSITION_X= GameRuners.WIDTH / 6.8f;
+    public static final float GAME_OVER_LOGO_POSITION_X = GameRuners.WIDTH / 6.8f;
     public static final float GAME_OVER_LOGO_POSITION_Y = GameRuners.HEIGHT / 2.4f;
 
-    public static final float GAME_OVER_ACHIVE_X_VISIBLE = GameRuners.WIDTH /5.7f;
+    public static final float GAME_OVER_ACHIVE_X_VISIBLE = GameRuners.WIDTH / 5.3f;
     public static final float GAME_OVER_ACHIVE_Y_VISIBLE = GameRuners.HEIGHT / 2.8f;
 
-    public static final float GAME_OVER_ACHIVE_COUNT_X_VISIBLE = GameRuners.WIDTH /4.3f;
-    public static final float GAME_OVER_ACHIVE_COUNT_Y_VISIBLE = GameRuners.HEIGHT /3f;
+    public static final float GAME_OVER_ACHIVE_COUNT_X_VISIBLE = GameRuners.WIDTH / 4f;
+    public static final float GAME_OVER_ACHIVE_COUNT_Y_VISIBLE = GameRuners.HEIGHT / 3f;
 
-    public static final float GAME_OVER_BEST_ACHIVE_X_VISIBLE = GameRuners.WIDTH /8.5f;
+    public static final float GAME_OVER_BEST_ACHIVE_X_VISIBLE = GameRuners.WIDTH / 7f;
     public static final float GAME_OVER_BEST_ACHIVE_Y_VISIBLE = GameRuners.HEIGHT / 3.5f;
 
-    public static final float GAME_OVER_BEST_ACHIVE_COUNT_X_VISIBLE = GameRuners.WIDTH /4.3f;
+    public static final float GAME_OVER_BEST_ACHIVE_COUNT_X_VISIBLE = GameRuners.WIDTH / 4f;
     public static final float GAME_OVER_BEST_ACHIVE_COUNT_Y_VISIBLE = GameRuners.HEIGHT / 4f;
 
 
-    public static final float SETTING_LOGO_POSITION_X= GameRuners.WIDTH / 20;
-    public static final float SETTING_LOGO_POSITION_Y = GameRuners.HEIGHT /2.3f;
+    public static final float SETTING_LOGO_POSITION_X = GameRuners.WIDTH / 20;
+    public static final float SETTING_LOGO_POSITION_Y = GameRuners.HEIGHT / 2.3f;
 
-    public static final float SAVE_ME_BONUS_X= GameRuners.WIDTH / 3.35f;
+    public static final float SAVE_ME_BONUS_X = GameRuners.WIDTH / 3.35f;
     public static final float SAVE_ME_BONUS_Y = GameRuners.HEIGHT / 5.3f;
 
     public static final String GEAR_SHIFT_FILE_PATH = "gear_shift.xml";
@@ -373,15 +390,14 @@ public class Constants {
     public static final String CARS_TYPE_CAR_NAME_IMEGE = "CarNameImage";
 
 
-
     public static final float PASSER_CAR_LINEAR_DUMPING = 2.2f;
     public static final float PASSER_CAR_ANGULAR_DUMPING = 3f;
     public static final float MY_CAR_LINEAR_DUMPING = 2f;
     public static final float MY_CAR_ANGULAR_DUMPING = 3f;
 
-    public static final float TIME_RELAX_ZONE_START=30;
-    public static final float DURATION_RELAX_ZONE=2;
-    public static final float TIME_SPRINGBOARD=31;
+    public static final float TIME_RELAX_ZONE_START = 30;
+    public static final float DURATION_RELAX_ZONE = 2;
+    public static final float TIME_SPRINGBOARD = 31;
 
     public static final short MY_CAR_FILTER_ENTITY = 0x8;
     public static final short FLY_SPRING_BOARD_MASK = 0x14;

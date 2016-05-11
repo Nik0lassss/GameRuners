@@ -11,17 +11,12 @@ import com.nicholaschirkevich.game.interfaces.OnSetCollisionCars;
 import com.nicholaschirkevich.game.interfaces.PauseAfterCollision;
 import com.nicholaschirkevich.game.interfaces.SetGodMode;
 import com.nicholaschirkevich.game.interfaces.ZoomCarListener;
-import com.nicholaschirkevich.game.model.Booster;
-import com.nicholaschirkevich.game.model.Coin;
-import com.nicholaschirkevich.game.model.Dirt;
-import com.nicholaschirkevich.game.model.FlySpringboard;
-import com.nicholaschirkevich.game.model.Ladle;
-import com.nicholaschirkevich.game.model.LadleOnCar;
-import com.nicholaschirkevich.game.model.MyCar;
-import com.nicholaschirkevich.game.model.PasserCar;
-import com.nicholaschirkevich.game.model.Skull;
-import com.nicholaschirkevich.game.model.Springboard;
-import com.nicholaschirkevich.game.model.ThronsOnCarRight;
+import com.nicholaschirkevich.game.model.boosters.Booster;
+import com.nicholaschirkevich.game.model.boosters.Coin;
+import com.nicholaschirkevich.game.model.boosters.Dirt;
+import com.nicholaschirkevich.game.model.boosters.Ladle;
+import com.nicholaschirkevich.game.model.boosters.LadleOnCar;
+import com.nicholaschirkevich.game.model.boosters.ThronsOnCarRight;
 import com.nicholaschirkevich.game.states.GameState;
 import com.nicholaschirkevich.game.states.GameStateManager;
 import com.nicholaschirkevich.game.states.State;
@@ -148,6 +143,7 @@ public class CarFilter implements ContactFilter {
             }
             if (!myCarDataType.isJump()) {
                 onSetCollisionCarsInterface.onBlockCollision();
+                Gdx.input.vibrate(500);
             }
 
 
@@ -204,7 +200,7 @@ public class CarFilter implements ContactFilter {
                 }
                 return false;
             } else {
-                if (myCarDataType != null && passerCarDataType != null) {
+                if (myCarDataType != null && passerCarDataType != null && !myCarDataType.isAfterPause()) {
                     onSetCollisionCarsInterface.onCollision();
                     passerCarDataType.setIsContact(true);
                     myCarDataType.setIsContact(true);

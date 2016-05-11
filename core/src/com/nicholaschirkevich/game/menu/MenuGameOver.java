@@ -5,6 +5,7 @@ package com.nicholaschirkevich.game.menu;
  */
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -111,8 +112,8 @@ public class MenuGameOver extends Group {
         setUpResume();
         setUpImageLogo();
         setUpPlayOnline();
-        setUpPrize();
-        setUpSaveMe();
+        //setUpPrize();
+        //setUpSaveMe();
         setCarShop();
         setCoinShop();
         setSettingMenu();
@@ -131,14 +132,14 @@ public class MenuGameOver extends Group {
     public void setUpAchive() {
         achive.setX(Constants.GAME_OVER_ACHIVE_X_VISIBLE);
         achive.setY(Constants.GAME_OVER_ACHIVE_Y_VISIBLE);
-        achive.setText("Achives:");
+        achive.setText("Score:");
         achive.setFontScale(0.6f,0.6f);
         addActor(achive);
     }
 
     public void setUpAchiveCount() {
         achiveCount.setText(String.valueOf((int) GameManager.getAchives()));
-        achiveCount.setX(Constants.GAME_OVER_ACHIVE_COUNT_X_VISIBLE-achiveCount.getPrefWidth()/2);
+        achiveCount.setX(Constants.GAME_OVER_ACHIVE_COUNT_X_VISIBLE-achiveCount.getPrefWidth()/3);
         achiveCount.setY(Constants.GAME_OVER_ACHIVE_COUNT_Y_VISIBLE);
 
         achiveCount.setFontScale(0.6f,0.6f);
@@ -148,14 +149,14 @@ public class MenuGameOver extends Group {
     public void setUpBestAchive() {
         bestAchive.setX(Constants.GAME_OVER_BEST_ACHIVE_X_VISIBLE);
         bestAchive.setY(Constants.GAME_OVER_BEST_ACHIVE_Y_VISIBLE);
-        bestAchive.setText("Best achives:");
+        bestAchive.setText("Best score:");
         bestAchive.setFontScale(0.6f,0.6f);
         addActor(bestAchive);
     }
 
     public void setUpBestAchiveCount() {
         bestAchiveCount.setText(String.valueOf((int) GameManager.getBestAchives()));
-        bestAchiveCount.setX(Constants.GAME_OVER_BEST_ACHIVE_COUNT_X_VISIBLE-bestAchiveCount.getPrefWidth()/2);
+        bestAchiveCount.setX(Constants.GAME_OVER_BEST_ACHIVE_COUNT_X_VISIBLE-bestAchiveCount.getPrefWidth()/3);
         bestAchiveCount.setY(Constants.GAME_OVER_BEST_ACHIVE_COUNT_Y_VISIBLE);
 
         bestAchiveCount.setFontScale(0.6f,0.6f);
@@ -187,17 +188,13 @@ public class MenuGameOver extends Group {
 
         slot_vehicle = new Texture("back_tile.png");
         background = new Image(slot_vehicle);
-        background.setColor(0, 0, 0.5f, 0.5f);
+        Color color = background.getColor();
+        background.setColor(color.r, color.g, color.b, 0.5f);
         background.setBounds(0, -20, GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2 + 50);
         addActor(background);
 
     }
 
-//    private void setUpIcon() {
-//        Image icon = new Image(car_texture);
-//        icon.setBounds(getX() + 39 - car_texture.getWidth() / 2, getY() + 7, car_texture.getWidth(), car_texture.getHeight());
-//        addActor(icon);
-//    }
 
     private void setUpIconSpeed() {
         Image iconSpeed = new Image(speed_text);

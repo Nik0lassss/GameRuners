@@ -12,6 +12,7 @@ public class MyCarDataType extends UserData {
     protected boolean isGodMode = false;
     protected boolean isFly = false;
     protected boolean isContact = false;
+    protected boolean isAfterPause = false;
 
     public boolean isJump() {
         return isJump;
@@ -92,5 +93,13 @@ public class MyCarDataType extends UserData {
 
     public void setIsContact(boolean isContact) {
         this.isContact = isContact;
+    }
+
+    public boolean isAfterPause() {
+        return isAfterPause;
+    }
+
+    public void setIsAfterPause(boolean isAfterPause) {
+        this.isAfterPause = isAfterPause;
     }
 }

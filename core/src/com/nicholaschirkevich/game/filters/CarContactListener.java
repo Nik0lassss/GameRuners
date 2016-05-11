@@ -1,19 +1,13 @@
 package com.nicholaschirkevich.game.filters;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
-import com.nicholaschirkevich.game.enums.CollisionPasserCarType;
 import com.nicholaschirkevich.game.interfaces.ListenerAddLadle;
-import com.nicholaschirkevich.game.model.LadleOnCar;
-import com.nicholaschirkevich.game.model.MyCar;
-import com.nicholaschirkevich.game.model.PasserCar;
+import com.nicholaschirkevich.game.model.boosters.LadleOnCar;
 import com.nicholaschirkevich.game.userdata.MyCarDataType;
 import com.nicholaschirkevich.game.userdata.PasserCarDataType;
 import com.nicholaschirkevich.game.util.BodyUtils;

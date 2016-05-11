@@ -162,7 +162,8 @@ public class MenuSetting extends Group {
 
         slot_vehicle = new Texture("back_tile.png");
         background = new Image(slot_vehicle);
-        background.setColor(0,0,0.5f,0.5f);
+        Color color = background.getColor();
+        background.setColor(color.r,color.g,color.b,0.5f);
         background.setBounds(0, -20, GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2 + 50);
         addActor(background);
 

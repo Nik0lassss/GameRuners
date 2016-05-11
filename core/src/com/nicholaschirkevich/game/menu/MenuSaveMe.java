@@ -62,7 +62,7 @@ public class MenuSaveMe extends Group {
         setUpSaveMeButton();
         setUpSaveMeBar();
 
-        this.gsm=gsm;
+        this.gsm = gsm;
         setBounds(0, 0, GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2);
     }
 
@@ -77,25 +77,25 @@ public class MenuSaveMe extends Group {
         saveMeButton = new TextButton("Save me", textButtonStyle);
         saveMeButton.addListener(new ClickListener() {
 
-                                @Override
-                                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                                    saveMeSequence.addAction(Actions.delay(0.3f));
-                                    saveMeSequence.addAction(new Action() {
-                                        @Override
-                                        public boolean act(float delta) {
-                                            resumeButtonListener.onSaveMe();
-                                            GameManager.pauseGame = false;
-                                            GameManager.setIsCollision(false);
+                                     @Override
+                                     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                                         saveMeSequence.addAction(Actions.delay(0.3f));
+                                         saveMeSequence.addAction(new Action() {
+                                             @Override
+                                             public boolean act(float delta) {
+                                                 resumeButtonListener.onSaveMe();
+                                                 GameManager.pauseGame = false;
+                                                 GameManager.setIsCollision(false);
 
-                                            return true;
-                                        }
-                                    });
-                                    saveMeSequence.addAction(Actions.removeActor());
-                                    addAction(saveMeSequence);
+                                                 return true;
+                                             }
+                                         });
+                                         saveMeSequence.addAction(Actions.removeActor());
+                                         addAction(saveMeSequence);
 
-                                    return true;
-                                }
-                            }
+                                         return true;
+                                     }
+                                 }
         );
         saveMeButton.getLabel().setFontScale(0.4f, 0.4f);
         saveMeButton.getLabelCell().padLeft(25f);
@@ -125,13 +125,12 @@ public class MenuSaveMe extends Group {
         if (time > 0.02) {
             if (width > 0)
                 width -= 0.01;
-            else
-            {
+            else {
                 getStage().addActor(new MenuGameOver(gsm));
                 remove();
                 System.out.println("getStage().addActor(new MenuGameOver(gsm));");
             }
-            time=0;
+            time = 0;
         }
         saveMeBarImage.remove();
         saveMeImageTextureRegion = new TextureRegion(saveMeBarTexture);
@@ -143,12 +142,23 @@ public class MenuSaveMe extends Group {
         System.out.println("width " + width);
 
     }
+
     private void setUpBackgroung(boolean selected) {
         if (selected) {
             slot_vehicle = new Texture("slot_vehicle_2_selected.png");
         } else slot_vehicle = new Texture("slot_vehicle.png");
         background = new Image(slot_vehicle);
         background.setBounds(0, -20, GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2 + 50);
+        background.addListener(new ClickListener() {
+
+                                   @Override
+                                   public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                                       getStage().addActor(new MenuGameOver(gsm));
+                                       remove();
+                                       return true;
+                                   }
+                               }
+        );
         addActor(background);
 
     }
