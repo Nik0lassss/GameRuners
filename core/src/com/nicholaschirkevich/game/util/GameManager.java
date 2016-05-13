@@ -32,6 +32,42 @@ public class GameManager {
     private static float lastSpeed = 0;
     private static float achives = 0;
 
+    private static int dangerousCount = 0;
+    private static int rocketCount = 0;
+    private static int destroyedCount = 0;
+    private static int springBoardCount = 0;
+    private static int godModeCount = 0;
+
+
+    public static void addDangerousCount() {
+        dangerousCount++;
+    }
+
+
+    public static void addRocketCount() {
+        rocketCount++;
+    }
+
+    public static void addDestroyedCount() {
+        destroyedCount++;
+    }
+
+    public static void addSpringBoardCount() {
+        springBoardCount++;
+    }
+
+    public static void addGodModeCount() {
+        godModeCount++;
+    }
+
+    public void resetCountBusters() {
+        dangerousCount = 0;
+        rocketCount = 0;
+        destroyedCount = 0;
+        springBoardCount = 0;
+        godModeCount = 0;
+    }
+
     public static float getBestAchives() {
         return bestAchives;
     }
@@ -142,6 +178,26 @@ public class GameManager {
         contactPointY = 0;
     }
 
+    public static int getDangerousCount() {
+        return dangerousCount;
+    }
+
+    public static int getRocketCount() {
+        return rocketCount;
+    }
+
+    public static int getDestroyedCount() {
+        return destroyedCount;
+    }
+
+    public static int getSpringBoardCount() {
+        return springBoardCount;
+    }
+
+    public static int getGodModeCount() {
+        return godModeCount;
+    }
+
     public void resetAchives() {
         achives = 0;
     }
@@ -190,12 +246,10 @@ public class GameManager {
         preferences.flush();
     }
 
-    public static void setBestAchives()
-    {
-        if(achives>bestAchives)
-        {
-            bestAchives =achives;
-            preferences.putInteger(Constants.PREFERENCES_KEY_ACHIVES_COUNT_ID,(int) bestAchives);
+    public static void setBestAchives() {
+        if (achives > bestAchives) {
+            bestAchives = achives;
+            preferences.putInteger(Constants.PREFERENCES_KEY_ACHIVES_COUNT_ID, (int) bestAchives);
             preferences.flush();
         }
     }

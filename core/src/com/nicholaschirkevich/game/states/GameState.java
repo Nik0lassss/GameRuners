@@ -1,7 +1,6 @@
 package com.nicholaschirkevich.game.states;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -810,8 +809,10 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
                     labelCountCar.setPosition(GameRuners.WIDTH / 4 - 25, GameRuners.HEIGHT / 4 + 180);
                     labelCountCar.setText(String.valueOf((int) achivesBooster));
+
                     stage.addActor(labelCountCar);
                     achives += achivesBooster;
+                    GameManager.addRocketCount();
                     achivesBooster = 0;
                     effectBooster.setAlfa(1);
                     effectBooster.setIsStartAlfa(false);
@@ -1351,6 +1352,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                             return true;
                         }
                     });
+                    GameManager.addDangerousCount();
                     label.addAction(sequenceAction);
                     label.setColor(Color.ORANGE);
                     label.setFontScale(0.65f, 0.65f);
@@ -1778,6 +1780,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     public void removeLadle() {
 
         //springboard = null;
+        GameManager.addDestroyedCount();
         isLadle = false;
         updateLadle = false;
     }
@@ -1804,6 +1807,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
         skullBonusCountCar.setPosition(GameRuners.WIDTH / 4 - 10, GameRuners.HEIGHT / 4 + 180);
         skullCarCount++;
+        GameManager.addGodModeCount();
         skullBonusCountCar.setText(String.valueOf((int) skullCarCount));
         stage.addActor(skullBonusCountCar);
 
@@ -1838,6 +1842,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
             skullBonusCountCar.setPosition(GameRuners.WIDTH / 4 - 10, GameRuners.HEIGHT / 4 + 180);
             skullCarCount++;
+            GameManager.addGodModeCount();
             skullBonusCountCar.setText(String.valueOf((int) skullCarCount));
             stage.addActor(skullBonusCountCar);
 
@@ -1937,6 +1942,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
         labelFlyCount.setPosition(GameRuners.WIDTH / 4 - 5, GameRuners.HEIGHT / 4 + 180);
         labelFlyCount.setText(String.valueOf((int) contactFlyCars++));
+        GameManager.addSpringBoardCount();
         stage.addActor(labelFlyCount);
 
 

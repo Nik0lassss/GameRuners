@@ -40,6 +40,8 @@ public class MenuGameOver extends Group {
     TextButton resumeButton, playOnline, prizeButton;
     ImageButton carShop, coinShop, settingMenu, leaderBoard, leaderBoards;
     Image background;
+    Texture dangerousTexture, rocketTexture, destroyedTexture, springBoardTexture, godModeTexture;
+    Image dangerousImage, rocketImage, destroyedImage, springBoardImage, godModeImage;
     Image resumeButtonUpImage, resumeButtonDownImage, playOnlineDownImage, playOnlineUpImage, getPrizeUpButtonImage, getPrizeDownButtonImage, carShopImageUp, carShopImageDown, coinShomImageUp, coinShopImageDown, settingMenuImageUp, settingMenuImageDown, leaderBoardImageUp, leaderBoardImageDown, leaderBoardsImageUp, leaderBoardsImageDown;
     Texture resumeButtonUp, resumeButtonDown, playOnlineDownImageTexture, playOnlineUpImageTexture, getPrizeUpButtonImageTexture, getPrizeDownButtonImageTexture, carShopTextureUp, carShopTextureDown, coinShopTextureUp, coinShopTextureDown, settingMenuTextureUp, settingMenuTextureDown, leaderBoardTextureUp, leaderBoardTextureDown, leaderBoardsTextureUp, leaderBoardsTextureDown;
     Image imageLogo;
@@ -48,20 +50,50 @@ public class MenuGameOver extends Group {
     GameStateManager gsm;
     Stage parentStage;
     Group groupView;
-    Label achive, achiveCount, bestAchive, bestAchiveCount,distance_label,boosters_label;
+    Label dangerous_count_label, rocket_count_label, destroyed_count_label, spring_bozrd_count_label, god_mode_count_label, total_label, total_count_label;
+    Label achive, achiveCount, bestAchive, bestAchiveCount, distance_label, boosters_label, dangerous_label, rocket_label, destroyed_label, spring_board_label, god_mode_label,distance_count_label;
 
 
     public MenuGameOver(GameStateManager gsm) {
 
+
+        dangerous_count_label = new Label(String.valueOf(GameManager.getDangerousCount()), uiSkin);
+        rocket_count_label = new Label(String.valueOf(GameManager.getRocketCount()), uiSkin);
+        destroyed_count_label = new Label(String.valueOf(GameManager.getDestroyedCount()), uiSkin);
+        spring_bozrd_count_label = new Label(String.valueOf(GameManager.getSpringBoardCount()), uiSkin);
+        god_mode_count_label = new Label(String.valueOf(GameManager.getGodModeCount()), uiSkin);
+
         achive = new Label("", uiSkin);
+        distance_count_label = new Label(String.valueOf((int)GameManager.getAchives()),uiSkin);
         achiveCount = new Label("", uiSkin);
         bestAchive = new Label("", uiSkin);
         bestAchiveCount = new Label("", uiSkin);
-        distance_label = new Label("",uiSkin);
-        boosters_label =new Label("",uiSkin);
+        distance_label = new Label("", uiSkin);
+        boosters_label = new Label("", uiSkin);
+        total_label = new Label("Total:",uiSkin);
+        total_count_label = new Label(String.valueOf((int)GameManager.getAchives()),uiSkin);
+        dangerous_label = new Label("Dangerous", uiSkin);
+        rocket_label = new Label("Rocket", uiSkin);
+        destroyed_label = new Label("Destroyed", uiSkin);
+        spring_board_label = new Label("Spring Board", uiSkin);
+        god_mode_label = new Label("God Mod", uiSkin);
         //car_texture = new  Texture("other_car_2_1.png");
         this.groupView = this;
         this.parentStage = parentStage;
+        dangerousTexture = new Texture("danger.png");
+        dangerousImage = new Image(dangerousTexture);
+        rocketTexture = new Texture("rockets.png");
+        rocketImage = new Image(rocketTexture);
+
+        destroyedTexture = new Texture("destruction.png");
+        destroyedImage = new Image(destroyedTexture);
+
+        springBoardTexture = new Texture("booster.png");
+        springBoardImage = new Image(springBoardTexture);
+
+        godModeTexture = new Texture("skull_on_road.png");
+        godModeImage = new Image(godModeTexture);
+
         resumeButtonUp = new Texture("button_play_big.png");
         resumeButtonDown = new Texture("button_play_big_pressed.png");
         playOnlineDownImageTexture = new Texture("button_multiplayer_pressed.png");
@@ -128,10 +160,88 @@ public class MenuGameOver extends Group {
 
         setUpAchiveCount();
         setUpBagroundRectagnle();
+        setUpBagroundRectagnleTotal();
         setUpDistance();
         setUpBoosters();
+        setUpDangerousImage();
+        setUpRocketImage();
+        setUpDestroyedImage();
+        setUpSpringBoardImage();
+        setUpGodModeImage();
+
+        setUpTotalLabel();
+        setUpTotalCountLabel();
+        setUpDisntanceCountLabel();
+
+        setUpDangerousLabel();
+        setUpRocketLabel();
+        setUpDestroyedLabel();
+        setUpSpringBoardLabel();
+        setUpGodModeLabel();
+
+        setUpDangerousCountLabel();
+        setUpRocketCountLabel();
+        setUpDestroyedCountLabel();
+        setUpSpringBoardCountLabel();
+        setUpGodModCountLabel();
 
         setBounds(0, 0, GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2);
+    }
+
+
+    public void setUpDisntanceCountLabel()
+    {
+        distance_count_label.setBounds(Constants.DISTANCE_COUNT_LABEL_X,Constants.DISTANCE_COUNT_LABEL_Y,distance_count_label.getPrefWidth(),distance_count_label.getPrefHeight());
+        distance_count_label.setFontScale(0.4f,0.4f);
+        addActor(distance_count_label);
+    }
+
+    public void setUpTotalLabel()
+    {
+        total_label.setBounds(Constants.TOTAL_LABEL_GAME_OVER_LABEL_X,Constants.TOTAL_LABEL_OVER_LABEL_Y,total_label.getPrefWidth(),total_label.getPrefHeight());
+        total_label.setFontScale(0.5f, 0.5f);
+        total_label.setColor(Color.ORANGE);
+        addActor(total_label);
+    }
+   public void setUpTotalCountLabel()
+   {
+       total_count_label.setBounds(Constants.TOTAL_COUNT_LABEL_GAME_OVER_LABEL_X,Constants.TOTAL_COUNT_LABEL_OVER_LABEL_Y,total_count_label.getPrefWidth(),total_count_label.getPrefHeight());
+       total_count_label.setFontScale(0.4f,0.4f);
+       addActor(total_count_label);
+   }
+   public void setUpDangerousCountLabel()
+   {
+       dangerous_count_label.setBounds(Constants.DANGEROUS_COUNT_LABEL_GAME_OVER_LABEL_X,Constants.DANGEROUS_COUNT_LABEL_OVER_LABEL_Y,dangerous_count_label.getPrefWidth(),dangerous_count_label.getPrefHeight());
+       dangerous_count_label.setFontScale(0.4f, 0.4f);
+       addActor(dangerous_count_label);
+   }
+
+    public void setUpRocketCountLabel()
+    {
+        rocket_count_label.setBounds(Constants.ROCKET_COUNT_LABEL_GAME_OVER_LABEL_X,Constants.ROCKET_COUNT_LABEL_OVER_LABEL_Y,rocket_count_label.getPrefWidth(),rocket_count_label.getPrefHeight());
+        rocket_count_label.setFontScale(0.4f, 0.4f);
+        addActor(rocket_count_label);
+    }
+
+    public void setUpDestroyedCountLabel()
+    {
+        destroyed_count_label.setBounds(Constants.DESTROYED_COUNT_LABEL_GAME_OVER_LABEL_X,Constants.DESTROYED_COUNT_LABEL_OVER_LABEL_Y,destroyed_count_label.getPrefWidth(),destroyed_count_label.getPrefHeight());
+        destroyed_count_label.setFontScale(0.4f, 0.4f);
+        addActor(destroyed_count_label);
+    }
+
+    public void setUpSpringBoardCountLabel()
+    {
+        spring_bozrd_count_label.setBounds(Constants.SPRING_BOARD_COUNT_LABEL_GAME_OVER_LABEL_X,Constants.SPRING_BOARD_COUNT_LABEL_OVER_LABEL_Y,spring_bozrd_count_label.getPrefWidth(),spring_bozrd_count_label.getPrefHeight());
+        spring_bozrd_count_label.setFontScale(0.4f, 0.4f);
+        addActor(spring_bozrd_count_label);
+    }
+
+    public void setUpGodModCountLabel()
+    {
+        god_mode_count_label.setBounds(Constants.GODE_MODE_COUNT_LABEL_GAME_OVER_LABEL_X,Constants.GODE_MODE_COUNT_LABEL_OVER_LABEL_Y,god_mode_count_label.getPrefWidth(),god_mode_count_label.getPrefHeight());
+        god_mode_count_label.setFontScale(0.4f, 0.4f);
+        addActor(god_mode_count_label);
     }
 
 
@@ -140,27 +250,92 @@ public class MenuGameOver extends Group {
     }
 
 
-    public void setUpDistance()
-    {
+
+    public void setUpBagroundRectagnleTotal() {
+        addActor(new GameOverRectangleTotal());
+    }
+
+    public void setUpDangerousImage() {
+        dangerousImage.setBounds(Constants.DANGEROUS_IMAGE_GAME_OVER_LABEL_X, Constants.DANGEROUS_IMAGE_OVER_LABEL_Y, dangerousImage.getPrefWidth(), dangerousImage.getPrefHeight());
+        addActor(dangerousImage);
+    }
+
+
+    public void setUpDangerousLabel() {
+        dangerous_label.setBounds(Constants.DANGEROUS_LABEL_GAME_OVER_LABEL_X, Constants.DANGEROUS_LABEL_OVER_LABEL_Y, dangerous_label.getPrefWidth(), dangerous_label.getPrefHeight());
+        dangerous_label.setFontScale(0.4f, 0.4f);
+        addActor(dangerous_label);
+    }
+
+
+    public void setUpRocketLabel() {
+        rocket_label.setBounds(Constants.ROCKET_LABEL_GAME_OVER_LABEL_X, Constants.ROCKET_LABEL_OVER_LABEL_Y, rocket_label.getPrefWidth(), rocket_label.getPrefHeight());
+        rocket_label.setFontScale(0.4f, 0.4f);
+        addActor(rocket_label);
+    }
+
+
+    public void setUpDestroyedLabel() {
+        destroyed_label.setBounds(Constants.DESTROYED_LABEL_GAME_OVER_LABEL_X, Constants.DESTROYED_LABEL_OVER_LABEL_Y, destroyed_label.getPrefWidth(), destroyed_label.getPrefHeight());
+        destroyed_label.setFontScale(0.4f, 0.4f);
+        addActor(destroyed_label);
+    }
+
+
+    public void setUpSpringBoardLabel() {
+        spring_board_label.setBounds(Constants.SPRING_BOARD_LABEL_GAME_OVER_LABEL_X, Constants.SPRING_BOARD_LABEL_OVER_LABEL_Y, spring_board_label.getPrefWidth(), spring_board_label.getPrefHeight());
+        spring_board_label.setFontScale(0.4f, 0.4f);
+        addActor(spring_board_label);
+    }
+
+
+    public void setUpGodModeLabel() {
+
+        god_mode_label.setBounds(Constants.GODE_MODE_LABEL_GAME_OVER_LABEL_X, Constants.GODE_MODE_LABEL_OVER_LABEL_Y, god_mode_label.getPrefWidth(), god_mode_label.getPrefHeight());
+        god_mode_label.setFontScale(0.4f, 0.4f);
+        addActor(god_mode_label);
+    }
+
+
+    public void setUpRocketImage() {
+        rocketImage.setBounds(Constants.ROCKET_IMAGE_GAME_OVER_LABEL_X, Constants.ROCKET_IMAGE_OVER_LABEL_Y, dangerousImage.getPrefWidth(), dangerousImage.getPrefHeight());
+        addActor(rocketImage);
+    }
+
+    public void setUpDestroyedImage() {
+        destroyedImage.setBounds(Constants.DESTROYED_IMAGE_GAME_OVER_LABEL_X, Constants.DESTROYED_IMAGE_OVER_LABEL_Y, dangerousImage.getPrefWidth(), dangerousImage.getPrefHeight());
+        addActor(destroyedImage);
+    }
+
+    public void setUpSpringBoardImage() {
+        springBoardImage.setBounds(Constants.SPRING_BOARD_IMAGE_GAME_OVER_LABEL_X, Constants.SPRING_BOARD_IMAGE_OVER_LABEL_Y, dangerousImage.getPrefWidth(), dangerousImage.getPrefHeight());
+        addActor(springBoardImage);
+    }
+
+    public void setUpGodModeImage() {
+        godModeImage.setBounds(Constants.GODE_MODE_IMAGE_GAME_OVER_LABEL_X, Constants.GODE_MODE_IMAGE_OVER_LABEL_Y, dangerousImage.getPrefWidth(), dangerousImage.getPrefHeight());
+        addActor(godModeImage);
+    }
+
+    public void setUpDistance() {
 
         distance_label.setFontScale(0.5f, 0.5f);
         distance_label.setColor(Color.ORANGE);
-        distance_label.setBounds(Constants.DISTANCE_LABEL_X-distance_label.getPrefWidth(), Constants.DISTANCE_LABEL_Y,distance_label.getPrefWidth() , distance_label.getPrefHeight());
+        distance_label.setBounds(Constants.DISTANCE_LABEL_X - distance_label.getPrefWidth(), Constants.DISTANCE_LABEL_Y, distance_label.getPrefWidth(), distance_label.getPrefHeight());
         distance_label.setText("Distance:");
         addActor(distance_label);
     }
 
 
-
-    public void setUpBoosters()
-    {
+    public void setUpBoosters() {
 
         boosters_label.setFontScale(0.5f, 0.5f);
         boosters_label.setColor(Color.YELLOW);
-        boosters_label.setBounds(Constants.BOOSTERS_GAME_OVER_LABEL_X-boosters_label.getPrefWidth(), Constants.BOOSTERS_GAME_OVER_LABEL_Y,distance_label.getPrefWidth() , distance_label.getPrefHeight());
+        boosters_label.setBounds(Constants.BOOSTERS_GAME_OVER_LABEL_X - boosters_label.getPrefWidth(), Constants.BOOSTERS_GAME_OVER_LABEL_Y, distance_label.getPrefWidth(), distance_label.getPrefHeight());
         boosters_label.setText("Boosters:");
         addActor(boosters_label);
     }
+
     public void setUpAchive() {
         achive.setX(Constants.GAME_OVER_ACHIVE_X_VISIBLE);
         achive.setY(Constants.GAME_OVER_ACHIVE_Y_VISIBLE);

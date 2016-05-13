@@ -10,10 +10,10 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 /**
  * Created by Nikolas on 11.05.2016.
  */
-public class GameOverRectangle extends Actor {
+public class GameOverRectangleTotal extends Actor {
     private ShapeRenderer shapeRenderer;
 
-    public GameOverRectangle() {
+    public GameOverRectangleTotal() {
         shapeRenderer = new ShapeRenderer();
 
     }
@@ -28,30 +28,30 @@ public class GameOverRectangle extends Actor {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         Color colorShadowBackground = new Color(Color.rgba8888(0f/255f,0f/255f,0f/255f,0.5f));
         shapeRenderer.setColor(colorShadowBackground);
-        shapeRenderer.rect(30, 85, 256, 10);
+        shapeRenderer.rect(30, 15, 256, 10);
         shapeRenderer.end();
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.BLACK);
-        shapeRenderer.rect(30, 90, 256, 356);
+        shapeRenderer.rect(30, 20, 256, 56);
         shapeRenderer.end();
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         Color color = new Color(Color.rgba8888(28f/255f,163f/255f,252f/255f,1.0f));
         shapeRenderer.setColor(color);
-        shapeRenderer.rect(33, 93, 250, 350);
+        shapeRenderer.rect(33, 23, 250, 50);
         shapeRenderer.end();
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         Color colorShadow = new Color(Color.rgba8888(141f/255f,209f/255f,254f/255f,0.5f));
         shapeRenderer.setColor(colorShadow);
-        shapeRenderer.rect(33, 433, 250, 10);
+        shapeRenderer.rect(33, 63, 250, 10);
         shapeRenderer.end();
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        Color colorLineDelimiter = new Color(Color.rgba8888(26f/255f,112f/255f,168f/255f,1f));
-        shapeRenderer.setColor(colorLineDelimiter);
-        shapeRenderer.rect(33, 93, 250, 50);
-        shapeRenderer.rect(33, 193, 250, 50);
-        shapeRenderer.rect(33, 293, 250, 50);
-        shapeRenderer.end();
+       // shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+//        Color colorLineDelimiter = new Color(Color.rgba8888(26f/255f,112f/255f,168f/255f,1f));
+//        shapeRenderer.setColor(colorLineDelimiter);
+//        shapeRenderer.rect(33, 63, 250, 50);
+//        shapeRenderer.rect(33, 163, 250, 50);
+//        shapeRenderer.rect(33, 263, 250, 50);
+//        shapeRenderer.end();
 
 
         batch.begin();

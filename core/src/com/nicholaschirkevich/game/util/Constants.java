@@ -321,10 +321,66 @@ public class Constants {
 
 
     public static final float DISTANCE_LABEL_X= GameRuners.WIDTH / 4f-110;
-    public static final float DISTANCE_LABEL_Y=  GameRuners.HEIGHT /4f+80;
+    public static final float DISTANCE_LABEL_Y=  GameRuners.HEIGHT /4f+120;
+
+    public static final float DISTANCE_COUNT_LABEL_X= GameRuners.WIDTH / 4f+90;
+    public static final float DISTANCE_COUNT_LABEL_Y=  GameRuners.HEIGHT /4f+115;
 
     public static final float BOOSTERS_GAME_OVER_LABEL_X= GameRuners.WIDTH / 4f-110;
-    public static final float BOOSTERS_GAME_OVER_LABEL_Y=  GameRuners.HEIGHT /4f+50;
+    public static final float BOOSTERS_GAME_OVER_LABEL_Y=  GameRuners.HEIGHT /4f+80;
+
+
+    public static final float DANGEROUS_IMAGE_GAME_OVER_LABEL_X= GameRuners.WIDTH / 4f-115;
+    public static final float DANGEROUS_IMAGE_OVER_LABEL_Y=  GameRuners.HEIGHT /4f+20;
+
+    public static final float DANGEROUS_LABEL_GAME_OVER_LABEL_X= GameRuners.WIDTH / 4f-70;
+    public static final float DANGEROUS_LABEL_OVER_LABEL_Y=  GameRuners.HEIGHT /4f+20;
+
+    public static final float DANGEROUS_COUNT_LABEL_GAME_OVER_LABEL_X= GameRuners.WIDTH / 4f+90;
+    public static final float DANGEROUS_COUNT_LABEL_OVER_LABEL_Y=  GameRuners.HEIGHT /4f+20;
+
+    public static final float ROCKET_IMAGE_GAME_OVER_LABEL_X= GameRuners.WIDTH / 4f-115;
+    public static final float ROCKET_IMAGE_OVER_LABEL_Y=  GameRuners.HEIGHT /4f-30;
+
+    public static final float ROCKET_LABEL_GAME_OVER_LABEL_X= GameRuners.WIDTH / 4f-70;
+    public static final float ROCKET_LABEL_OVER_LABEL_Y=  GameRuners.HEIGHT /4f-30;
+
+    public static final float ROCKET_COUNT_LABEL_GAME_OVER_LABEL_X= GameRuners.WIDTH / 4f+90;
+    public static final float ROCKET_COUNT_LABEL_OVER_LABEL_Y=  GameRuners.HEIGHT /4f-30;
+
+    public static final float DESTROYED_IMAGE_GAME_OVER_LABEL_X= GameRuners.WIDTH / 4f-115;
+    public static final float DESTROYED_IMAGE_OVER_LABEL_Y=  GameRuners.HEIGHT /4f-80;
+
+    public static final float DESTROYED_LABEL_GAME_OVER_LABEL_X= GameRuners.WIDTH / 4f-70;
+    public static final float DESTROYED_LABEL_OVER_LABEL_Y=  GameRuners.HEIGHT /4f-80;
+
+    public static final float DESTROYED_COUNT_LABEL_GAME_OVER_LABEL_X= GameRuners.WIDTH / 4f+90;
+    public static final float DESTROYED_COUNT_LABEL_OVER_LABEL_Y=  GameRuners.HEIGHT /4f-80;
+
+    public static final float SPRING_BOARD_LABEL_GAME_OVER_LABEL_X= GameRuners.WIDTH / 4f-70;
+    public static final float SPRING_BOARD_LABEL_OVER_LABEL_Y=  GameRuners.HEIGHT /4f-125;
+
+    public static final float SPRING_BOARD_IMAGE_GAME_OVER_LABEL_X= GameRuners.WIDTH / 4f-115;
+    public static final float SPRING_BOARD_IMAGE_OVER_LABEL_Y=  GameRuners.HEIGHT /4f-125;
+
+    public static final float SPRING_BOARD_COUNT_LABEL_GAME_OVER_LABEL_X= GameRuners.WIDTH / 4f+90;
+    public static final float SPRING_BOARD_COUNT_LABEL_OVER_LABEL_Y=  GameRuners.HEIGHT /4f-125;
+
+    public static final float GODE_MODE_IMAGE_GAME_OVER_LABEL_X= GameRuners.WIDTH / 4f-115;
+    public static final float GODE_MODE_IMAGE_OVER_LABEL_Y=  GameRuners.HEIGHT /4f-175;
+
+    public static final float GODE_MODE_LABEL_GAME_OVER_LABEL_X= GameRuners.WIDTH / 4f-70;
+    public static final float GODE_MODE_LABEL_OVER_LABEL_Y=  GameRuners.HEIGHT /4f-175;
+
+    public static final float GODE_MODE_COUNT_LABEL_GAME_OVER_LABEL_X= GameRuners.WIDTH / 4f+90;
+    public static final float GODE_MODE_COUNT_LABEL_OVER_LABEL_Y=  GameRuners.HEIGHT /4f-175;
+
+
+    public static final float TOTAL_COUNT_LABEL_GAME_OVER_LABEL_X= GameRuners.WIDTH / 4f+90;
+    public static final float TOTAL_COUNT_LABEL_OVER_LABEL_Y=  GameRuners.HEIGHT /4f-255;
+
+    public static final float TOTAL_LABEL_GAME_OVER_LABEL_X= GameRuners.WIDTH / 4f-115;
+    public static final float TOTAL_LABEL_OVER_LABEL_Y=  GameRuners.HEIGHT /4f-255f;
 
     public static final float GAME_OVER_LOGO_POSITION_X = GameRuners.WIDTH / 6.8f;
     public static final float GAME_OVER_LOGO_POSITION_Y = GameRuners.HEIGHT / 2.4f;
