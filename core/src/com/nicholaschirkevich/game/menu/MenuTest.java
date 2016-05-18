@@ -9,8 +9,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -20,9 +20,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
+import com.nicholaschirkevich.game.states.CarShopState;
 import com.nicholaschirkevich.game.states.CoinShopState;
 import com.nicholaschirkevich.game.states.GameStateManager;
-import com.nicholaschirkevich.game.states.GarageState;
 import com.nicholaschirkevich.game.util.AssetsManager;
 import com.nicholaschirkevich.game.util.Constants;
 
@@ -41,10 +41,9 @@ public class MenuTest extends Group {
     ImageButton carShop, coinShop, settingMenu, leaderBoard, leaderBoards;
     Image background;
     Image resumeButtonUpImage, resumeButtonDownImage, playOnlineDownImage, playOnlineUpImage, getPrizeUpButtonImage, getPrizeDownButtonImage, carShopImageUp, carShopImageDown, coinShomImageUp, coinShopImageDown, settingMenuImageUp, settingMenuImageDown, leaderBoardImageUp, leaderBoardImageDown, leaderBoardsImageUp, leaderBoardsImageDown;
-    Texture resumeButtonUp, resumeButtonDown, playOnlineDownImageTexture, playOnlineUpImageTexture, getPrizeUpButtonImageTexture, getPrizeDownButtonImageTexture, carShopTextureUp, carShopTextureDown, coinShopTextureUp, coinShopTextureDown, settingMenuTextureUp, settingMenuTextureDown, leaderBoardTextureUp, leaderBoardTextureDown, leaderBoardsTextureUp, leaderBoardsTextureDown;
     Image imageLogo, bonusSaveMe;
     ResumeButtonListener listener;
-    SequenceAction sequence, sequenceCarShop, sequenceSetting,sequenceCoinShop;
+    SequenceAction sequence, sequenceCarShop, sequenceSetting,sequenceCoinShop, logoShowSequence;
     GameStateManager gsm;
     Group groupView;
 
@@ -55,54 +54,44 @@ public class MenuTest extends Group {
 
         this.groupView = this;
         this.listener = listener;
-        resumeButtonUp = new Texture("button_play_big.png");
-        resumeButtonDown = new Texture("button_play_big_pressed.png");
-        playOnlineDownImageTexture = new Texture("button_multiplayer_pressed.png");
-        playOnlineUpImageTexture = new Texture("button_multiplayer.png");
-        getPrizeUpButtonImageTexture = new Texture("button_win_a_prize.png");
-        getPrizeDownButtonImageTexture = new Texture("button_win_a_prize_pressed.png");
-        carShopTextureUp = new Texture("bttn_cars.png");
-        carShopTextureDown = new Texture("bttn_cars_prssd.png");
 
-        coinShopTextureDown = new Texture("bttn_coins_prssd.png");
-        coinShopTextureUp = new Texture("bttn_coins.png");
 
-        leaderBoardsTextureDown = new Texture("bttn_leaderboards_prssd.png");
-        leaderBoardsTextureUp = new Texture("bttn_leaderboards.png");
 
-        leaderBoardTextureDown = new Texture("bttn_leaderbord_pressed.png");
-        leaderBoardTextureUp = new Texture("bttn_leaderboard.png");
 
-        settingMenuTextureDown = new Texture("bttn_set_prssd.png");
-        settingMenuTextureUp = new Texture("bttn_set.png");
+        logoShowSequence = new SequenceAction();
 
-        coinShomImageUp = new Image(coinShopTextureUp);
-        coinShopImageDown = new Image(coinShopTextureDown);
+
+
+
+
+
+        coinShomImageUp = new Image(AssetsManager.getTextureRegion(Constants.MAIN_MENU_COIN_SHOP_UP_ID));
+        coinShopImageDown = new Image(AssetsManager.getTextureRegion(Constants.MAIN_MENU_COIN_SHOP_PRESSERD_ID));
 
         sequenceSetting = new SequenceAction();
         sequenceCoinShop = new SequenceAction();
         sequence = new SequenceAction();
         sequenceCarShop = new SequenceAction();
-        resumeButtonUpImage = new Image(resumeButtonUp);
-        resumeButtonDownImage = new Image(resumeButtonDown);
+        resumeButtonUpImage = new Image(AssetsManager.getTextureRegion(Constants.MAIN_MENU_PLAY_BTTN_UP_ID));
+        resumeButtonDownImage = new Image(AssetsManager.getTextureRegion(Constants.MAIN_MENU_PLAY_BTTN_PRESSERD_ID));
 
-        leaderBoardsImageDown = new Image(leaderBoardsTextureDown);
-        leaderBoardsImageUp = new Image(leaderBoardsTextureUp);
+        leaderBoardsImageDown = new Image(AssetsManager.getTextureRegion(Constants.MAIN_MENU_LEADERBOARDS_PRESSERD_ID));
+        leaderBoardsImageUp = new Image(AssetsManager.getTextureRegion(Constants.MAIN_MENU_LEADERBOARDS_UP_ID));
 
-        leaderBoardImageDown = new Image(leaderBoardTextureDown);
-        leaderBoardImageUp = new Image(leaderBoardTextureUp);
+        leaderBoardImageDown = new Image(AssetsManager.getTextureRegion(Constants.MAIN_MENU_LEADERBOARD_PRESSERD_ID));
+        leaderBoardImageUp = new Image(AssetsManager.getTextureRegion(Constants.MAIN_MENU_LEADERBOARD_UP_ID));
 
-        settingMenuImageDown = new Image(settingMenuTextureDown);
-        settingMenuImageUp = new Image(settingMenuTextureUp);
+        settingMenuImageDown = new Image(AssetsManager.getTextureRegion(Constants.MAIN_MENU_SET_PRESSERD_ID));
+        settingMenuImageUp = new Image(AssetsManager.getTextureRegion(Constants.MAIN_MENU_SET_UP_ID));
 
-        playOnlineDownImage = new Image(playOnlineDownImageTexture);
-        playOnlineUpImage = new Image(playOnlineUpImageTexture);
+        playOnlineDownImage = new Image(AssetsManager.getTextureRegion(Constants.MAIN_MENU_MULTIPLAYER_PRESSERD_ID));
+        playOnlineUpImage = new Image(AssetsManager.getTextureRegion(Constants.MAIN_MENU_MULTIPLAYER_UP_ID));
 
-        getPrizeDownButtonImage = new Image(getPrizeDownButtonImageTexture);
-        getPrizeUpButtonImage = new Image(getPrizeUpButtonImageTexture);
+        getPrizeDownButtonImage = new Image(AssetsManager.getTextureRegion(Constants.MAIN_MENU_WIN_PRIZE_PRESSERD_ID));
+        getPrizeUpButtonImage = new Image(AssetsManager.getTextureRegion(Constants.MAIN_MENU_WIN_PRIZE_UP_ID));
 
-        carShopImageUp = new Image(carShopTextureUp);
-        carShopImageDown = new Image(carShopTextureDown);
+        carShopImageUp = new Image(AssetsManager.getTextureRegion(Constants.MAIN_MENU_CARS_UP_ID));
+        carShopImageDown = new Image(AssetsManager.getTextureRegion(Constants.MAIN_MENU_CARS_PRESSERD_ID));
         this.gsm = gsm;
 
         setUpBackgroung(false);
@@ -129,9 +118,16 @@ public class MenuTest extends Group {
 
     private void setUpImageLogo() {
 
-        Texture logo = new Texture("sr_logo.png");
-        imageLogo = new Image(logo);
-        imageLogo.setBounds(Constants.LOGO_POSITION_X, Constants.LOGO_POSITION_Y, imageLogo.getWidth(), imageLogo.getHeight());
+
+        imageLogo = new Image(AssetsManager.getTextureRegion(Constants.MAIN_MENU_LOGO_ID));
+        imageLogo.setBounds(Constants.LOGO_POSITION_X, Constants.LOGO_POSITION_Y + 200, imageLogo.getWidth(), imageLogo.getHeight());
+        MoveToAction moveToAction = new MoveToAction();
+
+        moveToAction.setPosition(Constants.LOGO_POSITION_X, Constants.LOGO_POSITION_Y);
+        moveToAction.setDuration(0.8f);
+        logoShowSequence.addAction(Actions.delay(0.1f));
+        logoShowSequence.addAction(moveToAction);
+        imageLogo.addAction(logoShowSequence);
         addActor(imageLogo);
     }
 
@@ -224,7 +220,7 @@ public class MenuTest extends Group {
                                     sequenceCarShop.addAction(new Action() {
                                         @Override
                                         public boolean act(float delta) {
-                                            gsm.push(new GarageState(gsm));
+                                            gsm.push(new CarShopState(gsm));
                                             return true;
                                         }
                                     });

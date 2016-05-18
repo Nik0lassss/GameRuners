@@ -17,9 +17,8 @@
 package com.nicholaschirkevich.game.menu;
 
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
-import com.nicholaschirkevich.game.states.GameState;
 import com.nicholaschirkevich.game.states.GameStateManager;
-import com.nicholaschirkevich.game.states.GarageState;
+import com.nicholaschirkevich.game.states.CarShopState;
 import com.nicholaschirkevich.game.util.Constants;
 
 public class GarageButton extends GarageButtonBasic {
@@ -76,7 +75,7 @@ public class GarageButton extends GarageButtonBasic {
     @Override
     public void touched() {
         System.out.println("Touched");
-        gsm.push(new GarageState(gsm));
+        gsm.push(new CarShopState(gsm));
 //        if (GameManager.getInstance().getGameState() == GameState.PAUSED) {
 //            listener.resumeButtonOnResume();
 //        } else {

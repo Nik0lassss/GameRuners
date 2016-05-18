@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.Json;
 import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.entity.Car;
 import com.nicholaschirkevich.game.entity.CarsType;
@@ -16,6 +17,8 @@ import com.nicholaschirkevich.game.model.AchiveView;
 import com.nicholaschirkevich.game.model.GearView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Nikolas on 11.03.2016.
@@ -37,6 +40,7 @@ public class GameManager {
     private static int destroyedCount = 0;
     private static int springBoardCount = 0;
     private static int godModeCount = 0;
+    private static List<String> myCars;
 
 
     public static void addDangerousCount() {
@@ -60,7 +64,7 @@ public class GameManager {
         godModeCount++;
     }
 
-    public void resetCountBusters() {
+    public static void resetCountBusters() {
         dangerousCount = 0;
         rocketCount = 0;
         destroyedCount = 0;
@@ -147,7 +151,16 @@ public class GameManager {
         preferences = Gdx.app.getPreferences(Constants.PREFERENCES_KEY);
         loadPreferences();
         gearShift = GameManager.getGearShifts().get(GameManager.getCurrentCar().getCurveType() - 1);
-        System.out.println(preferences.getString(Constants.PREFERENCES_KEY));
+        Json json = new Json();
+        myCars = json.fromJson(ArrayList.class, preferences.getString(Constants.PREFERENCES_KEY_CARS));
+        String currentcar = getCurrentCar().getID();
+        if(myCars==null)
+        {
+            myCars= new ArrayList<String>();
+            myCars.add("SP000");
+            preferences.putString(json.toJson(myCars).toString(),Constants.PREFERENCES_KEY_CARS);
+        }
+
 
     }
 

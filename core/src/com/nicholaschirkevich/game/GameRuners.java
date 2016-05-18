@@ -2,15 +2,13 @@ package com.nicholaschirkevich.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.nicholaschirkevich.game.states.GameState;
 import com.nicholaschirkevich.game.states.GameStateManager;
-import com.nicholaschirkevich.game.states.GarageState;
 import com.nicholaschirkevich.game.util.AssetsManager;
 import com.nicholaschirkevich.game.util.GameManager;
+
 
 public class GameRuners extends ApplicationAdapter {
     public static final int WIDTH = 640;
@@ -33,7 +31,7 @@ public class GameRuners extends ApplicationAdapter {
         gsm.push(new GameState(gsm, true, false));
 
 
-        //gsm.push(new GarageState(gsm));
+        //gsm.push(new CarShopState(gsm));
 
     }
 

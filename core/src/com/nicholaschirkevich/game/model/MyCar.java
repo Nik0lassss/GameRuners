@@ -124,7 +124,7 @@ public class MyCar extends com.nicholaschirkevich.game.model.side_objects.Car {
     public void update(float dt) {
         MyCarDataType myCarDataType = (MyCarDataType) body.getUserData();
 
-        if (getActions().size == 0) isTurnRun = false;
+        if (getX()<Constants.getCarPostitionXLeft(carAnimation.getKeyFrames()[0].getRegionWidth()+30)+10 || getX()> Constants.getCarPostitionXRight(carAnimation.getKeyFrames()[0].getRegionWidth() -30)-10) isTurnRun = false;
         if (isTurnRun() == true) System.out.println("IsTurn " + isTurnRun());
 
         bounds.setPosition(getX(), getY());
@@ -205,7 +205,7 @@ public class MyCar extends com.nicholaschirkevich.game.model.side_objects.Car {
 
     @Override
     public void turn() {
-        if (getActions().size<=1 && !isTurnRun()) {
+        if (!isTurnRun()) {
             isTurnRun = true;
             if (isLeft) {
                 setUpMoveToRightAction();

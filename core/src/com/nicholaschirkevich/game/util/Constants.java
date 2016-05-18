@@ -12,6 +12,7 @@ public class Constants {
     public static String PREFERENCES_KEY_CAR_ID = "PRefsCarId";
     public static String PREFERENCES_KEY_COIN_COUNT_ID = "PRefsCoinCount";
     public static String PREFERENCES_KEY_ACHIVES_COUNT_ID = "PRefsBestAchivesCount";
+    public static String PREFERENCES_KEY_CARS = "PRefsMyCars";
 
     public static final float CAR_POS_X_LEFT = 120;
     public static final float CAR_POS_X_RIGHT = 215;
@@ -37,6 +38,65 @@ public class Constants {
     public static final String OTHERCAR_5_1_ATLAS_PATH = "other_car_5_1_animation.txt";
     public static final String OTHERCAR_5_2_ATLAS_PATH = "other_car_5_2_animation.txt";
     public static final String OTHERCAR_5_3_ATLAS_PATH = "other_car_5_3_animation.txt";
+
+    public static final String MAIN_MENU_LOGO_ID = "sr_logo";
+    public static final String MAIN_MENU_LOGO_PATH = "sr_logo.png";
+    public static final String MAIN_MENU_COIN_SHOP_PRESSERD_ID = "coin_shop_presserd";
+    public static final String MAIN_MENU_COIN_SHOP_UP_ID = "coin_shop_presserd";
+    public static final String MAIN_MENU_COIN_SHOP_PRESSED_RESOURCE = "bttn_coins_prssd.png";
+    public static final String MAIN_MENU_COIN_SHOP_UP_RESOURCE = "bttn_coins.png";
+
+    public static final String MAIN_MENU_PLAY_BTTN_PRESSERD_ID = "button_play_big_pressed";
+    public static final String MAIN_MENU_PLAY_BTTN_UP_ID = "button_play_big";
+    public static final String MAIN_MENU_PLAY_BTTN_PRESSED_RESOURCE = "button_play_big_pressed.png";
+    public static final String MAIN_MENU_PLAY_BTTN_UP_RESOURCE = "button_play_big.png";
+
+    public static final String MAIN_MENU_MULTIPLAYER_PRESSERD_ID = "button_multiplayer_pressed";
+    public static final String MAIN_MENU_MULTIPLAYER_UP_ID = "button_multiplayer";
+    public static final String MAIN_MENU_MULTIPLAYER_PRESSED_RESOURCE = "button_multiplayer_pressed.png";
+    public static final String MAIN_MENU_MULTIPLAYER_UP_RESOURCE = "button_multiplayer.png";
+
+    public static final String MAIN_MENU_WIN_PRIZE_PRESSERD_ID = "button_win_a_prize_pressed";
+    public static final String MAIN_MENU_WIN_PRIZE_UP_ID = "button_win_a_prize";
+    public static final String MAIN_MENU_WIN_PRIZE_PRESSED_RESOURCE = "button_win_a_prize_pressed.png";
+    public static final String MAIN_MENU_WIN_PRIZE_UP_RESOURCE = "button_win_a_prize.png";
+
+    public static final String MAIN_MENU_CARS_PRESSERD_ID = "bttn_cars_prssd";
+    public static final String MAIN_MENU_CARS_UP_ID = "bttn_cars";
+    public static final String MAIN_MENU_CARS_PRESSED_RESOURCE = "bttn_cars_prssd.png";
+    public static final String MAIN_MENU_CARS_UP_RESOURCE = "bttn_cars.png";
+
+    public static final String MAIN_MENU_LEADERBOARDS_PRESSERD_ID = "bttn_leaderboards_prssd";
+    public static final String MAIN_MENU_LEADERBOARDS_UP_ID = "bttn_leaderboards";
+    public static final String MAIN_MENU_LEADERBOARDS_PRESSED_RESOURCE = "bttn_leaderboards_prssd.png";
+    public static final String MAIN_MENU_LEADERBOARDS_UP_RESOURCE = "bttn_leaderboards.png";
+
+    public static final String MAIN_MENU_LEADERBOARD_PRESSERD_ID = "bttn_leaderbord_pressed";
+    public static final String MAIN_MENU_LEADERBOARD_UP_ID = "bttn_leaderboard";
+    public static final String MAIN_MENU_LEADERBOARD_PRESSED_RESOURCE = "bttn_leaderbord_pressed.png";
+    public static final String MAIN_MENU_LEADERBOARD_UP_RESOURCE = "bttn_leaderboard.png";
+
+    public static final String MAIN_MENU_SET_PRESSERD_ID = "bttn_set_prssd";
+    public static final String MAIN_MENU_SET_UP_ID = "bttn_set";
+    public static final String MAIN_MENU_SET_PRESSED_RESOURCE = "bttn_set_prssd.png";
+    public static final String MAIN_MENU_SET_UP_RESOURCE = "bttn_set.png";
+
+    public static final String BTTN_CAR_SHOP_BUY_EMPTY_ID = "bttn_buy_empty";
+    public static final String BTTN_CAR_SHOP_BUY_EMPTY_RESOURCE = "bttn_buy_empty.png";
+
+    public static final String BTTN_CAR_SHOP_BUY_EMPTY_DIS_ID = "bttn_buy_empty_dis";
+    public static final String BTTN_CAR_SHOP_BUY_EMPTY_DIS_RESOURCE = "bttn_buy_empty_dis.png";
+
+    public static final String BTTN_CAR_SHOP_BUY_REAL_EMPTY_ID = "button_buy_real_empty";
+    public static final String BTTN_CAR_SHOP_BUY_EMPTY_REAL_RESOURCE = "button_buy_real_empty.png";
+
+    public static final String BTTN_CAR_SHOP_BUY_REAL_EMPTY_DIS_ID = "bttn_buy_real_empty_dis";
+    public static final String BTTN_CAR_SHOP_BUY_EMPTY_REAL_DIS_RESOURCE = "bttn_buy_real_empty_dis.png";
+
+    public static final String BTTN_CAR_SHOP_CHECKED_ID = "checked-icon";
+    public static final String BTTN_CAR_SHOP_CHECKED_RESOURCE = "checked-icon.png";
+
+
     public static final String CRASH_ATLAS_PATH = "crash_animation.txt";
     public static final String COIN_ATLAS_PATH = "coin.txt";
     public static final String COIN_SHADOW_ATLAS_PATH = "coin_shadow.txt";
@@ -49,6 +109,7 @@ public class Constants {
     public static final String LEFT_THRONS_ATLAS_PATH = "left_throns.txt";
     public static final String RIGHT_THRONS_ATLAS_PATH = "right_throns.txt";
     public static final String SPRING_BOARD_ATLAS_PATH = "springboard.txt";
+    public static final String GATE_ATLAS_PATH = "gate_animation.txt";
     public static final String ROAD_BLOCK_ATLAS_PATH = "road_block.txt";
     public static final String DIRT_ATLAS_PATH = "dirt.txt";
     public static final String DIRT_FOR_SREEN_1_ATLAS_PATH = "dirt_for_screen_1.txt";
@@ -101,6 +162,7 @@ public class Constants {
     public static final String[] OTHERCAR_5_1_REGION_NAMES = new String[]{"other_car_5_1"};
     public static final String[] OTHERCAR_5_2_REGION_NAMES = new String[]{"other_car_5_2"};
     public static final String[] OTHERCAR_5_3_REGION_NAMES = new String[]{"other_car_5_3"};
+    public static final String[] GATE_REGION_NAMES = new String[]{"gate_1","gate_2","gate_3","gate_4","gate_5","gate_6","gate_7","gate_8"};
     public static final String[] CRASH_REGION_NAMES = new String[]{"clash_anim_left_right_1", "clash_anim_left_right_2", "clash_anim_left_right_3", "clash_anim_left_right_4", "clash_anim_left_right_5", "clash_anim_left_right_6"};
     public static final String[] LEFT_WING_REGION_NAMES = new String[]{"left_wing"};
     public static final String[] RIGHT_WING_REGION_NAMES = new String[]{"right_wing"};
@@ -163,6 +225,7 @@ public class Constants {
     public static final String DIRT_ON_SCREEN_5_ASSETS_ID = "dirt_on_screen_5";
     public static final String DIRT_ON_SCREEN_6_ASSETS_ID = "dirt_on_screen_6";
     public static final String CRASH_ASSETS_ID = "crash_car_animation";
+    public static final String GATE_ASSETS_ID = "gate_animation";
     public static final String EFFECT_BOOST_ASSETS_ID = "effect_1";
     public static final String COIN_ASSETS_ID = "coin";
     public static final String SKULL_ON_ROAD_ASSETS_ID = "skull_on_road";

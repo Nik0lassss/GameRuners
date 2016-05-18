@@ -19,7 +19,6 @@ package com.nicholaschirkevich.game.menu;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.nicholaschirkevich.game.states.GameState;
 import com.nicholaschirkevich.game.states.GameStateManager;
-import com.nicholaschirkevich.game.states.GarageState;
 import com.nicholaschirkevich.game.util.Constants;
 
 public class BackButton extends BackButtonBasic {

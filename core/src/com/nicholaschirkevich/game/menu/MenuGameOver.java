@@ -7,7 +7,6 @@ package com.nicholaschirkevich.game.menu;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -25,7 +24,7 @@ import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
 import com.nicholaschirkevich.game.states.GameState;
 import com.nicholaschirkevich.game.states.GameStateManager;
-import com.nicholaschirkevich.game.states.GarageState;
+import com.nicholaschirkevich.game.states.CarShopState;
 import com.nicholaschirkevich.game.util.Constants;
 import com.nicholaschirkevich.game.util.GameManager;
 
@@ -51,10 +50,10 @@ public class MenuGameOver extends Group {
     Stage parentStage;
     Group groupView;
     Label dangerous_count_label, rocket_count_label, destroyed_count_label, spring_bozrd_count_label, god_mode_count_label, total_label, total_count_label;
-    Label achive, achiveCount, bestAchive, bestAchiveCount, distance_label, boosters_label, dangerous_label, rocket_label, destroyed_label, spring_board_label, god_mode_label,distance_count_label;
+    Label achive, achiveCount, bestAchive, bestAchiveCount, distance_label, boosters_label, dangerous_label, rocket_label, destroyed_label, spring_board_label, god_mode_label, distance_count_label;
 
 
-    public MenuGameOver(GameStateManager gsm) {
+    public MenuGameOver(final GameStateManager gsm) {
 
 
         dangerous_count_label = new Label(String.valueOf(GameManager.getDangerousCount()), uiSkin);
@@ -64,14 +63,14 @@ public class MenuGameOver extends Group {
         god_mode_count_label = new Label(String.valueOf(GameManager.getGodModeCount()), uiSkin);
 
         achive = new Label("", uiSkin);
-        distance_count_label = new Label(String.valueOf((int)GameManager.getAchives()),uiSkin);
+        distance_count_label = new Label(String.valueOf((int) GameManager.getAchives()), uiSkin);
         achiveCount = new Label("", uiSkin);
         bestAchive = new Label("", uiSkin);
         bestAchiveCount = new Label("", uiSkin);
         distance_label = new Label("", uiSkin);
         boosters_label = new Label("", uiSkin);
-        total_label = new Label("Total:",uiSkin);
-        total_count_label = new Label(String.valueOf((int)GameManager.getAchives()),uiSkin);
+        total_label = new Label("Total:", uiSkin);
+        total_count_label = new Label(String.valueOf((int) GameManager.getAchives()), uiSkin);
         dangerous_label = new Label("Dangerous", uiSkin);
         rocket_label = new Label("Rocket", uiSkin);
         destroyed_label = new Label("Destroyed", uiSkin);
@@ -94,53 +93,53 @@ public class MenuGameOver extends Group {
         godModeTexture = new Texture("skull_on_road.png");
         godModeImage = new Image(godModeTexture);
 
-        resumeButtonUp = new Texture("button_play_big.png");
-        resumeButtonDown = new Texture("button_play_big_pressed.png");
-        playOnlineDownImageTexture = new Texture("button_multiplayer_pressed.png");
-        playOnlineUpImageTexture = new Texture("button_multiplayer.png");
-        getPrizeUpButtonImageTexture = new Texture("button_win_a_prize.png");
-        getPrizeDownButtonImageTexture = new Texture("button_win_a_prize_pressed.png");
-        carShopTextureUp = new Texture("bttn_cars.png");
-        carShopTextureDown = new Texture("bttn_cars_prssd.png");
+//        resumeButtonUp = new Texture("button_play_big.png");
+//        resumeButtonDown = new Texture("button_play_big_pressed.png");
+//        playOnlineDownImageTexture = new Texture("button_multiplayer_pressed.png");
+//        playOnlineUpImageTexture = new Texture("button_multiplayer.png");
+//        getPrizeUpButtonImageTexture = new Texture("button_win_a_prize.png");
+//        getPrizeDownButtonImageTexture = new Texture("button_win_a_prize_pressed.png");
+//        carShopTextureUp = new Texture("bttn_cars.png");
+//        carShopTextureDown = new Texture("bttn_cars_prssd.png");
 
-        coinShopTextureDown = new Texture("bttn_coins_prssd.png");
-        coinShopTextureUp = new Texture("bttn_coins.png");
+//        coinShopTextureDown = new Texture("bttn_coins_prssd.png");
+//        coinShopTextureUp = new Texture("bttn_coins.png");
+//
+//        leaderBoardsTextureDown = new Texture("bttn_leaderboards_prssd.png");
+//        leaderBoardsTextureUp = new Texture("bttn_leaderboards.png");
+//
+//        leaderBoardTextureDown = new Texture("bttn_leaderbord_pressed.png");
+//        leaderBoardTextureUp = new Texture("bttn_leaderboard.png");
+//
+//        settingMenuTextureDown = new Texture("bttn_set_prssd.png");
+//        settingMenuTextureUp = new Texture("bttn_set.png");
+//
+//        coinShomImageUp = new Image(coinShopTextureUp);
+//        coinShopImageDown = new Image(coinShopTextureDown);
 
-        leaderBoardsTextureDown = new Texture("bttn_leaderboards_prssd.png");
-        leaderBoardsTextureUp = new Texture("bttn_leaderboards.png");
-
-        leaderBoardTextureDown = new Texture("bttn_leaderbord_pressed.png");
-        leaderBoardTextureUp = new Texture("bttn_leaderboard.png");
-
-        settingMenuTextureDown = new Texture("bttn_set_prssd.png");
-        settingMenuTextureUp = new Texture("bttn_set.png");
-
-        coinShomImageUp = new Image(coinShopTextureUp);
-        coinShopImageDown = new Image(coinShopTextureDown);
-
-        sequenceSetting = new SequenceAction();
-        sequence = new SequenceAction();
-        sequenceCarShop = new SequenceAction();
-        resumeButtonUpImage = new Image(resumeButtonUp);
-        resumeButtonDownImage = new Image(resumeButtonDown);
-
-        leaderBoardsImageDown = new Image(leaderBoardsTextureDown);
-        leaderBoardsImageUp = new Image(leaderBoardsTextureUp);
-
-        leaderBoardImageDown = new Image(leaderBoardTextureDown);
-        leaderBoardImageUp = new Image(leaderBoardTextureUp);
-
-        settingMenuImageDown = new Image(settingMenuTextureDown);
-        settingMenuImageUp = new Image(settingMenuTextureUp);
-
-        playOnlineDownImage = new Image(playOnlineDownImageTexture);
-        playOnlineUpImage = new Image(playOnlineUpImageTexture);
-
-        getPrizeDownButtonImage = new Image(getPrizeDownButtonImageTexture);
-        getPrizeUpButtonImage = new Image(getPrizeUpButtonImageTexture);
-
-        carShopImageUp = new Image(carShopTextureUp);
-        carShopImageDown = new Image(carShopTextureDown);
+//        sequenceSetting = new SequenceAction();
+//        sequence = new SequenceAction();
+//        sequenceCarShop = new SequenceAction();
+//        resumeButtonUpImage = new Image(resumeButtonUp);
+//        resumeButtonDownImage = new Image(resumeButtonDown);
+//
+//        leaderBoardsImageDown = new Image(leaderBoardsTextureDown);
+//        leaderBoardsImageUp = new Image(leaderBoardsTextureUp);
+//
+//        leaderBoardImageDown = new Image(leaderBoardTextureDown);
+//        leaderBoardImageUp = new Image(leaderBoardTextureUp);
+//
+//        settingMenuImageDown = new Image(settingMenuTextureDown);
+//        settingMenuImageUp = new Image(settingMenuTextureUp);
+//
+//        playOnlineDownImage = new Image(playOnlineDownImageTexture);
+//        playOnlineUpImage = new Image(playOnlineUpImageTexture);
+//
+//        getPrizeDownButtonImage = new Image(getPrizeDownButtonImageTexture);
+//        getPrizeUpButtonImage = new Image(getPrizeUpButtonImageTexture);
+//
+//        carShopImageUp = new Image(carShopTextureUp);
+//        carShopImageDown = new Image(carShopTextureDown);
         this.gsm = gsm;
         GameManager.setBestAchives();
         setUpBackgroung();
@@ -186,60 +185,81 @@ public class MenuGameOver extends Group {
         setUpGodModCountLabel();
 
         setBounds(0, 0, GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2);
+
+        addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+
+//                sequence.addAction(Actions.delay(0.3f));
+
+//                sequence.addAction(new Action() {
+//                    @Override
+//                    public boolean act(float delta) {
+                GameManager.setDefaultSpeed();
+                GameManager.pauseGame = false;
+                GameManager.resetTime();
+                GameManager.resetCountBusters();
+                //gsm.set(new GameState(gsm, false, false));
+                //groupView.remove();
+                getStage().addActor(new MenuGameOverTotal(gsm));
+                // return true;
+
+//                    }
+//                });
+//                sequence.addAction(Actions.removeActor());
+//                addAction(sequence);
+
+                return true;
+            }
+        });
     }
 
 
-    public void setUpDisntanceCountLabel()
-    {
-        distance_count_label.setBounds(Constants.DISTANCE_COUNT_LABEL_X,Constants.DISTANCE_COUNT_LABEL_Y,distance_count_label.getPrefWidth(),distance_count_label.getPrefHeight());
-        distance_count_label.setFontScale(0.4f,0.4f);
+    public void setUpDisntanceCountLabel() {
+        distance_count_label.setBounds(Constants.DISTANCE_COUNT_LABEL_X-distance_count_label.getPrefWidth()/4+5, Constants.DISTANCE_COUNT_LABEL_Y, distance_count_label.getPrefWidth(), distance_count_label.getPrefHeight());
+        distance_count_label.setFontScale(0.4f, 0.4f);
         addActor(distance_count_label);
     }
 
-    public void setUpTotalLabel()
-    {
-        total_label.setBounds(Constants.TOTAL_LABEL_GAME_OVER_LABEL_X,Constants.TOTAL_LABEL_OVER_LABEL_Y,total_label.getPrefWidth(),total_label.getPrefHeight());
+    public void setUpTotalLabel() {
+        total_label.setBounds(Constants.TOTAL_LABEL_GAME_OVER_LABEL_X, Constants.TOTAL_LABEL_OVER_LABEL_Y, total_label.getPrefWidth(), total_label.getPrefHeight());
         total_label.setFontScale(0.5f, 0.5f);
         total_label.setColor(Color.ORANGE);
         addActor(total_label);
     }
-   public void setUpTotalCountLabel()
-   {
-       total_count_label.setBounds(Constants.TOTAL_COUNT_LABEL_GAME_OVER_LABEL_X,Constants.TOTAL_COUNT_LABEL_OVER_LABEL_Y,total_count_label.getPrefWidth(),total_count_label.getPrefHeight());
-       total_count_label.setFontScale(0.4f,0.4f);
-       addActor(total_count_label);
-   }
-   public void setUpDangerousCountLabel()
-   {
-       dangerous_count_label.setBounds(Constants.DANGEROUS_COUNT_LABEL_GAME_OVER_LABEL_X,Constants.DANGEROUS_COUNT_LABEL_OVER_LABEL_Y,dangerous_count_label.getPrefWidth(),dangerous_count_label.getPrefHeight());
-       dangerous_count_label.setFontScale(0.4f, 0.4f);
-       addActor(dangerous_count_label);
-   }
 
-    public void setUpRocketCountLabel()
-    {
-        rocket_count_label.setBounds(Constants.ROCKET_COUNT_LABEL_GAME_OVER_LABEL_X,Constants.ROCKET_COUNT_LABEL_OVER_LABEL_Y,rocket_count_label.getPrefWidth(),rocket_count_label.getPrefHeight());
+    public void setUpTotalCountLabel() {
+        total_count_label.setBounds(Constants.TOTAL_COUNT_LABEL_GAME_OVER_LABEL_X-total_count_label.getPrefWidth()/4+5, Constants.TOTAL_COUNT_LABEL_OVER_LABEL_Y, total_count_label.getPrefWidth(), total_count_label.getPrefHeight());
+        total_count_label.setFontScale(0.4f, 0.4f);
+        addActor(total_count_label);
+    }
+
+    public void setUpDangerousCountLabel() {
+        dangerous_count_label.setBounds(Constants.DANGEROUS_COUNT_LABEL_GAME_OVER_LABEL_X, Constants.DANGEROUS_COUNT_LABEL_OVER_LABEL_Y, dangerous_count_label.getPrefWidth(), dangerous_count_label.getPrefHeight());
+        dangerous_count_label.setFontScale(0.4f, 0.4f);
+        addActor(dangerous_count_label);
+    }
+
+    public void setUpRocketCountLabel() {
+        rocket_count_label.setBounds(Constants.ROCKET_COUNT_LABEL_GAME_OVER_LABEL_X, Constants.ROCKET_COUNT_LABEL_OVER_LABEL_Y, rocket_count_label.getPrefWidth(), rocket_count_label.getPrefHeight());
         rocket_count_label.setFontScale(0.4f, 0.4f);
         addActor(rocket_count_label);
     }
 
-    public void setUpDestroyedCountLabel()
-    {
-        destroyed_count_label.setBounds(Constants.DESTROYED_COUNT_LABEL_GAME_OVER_LABEL_X,Constants.DESTROYED_COUNT_LABEL_OVER_LABEL_Y,destroyed_count_label.getPrefWidth(),destroyed_count_label.getPrefHeight());
+    public void setUpDestroyedCountLabel() {
+        destroyed_count_label.setBounds(Constants.DESTROYED_COUNT_LABEL_GAME_OVER_LABEL_X, Constants.DESTROYED_COUNT_LABEL_OVER_LABEL_Y, destroyed_count_label.getPrefWidth(), destroyed_count_label.getPrefHeight());
         destroyed_count_label.setFontScale(0.4f, 0.4f);
         addActor(destroyed_count_label);
     }
 
-    public void setUpSpringBoardCountLabel()
-    {
-        spring_bozrd_count_label.setBounds(Constants.SPRING_BOARD_COUNT_LABEL_GAME_OVER_LABEL_X,Constants.SPRING_BOARD_COUNT_LABEL_OVER_LABEL_Y,spring_bozrd_count_label.getPrefWidth(),spring_bozrd_count_label.getPrefHeight());
+    public void setUpSpringBoardCountLabel() {
+        spring_bozrd_count_label.setBounds(Constants.SPRING_BOARD_COUNT_LABEL_GAME_OVER_LABEL_X, Constants.SPRING_BOARD_COUNT_LABEL_OVER_LABEL_Y, spring_bozrd_count_label.getPrefWidth(), spring_bozrd_count_label.getPrefHeight());
         spring_bozrd_count_label.setFontScale(0.4f, 0.4f);
         addActor(spring_bozrd_count_label);
     }
 
-    public void setUpGodModCountLabel()
-    {
-        god_mode_count_label.setBounds(Constants.GODE_MODE_COUNT_LABEL_GAME_OVER_LABEL_X,Constants.GODE_MODE_COUNT_LABEL_OVER_LABEL_Y,god_mode_count_label.getPrefWidth(),god_mode_count_label.getPrefHeight());
+    public void setUpGodModCountLabel() {
+        god_mode_count_label.setBounds(Constants.GODE_MODE_COUNT_LABEL_GAME_OVER_LABEL_X, Constants.GODE_MODE_COUNT_LABEL_OVER_LABEL_Y, god_mode_count_label.getPrefWidth(), god_mode_count_label.getPrefHeight());
         god_mode_count_label.setFontScale(0.4f, 0.4f);
         addActor(god_mode_count_label);
     }
@@ -248,7 +268,6 @@ public class MenuGameOver extends Group {
     public void setUpBagroundRectagnle() {
         addActor(new GameOverRectangle());
     }
-
 
 
     public void setUpBagroundRectagnleTotal() {
@@ -347,7 +366,7 @@ public class MenuGameOver extends Group {
 
     public void setUpAchiveCount() {
         achiveCount.setText(String.valueOf((int) GameManager.getAchives()));
-        achiveCount.setX(Constants.GAME_OVER_ACHIVE_COUNT_X_VISIBLE - achiveCount.getPrefWidth() / 3);
+        achiveCount.setX(Constants.GAME_OVER_ACHIVE_COUNT_X_VISIBLE - achiveCount.getPrefWidth() / 3-5);
         achiveCount.setY(Constants.GAME_OVER_ACHIVE_COUNT_Y_VISIBLE);
 
         achiveCount.setFontScale(0.9f, 0.9f);
@@ -464,7 +483,7 @@ public class MenuGameOver extends Group {
                                     sequenceCarShop.addAction(new Action() {
                                         @Override
                                         public boolean act(float delta) {
-                                            gsm.push(new GarageState(gsm));
+                                            gsm.push(new CarShopState(gsm));
                                             GameManager.pauseGame = false;
                                             return true;
                                         }

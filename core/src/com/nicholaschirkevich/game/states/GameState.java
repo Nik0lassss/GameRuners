@@ -1269,7 +1269,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
             GameManager.setIsCollision(true);
 
-            GameManager.setCollisionSpeed(0);
+            GameManager.setCollisionSpeed(50);
 
 
             if (timer > 1) {
@@ -1700,6 +1700,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         playTimeAnimation = 0;
         isPause = false;
         isMyCarCollision = false;
+
         GameManager.resetSpeed();
         GameManager.setIsCollisionWithCar(false);
         GameManager.setIsCollision(false);
@@ -1709,7 +1710,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         } else {
             myCar.setRight();
         }
-
+        myCar.setIsTurnRun(false);
     }
 
 

@@ -1,0 +1,62 @@
+
+gate_animation.png
+size: 1024,128
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+gate_1
+  rotate: false
+  xy: 2, 2
+  size: 96, 63
+  orig: 96, 63
+  offset: 0, 0
+  index: -1
+gate_2
+  rotate: false
+  xy: 100, 2
+  size: 96, 63
+  orig: 96, 63
+  offset: 0, 0
+  index: -1
+gate_3
+  rotate: false
+  xy: 198, 2
+  size: 96, 63
+  orig: 96, 63
+  offset: 0, 0
+  index: -1
+gate_4
+  rotate: false
+  xy: 296, 2
+  size: 96, 63
+  orig: 96, 63
+  offset: 0, 0
+  index: -1
+gate_5
+  rotate: false
+  xy: 394, 2
+  size: 96, 63
+  orig: 96, 63
+  offset: 0, 0
+  index: -1
+gate_6
+  rotate: false
+  xy: 492, 2
+  size: 96, 63
+  orig: 96, 63
+  offset: 0, 0
+  index: -1
+gate_7
+  rotate: false
+  xy: 590, 2
+  size: 96, 63
+  orig: 96, 63
+  offset: 0, 0
+  index: -1
+gate_8
+  rotate: false
+  xy: 688, 2
+  size: 96, 63
+  orig: 96, 63
+  offset: 0, 0
+  index: -1
