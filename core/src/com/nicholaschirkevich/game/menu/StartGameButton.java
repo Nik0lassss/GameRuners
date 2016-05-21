@@ -17,6 +17,7 @@
 package com.nicholaschirkevich.game.menu;
 
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.menu.GameButton;
 import com.nicholaschirkevich.game.states.GameState;
 import com.nicholaschirkevich.game.states.GameStateManager;
@@ -26,6 +27,7 @@ import com.nicholaschirkevich.game.util.GameManager;
 public class StartGameButton extends GameButton {
     private float x, y, width, height;
     private GameStateManager gsm;
+    private ActionResolver actionResolver;
     public interface ResumeButtonListener {
         public void onPause();
 
@@ -34,8 +36,9 @@ public class StartGameButton extends GameButton {
 
     private ResumeButtonListener listener;
 
-    public StartGameButton(float x, float y, float width, float height, GameStateManager gsm) {
+    public StartGameButton(float x, float y, float width, float height, GameStateManager gsm,ActionResolver actionResolver) {
         super(x, y, width, height);
+        this.actionResolver  = actionResolver;
         this.x = x;
         this.y = y;
         this.width = width;
@@ -79,7 +82,7 @@ public class StartGameButton extends GameButton {
         System.out.println("Touched");
         hide();
         GameManager.pauseGame=false;
-        gsm.set(new GameState(gsm, false, true));
+        gsm.set(new GameState(gsm, false, true,actionResolver));
 
         //gsm.push(new GameState(gsm,false,true));
         //listener.resumeButtonOnResume();

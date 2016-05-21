@@ -40,8 +40,13 @@ public class GameManager {
     private static int destroyedCount = 0;
     private static int springBoardCount = 0;
     private static int godModeCount = 0;
-    private static List<String> myCars;
 
+    public static List<String> getMyCars() {
+        return myCars;
+    }
+
+    private static List<String> myCars;
+    static Json json = new Json();
 
     public static void addDangerousCount() {
         dangerousCount++;
@@ -87,7 +92,7 @@ public class GameManager {
         currentSpeed = currentspeed;
     }
 
-    private static String currentCarID = "CC1023";
+    private static String currentCarID = "SP000";
     private static Integer coinCounter;
     private static Preferences preferences;
 
@@ -145,20 +150,30 @@ public class GameManager {
     private static float collisionSpeed = 0;
 
 
+    public static void addCar(String id) {
+        if (!myCars.contains(id)) {
+            myCars.add(id);
+            preferences.putString(Constants.PREFERENCES_KEY_CARS, json.toJson(myCars).toString());
+            preferences.flush();
+        }
+    }
+
     public static void loadData() {
         gearShifts = XmlHelper.getShifts();
         carsTypes = XmlHelper.getCars();
         preferences = Gdx.app.getPreferences(Constants.PREFERENCES_KEY);
         loadPreferences();
         gearShift = GameManager.getGearShifts().get(GameManager.getCurrentCar().getCurveType() - 1);
-        Json json = new Json();
+
+//       String test =  preferences.getString(Constants.PREFERENCES_KEY_CARS);
+//        preferences.putString("test",Constants.PREFERENCES_KEY_CARS);
+//        preferences.flush();
         myCars = json.fromJson(ArrayList.class, preferences.getString(Constants.PREFERENCES_KEY_CARS));
-        String currentcar = getCurrentCar().getID();
-        if(myCars==null)
-        {
-            myCars= new ArrayList<String>();
+        if (myCars == null) {
+            myCars = new ArrayList<String>();
             myCars.add("SP000");
-            preferences.putString(json.toJson(myCars).toString(),Constants.PREFERENCES_KEY_CARS);
+            preferences.putString(Constants.PREFERENCES_KEY_CARS, json.toJson(myCars).toString());
+            preferences.flush();
         }
 
 
@@ -355,6 +370,11 @@ public class GameManager {
 
     public static Integer getCoinCounter() {
         return coinCounter;
+    }
+
+    public static void buyCar(float price) {
+        coinCounter -=(int) price;
+        setCountCoint(coinCounter);
     }
 
     public static Integer addCoint() {

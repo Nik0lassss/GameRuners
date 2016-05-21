@@ -3,6 +3,7 @@ package com.nicholaschirkevich.game.desktop;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.nicholaschirkevich.game.GameRuners;
+import com.nicholaschirkevich.game.admob.ActionResolver;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
@@ -10,6 +11,11 @@ public class DesktopLauncher {
 		config.width = GameRuners.WIDTH;
 		config.height = GameRuners.HEIGHT;
 		config.title = GameRuners.TITLE;
-		new LwjglApplication(new GameRuners(), config);
+		new LwjglApplication(new GameRuners(new ActionResolver() {
+			@Override
+			public void showOrLoadInterstital() {
+
+			}
+		}), config);
 	}
 }

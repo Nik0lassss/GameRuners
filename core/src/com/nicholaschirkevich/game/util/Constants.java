@@ -451,11 +451,20 @@ public class Constants {
     public static final float GAME_OVER_ACHIVE_X_VISIBLE = GameRuners.WIDTH / 8.3f-30;
     public static final float GAME_OVER_ACHIVE_Y_VISIBLE = GameRuners.HEIGHT /2.5f+75;
 
+    public static final float GAME_OVER_TOTAL_ACHIVE_X_VISIBLE = GameRuners.WIDTH / 8.3f-30;
+    public static final float GAME_OVER_TOTAL_ACHIVE_Y_VISIBLE = GameRuners.HEIGHT /3+40f;
+
     public static final float GAME_OVER_ACHIVE_COUNT_X_VISIBLE = GameRuners.WIDTH / 4f;
     public static final float GAME_OVER_ACHIVE_COUNT_Y_VISIBLE = GameRuners.HEIGHT / 3f+110;
 
-    public static final float GAME_OVER_BEST_ACHIVE_X_VISIBLE = GameRuners.WIDTH / 7f;
+    public static final float GAME_OVER_TOTAL_ACHIVE_COUNT_X_VISIBLE = GameRuners.WIDTH / 4f;
+    public static final float GAME_OVER_TOTAL_ACHIVE_COUNT_Y_VISIBLE = GameRuners.HEIGHT / 3f;
+
+    public static final float GAME_OVER_BEST_ACHIVE_X_VISIBLE = GameRuners.WIDTH / 7f-30;
     public static final float GAME_OVER_BEST_ACHIVE_Y_VISIBLE = GameRuners.HEIGHT / 3.5f;
+
+    public static final float GAME_OVER_TOTAL_BEST_ACHIVE_X_VISIBLE = GameRuners.WIDTH / 7f;
+    public static final float GAME_OVER_TOTAL_BEST_ACHIVE_Y_VISIBLE = GameRuners.HEIGHT / 2.9f;
 
     public static final float GAME_OVER_BEST_ACHIVE_COUNT_X_VISIBLE = GameRuners.WIDTH / 4f;
     public static final float GAME_OVER_BEST_ACHIVE_COUNT_Y_VISIBLE = GameRuners.HEIGHT / 4f;

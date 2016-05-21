@@ -1,17 +1,31 @@
 package com.nicholaschirkevich.game;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 
-import com.badlogic.gdx.backends.android.AndroidApplication;
-import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.nicholaschirkevich.game.GameRuners;
+import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
+import com.nicholaschirkevich.game.fragment.FragmentAdmob;
 
-public class AndroidLauncher extends AndroidApplication {
+
+public class AndroidLauncher extends FragmentActivity implements AndroidFragmentApplication.Callbacks  {
+
+	FragmentAdmob gameFragment;
+
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+		setContentView(R.layout.main_layout);
+		gameFragment= new FragmentAdmob();
+		FragmentTransaction tr = getSupportFragmentManager().beginTransaction();
+		tr.replace(R.id.GameView,gameFragment);
+		tr.commit();
 
-		initialize(new GameRuners(), config);
+
+	}
+
+	@Override
+	public void exit() {
+
 	}
 }

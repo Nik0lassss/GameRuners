@@ -32,6 +32,8 @@ public class CarGarageItem extends Group implements UpdateGarageCarItem {
     UpdateGarageTable updateGarageTable;
     Integer index;
     Skin skin;
+    Image buyImage;
+    Label countLabel;
 
     //    public CarGarageItem() {
 //
@@ -105,6 +107,8 @@ public class CarGarageItem extends Group implements UpdateGarageCarItem {
         delimiterTexture = new Texture("delimiter.png");
         weight_text = new Texture("weight_text.png");
         weight_bar = new Texture("weight_bar.png");
+        buyImage = new Image();
+        countLabel = new Label("", skin);
         this.car = car;
         this.skin = skin;
         if (GameManager.getCurrentCar().getID().equals(car.getID())) setUpBackgroung(true);
@@ -139,24 +143,26 @@ public class CarGarageItem extends Group implements UpdateGarageCarItem {
 
 
     public void setUpBuyImage() {
-        Image buyImage;
-        Label countLabel ;
+
         if (car.getID().equals(GameManager.getCurrentCar().getID())) {
             buyImage = new Image(AssetsManager.getTextureRegion(Constants.BTTN_CAR_SHOP_CHECKED_ID));
             buyImage.setBounds(getX() + 253, getY() + 28, buyImage.getPrefWidth(), buyImage.getPrefHeight());
             addActor(buyImage);
 
         } else {
-
-            if (car.getIsForRealMoney()) {
-                buyImage = new Image(AssetsManager.getTextureRegion(Constants.BTTN_CAR_SHOP_BUY_REAL_EMPTY_DIS_ID));
-                countLabel = new Label( car.getPrice().toString(), skin);
-            } else {
-                countLabel = new Label(String.valueOf(car.getPrice().intValue()), skin);
-                if (GameManager.getCoinCounter() > car.getPrice())
-                    buyImage = new Image(AssetsManager.getTextureRegion(Constants.BTTN_CAR_SHOP_BUY_EMPTY_ID));
-                else
-                    buyImage = new Image(AssetsManager.getTextureRegion(Constants.BTTN_CAR_SHOP_BUY_EMPTY_DIS_ID));
+            if (!car.getID().equals("SP000")) {
+                if (!GameManager.getMyCars().contains(car.getID())) {
+                    if (car.getIsForRealMoney()) {
+                        buyImage = new Image(AssetsManager.getTextureRegion(Constants.BTTN_CAR_SHOP_BUY_REAL_EMPTY_DIS_ID));
+                        countLabel = new Label(car.getPrice().toString(), skin);
+                    } else {
+                        countLabel = new Label(String.valueOf(car.getPrice().intValue()), skin);
+                        if (GameManager.getCoinCounter() > car.getPrice())
+                            buyImage = new Image(AssetsManager.getTextureRegion(Constants.BTTN_CAR_SHOP_BUY_EMPTY_ID));
+                        else
+                            buyImage = new Image(AssetsManager.getTextureRegion(Constants.BTTN_CAR_SHOP_BUY_EMPTY_DIS_ID));
+                    }
+                }
             }
 
             countLabel.setBounds(getX() + 275 - countLabel.getPrefWidth() / 4, getY() + 28, countLabel.getPrefWidth(), countLabel.getPrefHeight());
@@ -166,7 +172,6 @@ public class CarGarageItem extends Group implements UpdateGarageCarItem {
             addActor(countLabel);
 
         }
-
 
 
     }
@@ -260,15 +265,34 @@ public class CarGarageItem extends Group implements UpdateGarageCarItem {
     }
 
     public void updateGarageCarItem(boolean selected) {
-        if (selected) {
-            GameManager.setCurrentCarID(car.getID());
-            background.setDrawable(new SpriteDrawable(new Sprite(new Texture("slot_vehicle_2_selected.png"))));
-            updateGarageTable.updateTable();
-            updateGarageTable.setSelectedItme(index);
-        } else
-            background.setDrawable(new SpriteDrawable(new Sprite(new Texture("slot_vehicle.png"))));
+        if (!car.getIsForRealMoney() && GameManager.getCoinCounter() > car.getPrice() && !GameManager.getMyCars().contains(car.getID())) {
+            GameManager.buyCar(car.getPrice());
+            if (selected) {
 
+                GameManager.addCar(car.getID());
+                GameManager.setCurrentCarID(car.getID());
+                buyImage.remove();
+                countLabel.setText("");
+                background.setDrawable(new SpriteDrawable(new Sprite(new Texture("slot_vehicle_2_selected.png"))));
+                updateGarageTable.updateTable();
+                updateGarageTable.setSelectedItme(index);
+            } else
+                buyImage.remove();
+                background.setDrawable(new SpriteDrawable(new Sprite(new Texture("slot_vehicle.png"))));
 
+        } else if (GameManager.getMyCars().contains(car.getID())) {
+            if (selected) {
+                GameManager.setCurrentCarID(car.getID());
+                background.setDrawable(new SpriteDrawable(new Sprite(new Texture("slot_vehicle_2_selected.png"))));
+                updateGarageTable.updateTable();
+                updateGarageTable.setSelectedItme(index);
+            } else {
+                buyImage.remove();
+                background.setDrawable(new SpriteDrawable(new Sprite(new Texture("slot_vehicle.png"))));
+
+            }
+
+        }
     }
 
 

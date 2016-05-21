@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.nicholaschirkevich.game.GameRuners;
+import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.entity.CarsType;
 import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
 import com.nicholaschirkevich.game.interfaces.UpdateGarageTable;
@@ -40,10 +41,10 @@ public class CarShopState extends State implements ResumeButtonListener, UpdateG
     StartGameGarageButton startGameGarageButton;
     Skin uiSkin = new Skin(Gdx.files.internal("uiskin_digit.json"));
     Table table, container;
+    private ActionResolver actionResolver;
 
 
-
-    public CarShopState(GameStateManager gsm) {
+    public CarShopState(GameStateManager gsm, ActionResolver actionResolver) {
         super(gsm);
 
         camera = new OrthographicCamera();
@@ -210,14 +211,13 @@ public class CarShopState extends State implements ResumeButtonListener, UpdateG
     public void setUpBackButton() {
 
         float width = 43, height = 49;
-        backButton = new BackButton(Constants.GARAGE_BTTN_X_VISIBLE, Constants.GARAGE_BTTN_Y - (height / 2), width, height,gsm);
+        backButton = new BackButton(Constants.GARAGE_BTTN_X_VISIBLE, Constants.GARAGE_BTTN_Y - (height / 2), width, height, gsm);
         stage.addActor(backButton);
     }
 
-    public void setUpStartButton()
-    {
-        float x = Constants.RESUME_BTTN_X_VISIBLE, y = Constants.RESUME_BTTN_Y_VISIBLE-190, width = 70, height = 55;
-        startGameGarageButton = new StartGameGarageButton(x - (width / 2), y - (height / 2), width, height,gsm);
+    public void setUpStartButton() {
+        float x = Constants.RESUME_BTTN_X_VISIBLE, y = Constants.RESUME_BTTN_Y_VISIBLE - 190, width = 70, height = 55;
+        startGameGarageButton = new StartGameGarageButton(x - (width / 2), y - (height / 2), width, height, gsm, actionResolver);
         stage.addActor(startGameGarageButton);
     }
 
@@ -226,7 +226,7 @@ public class CarShopState extends State implements ResumeButtonListener, UpdateG
         table = new Table();
         stage.addActor(container);
         ArrayList<CarsType> carsTypes = GameManager.getCarsTypes();
-        GarageAdapter garageAdapter = new GarageAdapter(table, carsTypes,uiSkin);
+        GarageAdapter garageAdapter = new GarageAdapter(table, carsTypes, uiSkin);
         garageAdapter.loadTableData();
 //        for (int i = 0; i < carsTypes.size(); i++) {
 //            CarsType carsType = carsTypes.get(i);
@@ -282,7 +282,6 @@ public class CarShopState extends State implements ResumeButtonListener, UpdateG
     public void resume() {
 
     }
-
 
 
     @Override

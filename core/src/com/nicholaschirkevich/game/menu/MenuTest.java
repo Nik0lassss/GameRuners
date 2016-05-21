@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.nicholaschirkevich.game.GameRuners;
+import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
 import com.nicholaschirkevich.game.states.CarShopState;
 import com.nicholaschirkevich.game.states.CoinShopState;
@@ -43,26 +44,21 @@ public class MenuTest extends Group {
     Image resumeButtonUpImage, resumeButtonDownImage, playOnlineDownImage, playOnlineUpImage, getPrizeUpButtonImage, getPrizeDownButtonImage, carShopImageUp, carShopImageDown, coinShomImageUp, coinShopImageDown, settingMenuImageUp, settingMenuImageDown, leaderBoardImageUp, leaderBoardImageDown, leaderBoardsImageUp, leaderBoardsImageDown;
     Image imageLogo, bonusSaveMe;
     ResumeButtonListener listener;
-    SequenceAction sequence, sequenceCarShop, sequenceSetting,sequenceCoinShop, logoShowSequence;
+    SequenceAction sequence, sequenceCarShop, sequenceSetting, sequenceCoinShop, logoShowSequence;
     GameStateManager gsm;
     Group groupView;
+    private ActionResolver actionResolver;
 
 
-    public MenuTest(ResumeButtonListener listener, GameStateManager gsm) {
-
+    public MenuTest(ResumeButtonListener listener, GameStateManager gsm, ActionResolver actionResolver) {
 
 
         this.groupView = this;
         this.listener = listener;
-
-
+        this.actionResolver = actionResolver;
 
 
         logoShowSequence = new SequenceAction();
-
-
-
-
 
 
         coinShomImageUp = new Image(AssetsManager.getTextureRegion(Constants.MAIN_MENU_COIN_SHOP_UP_ID));
@@ -220,7 +216,7 @@ public class MenuTest extends Group {
                                     sequenceCarShop.addAction(new Action() {
                                         @Override
                                         public boolean act(float delta) {
-                                            gsm.push(new CarShopState(gsm));
+                                            gsm.push(new CarShopState(gsm,actionResolver));
                                             return true;
                                         }
                                     });
@@ -249,7 +245,7 @@ public class MenuTest extends Group {
                     @Override
                     public boolean act(float delta) {
 
-                        getStage().addActor(new CoinShopState(listener,gsm));
+                        getStage().addActor(new CoinShopState(listener, gsm,actionResolver));
                         return true;
                     }
                 });
@@ -277,7 +273,7 @@ public class MenuTest extends Group {
                 sequenceSetting.addAction(new Action() {
                     @Override
                     public boolean act(float delta) {
-                        getStage().addActor(new MenuSetting(listener,gsm));
+                        getStage().addActor(new MenuSetting(listener, gsm));
                         return true;
                     }
                 });
@@ -348,7 +344,6 @@ public class MenuTest extends Group {
         addActor(resumeButton);
 
     }
-
 
 
     @Override

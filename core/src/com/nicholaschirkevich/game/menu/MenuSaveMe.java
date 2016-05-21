@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nicholaschirkevich.game.GameRuners;
+import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
 import com.nicholaschirkevich.game.states.GameStateManager;
 import com.nicholaschirkevich.game.util.Constants;
@@ -40,9 +41,11 @@ public class MenuSaveMe extends Group {
     float x = Constants.SAVE_ME_BAR_X_VISIBLE, y = Constants.SAVE_ME_BAR_Y_VISIBLE;
     private GameStateManager gsm;
     ResumeButtonListener resumeButtonListener;
+    ActionResolver actionResolver;
 
-    public MenuSaveMe(ResumeButtonListener listener, GameStateManager gsm) {
+    public MenuSaveMe(ResumeButtonListener listener, GameStateManager gsm, ActionResolver actionResolver) {
 
+        this.actionResolver = actionResolver;
         saveMeButtonUpTexture = new Texture("bttn_revival.png");
         saveMeButtonDownTexture = new Texture("bttn_revival_pressed.png");
         saveMeBarTexture = new Texture("progress_bar.png");
@@ -79,10 +82,10 @@ public class MenuSaveMe extends Group {
                                          saveMeSequence.addAction(new Action() {
                                              @Override
                                              public boolean act(float delta) {
-                                                 resumeButtonListener.onSaveMe();
-                                                 GameManager.pauseGame = false;
-                                                 GameManager.setIsCollision(false);
-
+//                                                 resumeButtonListener.onSaveMe();
+//                                                 GameManager.pauseGame = false;
+//                                                 GameManager.setIsCollision(false);
+                                                 actionResolver.showOrLoadInterstital();
                                                  return true;
                                              }
                                          });
@@ -122,7 +125,7 @@ public class MenuSaveMe extends Group {
             if (width > 0)
                 width -= 0.01;
             else {
-                getStage().addActor(new MenuGameOver(gsm));
+                getStage().addActor(new MenuGameOver(gsm, actionResolver));
                 remove();
                 System.out.println("getStage().addActor(new MenuGameOver(gsm));");
             }
@@ -150,7 +153,7 @@ public class MenuSaveMe extends Group {
                                    @Override
                                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 
-                                       getStage().addActor(new MenuGameOver(gsm));
+                                       getStage().addActor(new MenuGameOver(gsm, actionResolver));
                                        remove();
                                        return true;
                                    }

@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nicholaschirkevich.game.GameRuners;
+import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
 import com.nicholaschirkevich.game.states.GameStateManager;
 import com.nicholaschirkevich.game.util.Constants;
@@ -45,6 +46,7 @@ public class MenuSetting extends Group {
     SequenceAction sequence, sequenceCarShop,swipeButtonSequence, sequenceReturn;
     GameStateManager gsm;
     ResumeButtonListener listenerResume;
+    private ActionResolver actionResolver;
 
 
     public MenuSetting(ResumeButtonListener listenerResume, GameStateManager gsm) {
@@ -53,6 +55,7 @@ public class MenuSetting extends Group {
         //car_texture = new  Texture("other_car_2_1.png");
         this.listener = listener;
         this.listenerResume = listenerResume;
+        this.actionResolver = actionResolver;
         soundButtonUp = new Texture("bttn_blue.png");
         soundButtonDown = new Texture("bttn_blue_prssd.png");
         playOnlineDownImageTexture = new Texture("button_multiplayer_pressed.png");
@@ -441,7 +444,7 @@ public class MenuSetting extends Group {
                 sequenceReturn.addAction(new Action() {
                     @Override
                     public boolean act(float delta) {
-                        getStage().addActor(new MenuTest(listenerResume,gsm));
+                        getStage().addActor(new MenuTest(listenerResume,gsm,actionResolver));
                         return true;
                     }
                 });

@@ -75,7 +75,8 @@ public class BackButton extends BackButtonBasic {
     @Override
     public void touched() {
         System.out.println("Touched");
-        gsm.push(new GameState(gsm,false,false));
+        gsm.pop();
+        //gsm.push(new GameState(gsm,false,false));
 //        if (GameManager.getInstance().getGameState() == GameState.PAUSED) {
 //            listener.resumeButtonOnResume();
 //        } else {

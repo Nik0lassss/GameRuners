@@ -4,15 +4,18 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.nicholaschirkevich.game.GameRuners;
+import com.nicholaschirkevich.game.admob.ActionResolver;
 
 
 public class MenuStates extends State {
 
     private Texture background;
     private Texture playBtn;
+    private ActionResolver actionResolver;
 
-    public MenuStates(GameStateManager gsm) {
+    public MenuStates(GameStateManager gsm,ActionResolver actionResolver) {
         super(gsm);
+        this.actionResolver = actionResolver;
         camera.setToOrtho(false, GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2);
         background = new Texture("bg.jpg");
 
@@ -22,7 +25,7 @@ public class MenuStates extends State {
     @Override
     protected void handleInput() {
         if (Gdx.input.justTouched()) {
-            gsm.set(new GameState(gsm,true,false));
+            gsm.set(new GameState(gsm,true,false,actionResolver));
         }
     }
 

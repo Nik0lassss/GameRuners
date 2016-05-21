@@ -17,6 +17,7 @@
 package com.nicholaschirkevich.game.menu;
 
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.states.GameStateManager;
 import com.nicholaschirkevich.game.states.CarShopState;
 import com.nicholaschirkevich.game.util.Constants;
@@ -24,6 +25,7 @@ import com.nicholaschirkevich.game.util.Constants;
 public class GarageButton extends GarageButtonBasic {
     private float x, y, width, height;
     private GameStateManager gsm;
+    private ActionResolver actionResolver;
     public interface ResumeButtonListener {
         public void onPause();
 
@@ -32,8 +34,9 @@ public class GarageButton extends GarageButtonBasic {
 
     private ResumeButtonListener listener;
 
-    public GarageButton(float x, float y, float width, float height,  GameStateManager gsm) {
+    public GarageButton(float x, float y, float width, float height,  GameStateManager gsm,ActionResolver actionResolver) {
         super(x, y, width, height);
+        this.actionResolver = actionResolver;
         this.x = x;
         this.y = y;
         this.width = width;
@@ -75,7 +78,7 @@ public class GarageButton extends GarageButtonBasic {
     @Override
     public void touched() {
         System.out.println("Touched");
-        gsm.push(new CarShopState(gsm));
+        gsm.push(new CarShopState(gsm,actionResolver));
 //        if (GameManager.getInstance().getGameState() == GameState.PAUSED) {
 //            listener.resumeButtonOnResume();
 //        } else {

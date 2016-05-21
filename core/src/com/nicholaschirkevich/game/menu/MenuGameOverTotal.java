@@ -21,7 +21,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.nicholaschirkevich.game.GameRuners;
+import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
+import com.nicholaschirkevich.game.states.CarGarageState;
 import com.nicholaschirkevich.game.states.CarShopState;
 import com.nicholaschirkevich.game.states.GameState;
 import com.nicholaschirkevich.game.states.GameStateManager;
@@ -45,17 +47,17 @@ public class MenuGameOverTotal extends Group {
     Texture resumeButtonUp, resumeButtonDown, playOnlineDownImageTexture, playOnlineUpImageTexture, getPrizeUpButtonImageTexture, getPrizeDownButtonImageTexture, carShopTextureUp, carShopTextureDown, coinShopTextureUp, coinShopTextureDown, settingMenuTextureUp, settingMenuTextureDown, leaderBoardTextureUp, leaderBoardTextureDown, leaderBoardsTextureUp, leaderBoardsTextureDown;
     Image imageLogo;
     ResumeButtonListener listener;
-    SequenceAction sequence, sequenceCarShop, sequenceSetting;
+    SequenceAction sequence, sequenceCarShop, sequenceSetting, sequencePrizeButton;
     GameStateManager gsm;
     Stage parentStage;
     Group groupView;
     Label dangerous_count_label, rocket_count_label, destroyed_count_label, spring_bozrd_count_label, god_mode_count_label, total_label, total_count_label;
     Label achive, achiveCount, bestAchive, bestAchiveCount, distance_label, boosters_label, dangerous_label, rocket_label, destroyed_label, spring_board_label, god_mode_label, distance_count_label;
+    ActionResolver actionResolver;
 
+    public MenuGameOverTotal(final GameStateManager gsm, ActionResolver actionResolver) {
 
-    public MenuGameOverTotal(final GameStateManager gsm) {
-
-
+        this.actionResolver = actionResolver;
         dangerous_count_label = new Label(String.valueOf(GameManager.getDangerousCount()), uiSkin);
         rocket_count_label = new Label(String.valueOf(GameManager.getRocketCount()), uiSkin);
         destroyed_count_label = new Label(String.valueOf(GameManager.getDestroyedCount()), uiSkin);
@@ -97,6 +99,8 @@ public class MenuGameOverTotal extends Group {
         resumeButtonDown = new Texture("button_play_big_pressed.png");
         playOnlineDownImageTexture = new Texture("button_multiplayer_pressed.png");
         playOnlineUpImageTexture = new Texture("button_multiplayer.png");
+//        getPrizeUpButtonImageTexture = new Texture("button_next_prize.png");
+//        getPrizeDownButtonImageTexture = new Texture("button_next_prize_pressed.png");
         getPrizeUpButtonImageTexture = new Texture("button_win_a_prize.png");
         getPrizeDownButtonImageTexture = new Texture("button_win_a_prize_pressed.png");
         carShopTextureUp = new Texture("bttn_cars.png");
@@ -120,6 +124,7 @@ public class MenuGameOverTotal extends Group {
         sequenceSetting = new SequenceAction();
         sequence = new SequenceAction();
         sequenceCarShop = new SequenceAction();
+        sequencePrizeButton = new SequenceAction();
         resumeButtonUpImage = new Image(resumeButtonUp);
         resumeButtonDownImage = new Image(resumeButtonDown);
 
@@ -143,7 +148,7 @@ public class MenuGameOverTotal extends Group {
         this.gsm = gsm;
         GameManager.setBestAchives();
         setUpBackgroung();
-         setUpResume();
+        setUpResume();
         setUpImageLogo();
         setUpPlayOnline();
         setUpPrize();
@@ -153,11 +158,11 @@ public class MenuGameOverTotal extends Group {
         setSettingMenu();
         setLeaderBoard();
         setLeadersBoard();
-        //setUpAchive();
-//        setUpBestAchive();
-//        setUpBestAchiveCount();
+        setUpAchive();
+        setUpBestAchive();
+        setUpBestAchiveCount();
 
-//        setUpAchiveCount();
+        setUpAchiveCount();
 //        setUpBagroundRectagnle();
 //        setUpBagroundRectagnleTotal();
 //        setUpDistance();
@@ -215,7 +220,7 @@ public class MenuGameOverTotal extends Group {
 
 
     public void setUpDisntanceCountLabel() {
-        distance_count_label.setBounds(Constants.DISTANCE_COUNT_LABEL_X-distance_count_label.getPrefWidth()/4+5, Constants.DISTANCE_COUNT_LABEL_Y, distance_count_label.getPrefWidth(), distance_count_label.getPrefHeight());
+        distance_count_label.setBounds(Constants.DISTANCE_COUNT_LABEL_X - distance_count_label.getPrefWidth() / 4 + 5, Constants.DISTANCE_COUNT_LABEL_Y, distance_count_label.getPrefWidth(), distance_count_label.getPrefHeight());
         distance_count_label.setFontScale(0.4f, 0.4f);
         addActor(distance_count_label);
     }
@@ -228,7 +233,7 @@ public class MenuGameOverTotal extends Group {
     }
 
     public void setUpTotalCountLabel() {
-        total_count_label.setBounds(Constants.TOTAL_COUNT_LABEL_GAME_OVER_LABEL_X-total_count_label.getPrefWidth()/4+5, Constants.TOTAL_COUNT_LABEL_OVER_LABEL_Y, total_count_label.getPrefWidth(), total_count_label.getPrefHeight());
+        total_count_label.setBounds(Constants.TOTAL_COUNT_LABEL_GAME_OVER_LABEL_X - total_count_label.getPrefWidth() / 4 + 5, Constants.TOTAL_COUNT_LABEL_OVER_LABEL_Y, total_count_label.getPrefWidth(), total_count_label.getPrefHeight());
         total_count_label.setFontScale(0.4f, 0.4f);
         addActor(total_count_label);
     }
@@ -355,8 +360,8 @@ public class MenuGameOverTotal extends Group {
     }
 
     public void setUpAchive() {
-        achive.setX(Constants.GAME_OVER_ACHIVE_X_VISIBLE);
-        achive.setY(Constants.GAME_OVER_ACHIVE_Y_VISIBLE);
+        achive.setX(Constants.GAME_OVER_TOTAL_ACHIVE_X_VISIBLE);
+        achive.setY(Constants.GAME_OVER_TOTAL_ACHIVE_Y_VISIBLE);
         achive.setText("  You  Score:");
         achive.setColor(Color.ORANGE);
         achive.setFontScale(0.8f, 0.8f);
@@ -365,8 +370,8 @@ public class MenuGameOverTotal extends Group {
 
     public void setUpAchiveCount() {
         achiveCount.setText(String.valueOf((int) GameManager.getAchives()));
-        achiveCount.setX(Constants.GAME_OVER_ACHIVE_COUNT_X_VISIBLE - achiveCount.getPrefWidth() / 3-5);
-        achiveCount.setY(Constants.GAME_OVER_ACHIVE_COUNT_Y_VISIBLE);
+        achiveCount.setX(Constants.GAME_OVER_TOTAL_ACHIVE_COUNT_X_VISIBLE - achiveCount.getPrefWidth() / 3 - 5);
+        achiveCount.setY(Constants.GAME_OVER_TOTAL_ACHIVE_COUNT_Y_VISIBLE);
 
         achiveCount.setFontScale(0.9f, 0.9f);
         addActor(achiveCount);
@@ -376,16 +381,17 @@ public class MenuGameOverTotal extends Group {
         bestAchive.setX(Constants.GAME_OVER_BEST_ACHIVE_X_VISIBLE);
         bestAchive.setY(Constants.GAME_OVER_BEST_ACHIVE_Y_VISIBLE);
         bestAchive.setText("Best score:");
-        bestAchive.setFontScale(0.6f, 0.6f);
+        bestAchive.setFontScale(0.8f, 0.8f);
+        bestAchive.setColor(Color.ORANGE);
         addActor(bestAchive);
     }
 
     public void setUpBestAchiveCount() {
         bestAchiveCount.setText(String.valueOf((int) GameManager.getBestAchives()));
-        bestAchiveCount.setX(Constants.GAME_OVER_BEST_ACHIVE_COUNT_X_VISIBLE - bestAchiveCount.getPrefWidth() / 3);
+        bestAchiveCount.setX(Constants.GAME_OVER_BEST_ACHIVE_COUNT_X_VISIBLE - bestAchiveCount.getPrefWidth() / 3 - 5);
         bestAchiveCount.setY(Constants.GAME_OVER_BEST_ACHIVE_COUNT_Y_VISIBLE);
 
-        bestAchiveCount.setFontScale(0.6f, 0.6f);
+        bestAchiveCount.setFontScale(0.9f, 0.9f);
         addActor(bestAchiveCount);
     }
 
@@ -399,7 +405,7 @@ public class MenuGameOverTotal extends Group {
 
     private void setUpSaveMe() {
 
-        Texture saveMeBonus = new Texture("for_save_me_button_100.png");
+        Texture saveMeBonus = new Texture("free_for_prize.png");
 
         saveMeBonus.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
@@ -436,13 +442,32 @@ public class MenuGameOverTotal extends Group {
         textButtonStyle.up = getPrizeUpButtonImage.getDrawable();
         textButtonStyle.font = uiSkin.getFont("default-font");
 
-        prizeButton = new TextButton("Sing in", textButtonStyle);
+        prizeButton = new TextButton("Win \n a prize", textButtonStyle);
         prizeButton.getLabel().setFontScale(0.4f, 0.4f);
-        prizeButton.getLabelCell().padLeft(5f);
+        prizeButton.getLabelCell().padLeft(2f);
 
 
         prizeButton.setBounds(x - resumeButtonUpImage.getWidth() / 2, y - resumeButtonUpImage.getHeight() / 2, resumeButtonUpImage.getWidth(), resumeButtonUpImage.getHeight());
+        prizeButton.addListener(new ClickListener() {
 
+                                    @Override
+                                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                                        sequencePrizeButton.addAction(Actions.delay(0.3f));
+                                        sequencePrizeButton.addAction(new Action() {
+                                            @Override
+                                            public boolean act(float delta) {
+                                                gsm.push(new CarGarageState(gsm,actionResolver));
+                                                GameManager.pauseGame = false;
+                                                return true;
+                                            }
+                                        });
+                                        sequencePrizeButton.addAction(Actions.removeActor());
+                                        addAction(sequencePrizeButton);
+
+                                        return true;
+                                    }
+                                }
+        );
 
         addActor(prizeButton);
 
@@ -482,7 +507,7 @@ public class MenuGameOverTotal extends Group {
                                     sequenceCarShop.addAction(new Action() {
                                         @Override
                                         public boolean act(float delta) {
-                                            gsm.push(new CarShopState(gsm));
+                                            gsm.push(new CarShopState(gsm,actionResolver));
                                             GameManager.pauseGame = false;
                                             return true;
                                         }
@@ -583,7 +608,7 @@ public class MenuGameOverTotal extends Group {
                         GameManager.setDefaultSpeed();
                         GameManager.pauseGame = false;
                         GameManager.resetTime();
-                        gsm.set(new GameState(gsm, false, true));
+                        gsm.set(new GameState(gsm, false, true,actionResolver));
 
                         return true;
 

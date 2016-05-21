@@ -21,6 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.nicholaschirkevich.game.GameRuners;
+import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
 import com.nicholaschirkevich.game.states.GameState;
 import com.nicholaschirkevich.game.states.GameStateManager;
@@ -51,11 +52,11 @@ public class MenuGameOver extends Group {
     Group groupView;
     Label dangerous_count_label, rocket_count_label, destroyed_count_label, spring_bozrd_count_label, god_mode_count_label, total_label, total_count_label;
     Label achive, achiveCount, bestAchive, bestAchiveCount, distance_label, boosters_label, dangerous_label, rocket_label, destroyed_label, spring_board_label, god_mode_label, distance_count_label;
+    ActionResolver actionResolver;
 
+    public MenuGameOver(final GameStateManager gsm, final ActionResolver actionResolver) {
 
-    public MenuGameOver(final GameStateManager gsm) {
-
-
+        this.actionResolver = actionResolver;
         dangerous_count_label = new Label(String.valueOf(GameManager.getDangerousCount()), uiSkin);
         rocket_count_label = new Label(String.valueOf(GameManager.getRocketCount()), uiSkin);
         destroyed_count_label = new Label(String.valueOf(GameManager.getDestroyedCount()), uiSkin);
@@ -195,13 +196,18 @@ public class MenuGameOver extends Group {
 //                sequence.addAction(new Action() {
 //                    @Override
 //                    public boolean act(float delta) {
-                GameManager.setDefaultSpeed();
-                GameManager.pauseGame = false;
-                GameManager.resetTime();
-                GameManager.resetCountBusters();
+
+
+//                GameManager.setDefaultSpeed();
+//                GameManager.pauseGame = false;
+//                GameManager.resetTime();
+//                GameManager.resetCountBusters();
+//
+
                 //gsm.set(new GameState(gsm, false, false));
                 //groupView.remove();
-                getStage().addActor(new MenuGameOverTotal(gsm));
+                getStage().addActor(new MenuGameOverTotal(gsm,actionResolver));
+                remove();
                 // return true;
 
 //                    }
@@ -216,7 +222,7 @@ public class MenuGameOver extends Group {
 
 
     public void setUpDisntanceCountLabel() {
-        distance_count_label.setBounds(Constants.DISTANCE_COUNT_LABEL_X-distance_count_label.getPrefWidth()/4+5, Constants.DISTANCE_COUNT_LABEL_Y, distance_count_label.getPrefWidth(), distance_count_label.getPrefHeight());
+        distance_count_label.setBounds(Constants.DISTANCE_COUNT_LABEL_X - distance_count_label.getPrefWidth() / 4 + 5, Constants.DISTANCE_COUNT_LABEL_Y, distance_count_label.getPrefWidth(), distance_count_label.getPrefHeight());
         distance_count_label.setFontScale(0.4f, 0.4f);
         addActor(distance_count_label);
     }
@@ -229,7 +235,7 @@ public class MenuGameOver extends Group {
     }
 
     public void setUpTotalCountLabel() {
-        total_count_label.setBounds(Constants.TOTAL_COUNT_LABEL_GAME_OVER_LABEL_X-total_count_label.getPrefWidth()/4+5, Constants.TOTAL_COUNT_LABEL_OVER_LABEL_Y, total_count_label.getPrefWidth(), total_count_label.getPrefHeight());
+        total_count_label.setBounds(Constants.TOTAL_COUNT_LABEL_GAME_OVER_LABEL_X - total_count_label.getPrefWidth() / 4 + 5, Constants.TOTAL_COUNT_LABEL_OVER_LABEL_Y, total_count_label.getPrefWidth(), total_count_label.getPrefHeight());
         total_count_label.setFontScale(0.4f, 0.4f);
         addActor(total_count_label);
     }
@@ -366,7 +372,7 @@ public class MenuGameOver extends Group {
 
     public void setUpAchiveCount() {
         achiveCount.setText(String.valueOf((int) GameManager.getAchives()));
-        achiveCount.setX(Constants.GAME_OVER_ACHIVE_COUNT_X_VISIBLE - achiveCount.getPrefWidth() / 3-5);
+        achiveCount.setX(Constants.GAME_OVER_ACHIVE_COUNT_X_VISIBLE - achiveCount.getPrefWidth() / 3 - 5);
         achiveCount.setY(Constants.GAME_OVER_ACHIVE_COUNT_Y_VISIBLE);
 
         achiveCount.setFontScale(0.9f, 0.9f);
@@ -483,7 +489,7 @@ public class MenuGameOver extends Group {
                                     sequenceCarShop.addAction(new Action() {
                                         @Override
                                         public boolean act(float delta) {
-                                            gsm.push(new CarShopState(gsm));
+                                            gsm.push(new CarShopState(gsm,actionResolver));
                                             GameManager.pauseGame = false;
                                             return true;
                                         }
@@ -584,7 +590,7 @@ public class MenuGameOver extends Group {
                         GameManager.setDefaultSpeed();
                         GameManager.pauseGame = false;
                         GameManager.resetTime();
-                        gsm.set(new GameState(gsm, false, true));
+                        gsm.set(new GameState(gsm, false, true, actionResolver));
 
                         return true;
 

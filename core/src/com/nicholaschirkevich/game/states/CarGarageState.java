@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
@@ -12,11 +14,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.nicholaschirkevich.game.GameRuners;
+import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.entity.CarsType;
 import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
 import com.nicholaschirkevich.game.interfaces.UpdateGarageTable;
 import com.nicholaschirkevich.game.menu.BackButton;
 import com.nicholaschirkevich.game.menu.StartGameGarageButton;
+import com.nicholaschirkevich.game.model.MyCar;
+import com.nicholaschirkevich.game.model.side_objects.Bushs;
+import com.nicholaschirkevich.game.model.side_objects.Road;
+import com.nicholaschirkevich.game.util.AssetsManager;
 import com.nicholaschirkevich.game.util.Constants;
 import com.nicholaschirkevich.game.util.GameManager;
 import com.nicholaschirkevich.game.view_adapters.GarageAdapter;
@@ -27,28 +34,52 @@ import java.util.ArrayList;
 /**
  * Created by Nikolas on 10.03.2016.
  */
-public class CarGarageState extends State implements ResumeButtonListener, UpdateGarageTable {
+public class CarGarageState extends State {
     OrthographicCamera camera;
-
+    Texture prizeCar = AssetsManager.getTextureRegion(GameManager.getCarsTypes().get(0).getCars().get(3).getID()).getTexture();
+    TextureRegion textureRegion = new TextureRegion(prizeCar);
     Stage stage;
     Texture cnr_line, garageNameTexture;
     Image image, garageNameImage;
-    ScrollPane scrollPane2;
+    private Animation garageAnimation;
+    ArrayList<Bushs> bushsArrayLeft, bushsArrayRight;
     BackButton backButton;
+    Texture garageTexture;
+    Image garage, myCar;
     StartGameGarageButton startGameGarageButton;
     Skin uiSkin = new Skin(Gdx.files.internal("uiskin_digit.json"));
-    Table table, container;
-
-
-
-    public CarGarageState(GameStateManager gsm) {
+    private float platTime = 0;
+    private float posX = 85, posY = 460;
+    private int heightTexture = prizeCar.getHeight();
+    Road road;
+    private ActionResolver actionResolver;
+    public CarGarageState(GameStateManager gsm, ActionResolver actionResolver) {
         super(gsm);
-
+        this.actionResolver = actionResolver;
+        bushsArrayLeft = new ArrayList<Bushs>();
+        bushsArrayRight = new ArrayList<Bushs>();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
         stage = new Stage(new StretchViewport(GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2));
         cnr_line = new Texture("cnr_line.png");
+        garageTexture = new Texture("garage.png");
+        garage = new Image(garageTexture);
+        garage.setScale(0.4f, 0.4f);
+        garage.setBounds(20, 320, garage.getPrefWidth(), garage.getPrefHeight());
+        road = new Road();
+        for (int i = (int) camera.viewportHeight + (int) camera.position.y; i > 0; i -= 70) {
+            bushsArrayLeft.add(new Bushs( 90, i, 10, false, Constants.ROAD_1_BUSH_1_STATIC_ASSETS_ID));
+            bushsArrayRight.add(new Bushs( 90, i, 10, true, Constants.ROAD_1_BUSH_1_STATIC_ASSETS_ID));
+        }
+        //textureRegion.setRegionHeight(70);
+
+        textureRegion.setRegion(0, (int) heightTexture, textureRegion.getRegionWidth(), textureRegion.getRegionHeight() - heightTexture);
+
+        myCar = new Image(textureRegion);
+        myCar.setBounds(20, 320, textureRegion.getRegionWidth(), textureRegion.getRegionHeight());
+
         image = new Image(cnr_line);
+        garageAnimation = AssetsManager.getAnimation(Constants.GATE_ASSETS_ID);
         image.setBounds(0, GameRuners.HEIGHT / 2 - 80, GameRuners.WIDTH / 2, 80);
 
 
@@ -60,8 +91,10 @@ public class CarGarageState extends State implements ResumeButtonListener, Updat
         //setUpGarage();
         setUpBackButton();
         //setUpStartButton();
-        stage.addActor(image);
-        stage.addActor(garageNameImage);
+        stage.addActor(garage);
+        //stage.addActor(myCar);
+        //stage.addActor(image);
+        // stage.addActor(garageNameImage);
 
         Gdx.input.setInputProcessor(stage);
     }
@@ -69,34 +102,16 @@ public class CarGarageState extends State implements ResumeButtonListener, Updat
     public void setUpBackButton() {
 
         float width = 43, height = 49;
-        backButton = new BackButton(Constants.GARAGE_BTTN_X_VISIBLE, Constants.GARAGE_BTTN_Y - (height / 2), width, height,gsm);
+        backButton = new BackButton(Constants.GARAGE_BTTN_X_VISIBLE, Constants.GARAGE_BTTN_Y - (height / 2), width, height, gsm);
         stage.addActor(backButton);
     }
 
-    public void setUpStartButton()
-    {
-        float x = Constants.RESUME_BTTN_X_VISIBLE, y = Constants.RESUME_BTTN_Y_VISIBLE-190, width = 70, height = 55;
-        startGameGarageButton = new StartGameGarageButton(x - (width / 2), y - (height / 2), width, height,gsm);
+    public void setUpStartButton() {
+        float x = Constants.RESUME_BTTN_X_VISIBLE, y = Constants.RESUME_BTTN_Y_VISIBLE - 190, width = 70, height = 55;
+        startGameGarageButton = new StartGameGarageButton(x - (width / 2), y - (height / 2), width, height, gsm,actionResolver);
         stage.addActor(startGameGarageButton);
     }
 
-    public void setUpGarage() {
-        container = new Table();
-        table = new Table();
-        stage.addActor(container);
-        ArrayList<CarsType> carsTypes = GameManager.getCarsTypes();
-        GarageAdapter garageAdapter = new GarageAdapter(table, carsTypes,uiSkin);
-        garageAdapter.loadTableData();
-
-        scrollPane2 = new ScrollPane(table);
-        scrollPane2.setBounds(0, 0, GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2 - 70);
-        scrollPane2.setScrollingDisabled(true, false);
-        scrollPane2.setOverscroll(false, false);
-        scrollPane2.invalidate();
-        stage.addActor(scrollPane2);
-
-
-    }
 
     @Override
     protected void handleInput() {
@@ -105,6 +120,21 @@ public class CarGarageState extends State implements ResumeButtonListener, Updat
 
     @Override
     public void update(float dt) {
+        platTime += dt;
+        if (platTime > 1) {
+            if (posY > 250) {
+                if (posY < 400)
+                    posY -=2;
+                else
+                    posY -= 1;
+
+                heightTexture -= 0.001;
+                textureRegion = new TextureRegion(prizeCar);
+
+                textureRegion.setRegion(0, (int) heightTexture, textureRegion.getRegionWidth(), textureRegion.getRegionHeight() - heightTexture);
+            }
+        }
+
 
     }
 
@@ -113,9 +143,24 @@ public class CarGarageState extends State implements ResumeButtonListener, Updat
 //        Gdx.gl.glClearColor(0.281f, 0.602f, 0.844f, 0);
         Gdx.gl.glClearColor(0.098f, 0.655f, 0.976f, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         stage.act(Gdx.graphics.getDeltaTime());
+
+        sb.begin();
+
+        sb.draw(road.getRoad1(), road.getPosRoad1().x, road.getPosRoad1().y);
+        sb.draw(road.getRoad2(), road.getPosRoad2().x, road.getPosRoad2().y);
+        for (Bushs bushs : bushsArrayRight) {
+            sb.draw(bushs.getBushTexture(), bushs.getPosition().x, bushs.getPosition().y);
+        }
+        for (Bushs bushs : bushsArrayLeft) {
+            sb.draw(bushs.getBushTexture(), bushs.getPosition().x, bushs.getPosition().y);
+        }
+        sb.end();
         stage.draw();
+        sb.begin();
+        sb.draw(garageAnimation.getKeyFrame(platTime / 1.5f, false), 65, 415);
+        sb.draw(textureRegion, posX, posY);
+        sb.end();
     }
 
 
@@ -135,28 +180,4 @@ public class CarGarageState extends State implements ResumeButtonListener, Updat
     }
 
 
-
-    @Override
-    public void resumeButtonOnResume() {
-
-    }
-
-    @Override
-    public void onSaveMe() {
-
-    }
-
-
-    @Override
-    public void updateTable() {
-        table.remove();
-        setUpGarage();
-//        table.remove();
-//        stage.addActor(scrollPane2);
-    }
-
-    @Override
-    public void setSelectedItme(int index) {
-
-    }
 }

@@ -21,6 +21,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.nicholaschirkevich.game.GameRuners;
+import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.entity.CarsType;
 import com.nicholaschirkevich.game.entity.CoinShop;
 import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
@@ -57,10 +58,11 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
     Table table, container;
     ResumeButtonListener listenerResume;
     GameStateManager gsm;
+    private ActionResolver actionResolver;
 
-    public CoinShopState(ResumeButtonListener listenerResume, GameStateManager gsm) {
+    public CoinShopState(ResumeButtonListener listenerResume, GameStateManager gsm, ActionResolver actionResolver) {
 
-
+       this.actionResolver = actionResolver;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
         ArrayList<CarsType> carsTypes = GameManager.getCarsTypes();
@@ -136,7 +138,7 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
                 sequenceReturn.addAction(new Action() {
                     @Override
                     public boolean act(float delta) {
-                        getStage().addActor(new MenuTest(listenerResume, gsm));
+                        getStage().addActor(new MenuTest(listenerResume, gsm,actionResolver));
                         return true;
                     }
                 });

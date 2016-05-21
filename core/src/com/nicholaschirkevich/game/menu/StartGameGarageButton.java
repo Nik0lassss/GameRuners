@@ -17,6 +17,7 @@
 package com.nicholaschirkevich.game.menu;
 
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.states.GameState;
 import com.nicholaschirkevich.game.states.GameStateManager;
 import com.nicholaschirkevich.game.util.Constants;
@@ -24,6 +25,7 @@ import com.nicholaschirkevich.game.util.Constants;
 public class StartGameGarageButton extends GameButton {
     private float x, y, width, height;
     private GameStateManager gsm;
+    ActionResolver actionResolver;
     public interface ResumeButtonListener {
         public void onPause();
 
@@ -32,8 +34,9 @@ public class StartGameGarageButton extends GameButton {
 
     private ResumeButtonListener listener;
 
-    public StartGameGarageButton(float x, float y, float width, float height,GameStateManager gsm) {
+    public StartGameGarageButton(float x, float y, float width, float height,GameStateManager gsm,ActionResolver actionResolver) {
         super(x, y, width, height);
+        this.actionResolver = actionResolver;
         this.x = x;
         this.y = y;
         this.width = width;
@@ -76,7 +79,7 @@ public class StartGameGarageButton extends GameButton {
     public void touched() {
         System.out.println("Touched");
         hide();
-        gsm.push(new GameState(gsm,false,true));
+        gsm.push(new GameState(gsm,false,true,actionResolver));
         //listener.resumeButtonOnResume();
 //        if (GameManager.getInstance().getGameState() == GameState.PAUSED) {
 //            listener.resumeButtonOnResume();

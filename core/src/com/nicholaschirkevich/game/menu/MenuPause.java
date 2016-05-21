@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nicholaschirkevich.game.GameRuners;
+import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.interfaces.ResumeFromPause;
 import com.nicholaschirkevich.game.states.GameState;
 import com.nicholaschirkevich.game.states.GameStateManager;
@@ -42,10 +43,11 @@ public class MenuPause extends Group {
     float x = Constants.SAVE_ME_BAR_X_VISIBLE, y = Constants.SAVE_ME_BAR_Y_VISIBLE;
     private GameStateManager gsm;
     ResumeFromPause resumeFromPauseInterface;
+    private ActionResolver actionResolver;
 
 
-    public MenuPause(ResumeFromPause resumeFromPause, GameStateManager gsm) {
-
+    public MenuPause(ResumeFromPause resumeFromPause, GameStateManager gsma, ActionResolver actionResolver) {
+        this.actionResolver = actionResolver;
         resumeButtonUpTexture = new Texture("bttn_resume.png");
         resumeButtonDownTexture = new Texture("bttn_resume_prssd.png");
         exitButtonTextureUp = new Texture("bttn_exit.png");
@@ -124,7 +126,7 @@ public class MenuPause extends Group {
                                        exitSequence.addAction(new Action() {
                                            @Override
                                            public boolean act(float delta) {
-                                               gsm.set(new GameState(gsm, false, false));
+                                               gsm.set(new GameState(gsm, false, false,actionResolver));
                                                return true;
                                            }
                                        });
@@ -138,9 +140,9 @@ public class MenuPause extends Group {
         exitButton.getLabel().setFontScale(0.4f, 0.4f);
         exitButton.setBounds(x - exitButton.getWidth() / 2, y - exitButton.getHeight() / 2, exitButton.getWidth(), exitButton.getHeight());
 
-        exitLabel.setX(exitButton.getX()+15);
-        exitLabel.setY(exitButton.getY()-25);
-        exitLabel.setFontScale(0.5f,0.5f);
+        exitLabel.setX(exitButton.getX() + 15);
+        exitLabel.setY(exitButton.getY() - 25);
+        exitLabel.setFontScale(0.5f, 0.5f);
         addActor(exitButton);
         addActor(exitLabel);
     }

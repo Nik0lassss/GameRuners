@@ -26,6 +26,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.actions.Landing;
 import com.nicholaschirkevich.game.actions.Prize;
+import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.entity.Car;
 import com.nicholaschirkevich.game.entity.CarsType;
 import com.nicholaschirkevich.game.filters.CarContactListener;
@@ -226,14 +227,15 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     ArrayList<DirtOnScreen> dirtOnScreens = new ArrayList<DirtOnScreen>();
     private Animation crashAnimation = AssetsManager.getAnimation(Constants.CRASH_ASSETS_ID);
     ArrayList<CarsType> carsTypes;
+    private ActionResolver actionResolver;
 
 
-    public GameState(GameStateManager gsm, boolean isNeedTutorial, boolean isFromGarage) {
+    public GameState(GameStateManager gsm, boolean isNeedTutorial, boolean isFromGarage, ActionResolver actionResolver) {
         super(gsm);
         setUpWorld();
         setUpStage();
         gameState = this;
-
+        this.actionResolver = actionResolver;
         GameManager.initial(world, stage);
         GameManager.resetSpeed();
         setUpCamera();
@@ -272,7 +274,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
 
         if (isFromGarage) startFromGarage();
-        else stage.addActor(new MenuTest(this, gsm));
+        else stage.addActor(new MenuTest(this, gsm,actionResolver));
         textureCollisisonPoint = new Texture("contact_point.png");
     }
 
@@ -335,7 +337,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     public void setUpDirtsOnScreen() {
         for (int i = 0; i < 20; i++)
             dirtOnScreens.add(new DirtOnScreen(world, 10, 10, 10));
-       // dirtOnScreens.add(new DirtOnScreen(world, 10, 10, 10));
+        // dirtOnScreens.add(new DirtOnScreen(world, 10, 10, 10));
     }
 
     public void setUpLadleOnCar() {
@@ -697,7 +699,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         handleInput();
         if (isStartTrafficLighter && isGameStart == false) trafficLight.update(dt);
         GameManager.setAchives(achives);
-        System.out.println("passer car count " + passerCars.size());
+        //System.out.println("passer car count " + passerCars.size());
         if (GameManager.pauseGame) {
 
 
@@ -1258,7 +1260,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
             if (timer > 1) {
                 GameManager.pauseGame = true;
                 // stage.addActor(new MenuGameOver(this, gsm));
-                stage.addActor(new MenuSaveMe(this, gsm));
+                stage.addActor(new MenuSaveMe(this, gsm,actionResolver));
                 System.out.println("Pause");
                 timer = 0;
             }
@@ -1274,7 +1276,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
             if (timer > 1) {
                 GameManager.pauseGame = true;
-                stage.addActor(new MenuSaveMe(this, gsm));
+                stage.addActor(new MenuSaveMe(this, gsm,actionResolver));
                 System.out.println("Pause");
                 timer = 0;
             }
@@ -1427,7 +1429,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                 pauseGame();
                 isAfterPause = true;
 
-                stage.addActor(new MenuPause(gameState, gsm));
+                stage.addActor(new MenuPause(gameState, gsm,actionResolver));
                 hidePauseButton();
                 //pauseTextButton.remove();
                 return true;
@@ -1463,7 +1465,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
     public void setUpStartButton() {
         float x = Constants.RESUME_BTTN_X_VISIBLE, y = Constants.RESUME_BTTN_Y_INVISIBLE - 190, width = 70, height = 55;
-        startGameButton = new StartGameButton(x - (width / 2), y - (height / 2), width, height, gsm);
+        startGameButton = new StartGameButton(x - (width / 2), y - (height / 2), width, height, gsm, actionResolver);
         stage.addActor(startGameButton);
     }
 
@@ -1732,7 +1734,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         pauseGame();
         isAfterPause = true;
         //pauseButton.hide();
-        stage.addActor(new MenuPause(gameState, gsm));
+        stage.addActor(new MenuPause(gameState, gsm,actionResolver));
         //resumeButton.show();
         //garageButton.show();
     }
