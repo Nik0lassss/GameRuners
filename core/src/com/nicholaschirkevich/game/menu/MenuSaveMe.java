@@ -20,6 +20,7 @@ import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
 import com.nicholaschirkevich.game.states.GameStateManager;
+import com.nicholaschirkevich.game.util.AssetsManager;
 import com.nicholaschirkevich.game.util.Constants;
 import com.nicholaschirkevich.game.util.GameManager;
 
@@ -46,10 +47,11 @@ public class MenuSaveMe extends Group {
     public MenuSaveMe(ResumeButtonListener listener, GameStateManager gsm, ActionResolver actionResolver) {
 
         this.actionResolver = actionResolver;
-        saveMeButtonUpTexture = new Texture("bttn_revival.png");
-        saveMeButtonDownTexture = new Texture("bttn_revival_pressed.png");
-        saveMeBarTexture = new Texture("progress_bar.png");
-        saveMeBarBorderTexture = new Texture("progress_bar_frame.png");
+        saveMeButtonUpTexture = AssetsManager.getTextureRegion(Constants.BTTN_REVIVAL_ID).getTexture();
+        saveMeButtonDownTexture =AssetsManager.getTextureRegion(Constants.BTTN_REVIVAL_PRESSED_ID).getTexture();
+        saveMeButtonDownTexture =AssetsManager.getTextureRegion(Constants.BTTN_REVIVAL_PRESSED_ID).getTexture();
+        saveMeBarTexture = AssetsManager.getTextureRegion(Constants.PROGRESS_BAR_ID).getTexture();
+        saveMeBarBorderTexture =AssetsManager.getTextureRegion(Constants.PROGRESS_BAR_FRAME_ID).getTexture();
         saveMeImageTextureRegion = new TextureRegion(saveMeBarTexture);
         saveMeBarImage = new Image(saveMeImageTextureRegion);
         saveMeBarImageBorder = new Image(saveMeBarBorderTexture);
@@ -142,6 +144,13 @@ public class MenuSaveMe extends Group {
 
     }
 
+
+    public void onAdCLose()
+    {
+        resumeButtonListener.onSaveMe();
+        GameManager.pauseGame = false;
+        GameManager.setIsCollision(false);
+    }
     private void setUpBackgroung(boolean selected) {
         if (selected) {
             slot_vehicle = new Texture("slot_vehicle_2_selected.png");

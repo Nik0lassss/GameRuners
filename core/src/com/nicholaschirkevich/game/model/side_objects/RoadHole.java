@@ -3,6 +3,8 @@ package com.nicholaschirkevich.game.model.side_objects;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.nicholaschirkevich.game.util.AssetsManager;
+import com.nicholaschirkevich.game.util.Constants;
 import com.nicholaschirkevich.game.util.GameManager;
 
 /**
@@ -17,7 +19,7 @@ public class RoadHole {
 
     public RoadHole(float x, float y) {
 
-        texture =  new Texture("road_hole.png");
+        texture = AssetsManager.getTextureRegion(Constants.ROAD_HOLE_ID).getTexture();
         position = new Vector2(x, y);
         bounds = new Rectangle(x, y, texture.getWidth(), texture.getHeight());
 

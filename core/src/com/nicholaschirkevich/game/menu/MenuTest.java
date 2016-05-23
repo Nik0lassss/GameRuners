@@ -240,7 +240,7 @@ public class MenuTest extends Group {
         coinShop.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                sequenceCoinShop.addAction(Actions.delay(0.1f));
+               // sequenceCoinShop.addAction(Actions.delay(0.1f));
                 sequenceCoinShop.addAction(new Action() {
                     @Override
                     public boolean act(float delta) {

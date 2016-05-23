@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.nicholaschirkevich.game.interfaces.OnTrafficLightListener;
+import com.nicholaschirkevich.game.util.AssetsManager;
+import com.nicholaschirkevich.game.util.Constants;
 
 import java.util.TimerTask;
 
@@ -23,10 +25,10 @@ public class TrafficLight {
     ChangeTrafficState changeTrafficState;
 
     public TrafficLight(int x, int y) {
-        textureGreen1 = new Texture("start_lights_1green.png");
-        textureGreen2 = new Texture("start_lights_2green.png");
-        textureGreen3 = new Texture("start_lights_3green.png");
-        textureRed = new Texture("start_lights_red.png");
+        textureGreen1 = AssetsManager.getTextureRegion(Constants.START_LIGHT_1_ID).getTexture();
+        textureGreen2 = AssetsManager.getTextureRegion(Constants.START_LIGHT_2_ID).getTexture();
+        textureGreen3 =  AssetsManager.getTextureRegion(Constants.START_LIGHT_3_ID).getTexture();
+        textureRed =  AssetsManager.getTextureRegion(Constants.START_LIGHT_RED_ID).getTexture();
         texture = textureRed;
         position = new Vector2(x, y);
         bounds = new Rectangle(x, y, texture.getWidth(), texture.getHeight());

@@ -28,6 +28,7 @@ public class CarGarageItem extends Group implements UpdateGarageCarItem {
     Texture weight_bar;
     Texture delimiterTexture;
     Image background;
+    Image icon;
     Car car;
     UpdateGarageTable updateGarageTable;
     Integer index;
@@ -35,64 +36,7 @@ public class CarGarageItem extends Group implements UpdateGarageCarItem {
     Image buyImage;
     Label countLabel;
 
-    //    public CarGarageItem() {
-//
-//
-//
-//        slot_vehicle = new  Texture("slot_vehicle.png");
-//        car_texture = new  Texture("other_car_1_1.png");
-//        speed_text = new Texture("speed_text.png");
-//        speed_bar = new Texture("speed_bar.png");
-//
-//        weight_text = new Texture("weight_text.png");
-//        weight_bar = new Texture("weight_bar.png");
-//
-//
-//        Pixmap bigTexture = new Pixmap(Gdx.files.getFileHandle("weight_bar.png", Files.FileType.Internal));
-//
-//        int w = weight_bar.getWidth();
-//        int h = weight_bar.getHeight();
-//        int srcX =  weight_bar.getHeight();
-//        int srcY =  weight_bar.getHeight();
-//
-//        Pixmap partTexture = new Pixmap(w, h, Pixmap.Format.RGBA8888);
-//        partTexture.drawPixmap(bigTexture, 0, 0, srcX, srcY, w, h);
-//
-//        Texture tx = new Texture(partTexture, Pixmap.Format.RGBA8888, false);
-//
-//
-//        Image background = new Image(slot_vehicle);
-//        background.setBounds(getX(), getY(), slot_vehicle.getWidth(), slot_vehicle.getHeight());
-//        addActor(background);
-//
-//
-//        Image icon = new Image(car_texture);
-//        icon.setBounds(getX()+3, getY()+3, 80, 80);
-//        addActor(icon);
-//
-//
-//        Image iconSpeed = new Image(speed_text);
-//        iconSpeed.setBounds(getX()+88, getY()+40, 40, 10);
-//        addActor(iconSpeed);
-//
-//        Image iconSpeedBar = new Image(speed_bar);
-//        iconSpeedBar.setBounds(getX()+88, getY()+30, 90, 8);
-//        addActor(iconSpeedBar);
-//
-//        Image iconWeight = new Image(weight_text);
-//        iconWeight.setBounds(getX()+88, getY()+20, 40, 10);
-//        addActor(iconWeight);
-//
-//        Image iconWeightBar = new Image(weight_bar);
-//        iconWeightBar.setOrigin(40,8);
-//        //iconWeightBar.setScaling(Scaling.fillY);
-//        iconWeightBar.setBounds(getX()+88, getY()+10, 20, 8);
-//
-//        addActor(iconWeightBar);
-////        sprite = new Sprite(slot_vehicle);
-//
-//        setBounds(0, 0, slot_vehicle.getWidth(), slot_vehicle.getHeight());
-//    }
+
 
 
     public CarGarageItem(Car car, Integer index, UpdateGarageTable updateGarageTable, Skin skin) {
@@ -100,13 +44,12 @@ public class CarGarageItem extends Group implements UpdateGarageCarItem {
 
         this.updateGarageTable = updateGarageTable;
         this.index = index;
-        //car_texture = new  Texture("other_car_2_1.png");
         car_texture = AssetsManager.getTextureRegion(car.getID()).getTexture();
-        speed_text = new Texture("speed_text.png");
-        speed_bar = new Texture("speed_bar.png");
-        delimiterTexture = new Texture("delimiter.png");
-        weight_text = new Texture("weight_text.png");
-        weight_bar = new Texture("weight_bar.png");
+        speed_text = AssetsManager.getTextureRegion(Constants.SPEED_TEXT_ID).getTexture();
+        speed_bar = AssetsManager.getTextureRegion(Constants.SPEED_BAR_ID).getTexture();
+        delimiterTexture = AssetsManager.getTextureRegion(Constants.DELIMITER_ID).getTexture();
+        weight_text = AssetsManager.getTextureRegion(Constants.WEIGHT_TEXT_ID).getTexture();
+        weight_bar = AssetsManager.getTextureRegion(Constants.WEIGHT_BAR_ID).getTexture();
         buyImage = new Image();
         countLabel = new Label("", skin);
         this.car = car;
@@ -123,20 +66,6 @@ public class CarGarageItem extends Group implements UpdateGarageCarItem {
         setUpBuyImage();
         addListener(new CarGarageItemClickListener(this));
 
-//        Pixmap bigTexture = new Pixmap(Gdx.files.getFileHandle("weight_bar.png", Files.FileType.Internal));
-//
-//        int w = weight_bar.getWidth();
-//        int h = weight_bar.getHeight();
-//        int srcX =  weight_bar.getHeight();
-//        int srcY =  weight_bar.getHeight();
-//
-//        Pixmap partTexture = new Pixmap(w, h, Pixmap.Format.RGBA8888);
-//        partTexture.drawPixmap(bigTexture, 0, 0, srcX, srcY, w, h);
-//
-//        Texture tx = new Texture(partTexture, Pixmap.Format.RGBA8888, false);
-
-
-//        sprite = new Sprite(slot_vehicle);
 
         setBounds(0, 0, slot_vehicle.getWidth(), slot_vehicle.getHeight());
     }
@@ -179,8 +108,8 @@ public class CarGarageItem extends Group implements UpdateGarageCarItem {
     private void setUpBackgroung(boolean selected) {
         if (selected) {
             updateGarageTable.setSelectedItme(index);
-            slot_vehicle = new Texture("slot_vehicle_2_selected.png");
-        } else slot_vehicle = new Texture("slot_vehicle.png");
+            slot_vehicle =AssetsManager.getTextureRegion(Constants.SLOT_VEHICLE_SELECTED_ID).getTexture();
+        } else slot_vehicle = AssetsManager.getTextureRegion(Constants.SLOT_VEHICLE_ID).getTexture();
         background = new Image(slot_vehicle);
         background.setBounds(getX(), getY(), slot_vehicle.getWidth(), slot_vehicle.getHeight());
         addActor(background);
@@ -188,7 +117,7 @@ public class CarGarageItem extends Group implements UpdateGarageCarItem {
     }
 
     private void setUpIcon() {
-        Image icon = new Image(car_texture);
+       icon = new Image(car_texture);
         icon.setBounds(getX() + 39 - car_texture.getWidth() / 2, getY() + 7, car_texture.getWidth(), car_texture.getHeight());
         addActor(icon);
     }
@@ -219,8 +148,6 @@ public class CarGarageItem extends Group implements UpdateGarageCarItem {
 
     private void setUpIconWeightBar() {
 
-//        Image iconWeightBar = new Image(weight_bar);
-//        iconWeightBar.setOrigin(40, 8);
         TextureRegion weigthBar = new TextureRegion(weight_bar);
         weigthBar.setRegion(0, 0, car.getWeight(), 8);
         weigthBar.split(10, weigthBar.getRegionHeight());
@@ -228,8 +155,6 @@ public class CarGarageItem extends Group implements UpdateGarageCarItem {
 
         iconWeightBar.setX(getX() + 93);
         iconWeightBar.setY(getY() + 8);
-        //iconWeightBar.setScaling(Scaling.fillY);
-        //iconWeightBar.setBounds(getX() + 93, getY() + 10, 90, 8);
         addActor(iconWeightBar);
     }
 
@@ -253,42 +178,46 @@ public class CarGarageItem extends Group implements UpdateGarageCarItem {
 
     @Override
     public void onUpdateGarageCarItem(boolean selected) {
-        //removeActor(background);
-//        background = new Image(new  Texture("slot_vehicle_2_selected.png"));
-//        background.setBounds(getX(), getY(), slot_vehicle.getWidth(), slot_vehicle.getHeight());
-        //addActor(background);
+
         updateGarageCarItem(selected);
-        System.out.println("clicked");
-//        if(selected) GameManager.setCurrentCarID(car.getID());
-//        background.setDrawable(new SpriteDrawable(new Sprite(new Texture("slot_vehicle_2_selected.png"))));
-        //updateGarageTable.updateTable();
+
     }
 
     public void updateGarageCarItem(boolean selected) {
         if (!car.getIsForRealMoney() && GameManager.getCoinCounter() > car.getPrice() && !GameManager.getMyCars().contains(car.getID())) {
             GameManager.buyCar(car.getPrice());
-            if (selected) {
+            if (selected)   {
 
                 GameManager.addCar(car.getID());
                 GameManager.setCurrentCarID(car.getID());
                 buyImage.remove();
                 countLabel.setText("");
-                background.setDrawable(new SpriteDrawable(new Sprite(new Texture("slot_vehicle_2_selected.png"))));
-                updateGarageTable.updateTable();
-                updateGarageTable.setSelectedItme(index);
-            } else
-                buyImage.remove();
-                background.setDrawable(new SpriteDrawable(new Sprite(new Texture("slot_vehicle.png"))));
-
-        } else if (GameManager.getMyCars().contains(car.getID())) {
-            if (selected) {
-                GameManager.setCurrentCarID(car.getID());
-                background.setDrawable(new SpriteDrawable(new Sprite(new Texture("slot_vehicle_2_selected.png"))));
+                buyImage = new Image(AssetsManager.getTextureRegion(Constants.BTTN_CAR_SHOP_CHECKED_ID));
+                buyImage.setX(253);
+                buyImage.setY(28);
+                addActor(buyImage);
+                background.setDrawable(new SpriteDrawable(new Sprite(AssetsManager.getTextureRegion(Constants.SLOT_VEHICLE_SELECTED_ID))));
                 updateGarageTable.updateTable();
                 updateGarageTable.setSelectedItme(index);
             } else {
                 buyImage.remove();
-                background.setDrawable(new SpriteDrawable(new Sprite(new Texture("slot_vehicle.png"))));
+                background.setDrawable(new SpriteDrawable(new Sprite(AssetsManager.getTextureRegion(Constants.SLOT_VEHICLE_ID))));
+            }
+
+        } else if (GameManager.getMyCars().contains(car.getID())) {
+
+            if (selected) {
+                GameManager.setCurrentCarID(car.getID());
+                background.setDrawable(new SpriteDrawable(new Sprite(AssetsManager.getTextureRegion(Constants.SLOT_VEHICLE_SELECTED_ID))));
+                buyImage = new Image(AssetsManager.getTextureRegion(Constants.BTTN_CAR_SHOP_CHECKED_ID));
+                buyImage.setX(253);
+                buyImage.setY(28);
+                addActor(buyImage);
+                updateGarageTable.updateTable();
+                updateGarageTable.setSelectedItme(index);
+            } else {
+                buyImage.remove();
+                background.setDrawable(new SpriteDrawable(new Sprite(AssetsManager.getTextureRegion(Constants.SLOT_VEHICLE_ID))));
 
             }
 

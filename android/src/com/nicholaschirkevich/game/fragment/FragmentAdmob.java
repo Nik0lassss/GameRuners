@@ -16,6 +16,7 @@ import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.R;
 import com.nicholaschirkevich.game.admob.ActionResolver;
+import com.nicholaschirkevich.game.interfaces.AdCloseListener;
 
 /**
  * Created by Nikolas on 20.05.2016.
@@ -26,6 +27,9 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     private RewardedVideoAd mAd;
     private String appId = "ca-app-pub-3929550233974663/5014713038";
     private Button showButton;
+    GameRuners gameRuners;
+
+
 
     @Nullable
     @Override
@@ -47,9 +51,13 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
             @Override
             public void onAdClosed() {
                 startGame();
+                gameRuners.onAdClose();
             }
         });
-        return initializeForView(new GameRuners(this));
+        startGame();
+        gameRuners = new GameRuners(this);
+
+        return initializeForView(gameRuners);
 
 
     }
@@ -77,7 +85,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     private void startGame() {
         // Request a new ad if one isn't already loaded, hide the button, and kick off the timer.
         if (!mInterstitialAd.isLoading() && !mInterstitialAd.isLoaded()) {
-            AdRequest adRequest = new AdRequest.Builder().build();
+            AdRequest adRequest = new AdRequest.Builder().addTestDevice("024E787E6EB1DF2F6E701EE93F986BA4").build();
             mInterstitialAd.loadAd(adRequest);
         }
 

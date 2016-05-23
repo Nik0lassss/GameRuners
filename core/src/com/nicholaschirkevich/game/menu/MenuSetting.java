@@ -20,6 +20,7 @@ import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
 import com.nicholaschirkevich.game.states.GameStateManager;
+import com.nicholaschirkevich.game.util.AssetsManager;
 import com.nicholaschirkevich.game.util.Constants;
 
 /**
@@ -27,12 +28,7 @@ import com.nicholaschirkevich.game.util.Constants;
  */
 public class MenuSetting extends Group {
     Texture slot_vehicle;
-    Skin uiSkin = new Skin(Gdx.files.internal("uiskin_digit.json"));
-    Texture speed_text;
     Texture speed_bar;
-    Texture weight_text;
-    Texture weight_bar;
-    Texture delimiterTexture;
     TextButton soundButton, swipe_controll_button, block_rds_button,restore_button,singInVkBttn,singInFbBttn, backBttn;
     Image background;
     Image soundButtonUpImage, soundButtonDownImage, playOnlineDownImage, playOnlineUpImage, getPrizeUpButtonImage, getPrizeDownButtonImage, carShopImageUp, carShopImageDown, coinShomImageUp, coinShopImageDown, settingMenuImageUp, settingMenuImageDown, leaderBoardImageUp, leaderBoardImageDown, leaderBoardsImageUp, leaderBoardsImageDown;
@@ -52,80 +48,41 @@ public class MenuSetting extends Group {
     public MenuSetting(ResumeButtonListener listenerResume, GameStateManager gsm) {
 
 
-        //car_texture = new  Texture("other_car_2_1.png");
-        this.listener = listener;
         this.listenerResume = listenerResume;
-        this.actionResolver = actionResolver;
-        soundButtonUp = new Texture("bttn_blue.png");
-        soundButtonDown = new Texture("bttn_blue_prssd.png");
-        playOnlineDownImageTexture = new Texture("button_multiplayer_pressed.png");
-        playOnlineUpImageTexture = new Texture("button_multiplayer.png");
-        getPrizeUpButtonImageTexture = new Texture("button_win_a_prize.png");
-        getPrizeDownButtonImageTexture = new Texture("button_win_a_prize_pressed.png");
-        carShopTextureUp = new Texture("bttn_cars.png");
-        carShopTextureDown = new Texture("bttn_cars_prssd.png");
-        sound_on = new Texture("icon_sound_on.png");
-        sound_off = new Texture("icon_sound_off.png");
+        soundButtonUp = AssetsManager.getTextureRegion(Constants.BTTN_BLUE_ID).getTexture();
+        soundButtonDown = AssetsManager.getTextureRegion(Constants.BTTN_BLUE_PRESSED_ID).getTexture();
+        sound_on = AssetsManager.getTextureRegion(Constants.SOUND_ON_ID).getTexture();
+        sound_off =AssetsManager.getTextureRegion(Constants.SOUND_OFF_ID).getTexture();
         sound_on_image = new Image(sound_on);
         sound_off_image = new Image(sound_off);
 
         sequenceReturn = new SequenceAction();
-        coinShopTextureDown = new Texture("bttn_coins_prssd.png");
-        coinShopTextureUp = new Texture("bttn_coins.png");
 
-        leaderBoardsTextureDown = new Texture("bttn_leaderboards_prssd.png");
-        leaderBoardsTextureUp = new Texture("bttn_leaderboards.png");
 
-        leaderBoardTextureDown = new Texture("bttn_leaderbord_pressed.png");
-        leaderBoardTextureUp = new Texture("bttn_leaderboard.png");
-
-        settingMenuTextureDown = new Texture("bttn_set_prssd.png");
-        settingMenuTextureUp = new Texture("bttn_set.png");
-
-        coinShomImageUp = new Image(coinShopTextureUp);
-        coinShopImageDown = new Image(coinShopTextureDown);
 
         sequence = new SequenceAction();
         swipeButtonSequence = new SequenceAction();
-        sequenceCarShop = new SequenceAction();
+
         soundButtonUpImage = new Image(soundButtonUp);
         soundButtonDownImage = new Image(soundButtonDown);
 
-        leaderBoardsImageDown = new Image(leaderBoardsTextureDown);
-        leaderBoardsImageUp = new Image(leaderBoardsTextureUp);
-
-        leaderBoardImageDown = new Image(leaderBoardTextureDown);
-        leaderBoardImageUp = new Image(leaderBoardTextureUp);
-
-        settingMenuImageDown = new Image(settingMenuTextureDown);
-        settingMenuImageUp = new Image(settingMenuTextureUp);
-
-        playOnlineDownImage = new Image(playOnlineDownImageTexture);
-        playOnlineUpImage = new Image(playOnlineUpImageTexture);
-
-        getPrizeDownButtonImage = new Image(getPrizeDownButtonImageTexture);
-        getPrizeUpButtonImage = new Image(getPrizeUpButtonImageTexture);
-
-        carShopImageUp = new Image(carShopTextureUp);
-        carShopImageDown = new Image(carShopTextureDown);
-
-        swipe_texture = new Texture("icon_control_setting.png");
+        swipe_texture =AssetsManager.getTextureRegion(Constants.ICON_CONTROL_SETTING_ID).getTexture();
         swipe_image = new Image(swipe_texture);
 
-        rds_texture = new Texture("icon_block_ads.png");
+        rds_texture = AssetsManager.getTextureRegion(Constants.ICON_BLOCK_ADS_ID).getTexture();
         rds_image = new Image(rds_texture);
 
-        restore_texture = new Texture("icon_return_p.png");
+        restore_texture = AssetsManager.getTextureRegion(Constants.ICON_RETURN_P_ID).getTexture();
         restore_image = new Image(restore_texture);
 
-        singInVk = new Texture("icon_vk.png");
-        singInFb = new Texture("icon_fb.png");
+        singInVk = AssetsManager.getTextureRegion(Constants.ICON_ICON_VK_ID).getTexture();
+        singInFb = AssetsManager.getTextureRegion(Constants.ICON_ICON_FB_ID).getTexture();
 
         singInFbImage = new Image(singInFb);
         singInVkImage = new Image(singInVk);
 
-        backButtonTextureDown = new Texture("bttn_back_prssd.png");
-        backButtonTextureUp = new Texture("bttn_back.png");
+        backButtonTextureDown = AssetsManager.getTextureRegion(Constants.BACK_BUTTON_PRESSED_ID).getTexture();
+        backButtonTextureUp = AssetsManager.getTextureRegion(Constants.BACK_BUTTON_ID).getTexture();
 
         backButtonImageDown =new Image(backButtonTextureDown);
         backButtonImageUp = new Image(backButtonTextureUp);
@@ -150,8 +107,8 @@ public class MenuSetting extends Group {
 
     private void setUpImageLogo() {
 
-        Texture logo = new Texture("settings.png");
-        imageLogo = new Image(logo);
+
+        imageLogo = new Image(AssetsManager.getTextureRegion(Constants.SETTINGS_ID));
         imageLogo.setBounds(Constants.SETTING_LOGO_POSITION_X, Constants.SETTING_LOGO_POSITION_Y, imageLogo.getWidth(), imageLogo.getHeight());
         addActor(imageLogo);
     }
@@ -159,8 +116,7 @@ public class MenuSetting extends Group {
 
     private void setUpBackgroung() {
 
-        slot_vehicle = new Texture("back_tile.png");
-        background = new Image(slot_vehicle);
+        background = new Image(AssetsManager.getTextureRegion(Constants.BACK_TILE_ID));
         Color color = background.getColor();
         background.setColor(color.r,color.g,color.b,0.5f);
         background.setBounds(0, -20, GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2 + 50);
@@ -182,7 +138,7 @@ public class MenuSetting extends Group {
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.down = soundButtonDownImage.getDrawable();
         textButtonStyle.up = soundButtonUpImage.getDrawable();
-        textButtonStyle.font = uiSkin.getFont("default-font");
+        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
         soundButton = new TextButton("Sound off", textButtonStyle);
         soundButton.getLabel().setFontScale(0.4f, 0.4f);
@@ -222,7 +178,7 @@ public class MenuSetting extends Group {
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.down = soundButtonDownImage.getDrawable();
         textButtonStyle.up = soundButtonUpImage.getDrawable();
-        textButtonStyle.font = uiSkin.getFont("default-font");
+        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
         swipe_controll_button = new TextButton("Swipe game \n control", textButtonStyle);
         swipe_controll_button.getLabel().setFontScale(0.4f, 0.4f);
@@ -263,7 +219,7 @@ public class MenuSetting extends Group {
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.down = soundButtonDownImage.getDrawable();
         textButtonStyle.up = soundButtonUpImage.getDrawable();
-        textButtonStyle.font = uiSkin.getFont("default-font");
+        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
         block_rds_button = new TextButton("Block \n rds", textButtonStyle);
         block_rds_button.getLabel().setFontScale(0.4f, 0.4f);
@@ -304,7 +260,7 @@ public class MenuSetting extends Group {
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.down = soundButtonDownImage.getDrawable();
         textButtonStyle.up = soundButtonUpImage.getDrawable();
-        textButtonStyle.font = uiSkin.getFont("default-font");
+        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
         restore_button = new TextButton("Restore \n purchases", textButtonStyle);
         restore_button.getLabel().setFontScale(0.4f, 0.4f);
@@ -346,7 +302,7 @@ public class MenuSetting extends Group {
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.down = soundButtonDownImage.getDrawable();
         textButtonStyle.up = soundButtonUpImage.getDrawable();
-        textButtonStyle.font = uiSkin.getFont("default-font");
+        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
         singInVkBttn = new TextButton("Sing in", textButtonStyle);
         singInVkBttn.getLabel().setFontScale(0.4f, 0.4f);
@@ -386,7 +342,7 @@ public class MenuSetting extends Group {
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.down = soundButtonDownImage.getDrawable();
         textButtonStyle.up = soundButtonUpImage.getDrawable();
-        textButtonStyle.font = uiSkin.getFont("default-font");
+        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
         singInFbBttn = new TextButton("Sing in", textButtonStyle);
         singInFbBttn.getLabel().setFontScale(0.4f, 0.4f);
@@ -427,7 +383,7 @@ public class MenuSetting extends Group {
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.down = backButtonImageDown.getDrawable();
         textButtonStyle.up = backButtonImageUp.getDrawable();
-        textButtonStyle.font = uiSkin.getFont("default-font");
+        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
         backBttn = new TextButton("", textButtonStyle);
         backBttn.getLabel().setFontScale(0.4f, 0.4f);

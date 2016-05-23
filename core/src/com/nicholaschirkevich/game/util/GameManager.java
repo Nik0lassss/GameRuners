@@ -13,6 +13,7 @@ import com.nicholaschirkevich.game.entity.Car;
 import com.nicholaschirkevich.game.entity.CarsType;
 import com.nicholaschirkevich.game.entity.GearShift;
 import com.nicholaschirkevich.game.helper.XmlHelper;
+import com.nicholaschirkevich.game.menu.items.CarGarageItem;
 import com.nicholaschirkevich.game.model.AchiveView;
 import com.nicholaschirkevich.game.model.GearView;
 
@@ -206,6 +207,20 @@ public class GameManager {
         contactPointY = 0;
     }
 
+    public static Car getRandomCarForGarage() {
+        ArrayList<Car> cars = new ArrayList<Car>();
+
+        for (int i = 0; i < carsTypes.size(); i++) {
+            CarsType carsType = carsTypes.get(i);
+            for (int z = 0; z < carsType.getCars().size(); z++) {
+                Car car = carsType.getCars().get(z);
+                if (!getMyCars().contains(car.getID()))
+                    cars.add(car);
+            }
+        }
+        return cars.get(RandomUtil.getRand(0, cars.size()));
+    }
+
     public static int getDangerousCount() {
         return dangerousCount;
     }
@@ -373,7 +388,7 @@ public class GameManager {
     }
 
     public static void buyCar(float price) {
-        coinCounter -=(int) price;
+        coinCounter -= (int) price;
         setCountCoint(coinCounter);
     }
 

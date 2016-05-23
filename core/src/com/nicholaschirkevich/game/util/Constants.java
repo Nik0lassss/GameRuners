@@ -120,6 +120,31 @@ public class Constants {
     public static final String DIRT_FOR_SREEN_6_ATLAS_PATH = "dirt_for_screen_6.txt";
 
 
+
+
+    public static final String SPEED_TEXT_RESOURCE = "speed_text.png";
+    public static final String SPEED_TEXT_ID = "speed_text_id";
+    public static final String SPEED_BAR_RESOURCE = "speed_bar.png";
+    public static final String SPEED_BAR_ID = "speed_bar";
+    public static final String DELIMITER_RESOURCE = "delimiter.png";
+    public static final String DELIMITER_ID = "delimiter";
+    public static final String WEIGHT_TEXT_RESOURCE = "weight_text.png";
+    public static final String WEIGHT_TEXT_ID = "weight_text";
+    public static final String WEIGHT_BAR_RESOURCE = "weight_bar.png";
+    public static final String WEIGHT_BAR_ID = "weight_bar";
+    public static final String SLOT_VEHICLE_SELECTED_RESOURCE = "slot_vehicle_2_selected.png";
+    public static final String SLOT_VEHICLE_SELECTED_ID = "slot_vehicle_2_selected";
+    public static final String SLOT_VEHICLE_RESOURCE = "slot_vehicle.png";
+    public static final String SLOT_VEHICLE_ID = "slot_vehicle";
+
+    public static final String DISCOUNT_30_RESOURCE = "30%.png";
+    public static final String DISCOUNT_30_ID = "30%";
+    public static final String DISCOUNT_50_RESOURCE = "50%.png";
+    public static final String DISCOUNT_50_ID = "50%";
+    public static final String DISCOUNT_100_RESOURCE = "100%.png";
+    public static final String DISCOUNT_100_ID = "100%";
+
+
     public static final int MAX_GEAR = 5;
 
 
@@ -265,6 +290,126 @@ public class Constants {
     public static final String X4_id = "x4";
     public static final String X5_id = "x5";
     public static final String X6_id = "x6";
+
+
+
+    public static final String TITLE_VEHICLES_ID = "title_vehicles";
+    public static final String TITLE_VEHICLES_RESOURCE = "title_vehicles.png";
+
+    public static final String DANGER_ID = "danger";
+    public static final String DANGER_RESOURCE = "danger.png";
+
+    public static final String BOOSTER_ID = "booster";
+    public static final String BOOSTER_RESOURCE = "booster.png";
+
+    public static final String START_LIGHT_1_ID = "start_lights_1green";
+    public static final String START_LIGHT_1_RESOURCE = "start_lights_1green.png";
+
+    public static final String START_LIGHT_2_ID = "start_lights_2green";
+    public static final String START_LIGHT_2_RESOURCE = "start_lights_2green.png";
+
+    public static final String START_LIGHT_3_ID = "start_lights_3green";
+    public static final String START_LIGHT_3_RESOURCE = "start_lights_3green.png";
+
+    public static final String START_LIGHT_RED_ID = "start_lights_red";
+    public static final String START_LIGHT_RED_RESOURSE = "start_lights_red.png";
+
+    public static final String BTTN_REVIVAL_ID = "bttn_revival";
+    public static final String BTTN_REVIVAL_RESOURSE = "bttn_revival.png";
+
+    public static final String GARAGE_ID = "garage";
+    public static final String GARAGE_RESOURSE = "garage.png";
+
+    public static final String BTTN_REVIVAL_PRESSED_ID = "bttn_revival_pressed";
+    public static final String BTTN_REVIVAL_PRESSED_RESOURSE = "bttn_revival_pressed.png";
+
+    public static final String PROGRESS_BAR_ID = "progress_bar";
+    public static final String PROGRESS_BAR_RESOURSE = "progress_bar.png";
+
+    public static final String PROGRESS_BAR_FRAME_ID = "progress_bar_frame";
+    public static final String PROGRESS_BAR_FRAME_RESOURSE = "progress_bar_frame.png";
+
+    public static final String ROAD_HOLE_ID = "road_hole";
+    public static final String ROAD_HOLE_RESOURSE = "road_hole.png";
+
+    public static final String START_LINE_ID = "start_line";
+    public static final String START_LINE_RESOURCE = "start_line.png";
+
+    public static final String ROCKETS_ID = "rockets";
+    public static final String ROCKETS_RESOURCE = "rockets.png";
+
+    public static final String SKULL_ON_ROAD_ID = "skull_on_road";
+    public static final String SKULL_ON_ROAD_RESOURCE = "skull_on_road.png";
+
+    public static final String DESTRICTION_ID = "destruction";
+    public static final String DESTRICTION_RESOURCE = "destruction.png";
+
+    public static final String PAUSE_BUTTON_UP_ID = "pause_button_up";
+    public static final String PAUSE_BUTTON_UP_RESOURCE = "pause_button_up.png";
+
+    public static final String PAUSE_BUTTON_PRESSED_ID = "pause_button_pressed";
+    public static final String PAUSE_BUTTON_PRESSED_RESOURCE = "pause_button_pressed.png";
+
+    public static final String CONTACT_POINT_ID = "contact_point";
+    public static final String CONTACT_POINT_RESOURCE = "contact_point.png";
+
+    public static final String CNR_LINE_ID = "cnr_line";
+    public static final String CNR_LINE_RESOURCE = "cnr_line.png";
+
+    public static final String SOUND_ON_ID = "icon_sound_on";
+    public static final String SOUND_ON_RESOURCE = "icon_sound_on.png";
+
+    public static final String SOUND_OFF_ID = "icon_sound_off";
+    public static final String SOUND_OFF_RESOURCE = "icon_sound_off.png";
+
+    public static final String ICON_CONTROL_SETTING_ID = "icon_control_setting";
+    public static final String ICON_CONTROL_SETTING_RESOURCE = "icon_control_setting.png";
+
+    public static final String BTTN_BLUE_ID = "bttn_blue";
+    public static final String BTTN_BLUE_RESOURCE = "bttn_blue.png";
+
+    public static final String ICON_BLOCK_ADS_ID = "icon_block_ads";
+    public static final String ICON_BLOCK_ADS_RESOURCE = "icon_block_ads.png";
+
+    public static final String ICON_RETURN_P_ID = "icon_return_p";
+    public static final String ICON_RETURN_P_RESOURCE = "icon_return_p.png";
+
+    public static final String ICON_ICON_VK_ID = "icon_vk";
+    public static final String ICON_ICON_VK_RESOURCE = "icon_vk.png";
+
+    public static final String ICON_ICON_FB_ID = "icon_fb";
+    public static final String ICON_ICON_FB_RESOURCE = "icon_fb.png";
+
+    public static final String SETTINGS_ID = "settings";
+    public static final String SETTINGS_RESOURCE = "settings.png";
+
+    public static final String BTTN_BLUE_PRESSED_ID = "bttn_blue_prssd";
+    public static final String BTTN_BLUE_PRESSED_RESOURCE = "bttn_blue_prssd.png";
+
+    public static final String BTTN_MULTIPLAYER_ID = "button_multiplayer";
+    public static final String BTTN_MULTIPLAYER_RESOURCE = "button_multiplayer.png";
+
+    public static final String BTTN_MULTIPLAYER_PRESSED_ID = "button_multiplayer_pressed";
+    public static final String BTTN_MULTIPLAYER_PRESSED_RESOURCE = "button_multiplayer_pressed.png";
+    public static final String BTTN_WIN_A_PRIZE_ID = "button_win_a_prize";
+    public static final String BTTN_WIN_A_PRIZE_RESOURCE = "button_win_a_prize.png";
+    public static final String BTTN_WIN_A_PRIZE_PRESSED_ID = "button_win_a_prize_pressed";
+    public static final String BTTN_WIN_A_PRIZE_PRESSED_RESOURCE = "button_win_a_prize_pressed.png";
+
+    public static final String BUTTON_BUT_REAL_EMPTY_ID = "button_buy_real_empty";
+    public static final String BUTTON_BUT_REAL_EMPTY_RESOURCE = "button_buy_real_empty.png";
+
+    public static final String BACK_TILE_ID = "back_tile";
+    public static final String BACK_TILE_RESOURCE = "back_tile.png";
+
+    public static final String BACK_BUTTON_ID = "bttn_back";
+    public static final String BACK_BUTTON_RESOURCE = "bttn_back.png";
+
+    public static final String BACK_BUTTON_PRESSED_ID = "bttn_back_prssd";
+    public static final String BACK_BUTTON_PRESSED_RESOURCE = "bttn_back_prssd.png";
+
+    public static final String COIN_SHOP_NAME_ID = "coins";
+    public static final String COIN_SHOP_NAME_RESOURCE = "coins.png";
 
     public static final String COIN_SHOP_STANDART_ID = "coins_1";
     public static final String COIN_SHOP_STANDART_RESOURCE = "coins_1.png";

@@ -27,6 +27,7 @@ import com.nicholaschirkevich.game.states.CarGarageState;
 import com.nicholaschirkevich.game.states.CarShopState;
 import com.nicholaschirkevich.game.states.GameState;
 import com.nicholaschirkevich.game.states.GameStateManager;
+import com.nicholaschirkevich.game.util.AssetsManager;
 import com.nicholaschirkevich.game.util.Constants;
 import com.nicholaschirkevich.game.util.GameManager;
 
@@ -35,7 +36,6 @@ import com.nicholaschirkevich.game.util.GameManager;
  */
 public class MenuGameOverTotal extends Group {
     Texture slot_vehicle;
-    Skin uiSkin = new Skin(Gdx.files.internal("uiskin_digit.json"));
     Texture speed_text;
 
     TextButton resumeButton, playOnline, prizeButton;
@@ -58,26 +58,26 @@ public class MenuGameOverTotal extends Group {
     public MenuGameOverTotal(final GameStateManager gsm, ActionResolver actionResolver) {
 
         this.actionResolver = actionResolver;
-        dangerous_count_label = new Label(String.valueOf(GameManager.getDangerousCount()), uiSkin);
-        rocket_count_label = new Label(String.valueOf(GameManager.getRocketCount()), uiSkin);
-        destroyed_count_label = new Label(String.valueOf(GameManager.getDestroyedCount()), uiSkin);
-        spring_bozrd_count_label = new Label(String.valueOf(GameManager.getSpringBoardCount()), uiSkin);
-        god_mode_count_label = new Label(String.valueOf(GameManager.getGodModeCount()), uiSkin);
+        dangerous_count_label = new Label(String.valueOf(GameManager.getDangerousCount()), AssetsManager.getUiSkin());
+        rocket_count_label = new Label(String.valueOf(GameManager.getRocketCount()), AssetsManager.getUiSkin());
+        destroyed_count_label = new Label(String.valueOf(GameManager.getDestroyedCount()), AssetsManager.getUiSkin());
+        spring_bozrd_count_label = new Label(String.valueOf(GameManager.getSpringBoardCount()), AssetsManager.getUiSkin());
+        god_mode_count_label = new Label(String.valueOf(GameManager.getGodModeCount()), AssetsManager.getUiSkin());
 
-        achive = new Label("", uiSkin);
-        distance_count_label = new Label(String.valueOf((int) GameManager.getAchives()), uiSkin);
-        achiveCount = new Label("", uiSkin);
-        bestAchive = new Label("", uiSkin);
-        bestAchiveCount = new Label("", uiSkin);
-        distance_label = new Label("", uiSkin);
-        boosters_label = new Label("", uiSkin);
-        total_label = new Label("Total:", uiSkin);
-        total_count_label = new Label(String.valueOf((int) GameManager.getAchives()), uiSkin);
-        dangerous_label = new Label("Dangerous", uiSkin);
-        rocket_label = new Label("Rocket", uiSkin);
-        destroyed_label = new Label("Destroyed", uiSkin);
-        spring_board_label = new Label("Spring Board", uiSkin);
-        god_mode_label = new Label("God Mod", uiSkin);
+        achive = new Label("", AssetsManager.getUiSkin());
+        distance_count_label = new Label(String.valueOf((int) GameManager.getAchives()), AssetsManager.getUiSkin());
+        achiveCount = new Label("", AssetsManager.getUiSkin());
+        bestAchive = new Label("", AssetsManager.getUiSkin());
+        bestAchiveCount = new Label("", AssetsManager.getUiSkin());
+        distance_label = new Label("", AssetsManager.getUiSkin());
+        boosters_label = new Label("", AssetsManager.getUiSkin());
+        total_label = new Label("Total:", AssetsManager.getUiSkin());
+        total_count_label = new Label(String.valueOf((int) GameManager.getAchives()), AssetsManager.getUiSkin());
+        dangerous_label = new Label("Dangerous", AssetsManager.getUiSkin());
+        rocket_label = new Label("Rocket", AssetsManager.getUiSkin());
+        destroyed_label = new Label("Destroyed", AssetsManager.getUiSkin());
+        spring_board_label = new Label("Spring Board", AssetsManager.getUiSkin());
+        god_mode_label = new Label("God Mod", AssetsManager.getUiSkin());
         //car_texture = new  Texture("other_car_2_1.png");
         this.groupView = this;
         this.parentStage = parentStage;
@@ -440,7 +440,7 @@ public class MenuGameOverTotal extends Group {
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.down = getPrizeDownButtonImage.getDrawable();
         textButtonStyle.up = getPrizeUpButtonImage.getDrawable();
-        textButtonStyle.font = uiSkin.getFont("default-font");
+        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
         prizeButton = new TextButton("Win \n a prize", textButtonStyle);
         prizeButton.getLabel().setFontScale(0.4f, 0.4f);
@@ -479,7 +479,7 @@ public class MenuGameOverTotal extends Group {
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.down = playOnlineDownImage.getDrawable();
         textButtonStyle.up = playOnlineUpImage.getDrawable();
-        textButtonStyle.font = uiSkin.getFont("default-font");
+        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
         playOnline = new TextButton("Play \n online", textButtonStyle);
         playOnline.getLabel().setFontScale(0.4f, 0.4f);
@@ -587,7 +587,7 @@ public class MenuGameOverTotal extends Group {
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.down = resumeButtonDownImage.getDrawable();
         textButtonStyle.up = resumeButtonUpImage.getDrawable();
-        textButtonStyle.font = uiSkin.getFont("default-font");
+        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
         resumeButton = new TextButton("Play", textButtonStyle);
         resumeButton.getLabel().setFontScale(0.6f, 0.6f);

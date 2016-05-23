@@ -19,6 +19,7 @@ public class GameRuners extends ApplicationAdapter  {
     private GameStateManager gsm;
     private SpriteBatch batch;
     private ActionResolver actionResolver;
+    private GameState gameState;
 
     public GameRuners(ActionResolver actionResolver) {
      this.actionResolver = actionResolver;
@@ -32,13 +33,18 @@ public class GameRuners extends ApplicationAdapter  {
         GameManager.loadData();
         AssetsManager.loadCars();
         AssetsManager.loadAssets();
+        gameState = new GameState(gsm, true, false,actionResolver);
 
-
-        gsm.push(new GameState(gsm, true, false,actionResolver));
+        gsm.push(gameState);
 
 
         //gsm.push(new CarShopState(gsm));
 
+    }
+
+    public void onAdClose()
+    {
+        gameState.onAdClose();
     }
 
     @Override

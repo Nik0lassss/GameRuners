@@ -22,6 +22,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.nicholaschirkevich.game.entity.Car;
 import com.nicholaschirkevich.game.entity.CarsType;
 
@@ -35,7 +36,7 @@ public class AssetsManager {
     private static HashMap<String, Animation> animationsMap = new HashMap<String, Animation>();
 
     private static ArrayList<TextureAtlas> carsTextureAtlasList = new ArrayList<TextureAtlas>();
-
+    private static Skin uiSkin ;
 
     private static TextureAtlas carTextureAtlas;
     private static TextureAtlas menuBttnTextureAtlas;
@@ -116,6 +117,7 @@ public class AssetsManager {
 
     public static void loadAssets() {
 
+        uiSkin = new Skin(Gdx.files.internal("uiskin_digit.json"));
         //Road
         texturesMap.put(Constants.ROAD_ASSETS_ID,
                 new TextureRegion(new Texture(Gdx.files.internal(Constants.ROAD_IMAGE_PATH))));
@@ -153,6 +155,64 @@ public class AssetsManager {
         texturesMap.put(Constants.BTTN_CAR_SHOP_BUY_REAL_EMPTY_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.BTTN_CAR_SHOP_BUY_EMPTY_REAL_RESOURCE))));
         texturesMap.put(Constants.BTTN_CAR_SHOP_BUY_REAL_EMPTY_DIS_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.BTTN_CAR_SHOP_BUY_EMPTY_REAL_DIS_RESOURCE))));
         texturesMap.put(Constants.BTTN_CAR_SHOP_CHECKED_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.BTTN_CAR_SHOP_CHECKED_RESOURCE))));
+
+        texturesMap.put(Constants.SPEED_TEXT_ID,new TextureRegion(new Texture(Constants.SPEED_TEXT_RESOURCE)));
+        texturesMap.put(Constants.SPEED_BAR_ID,new TextureRegion(new Texture(Constants.SPEED_BAR_RESOURCE)));
+        texturesMap.put(Constants.DELIMITER_ID,new TextureRegion(new Texture(Constants.DELIMITER_RESOURCE)));
+        texturesMap.put(Constants.WEIGHT_TEXT_ID,new TextureRegion(new Texture(Constants.WEIGHT_TEXT_RESOURCE)));
+        texturesMap.put(Constants.WEIGHT_BAR_ID,new TextureRegion(new Texture(Constants.WEIGHT_BAR_RESOURCE)));
+        texturesMap.put(Constants.SLOT_VEHICLE_SELECTED_ID,new TextureRegion(new Texture(Constants.SLOT_VEHICLE_SELECTED_RESOURCE)));
+        texturesMap.put(Constants.SLOT_VEHICLE_ID,new TextureRegion(new Texture(Constants.SLOT_VEHICLE_RESOURCE)));
+
+
+        texturesMap.put(Constants.DISCOUNT_30_ID,new  TextureRegion(new Texture(Constants.DISCOUNT_30_RESOURCE)));
+        texturesMap.put(Constants.DISCOUNT_50_ID,new  TextureRegion(new Texture(Constants.DISCOUNT_50_RESOURCE)));
+        texturesMap.put(Constants.DISCOUNT_100_ID,new  TextureRegion(new Texture(Constants.DISCOUNT_100_RESOURCE)));
+
+
+        texturesMap.put(Constants.COIN_SHOP_NAME_ID, new TextureRegion(new Texture(Constants.COIN_SHOP_NAME_RESOURCE)));
+
+        texturesMap.put(Constants.BACK_BUTTON_PRESSED_ID, new TextureRegion(new Texture(Constants.BACK_BUTTON_PRESSED_RESOURCE)));
+        texturesMap.put(Constants.BACK_BUTTON_ID, new TextureRegion(new Texture(Constants.BACK_BUTTON_RESOURCE)));
+
+
+        texturesMap.put(Constants.CNR_LINE_ID, new TextureRegion(new Texture(Constants.CNR_LINE_RESOURCE)));
+        texturesMap.put(Constants.BACK_TILE_ID, new TextureRegion(new Texture(Constants.BACK_TILE_RESOURCE)));
+        texturesMap.put(Constants.BUTTON_BUT_REAL_EMPTY_ID, new TextureRegion(new Texture(Constants.BUTTON_BUT_REAL_EMPTY_RESOURCE)));
+
+        texturesMap.put(Constants.SOUND_OFF_ID, new TextureRegion(new Texture(Constants.SOUND_OFF_RESOURCE)));
+        texturesMap.put(Constants.SOUND_ON_ID, new TextureRegion(new Texture(Constants.SOUND_ON_RESOURCE)));
+        texturesMap.put(Constants.ICON_CONTROL_SETTING_ID, new TextureRegion(new Texture(Constants.ICON_CONTROL_SETTING_RESOURCE)));
+        texturesMap.put(Constants.ICON_BLOCK_ADS_ID, new TextureRegion(new Texture(Constants.ICON_BLOCK_ADS_RESOURCE)));
+        texturesMap.put(Constants.ICON_RETURN_P_ID, new TextureRegion(new Texture(Constants.ICON_RETURN_P_RESOURCE)));
+        texturesMap.put(Constants.ICON_ICON_VK_ID, new TextureRegion(new Texture(Constants.ICON_ICON_VK_RESOURCE)));
+        texturesMap.put(Constants.ICON_ICON_FB_ID, new TextureRegion(new Texture(Constants.ICON_ICON_FB_RESOURCE)));
+        texturesMap.put(Constants.SETTINGS_ID, new TextureRegion(new Texture(Constants.SETTINGS_RESOURCE)));
+        texturesMap.put(Constants.BTTN_BLUE_ID, new TextureRegion(new Texture(Constants.BTTN_BLUE_RESOURCE)));
+        texturesMap.put(Constants.BTTN_BLUE_PRESSED_ID, new TextureRegion(new Texture(Constants.BTTN_BLUE_PRESSED_RESOURCE)));
+        texturesMap.put(Constants.TITLE_VEHICLES_ID, new TextureRegion(new Texture(Constants.TITLE_VEHICLES_RESOURCE)));
+        texturesMap.put(Constants.CONTACT_POINT_ID, new TextureRegion(new Texture(Constants.CONTACT_POINT_RESOURCE)));
+        texturesMap.put(Constants.PAUSE_BUTTON_PRESSED_ID, new TextureRegion(new Texture(Constants.PAUSE_BUTTON_PRESSED_RESOURCE)));
+        texturesMap.put(Constants.PAUSE_BUTTON_UP_ID, new TextureRegion(new Texture(Constants.PAUSE_BUTTON_UP_RESOURCE)));
+        texturesMap.put(Constants.DANGER_ID, new TextureRegion(new Texture(Constants.DANGER_RESOURCE)));
+        texturesMap.put(Constants.BOOSTER_ID, new TextureRegion(new Texture(Constants.BOOSTER_RESOURCE)));
+        texturesMap.put(Constants.ROCKETS_ID, new TextureRegion(new Texture(Constants.ROCKETS_RESOURCE)));
+        texturesMap.put(Constants.SKULL_ON_ROAD_ID, new TextureRegion(new Texture(Constants.SKULL_ON_ROAD_RESOURCE)));
+        texturesMap.put(Constants.DESTRICTION_ID, new TextureRegion(new Texture(Constants.DESTRICTION_RESOURCE)));
+        texturesMap.put(Constants.START_LINE_ID, new TextureRegion(new Texture(Constants.START_LINE_RESOURCE)));
+        texturesMap.put(Constants.START_LIGHT_1_ID, new TextureRegion(new Texture(Constants.START_LIGHT_1_RESOURCE)));
+        texturesMap.put(Constants.START_LIGHT_2_ID, new TextureRegion(new Texture(Constants.START_LIGHT_2_RESOURCE)));
+        texturesMap.put(Constants.START_LIGHT_3_ID, new TextureRegion(new Texture(Constants.START_LIGHT_3_RESOURCE)));
+        texturesMap.put(Constants.START_LIGHT_RED_ID, new TextureRegion(new Texture(Constants.START_LIGHT_RED_RESOURSE)));
+        texturesMap.put(Constants.ROAD_HOLE_ID, new TextureRegion(new Texture(Constants.ROAD_HOLE_RESOURSE)));
+        texturesMap.put(Constants.BTTN_REVIVAL_ID, new TextureRegion(new Texture(Constants.BTTN_REVIVAL_RESOURSE)));
+        texturesMap.put(Constants.BTTN_REVIVAL_PRESSED_ID, new TextureRegion(new Texture(Constants.BTTN_REVIVAL_PRESSED_RESOURSE)));
+        texturesMap.put(Constants.PROGRESS_BAR_ID, new TextureRegion(new Texture(Constants.PROGRESS_BAR_RESOURSE)));
+        texturesMap.put(Constants.PROGRESS_BAR_FRAME_ID, new TextureRegion(new Texture(Constants.PROGRESS_BAR_FRAME_RESOURSE)));
+        texturesMap.put(Constants.GARAGE_ID, new TextureRegion(new Texture(Constants.GARAGE_RESOURSE)));
+
+
+
 
 
         //passer Car 1
@@ -382,5 +442,9 @@ public class AssetsManager {
 
     public static TextureAtlas getGarageBttnTextureAtlas() {
         return menuGarageButtonTextureAtlas;
+    }
+
+    public static Skin getUiSkin() {
+        return uiSkin;
     }
 }

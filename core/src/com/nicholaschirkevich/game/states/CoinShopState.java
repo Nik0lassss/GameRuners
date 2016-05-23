@@ -44,13 +44,9 @@ import java.util.ArrayList;
  */
 public class CoinShopState extends Group implements ResumeButtonListener, UpdateGarageTable {
     OrthographicCamera camera;
-    Skin uiSkin = new Skin(Gdx.files.internal("uiskin_digit.json"));
-    //Stage stage;
-    Texture cnr_line, garageNameTexture, backgroung_texture, backButtonTextureDown, backButtonTextureUp,coinTexture;
-    Image image, garageNameImage, backgroung_image, backButtonImageDown, backButtonImageUp,coinLabelImage;
+    Texture cnr_line, garageNameTexture, backgroung_texture, backButtonTextureDown, backButtonTextureUp;
+    Image image, garageNameImage, backgroung_image, backButtonImageDown, backButtonImageUp;
     ScrollPane scrollPane2;
-    BackButton backButton;
-    StartGameGarageButton startGameGarageButton;
     TextButton backBttn;
     SequenceAction sequenceReturn;
     private Label labelCoinCount;
@@ -65,10 +61,8 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
        this.actionResolver = actionResolver;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
-        ArrayList<CarsType> carsTypes = GameManager.getCarsTypes();
-        //stage = new Stage(new StretchViewport(GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2));
-        cnr_line = new Texture("cnr_line.png");
-        backgroung_texture = new Texture("back_tile.png");
+        cnr_line =AssetsManager.getTextureRegion(Constants.CNR_LINE_ID).getTexture();
+        backgroung_texture =AssetsManager.getTextureRegion(Constants.BACK_TILE_ID).getTexture();
         backgroung_image = new Image(backgroung_texture);
         backgroung_image.setBounds(0, 0, GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2);
         addActor(backgroung_image);
@@ -77,7 +71,7 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
         sequenceReturn = new SequenceAction();
         this.listenerResume = listenerResume;
         this.gsm = gsm;
-        garageNameTexture = new Texture("coins.png");
+        garageNameTexture =AssetsManager.getTextureRegion(Constants.COIN_SHOP_NAME_ID).getTexture();
         garageNameImage = new Image(garageNameTexture);
         garageNameImage.setBounds(20, GameRuners.HEIGHT / 2 - 40, garageNameTexture.getWidth(), garageNameTexture.getHeight());
 
@@ -102,7 +96,7 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
     }
 
     public void setUpCoinCountLabel() {
-        labelCoinCount = new Label(String.valueOf(GameManager.getCoinCounter()), uiSkin);
+        labelCoinCount = new Label(String.valueOf(GameManager.getCoinCounter()), AssetsManager.getUiSkin());
         labelCoinCount.setFontScale(0.60f, 0.60f);
         labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
         addActor(labelCoinCount);
@@ -110,8 +104,8 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
 
 
     private void setUpBackButton() {
-        backButtonTextureDown = new Texture("bttn_back_prssd.png");
-        backButtonTextureUp = new Texture("bttn_back.png");
+        backButtonTextureDown =AssetsManager.getTextureRegion(Constants.BACK_BUTTON_PRESSED_ID).getTexture();
+        backButtonTextureUp = AssetsManager.getTextureRegion(Constants.BACK_BUTTON_ID).getTexture();
 
         backButtonImageDown = new Image(backButtonTextureDown);
         backButtonImageUp = new Image(backButtonTextureUp);
@@ -121,7 +115,7 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.down = backButtonImageDown.getDrawable();
         textButtonStyle.up = backButtonImageUp.getDrawable();
-        textButtonStyle.font = uiSkin.getFont("default-font");
+        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
         backBttn = new TextButton("", textButtonStyle);
         backBttn.getLabel().setFontScale(0.4f, 0.4f);
@@ -166,12 +160,12 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
         CoinShop coinShop2 = new CoinShop(2, 2.99f, 1950, "Medium coins \n       pack", 30, Constants.COIN_SHOP_2_ID);
         CoinShop coinShop3 = new CoinShop(3, 4.99f, 3750, "Big coins \n    pack", 50, Constants.COIN_SHOP_3_ID);
         CoinShop coinShop4 = new CoinShop(4, 9.99f, 10000, "Greate coins \n        pack", 100, Constants.COIN_SHOP_4_ID);
-        coinShopItems.add(new CoinShopItem(coinShop, 1, this, uiSkin));
+        coinShopItems.add(new CoinShopItem(coinShop, 1, this ));
         CoinShopAdapter garageAdapter = new CoinShopAdapter(table, coinShopItems);
-        table.add(new CoinShopItem(coinShop, 1, this, uiSkin)).row();
-        table.add(new CoinShopItem(coinShop2, 1, this, uiSkin)).row();
-        table.add(new CoinShopItem(coinShop3, 1, this, uiSkin)).row();
-        table.add(new CoinShopItem(coinShop4, 1, this, uiSkin)).row();
+        table.add(new CoinShopItem(coinShop, 1, this)).row();
+        table.add(new CoinShopItem(coinShop2, 1, this)).row();
+        table.add(new CoinShopItem(coinShop3, 1, this)).row();
+        table.add(new CoinShopItem(coinShop4, 1, this)).row();
         garageAdapter.loadTableData();
 
         scrollPane2 = new ScrollPane(table);
