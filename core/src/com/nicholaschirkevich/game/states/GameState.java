@@ -46,6 +46,7 @@ import com.nicholaschirkevich.game.interfaces.ResumeFromPause;
 import com.nicholaschirkevich.game.interfaces.SetGodMode;
 import com.nicholaschirkevich.game.interfaces.UpdateCoinCount;
 import com.nicholaschirkevich.game.interfaces.ZoomCarListener;
+import com.nicholaschirkevich.game.menu.MenuGameOver;
 import com.nicholaschirkevich.game.menu.MenuPause;
 import com.nicholaschirkevich.game.menu.MenuSaveMe;
 import com.nicholaschirkevich.game.menu.MenuTest;
@@ -341,9 +342,10 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     public void setUpBoostLeftOnCar() {
 
         boostOnCarLeft.add(new BoostOnCarLeft(world, (int) myCar.getX() + myCar.getCarTexture().getRegionWidth() / 2, (int) myCar.getY() + myCar.getCarTexture().getRegionHeight() / 2 - myCar.getCarTexture().getRegionHeight() / 2, 100));
-        pf = new ParticleEffect();
-
-        pf.load(Gdx.files.internal("booster_particle"), Gdx.files.internal(""));
+//        pf = new ParticleEffect();
+//
+//        pf.load(Gdx.files.internal("booster_particle"), Gdx.files.internal(""));
+        pf= AssetsManager.getParticleEffect();
         pf.getEmitters().first().setPosition(boostOnCarLeft.get(0).body.getPosition().x + pf.getBoundingBox().getWidth(), boostOnCarLeft.get(0).body.getPosition().y);
         pf.start();
 
@@ -378,9 +380,10 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     public void setUpBoostRightOnCar() {
 
         boostOnCarRight.add(new BoostOnCarRight(world, (int) myCar.getX() + myCar.getCarTexture().getRegionWidth() / 2, (int) myCar.getY() + myCar.getCarTexture().getRegionHeight() / 2 - myCar.getCarTexture().getRegionHeight() / 2, 100));
-        pfl = new ParticleEffect();
-
-        pfl.load(Gdx.files.internal("booster_particle"), Gdx.files.internal(""));
+//        pfl = new ParticleEffect();
+//
+//        pfl.load(Gdx.files.internal("booster_particle"), Gdx.files.internal(""));
+        pfl = AssetsManager.getParticleEffect();
         pfl.getEmitters().first().setPosition(boostOnCarRight.get(0).body.getPosition().x + pf.getBoundingBox().getWidth(), boostOnCarRight.get(0).body.getPosition().y);
         pfl.start();
     }
@@ -1225,7 +1228,12 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                 GameManager.pauseGame = true;
                 // stage.addActor(new MenuGameOver(this, gsm));
                 //stage.addActor(new MenuSaveMe(this, gsm,actionResolver));
-                stage.addActor(menuSaveMe);
+                if(actionResolver.isAvailibleInternet() && actionResolver.isIntertitalLoad())stage.addActor(menuSaveMe);
+                else
+                {
+                    stage.addActor(new MenuGameOver(gsm, actionResolver));
+
+                }
                 System.out.println("Pause");
                 timer = 0;
             }
@@ -1242,7 +1250,12 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
             if (timer > 1) {
                 GameManager.pauseGame = true;
 //                stage.addActor(new MenuSaveMe(this, gsm,actionResolver));
-                stage.addActor(menuSaveMe);
+                if(actionResolver.isAvailibleInternet() && actionResolver.isIntertitalLoad()) stage.addActor(menuSaveMe);
+                else
+                {
+                    stage.addActor(new MenuGameOver(gsm, actionResolver));
+
+                }
                 System.out.println("Pause");
                 timer = 0;
             }

@@ -38,7 +38,7 @@ public class MenuGameOverTotal extends Group {
     Texture slot_vehicle;
     Texture speed_text;
 
-    TextButton resumeButton, playOnline, prizeButton;
+    TextButton resumeButton, playOnline, prizeButton, vkBttn;
     ImageButton carShop, coinShop, settingMenu, leaderBoard, leaderBoards;
     Image background;
     Texture dangerousTexture, rocketTexture, destroyedTexture, springBoardTexture, godModeTexture;
@@ -47,7 +47,7 @@ public class MenuGameOverTotal extends Group {
     Texture resumeButtonUp, resumeButtonDown, playOnlineDownImageTexture, playOnlineUpImageTexture, getPrizeUpButtonImageTexture, getPrizeDownButtonImageTexture, carShopTextureUp, carShopTextureDown, coinShopTextureUp, coinShopTextureDown, settingMenuTextureUp, settingMenuTextureDown, leaderBoardTextureUp, leaderBoardTextureDown, leaderBoardsTextureUp, leaderBoardsTextureDown;
     Image imageLogo;
     ResumeButtonListener listener;
-    SequenceAction sequence, sequenceCarShop, sequenceSetting, sequencePrizeButton;
+    SequenceAction sequence, sequenceCarShop, sequenceSetting, sequencePrizeButton, vkSequenceButton;
     GameStateManager gsm;
     Stage parentStage;
     Group groupView;
@@ -104,6 +104,7 @@ public class MenuGameOverTotal extends Group {
         getPrizeUpButtonImageTexture = new Texture("button_win_a_prize.png");
         getPrizeDownButtonImageTexture = new Texture("button_win_a_prize_pressed.png");
         carShopTextureUp = new Texture("bttn_cars.png");
+
         carShopTextureDown = new Texture("bttn_cars_prssd.png");
 
         coinShopTextureDown = new Texture("bttn_coins_prssd.png");
@@ -124,6 +125,7 @@ public class MenuGameOverTotal extends Group {
         sequenceSetting = new SequenceAction();
         sequence = new SequenceAction();
         sequenceCarShop = new SequenceAction();
+        vkSequenceButton = new SequenceAction();
         sequencePrizeButton = new SequenceAction();
         resumeButtonUpImage = new Image(resumeButtonUp);
         resumeButtonDownImage = new Image(resumeButtonDown);
@@ -163,6 +165,7 @@ public class MenuGameOverTotal extends Group {
         setUpBestAchiveCount();
 
         setUpAchiveCount();
+        setUpVkShare();
 //        setUpBagroundRectagnle();
 //        setUpBagroundRectagnleTotal();
 //        setUpDistance();
@@ -418,7 +421,7 @@ public class MenuGameOverTotal extends Group {
 
     private void setUpBackgroung() {
 
-        slot_vehicle = new Texture("back_tile.png");
+        slot_vehicle = AssetsManager.getTextureRegion(Constants.BACK_TILE_ID).getTexture();
         background = new Image(slot_vehicle);
         Color color = background.getColor();
         background.setColor(color.r, color.g, color.b, 0.5f);
@@ -456,7 +459,7 @@ public class MenuGameOverTotal extends Group {
                                         sequencePrizeButton.addAction(new Action() {
                                             @Override
                                             public boolean act(float delta) {
-                                                gsm.push(new CarGarageState(gsm,actionResolver));
+                                                gsm.push(new CarGarageState(gsm, actionResolver));
                                                 GameManager.pauseGame = false;
                                                 return true;
                                             }
@@ -470,6 +473,45 @@ public class MenuGameOverTotal extends Group {
         );
 
         addActor(prizeButton);
+
+    }
+
+    private void setUpVkShare() {
+
+        float x = Constants.VK_BTTN_X_VISIBLE, y = Constants.VK_BTTN_Y_VISIBLE;
+        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+        Image down = new Image(AssetsManager.getTextureRegion(Constants.BTTN_VK_PRESSED_ID).getTexture());
+        textButtonStyle.down = down.getDrawable();
+        textButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.BTTN_VK_PRESSED_ID).getTexture()).getDrawable();
+        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
+
+        vkBttn = new TextButton("Share in VK", textButtonStyle);
+        vkBttn.getLabel().setFontScale(0.4f, 0.4f);
+        vkBttn.getLabelCell().padLeft(10f);
+
+
+        vkBttn.setBounds(x - down.getWidth() / 2, y - down.getHeight() / 2, down.getWidth(), down.getHeight());
+        vkBttn.addListener(new ClickListener() {
+
+                                    @Override
+                                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                                        vkSequenceButton.addAction(Actions.delay(0.3f));
+                                        vkSequenceButton.addAction(new Action() {
+                                            @Override
+                                            public boolean act(float delta) {
+                                               actionResolver.sendPostOnVk();
+                                                return true;
+                                            }
+                                        });
+                                        vkSequenceButton.addAction(Actions.removeActor());
+                                        addAction(vkSequenceButton);
+
+                                        return true;
+                                    }
+                                }
+        );
+
+        addActor(vkBttn);
 
     }
 
@@ -492,6 +534,8 @@ public class MenuGameOverTotal extends Group {
         addActor(playOnline);
 
     }
+
+
 
     private void setCarShop() {
 
@@ -547,7 +591,7 @@ public class MenuGameOverTotal extends Group {
                 sequenceSetting.addAction(new Action() {
                     @Override
                     public boolean act(float delta) {
-                        getStage().addActor(new MenuSetting(listener, gsm));
+                        getStage().addActor(new MenuSetting(listener, gsm,actionResolver));
                         return true;
                     }
                 });

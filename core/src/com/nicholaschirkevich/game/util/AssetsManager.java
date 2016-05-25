@@ -20,6 +20,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -36,7 +37,8 @@ public class AssetsManager {
     private static HashMap<String, Animation> animationsMap = new HashMap<String, Animation>();
 
     private static ArrayList<TextureAtlas> carsTextureAtlasList = new ArrayList<TextureAtlas>();
-    private static Skin uiSkin ;
+    private static Skin uiSkin;
+    private static ParticleEffect particleEffect;
 
     private static TextureAtlas carTextureAtlas;
     private static TextureAtlas menuBttnTextureAtlas;
@@ -115,6 +117,14 @@ public class AssetsManager {
         }
     }
 
+    public static ParticleEffect getParticleEffect() {
+        return particleEffect;
+    }
+
+    public static void setParticleEffect(ParticleEffect particleEffect) {
+        AssetsManager.particleEffect = particleEffect;
+    }
+
     public static void loadAssets() {
 
         uiSkin = new Skin(Gdx.files.internal("uiskin_digit.json"));
@@ -128,46 +138,49 @@ public class AssetsManager {
         texturesMap.put(Constants.PASSER_CAR_1_ID,
                 new TextureRegion(new Texture(Gdx.files.internal(Constants.PASSER_CAR_1_IMAGE_PATH))));
 
-        texturesMap.put(Constants.COIN_SHOP_STANDART_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.COIN_SHOP_STANDART_RESOURCE))));
-        texturesMap.put(Constants.COIN_SHOP_2_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.COIN_SHOP_2_RESOURCE))));
-        texturesMap.put(Constants.COIN_SHOP_3_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.COIN_SHOP_3_RESOURCE))));
-        texturesMap.put(Constants.COIN_SHOP_4_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.COIN_SHOP_4_RESOURCE))));
-        texturesMap.put(Constants.MAIN_MENU_LOGO_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_LOGO_PATH))));
+        texturesMap.put(Constants.COIN_SHOP_STANDART_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.COIN_SHOP_STANDART_RESOURCE))));
+        texturesMap.put(Constants.COIN_SHOP_2_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.COIN_SHOP_2_RESOURCE))));
+        texturesMap.put(Constants.COIN_SHOP_3_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.COIN_SHOP_3_RESOURCE))));
+        texturesMap.put(Constants.COIN_SHOP_4_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.COIN_SHOP_4_RESOURCE))));
+        texturesMap.put(Constants.MAIN_MENU_LOGO_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_LOGO_PATH))));
 
-        texturesMap.put(Constants.MAIN_MENU_COIN_SHOP_PRESSERD_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_COIN_SHOP_PRESSED_RESOURCE))));
-        texturesMap.put(Constants.MAIN_MENU_COIN_SHOP_UP_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_COIN_SHOP_UP_RESOURCE))));
-        texturesMap.put(Constants.MAIN_MENU_PLAY_BTTN_PRESSERD_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_PLAY_BTTN_PRESSED_RESOURCE))));
-        texturesMap.put(Constants.MAIN_MENU_PLAY_BTTN_UP_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_PLAY_BTTN_UP_RESOURCE))));
-        texturesMap.put(Constants.MAIN_MENU_MULTIPLAYER_PRESSERD_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_MULTIPLAYER_PRESSED_RESOURCE))));
-        texturesMap.put(Constants.MAIN_MENU_MULTIPLAYER_UP_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_MULTIPLAYER_UP_RESOURCE))));
-        texturesMap.put(Constants.MAIN_MENU_WIN_PRIZE_PRESSERD_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_WIN_PRIZE_PRESSED_RESOURCE))));
-        texturesMap.put(Constants.MAIN_MENU_WIN_PRIZE_UP_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_WIN_PRIZE_UP_RESOURCE))));
-        texturesMap.put(Constants.MAIN_MENU_CARS_PRESSERD_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_CARS_PRESSED_RESOURCE))));
-        texturesMap.put(Constants.MAIN_MENU_CARS_UP_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_CARS_UP_RESOURCE))));
-        texturesMap.put(Constants.MAIN_MENU_LEADERBOARDS_PRESSERD_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_LEADERBOARDS_PRESSED_RESOURCE))));
-        texturesMap.put(Constants.MAIN_MENU_LEADERBOARDS_UP_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_LEADERBOARDS_UP_RESOURCE))));
-        texturesMap.put(Constants.MAIN_MENU_LEADERBOARD_PRESSERD_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_LEADERBOARD_PRESSED_RESOURCE))));
-        texturesMap.put(Constants.MAIN_MENU_LEADERBOARD_UP_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_LEADERBOARD_UP_RESOURCE))));
-        texturesMap.put(Constants.MAIN_MENU_SET_PRESSERD_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_SET_PRESSED_RESOURCE))));
-        texturesMap.put(Constants.MAIN_MENU_SET_UP_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_SET_UP_RESOURCE))));
-        texturesMap.put(Constants.BTTN_CAR_SHOP_BUY_EMPTY_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.BTTN_CAR_SHOP_BUY_EMPTY_RESOURCE))));
-        texturesMap.put(Constants.BTTN_CAR_SHOP_BUY_EMPTY_DIS_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.BTTN_CAR_SHOP_BUY_EMPTY_DIS_RESOURCE))));
-        texturesMap.put(Constants.BTTN_CAR_SHOP_BUY_REAL_EMPTY_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.BTTN_CAR_SHOP_BUY_EMPTY_REAL_RESOURCE))));
-        texturesMap.put(Constants.BTTN_CAR_SHOP_BUY_REAL_EMPTY_DIS_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.BTTN_CAR_SHOP_BUY_EMPTY_REAL_DIS_RESOURCE))));
-        texturesMap.put(Constants.BTTN_CAR_SHOP_CHECKED_ID,new TextureRegion(new Texture(Gdx.files.internal(Constants.BTTN_CAR_SHOP_CHECKED_RESOURCE))));
+        texturesMap.put(Constants.MAIN_MENU_COIN_SHOP_PRESSERD_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_COIN_SHOP_PRESSED_RESOURCE))));
+        texturesMap.put(Constants.MAIN_MENU_COIN_SHOP_UP_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_COIN_SHOP_UP_RESOURCE))));
+        texturesMap.put(Constants.MAIN_MENU_PLAY_BTTN_PRESSERD_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_PLAY_BTTN_PRESSED_RESOURCE))));
+        texturesMap.put(Constants.MAIN_MENU_PLAY_BTTN_UP_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_PLAY_BTTN_UP_RESOURCE))));
+        texturesMap.put(Constants.MAIN_MENU_MULTIPLAYER_PRESSERD_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_MULTIPLAYER_PRESSED_RESOURCE))));
+        texturesMap.put(Constants.MAIN_MENU_MULTIPLAYER_UP_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_MULTIPLAYER_UP_RESOURCE))));
+        texturesMap.put(Constants.MAIN_MENU_WIN_PRIZE_PRESSERD_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_WIN_PRIZE_PRESSED_RESOURCE))));
+        texturesMap.put(Constants.MAIN_MENU_WIN_PRIZE_UP_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_WIN_PRIZE_UP_RESOURCE))));
+        texturesMap.put(Constants.MAIN_MENU_CARS_PRESSERD_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_CARS_PRESSED_RESOURCE))));
+        texturesMap.put(Constants.MAIN_MENU_CARS_UP_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_CARS_UP_RESOURCE))));
+        texturesMap.put(Constants.MAIN_MENU_LEADERBOARDS_PRESSERD_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_LEADERBOARDS_PRESSED_RESOURCE))));
+        texturesMap.put(Constants.MAIN_MENU_LEADERBOARDS_UP_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_LEADERBOARDS_UP_RESOURCE))));
+        texturesMap.put(Constants.MAIN_MENU_LEADERBOARD_PRESSERD_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_LEADERBOARD_PRESSED_RESOURCE))));
+        texturesMap.put(Constants.MAIN_MENU_LEADERBOARD_UP_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_LEADERBOARD_UP_RESOURCE))));
+        texturesMap.put(Constants.MAIN_MENU_SET_PRESSERD_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_SET_PRESSED_RESOURCE))));
+        texturesMap.put(Constants.MAIN_MENU_SET_UP_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.MAIN_MENU_SET_UP_RESOURCE))));
+        texturesMap.put(Constants.BTTN_CAR_SHOP_BUY_EMPTY_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BTTN_CAR_SHOP_BUY_EMPTY_RESOURCE))));
+        texturesMap.put(Constants.BTTN_CAR_SHOP_BUY_EMPTY_DIS_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BTTN_CAR_SHOP_BUY_EMPTY_DIS_RESOURCE))));
+        texturesMap.put(Constants.BTTN_CAR_SHOP_BUY_REAL_EMPTY_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BTTN_CAR_SHOP_BUY_EMPTY_REAL_RESOURCE))));
+        texturesMap.put(Constants.BTTN_CAR_SHOP_BUY_REAL_EMPTY_DIS_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BTTN_CAR_SHOP_BUY_EMPTY_REAL_DIS_RESOURCE))));
+        texturesMap.put(Constants.BTTN_CAR_SHOP_CHECKED_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BTTN_CAR_SHOP_CHECKED_RESOURCE))));
 
-        texturesMap.put(Constants.SPEED_TEXT_ID,new TextureRegion(new Texture(Constants.SPEED_TEXT_RESOURCE)));
-        texturesMap.put(Constants.SPEED_BAR_ID,new TextureRegion(new Texture(Constants.SPEED_BAR_RESOURCE)));
-        texturesMap.put(Constants.DELIMITER_ID,new TextureRegion(new Texture(Constants.DELIMITER_RESOURCE)));
-        texturesMap.put(Constants.WEIGHT_TEXT_ID,new TextureRegion(new Texture(Constants.WEIGHT_TEXT_RESOURCE)));
-        texturesMap.put(Constants.WEIGHT_BAR_ID,new TextureRegion(new Texture(Constants.WEIGHT_BAR_RESOURCE)));
-        texturesMap.put(Constants.SLOT_VEHICLE_SELECTED_ID,new TextureRegion(new Texture(Constants.SLOT_VEHICLE_SELECTED_RESOURCE)));
-        texturesMap.put(Constants.SLOT_VEHICLE_ID,new TextureRegion(new Texture(Constants.SLOT_VEHICLE_RESOURCE)));
+        texturesMap.put(Constants.SPEED_TEXT_ID, new TextureRegion(new Texture(Constants.SPEED_TEXT_RESOURCE)));
+        texturesMap.put(Constants.SPEED_BAR_ID, new TextureRegion(new Texture(Constants.SPEED_BAR_RESOURCE)));
+        texturesMap.put(Constants.DELIMITER_ID, new TextureRegion(new Texture(Constants.DELIMITER_RESOURCE)));
+        texturesMap.put(Constants.WEIGHT_TEXT_ID, new TextureRegion(new Texture(Constants.WEIGHT_TEXT_RESOURCE)));
+        texturesMap.put(Constants.WEIGHT_BAR_ID, new TextureRegion(new Texture(Constants.WEIGHT_BAR_RESOURCE)));
+        texturesMap.put(Constants.SLOT_VEHICLE_SELECTED_ID, new TextureRegion(new Texture(Constants.SLOT_VEHICLE_SELECTED_RESOURCE)));
+        texturesMap.put(Constants.SLOT_VEHICLE_ID, new TextureRegion(new Texture(Constants.SLOT_VEHICLE_RESOURCE)));
 
 
-        texturesMap.put(Constants.DISCOUNT_30_ID,new  TextureRegion(new Texture(Constants.DISCOUNT_30_RESOURCE)));
-        texturesMap.put(Constants.DISCOUNT_50_ID,new  TextureRegion(new Texture(Constants.DISCOUNT_50_RESOURCE)));
-        texturesMap.put(Constants.DISCOUNT_100_ID,new  TextureRegion(new Texture(Constants.DISCOUNT_100_RESOURCE)));
+        texturesMap.put(Constants.DISCOUNT_30_ID, new TextureRegion(new Texture(Constants.DISCOUNT_30_RESOURCE)));
+        texturesMap.put(Constants.DISCOUNT_50_ID, new TextureRegion(new Texture(Constants.DISCOUNT_50_RESOURCE)));
+        texturesMap.put(Constants.DISCOUNT_100_ID, new TextureRegion(new Texture(Constants.DISCOUNT_100_RESOURCE)));
+        texturesMap.put(Constants.PAUSE_BACKGROUND_ID, new TextureRegion(new Texture(Constants.PAUSE_BACKGROUND_RESOURCE)));
+        texturesMap.put(Constants.BTTN_RESUME_ID, new TextureRegion(new Texture(Constants.BTTN_RESUME_RESOURCE)));
+        texturesMap.put(Constants.BTTN_RESUME_PRESSED_ID, new TextureRegion(new Texture(Constants.BTTN_RESUME_PRESSED_RESOURCE)));
 
 
         texturesMap.put(Constants.COIN_SHOP_NAME_ID, new TextureRegion(new Texture(Constants.COIN_SHOP_NAME_RESOURCE)));
@@ -210,9 +223,14 @@ public class AssetsManager {
         texturesMap.put(Constants.PROGRESS_BAR_ID, new TextureRegion(new Texture(Constants.PROGRESS_BAR_RESOURSE)));
         texturesMap.put(Constants.PROGRESS_BAR_FRAME_ID, new TextureRegion(new Texture(Constants.PROGRESS_BAR_FRAME_RESOURSE)));
         texturesMap.put(Constants.GARAGE_ID, new TextureRegion(new Texture(Constants.GARAGE_RESOURSE)));
+        texturesMap.put(Constants.BTTN_EXIT_ID, new TextureRegion(new Texture(Constants.BTTN_EXIT_RESOURCE)));
+        texturesMap.put(Constants.BTTN_EXIT_PRESSED_ID, new TextureRegion(new Texture(Constants.BTTN_EXIT_PRESSED_RESOURCE)));
+        texturesMap.put(Constants.BTTN_VK_ID, new TextureRegion(new Texture(Constants.BTTN_VK_RESOURCE)));
+        texturesMap.put(Constants.BTTN_VK_PRESSED_ID, new TextureRegion(new Texture(Constants.BTTN_VK_PRESSED_RESOURCE)));
 
 
-
+        particleEffect = new ParticleEffect();
+        particleEffect.load(Gdx.files.internal("booster_particle"),Gdx.files.internal(""));
 
 
         //passer Car 1
@@ -382,7 +400,7 @@ public class AssetsManager {
         animationsMap.put(Constants.RIGHT_WING_ASSETS_ID, createAnimation(right_wing, Constants.RIGHT_WING_REGION_NAMES));
 
         animationsMap.put(Constants.CRASH_ASSETS_ID, createAnimation(car_crash_animation, Constants.CRASH_REGION_NAMES));
-        animationsMap.put(Constants.GATE_ASSETS_ID,createAnimation(gate_animation,Constants.GATE_REGION_NAMES));
+        animationsMap.put(Constants.GATE_ASSETS_ID, createAnimation(gate_animation, Constants.GATE_REGION_NAMES));
 
     }
 

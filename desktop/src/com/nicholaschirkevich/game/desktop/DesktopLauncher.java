@@ -16,6 +16,16 @@ public class DesktopLauncher {
 			public void showOrLoadInterstital() {
 
 			}
+
+			@Override
+			public boolean isAvailibleInternet() {
+				return false;
+			}
+
+			@Override
+			public boolean isIntertitalLoad() {
+				return false;
+			}
 		}), config);
 	}
 }

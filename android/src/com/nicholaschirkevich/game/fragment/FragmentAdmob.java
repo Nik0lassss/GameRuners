@@ -1,5 +1,8 @@
 package com.nicholaschirkevich.game.fragment;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -15,8 +18,18 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.R;
+import com.nicholaschirkevich.game.activity.LoginActivity;
 import com.nicholaschirkevich.game.admob.ActionResolver;
-import com.nicholaschirkevich.game.interfaces.AdCloseListener;
+import com.nicholaschirkevich.game.internet.InternetHelper;
+import com.vk.sdk.VKCallback;
+import com.vk.sdk.VKScope;
+import com.vk.sdk.VKSdk;
+import com.vk.sdk.api.VKError;
+import com.vk.sdk.api.model.VKApiPhoto;
+import com.vk.sdk.api.model.VKPhotoArray;
+import com.vk.sdk.api.photo.VKImageParameters;
+import com.vk.sdk.api.photo.VKUploadImage;
+import com.vk.sdk.dialogs.VKShareDialog;
 
 /**
  * Created by Nikolas on 20.05.2016.
@@ -27,14 +40,18 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     private RewardedVideoAd mAd;
     private String appId = "ca-app-pub-3929550233974663/5014713038";
     private Button showButton;
+
     GameRuners gameRuners;
 
+    private String[] vkScope = new String[]{ VKScope.WALL,VKScope.PHOTOS,VKScope.ADS,VKScope.NOTES,VKScope.NOHTTPS,VKScope.PAGES,VKScope.STATS,VKScope.STATUS};
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+
+       // VKSdk.login(getActivity(), vkScope);
         mInterstitialAd = new InterstitialAd(getContext());
 
 
@@ -64,7 +81,6 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
     private void showInterstitial() {
 
-        // Show the ad if it's ready. Otherwise toast and restart the game.
 
         try {
             runOnUiThread(new Runnable() {
@@ -73,6 +89,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                         mInterstitialAd.show();
                     } else {
                         Toast.makeText(getContext(), "Ad did not load", Toast.LENGTH_SHORT).show();
+                        gameRuners.onAdClose();
                         startGame();
                     }
                 }
@@ -86,6 +103,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         // Request a new ad if one isn't already loaded, hide the button, and kick off the timer.
         if (!mInterstitialAd.isLoading() && !mInterstitialAd.isLoaded()) {
             AdRequest adRequest = new AdRequest.Builder().addTestDevice("024E787E6EB1DF2F6E701EE93F986BA4").build();
+            // AdRequest adRequest = new AdRequest.Builder().build();
             mInterstitialAd.loadAd(adRequest);
         }
 
@@ -95,5 +113,90 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     @Override
     public void showOrLoadInterstital() {
         showInterstitial();
+    }
+
+    @Override
+    public boolean isAvailibleInternet() {
+        return InternetHelper.hasConnection(getContext());
+    }
+
+    @Override
+    public boolean isIntertitalLoad() {
+            return !mInterstitialAd.isLoading();
+    }
+
+    @Override
+    public void showVkLoginActivity() {
+//        Intent intent = new Intent(getActivity(), LoginActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        startActivity(intent);
+        VKSdk.login(getActivity(), vkScope);
+    }
+
+    @Override
+    public void sendPostOnVk() {
+
+        VKSdk.wakeUpSession(getActivity(), new VKCallback<VKSdk.LoginState>() {
+            @Override
+            public void onResult(VKSdk.LoginState res) {
+
+                switch (res) {
+                    case LoggedOut:
+                        showLogin();
+                        break;
+                    case LoggedIn:
+                        //showLogout();
+                        break;
+                    case Pending:
+                        break;
+                    case Unknown:
+                        break;
+                }
+
+            }
+
+            @Override
+            public void onError(VKError error) {
+
+            }
+        });
+
+        Bitmap bm2 = BitmapFactory.decodeResource(getResources(), R.drawable.sr_logo);
+        final Bitmap b = bm2;
+        VKPhotoArray photos = new VKPhotoArray();
+        photos.add(new VKApiPhoto("photo-47594638_689374739"));
+        new VKShareDialog()
+                .setText("Choose your vehicle. Hit the gas. Go! #speedyroad ")
+                .setUploadedPhotos(photos)
+                .setAttachmentImages(new VKUploadImage[]{
+                        new VKUploadImage(b, VKImageParameters.pngImage())
+                })
+                .setAttachmentLink("Posted from app Speedy Road", "https://itunes.apple.com/ru/app/speedy-road-endless-8-bit-race/id1008125487?mt=8")
+                .setShareDialogListener(new VKShareDialog.VKShareDialogListener() {
+                    @Override
+                    public void onVkShareComplete(int postId) {
+                        //контент отправлен
+                        Toast.makeText(getContext(), "контент отправлен", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onVkShareCancel() {
+                        //Toast.makeText(getContext(), "отмена", Toast.LENGTH_LONG).show();
+                        //отмена
+                    }
+
+                    @Override
+                    public void onVkShareError(VKError error) {
+                       // Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
+                    }
+                }).show(getFragmentManager(), "VK_SHARE_DIALOG");
+    }
+
+    private void showLogin() {
+        VKSdk.login(getActivity(), vkScope);
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .replace(R.id., new LoginFragment())
+//                .commitAllowingStateLoss();
     }
 }

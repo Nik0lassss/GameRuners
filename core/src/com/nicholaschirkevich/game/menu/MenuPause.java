@@ -22,6 +22,7 @@ import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.interfaces.ResumeFromPause;
 import com.nicholaschirkevich.game.states.GameState;
 import com.nicholaschirkevich.game.states.GameStateManager;
+import com.nicholaschirkevich.game.util.AssetsManager;
 import com.nicholaschirkevich.game.util.Constants;
 
 /**
@@ -29,7 +30,6 @@ import com.nicholaschirkevich.game.util.Constants;
  */
 public class MenuPause extends Group {
 
-    Skin uiSkin = new Skin(Gdx.files.internal("uiskin_digit.json"));
     TextButton resumeFromPause, exitButton;
 
     Texture slot_vehicle;
@@ -46,16 +46,16 @@ public class MenuPause extends Group {
     private ActionResolver actionResolver;
 
 
-    public MenuPause(ResumeFromPause resumeFromPause, GameStateManager gsma, ActionResolver actionResolver) {
+    public MenuPause(ResumeFromPause resumeFromPause, GameStateManager gsm, ActionResolver actionResolver) {
         this.actionResolver = actionResolver;
-        resumeButtonUpTexture = new Texture("bttn_resume.png");
-        resumeButtonDownTexture = new Texture("bttn_resume_prssd.png");
-        exitButtonTextureUp = new Texture("bttn_exit.png");
-        exiteButtonTextureDown = new Texture("bttn_exit_prssd.png");
+        resumeButtonUpTexture =AssetsManager.getTextureRegion(Constants.BTTN_RESUME_ID).getTexture();
+        resumeButtonDownTexture = AssetsManager.getTextureRegion(Constants.BTTN_RESUME_PRESSED_ID).getTexture();
+        exitButtonTextureUp = AssetsManager.getTextureRegion(Constants.BTTN_EXIT_ID).getTexture();
+        exiteButtonTextureDown = AssetsManager.getTextureRegion(Constants.BTTN_EXIT_PRESSED_ID).getTexture();
 
         exitButtonImageDown = new Image(exiteButtonTextureDown);
         exitButtonImageUp = new Image(exitButtonTextureUp);
-
+        this.gsm = gsm;
 
         resumeButtonUpImage = new Image(resumeButtonUpTexture);
         resumeButtonDownImage = new Image(resumeButtonDownTexture);
@@ -75,9 +75,9 @@ public class MenuPause extends Group {
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.down = resumeButtonDownImage.getDrawable();
         textButtonStyle.up = resumeButtonUpImage.getDrawable();
-        textButtonStyle.font = uiSkin.getFont("default-font");
+        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
-        playLabel = new Label("Play", uiSkin);
+        playLabel = new Label("Play", AssetsManager.getUiSkin());
 
 
         resumeFromPause = new TextButton("", textButtonStyle);
@@ -114,8 +114,8 @@ public class MenuPause extends Group {
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.down = exitButtonImageDown.getDrawable();
         textButtonStyle.up = exitButtonImageUp.getDrawable();
-        textButtonStyle.font = uiSkin.getFont("default-font");
-        exitLabel = new Label("Exit", uiSkin);
+        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
+        exitLabel = new Label("Exit", AssetsManager.getUiSkin());
 
         exitButton = new TextButton("", textButtonStyle);
         exitButton.addListener(new ClickListener() {
@@ -126,7 +126,7 @@ public class MenuPause extends Group {
                                        exitSequence.addAction(new Action() {
                                            @Override
                                            public boolean act(float delta) {
-                                               gsm.set(new GameState(gsm, false, false,actionResolver));
+                                               gsm.set(new GameState(gsm, false, false, actionResolver));
                                                return true;
                                            }
                                        });
@@ -157,9 +157,7 @@ public class MenuPause extends Group {
     }
 
     private void setUpBackgroung(boolean selected) {
-        if (selected) {
-            slot_vehicle = new Texture("pause_background_tile.png");
-        } else slot_vehicle = new Texture("pause_background_tile.png");
+        slot_vehicle = AssetsManager.getTextureRegion(Constants.PAUSE_BACKGROUND_ID).getTexture();
         background = new Image(slot_vehicle);
         background.setBounds(0, -20, GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2 + 50);
         background.addListener(new ClickListener() {

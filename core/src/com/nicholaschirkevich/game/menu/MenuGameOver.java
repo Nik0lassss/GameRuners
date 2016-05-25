@@ -158,7 +158,7 @@ public class MenuGameOver extends Group {
 
                 //gsm.set(new GameState(gsm, false, false));
                 //groupView.remove();
-                getStage().addActor(new MenuGameOverTotal(gsm,actionResolver));
+                getStage().addActor(new MenuGameOverTotal(gsm, actionResolver));
                 remove();
                 // return true;
 
@@ -481,7 +481,7 @@ public class MenuGameOver extends Group {
                 sequenceSetting.addAction(new Action() {
                     @Override
                     public boolean act(float delta) {
-                        getStage().addActor(new MenuSetting(listener, gsm));
+                        getStage().addActor(new MenuSetting(listener, gsm, actionResolver));
                         return true;
                     }
                 });

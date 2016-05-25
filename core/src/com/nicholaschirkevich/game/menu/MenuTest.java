@@ -32,17 +32,12 @@ import com.nicholaschirkevich.game.util.Constants;
  */
 public class MenuTest extends Group {
     Texture slot_vehicle;
-    Skin uiSkin = new Skin(Gdx.files.internal("uiskin_digit.json"));
     Texture speed_text;
-    Texture speed_bar;
-    Texture weight_text;
-    Texture weight_bar;
-    Texture delimiterTexture;
     TextButton resumeButton, playOnline, prizeButton;
     ImageButton carShop, coinShop, settingMenu, leaderBoard, leaderBoards;
     Image background;
     Image resumeButtonUpImage, resumeButtonDownImage, playOnlineDownImage, playOnlineUpImage, getPrizeUpButtonImage, getPrizeDownButtonImage, carShopImageUp, carShopImageDown, coinShomImageUp, coinShopImageDown, settingMenuImageUp, settingMenuImageDown, leaderBoardImageUp, leaderBoardImageDown, leaderBoardsImageUp, leaderBoardsImageDown;
-    Image imageLogo, bonusSaveMe;
+    Image imageLogo;
     ResumeButtonListener listener;
     SequenceAction sequence, sequenceCarShop, sequenceSetting, sequenceCoinShop, logoShowSequence;
     GameStateManager gsm;
@@ -127,23 +122,23 @@ public class MenuTest extends Group {
         addActor(imageLogo);
     }
 
-    private void setUpSaveMe() {
-
-        Texture saveMeBonus = new Texture("for_save_me_button_100.png");
-
-        saveMeBonus.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-
-        imageLogo = new Image(saveMeBonus);
-        imageLogo.setAlign(Align.top);
-        imageLogo.setRotation(0.5f);
-        imageLogo.setBounds(Constants.SAVE_ME_BONUS_X, Constants.SAVE_ME_BONUS_Y, imageLogo.getWidth(), imageLogo.getHeight());
-        addActor(imageLogo);
-    }
+//    private void setUpSaveMe() {
+//
+//        Texture saveMeBonus = new Texture("for_save_me_button_100.png");
+//
+//        saveMeBonus.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+//
+//        imageLogo = new Image(saveMeBonus);
+//        imageLogo.setAlign(Align.top);
+//        imageLogo.setRotation(0.5f);
+//        imageLogo.setBounds(Constants.SAVE_ME_BONUS_X, Constants.SAVE_ME_BONUS_Y, imageLogo.getWidth(), imageLogo.getHeight());
+//        addActor(imageLogo);
+//    }
 
     private void setUpBackgroung(boolean selected) {
         if (selected) {
-            slot_vehicle = new Texture("slot_vehicle_2_selected.png");
-        } else slot_vehicle = new Texture("slot_vehicle.png");
+            slot_vehicle =AssetsManager.getTextureRegion(Constants.SLOT_VEHICLE_SELECTED_ID).getTexture();
+        } else slot_vehicle = AssetsManager.getTextureRegion(Constants.SLOT_VEHICLE_ID).getTexture();
         background = new Image(slot_vehicle);
         background.setBounds(0, -20, GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2 + 50);
         addActor(background);
@@ -168,7 +163,7 @@ public class MenuTest extends Group {
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.down = getPrizeDownButtonImage.getDrawable();
         textButtonStyle.up = getPrizeUpButtonImage.getDrawable();
-        textButtonStyle.font = uiSkin.getFont("default-font");
+        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
         prizeButton = new TextButton("Sing in", textButtonStyle);
         prizeButton.getLabel().setFontScale(0.4f, 0.4f);
@@ -188,7 +183,7 @@ public class MenuTest extends Group {
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.down = playOnlineDownImage.getDrawable();
         textButtonStyle.up = playOnlineUpImage.getDrawable();
-        textButtonStyle.font = uiSkin.getFont("default-font");
+        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
         playOnline = new TextButton("Play \n online", textButtonStyle);
         playOnline.getLabel().setFontScale(0.4f, 0.4f);
@@ -273,7 +268,7 @@ public class MenuTest extends Group {
                 sequenceSetting.addAction(new Action() {
                     @Override
                     public boolean act(float delta) {
-                        getStage().addActor(new MenuSetting(listener, gsm));
+                        getStage().addActor(new MenuSetting(listener, gsm,actionResolver));
                         return true;
                     }
                 });
@@ -313,7 +308,7 @@ public class MenuTest extends Group {
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.down = resumeButtonDownImage.getDrawable();
         textButtonStyle.up = resumeButtonUpImage.getDrawable();
-        textButtonStyle.font = uiSkin.getFont("default-font");
+        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
         resumeButton = new TextButton("Play", textButtonStyle);
         resumeButton.getLabel().setFontScale(0.6f, 0.6f);

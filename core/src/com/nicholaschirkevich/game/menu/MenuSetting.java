@@ -45,10 +45,11 @@ public class MenuSetting extends Group {
     private ActionResolver actionResolver;
 
 
-    public MenuSetting(ResumeButtonListener listenerResume, GameStateManager gsm) {
+    public MenuSetting(ResumeButtonListener listenerResume, GameStateManager gsm,ActionResolver actionResolver) {
 
 
         this.listenerResume = listenerResume;
+        this.actionResolver = actionResolver;
         soundButtonUp = AssetsManager.getTextureRegion(Constants.BTTN_BLUE_ID).getTexture();
         soundButtonDown = AssetsManager.getTextureRegion(Constants.BTTN_BLUE_PRESSED_ID).getTexture();
         sound_on = AssetsManager.getTextureRegion(Constants.SOUND_ON_ID).getTexture();
@@ -322,6 +323,7 @@ public class MenuSetting extends Group {
                 swipeButtonSequence.addAction(new Action() {
                     @Override
                     public boolean act(float delta) {
+                        actionResolver.showVkLoginActivity();
                         //listener.resumeButtonOnResume();
                         return true;
                     }
