@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,9 @@ import com.vk.sdk.api.photo.VKImageParameters;
 import com.vk.sdk.api.photo.VKUploadImage;
 import com.vk.sdk.dialogs.VKShareDialog;
 
+import util.IabHelper;
+import util.IabResult;
+
 /**
  * Created by Nikolas on 20.05.2016.
  */
@@ -40,7 +44,9 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     private RewardedVideoAd mAd;
     private String appId = "ca-app-pub-3929550233974663/5014713038";
     private Button showButton;
-
+    private static final String TAG =
+            "test_tag";
+    IabHelper mHelper;
     GameRuners gameRuners;
 
     private String[] vkScope = new String[]{ VKScope.WALL,VKScope.PHOTOS,VKScope.ADS,VKScope.NOTES,VKScope.NOHTTPS,VKScope.PAGES,VKScope.STATS,VKScope.STATUS};
@@ -60,7 +66,28 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         showButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showInterstitial();
+
+                showButton.setEnabled(false);
+                String base64EncodedPublicKey =
+                        "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAl+2QLNYn/X4JTQuVos5SJDKfIs3ve8JGL9xOw/DAmCrkQSC3GmDYlq5mzn0XyQl7aUJcj9jAq1AOKg89iDXyaskrhpkeVxfPidZEJCtQLEeNVYmm2xo4iaqaFgRXJMS0cxTbsVO+0c38HrfXvWr7Bg0bmguRy6+Hh2WnNaMuXg43o1gELh+rRcWRoviXVgnLyB/A7PSCjtV6a5PzMypQ/8IYPXpgwsQ644l/5VJA+Po0QBPoh3G5+l479nRXfm4eZ31mZYhF/Q8wNPgjOWnriUnXumenAu8z+C8xL/JCi2ovLqbMnK2hBWdyjwAeuTsSKc6gQfNnM+adCcQAi+IxfwIDAQAB";
+
+                mHelper = new IabHelper(getContext(), base64EncodedPublicKey);
+
+                mHelper.startSetup(new
+                                           IabHelper.OnIabSetupFinishedListener() {
+                                               public void onIabSetupFinished(IabResult result)
+                                               {
+                                                   if (!result.isSuccess()) {
+                                                       Toast.makeText(getContext(),"In-app Billing setup failed:",Toast.LENGTH_LONG).show();
+                                                       Log.d(TAG, "In-app Billing setup failed: " +
+                                                               result);
+                                                   } else {
+                                                       Toast.makeText(getContext(),"In-app Billing is set up OK",Toast.LENGTH_LONG).show();
+                                                       Log.d(TAG, "In-app Billing is set up OK");
+                                                   }
+                                               }
+                                           });
+                //showInterstitial();
             }
         });
 

@@ -5,7 +5,7 @@ android {
         main {
             manifest.srcFile 'AndroidManifest.xml'
             java.srcDirs = ['src']
-            aidl.srcDirs = ['src']
+            aidl.srcDirs = ['src', 'src/main/aidl', 'src/android/vending/billing', 'src/main/aidl/com/android/vending/billing', 'src/main/aidl/']
             renderscript.srcDirs = ['src']
             res.srcDirs = ['res']
             assets.srcDirs = ['assets']
