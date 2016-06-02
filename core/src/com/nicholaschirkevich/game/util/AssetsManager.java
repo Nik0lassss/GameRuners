@@ -134,6 +134,19 @@ public class AssetsManager {
 
 //        texturesMap.put(Constants.MY_CAR_STATIC_ASSETS_ID,
 //                new TextureRegion(new Texture(Gdx.files.internal(Constants.MY_CAR_1_IMAGE_PATH))));
+
+        if(GameManager.getLocale().equals(Constants.RU_LOCALE))
+        {
+            texturesMap.put(Constants.SETTINGS_ID, new TextureRegion(new Texture(Constants.SETTINGS_RESOURCE_RU)));
+            texturesMap.put(Constants.TITLE_VEHICLES_ID, new TextureRegion(new Texture(Constants.TITLE_VEHICLES_RUS_RESOURCE)));
+            texturesMap.put(Constants.COIN_SHOP_NAME_ID, new TextureRegion(new Texture(Constants.COIN_SHOP_NAME_RUS_RESOURCE)));
+        }
+        else
+        {
+            texturesMap.put(Constants.SETTINGS_ID, new TextureRegion(new Texture(Constants.SETTINGS_RESOURCE)));
+            texturesMap.put(Constants.TITLE_VEHICLES_ID, new TextureRegion(new Texture(Constants.TITLE_VEHICLES_RESOURCE)));
+            texturesMap.put(Constants.COIN_SHOP_NAME_ID, new TextureRegion(new Texture(Constants.COIN_SHOP_NAME_RESOURCE)));
+        }
         //passer Car 1
         texturesMap.put(Constants.PASSER_CAR_1_ID,
                 new TextureRegion(new Texture(Gdx.files.internal(Constants.PASSER_CAR_1_IMAGE_PATH))));
@@ -200,10 +213,10 @@ public class AssetsManager {
         texturesMap.put(Constants.ICON_RETURN_P_ID, new TextureRegion(new Texture(Constants.ICON_RETURN_P_RESOURCE)));
         texturesMap.put(Constants.ICON_ICON_VK_ID, new TextureRegion(new Texture(Constants.ICON_ICON_VK_RESOURCE)));
         texturesMap.put(Constants.ICON_ICON_FB_ID, new TextureRegion(new Texture(Constants.ICON_ICON_FB_RESOURCE)));
-        texturesMap.put(Constants.SETTINGS_ID, new TextureRegion(new Texture(Constants.SETTINGS_RESOURCE)));
+
         texturesMap.put(Constants.BTTN_BLUE_ID, new TextureRegion(new Texture(Constants.BTTN_BLUE_RESOURCE)));
         texturesMap.put(Constants.BTTN_BLUE_PRESSED_ID, new TextureRegion(new Texture(Constants.BTTN_BLUE_PRESSED_RESOURCE)));
-        texturesMap.put(Constants.TITLE_VEHICLES_ID, new TextureRegion(new Texture(Constants.TITLE_VEHICLES_RESOURCE)));
+
         texturesMap.put(Constants.CONTACT_POINT_ID, new TextureRegion(new Texture(Constants.CONTACT_POINT_RESOURCE)));
         texturesMap.put(Constants.PAUSE_BUTTON_PRESSED_ID, new TextureRegion(new Texture(Constants.PAUSE_BUTTON_PRESSED_RESOURCE)));
         texturesMap.put(Constants.PAUSE_BUTTON_UP_ID, new TextureRegion(new Texture(Constants.PAUSE_BUTTON_UP_RESOURCE)));

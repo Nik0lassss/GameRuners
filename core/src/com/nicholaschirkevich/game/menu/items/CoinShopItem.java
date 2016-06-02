@@ -99,7 +99,7 @@ public class CoinShopItem extends Group implements UpdateGarageCarItem {
         labelPriceCoins.setFontScale(0.4f, 0.4f);
         Label labelNameCoinPack = new Label(coinShop.getName(),  AssetsManager.getUiSkin());
         labelNameCoinPack.setBounds(getX() + 170 - labelNameCoinPack.getPrefWidth() / 4, getY() + 30 - labelNameCoinPack.getPrefHeight() / 2, labelNameCoinPack.getPrefWidth(), labelNameCoinPack.getPrefHeight());
-        labelNameCoinPack.setFontScale(0.6f, 0.6f);
+        labelNameCoinPack.setFontScale(0.55f, 0.55f);
 
         buy_real_empty_texture = AssetsManager.getTextureRegion(Constants.BUTTON_BUT_REAL_EMPTY_ID).getTexture();
         buy_real_empty_image = new Image(buy_real_empty_texture);

@@ -22,6 +22,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.util.AssetsManager;
 import com.nicholaschirkevich.game.util.Constants;
@@ -30,12 +31,14 @@ import com.nicholaschirkevich.game.util.Constants;
 public class GearView extends Actor {
 
     private TextureRegion textureRegion;
+    private Label gearText;
     private Rectangle bounds;
     private static float width = 64, height= 13;
 
     public GearView(Rectangle bounds, String assetsId) {
         this.bounds = bounds;
-        textureRegion = AssetsManager.getTextureRegion(assetsId);
+
+//        textureRegion = AssetsManager.getTextureRegion(assetsId);
         SequenceAction sequenceAction = new SequenceAction();
         sequenceAction.addAction(Actions.delay(1.5f));
         sequenceAction.addAction(Actions.removeActor());
@@ -46,7 +49,7 @@ public class GearView extends Actor {
 
     public static Actor getView(int gear)
     {
-        System.out.println("Get view gear "+gear);
+        //System.out.println("Get view gear "+gear);
         switch (gear) {
             case 1:
                 return new GearView(new Rectangle(GameRuners.WIDTH/4-(width/2), GameRuners.HEIGHT/4-(height/2), width, height), Constants.GEAR_1_ID);
@@ -81,7 +84,7 @@ public class GearView extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        batch.draw(textureRegion, bounds.x, bounds.y, bounds.width, bounds.height);
+        //batch.draw(textureRegion, bounds.x, bounds.y, bounds.width, bounds.height);
 
     }
 }

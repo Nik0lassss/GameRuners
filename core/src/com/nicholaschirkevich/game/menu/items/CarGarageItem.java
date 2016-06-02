@@ -37,8 +37,6 @@ public class CarGarageItem extends Group implements UpdateGarageCarItem {
     Label countLabel;
 
 
-
-
     public CarGarageItem(Car car, Integer index, UpdateGarageTable updateGarageTable, Skin skin) {
 
 
@@ -108,8 +106,9 @@ public class CarGarageItem extends Group implements UpdateGarageCarItem {
     private void setUpBackgroung(boolean selected) {
         if (selected) {
             updateGarageTable.setSelectedItme(index);
-            slot_vehicle =AssetsManager.getTextureRegion(Constants.SLOT_VEHICLE_SELECTED_ID).getTexture();
-        } else slot_vehicle = AssetsManager.getTextureRegion(Constants.SLOT_VEHICLE_ID).getTexture();
+            slot_vehicle = AssetsManager.getTextureRegion(Constants.SLOT_VEHICLE_SELECTED_ID).getTexture();
+        } else
+            slot_vehicle = AssetsManager.getTextureRegion(Constants.SLOT_VEHICLE_ID).getTexture();
         background = new Image(slot_vehicle);
         background.setBounds(getX(), getY(), slot_vehicle.getWidth(), slot_vehicle.getHeight());
         addActor(background);
@@ -117,15 +116,19 @@ public class CarGarageItem extends Group implements UpdateGarageCarItem {
     }
 
     private void setUpIcon() {
-       icon = new Image(car_texture);
+        icon = new Image(car_texture);
         icon.setBounds(getX() + 39 - car_texture.getWidth() / 2, getY() + 7, car_texture.getWidth(), car_texture.getHeight());
         addActor(icon);
     }
 
     private void setUpIconSpeed() {
-        Image iconSpeed = new Image(speed_text);
-        iconSpeed.setBounds(getX() + 93, getY() + 48, 40, 10);
-        addActor(iconSpeed);
+        Label speedLabel = new Label(GameManager.getStrings().get(Constants.SC_SPEED_LBL), AssetsManager.getUiSkin());
+        speedLabel.setBounds(getX() + 85, getY() + 48, 40, 10);
+        speedLabel.setFontScale(0.3f, 0.3f);
+        addActor(speedLabel);
+        // Image iconSpeed = new Image(speed_text);
+//        iconSpeed.setBounds(getX() + 93, getY() + 48, 40, 10);
+//        addActor(iconSpeed);
     }
 
     private void setUpIconSpeedBar() {
@@ -142,7 +145,7 @@ public class CarGarageItem extends Group implements UpdateGarageCarItem {
     private void setUpDelimiterSpeedBar() {
 
         Image delimiter = new Image(delimiterTexture);
-        delimiter.setBounds(getX() + 78, getY() + 30, delimiter.getWidth(), delimiter.getHeight());
+        delimiter.setBounds(getX() + 78, getY(), delimiter.getWidth(), delimiter.getHeight());
         addActor(delimiter);
     }
 
@@ -159,16 +162,24 @@ public class CarGarageItem extends Group implements UpdateGarageCarItem {
     }
 
     private void setUpIconWeight() {
-        Image iconWeight = new Image(weight_text);
-        iconWeight.setBounds(getX() + 93, getY() + 20, 40, 10);
-        addActor(iconWeight);
+        Label weightLabel = new Label(GameManager.getStrings().get(Constants.SC_WEIGHT_LBL), AssetsManager.getUiSkin());
+        weightLabel.setFontScale(0.3f,0.3f);
+        weightLabel.setBounds(getX() + 85, getY() + 20, 40, 10);
+        addActor(weightLabel);
+//        Image iconWeight = new Image(weight_text);
+//        iconWeight.setBounds(getX() + 93, getY() + 20, 40, 10);
+//        addActor(iconWeight);
     }
 
     private void setUpCarName(String imageId) {
-        Texture carNameTexture = AssetsManager.getTextureRegion(imageId).getTexture();
-        Image carName = new Image(carNameTexture);
-        carName.setBounds(getX() + 93, getY() + 65, carNameTexture.getWidth(), carNameTexture.getHeight());
-        addActor(carName);
+        Label labelName = new Label(GameManager.getStrings().get(car.getCarNameText()), AssetsManager.getUiSkin());
+        labelName.setFontScale(0.5f, 0.5f);
+//        Texture carNameTexture = AssetsManager.getTextureRegion(imageId).getTexture();
+//        Image carName = new Image(carNameTexture);
+//        carName.setBounds(getX() + 93, getY() + 65, carNameTexture.getWidth(), carNameTexture.getHeight());
+        labelName.setX(getX() + 87);
+        labelName.setY(getY() + 65);
+        addActor(labelName);
     }
 
     @Override
@@ -186,7 +197,7 @@ public class CarGarageItem extends Group implements UpdateGarageCarItem {
     public void updateGarageCarItem(boolean selected) {
         if (!car.getIsForRealMoney() && GameManager.getCoinCounter() > car.getPrice() && !GameManager.getMyCars().contains(car.getID())) {
             GameManager.buyCar(car.getPrice());
-            if (selected)   {
+            if (selected) {
 
                 GameManager.addCar(car.getID());
                 GameManager.setCurrentCarID(car.getID());

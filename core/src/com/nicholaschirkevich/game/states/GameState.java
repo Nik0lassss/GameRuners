@@ -267,6 +267,10 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         setUpCoinCountLabel();
         setUpAchivesCountLabel();
 
+        GameManager.resetContactPoint();
+        GameManager.resetTime();
+        GameManager.resetSpeed();
+
 
         if (isFromGarage) startFromGarage();
         else stage.addActor(new MenuTest(this, gsm,actionResolver));
@@ -1228,7 +1232,10 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                 GameManager.pauseGame = true;
                 // stage.addActor(new MenuGameOver(this, gsm));
                 //stage.addActor(new MenuSaveMe(this, gsm,actionResolver));
-                if(actionResolver.isAvailibleInternet() && actionResolver.isIntertitalLoad())stage.addActor(menuSaveMe);
+                if(actionResolver !=null && actionResolver.isAvailibleInternet() && actionResolver.isIntertitalLoad())
+                {
+                    stage.addActor(menuSaveMe);
+                }
                 else
                 {
                     stage.addActor(new MenuGameOver(gsm, actionResolver));
@@ -1321,49 +1328,52 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
     private void dangerousEvolution(ArrayList<PasserCar> passerCars, MyCar myCar) {
         for (PasserCar passerCar : passerCars) {
+            System.out.println("myCar.isLeft() "+myCar.isLeft()+" myCar.getX() "+myCar.getX());
             if (!((PasserCarDataType) passerCar.body.getUserData()).isDangerEvolution())
-                if (!isAutoTurn && !isZoomCarUpdate && !isUpdateGodeMode && passerCar.getIsLeft() == !myCar.isLeft() && myCar.isTurnRun() && passerCar.getY() - myCar.getY() < 50 && passerCar.getY() - myCar.getY() > 0) {
-                    achives += 50;
-                    sequenceAction.addAction(Actions.delay(0.5f));
-                    sequenceAction.addAction(new Action() {
-                        @Override
-                        public boolean act(float delta) {
-                            label.setText("");
-                            labelDangerousCount.setText("");
-                            return true;
-                        }
-                    });
-                    GameManager.addDangerousCount();
-                    label.addAction(sequenceAction);
-                    label.setColor(Color.ORANGE);
-                    label.setFontScale(0.65f, 0.65f);
-                    label.setText("Dangerous");
+                if ( !isAutoTurn && !isZoomCarUpdate && !isUpdateGodeMode && passerCar.getIsLeft() == !myCar.isLeft() && myCar.isTurnRun() && passerCar.getY() - myCar.getY() < 100 && passerCar.getY() - myCar.getY() >0) {
+                 if((myCar.isLeft() && myCar.getX()<95) || (!myCar.isLeft() && myCar.getX()>180)) {
+                      achives += 50;
+                      sequenceAction.addAction(Actions.delay(0.5f));
+                      sequenceAction.addAction(new Action() {
+                          @Override
+                          public boolean act(float delta) {
+                              label.setText("");
+                              labelDangerousCount.setText("");
+                              return true;
+                          }
+                      });
+                      GameManager.addDangerousCount();
+                      label.addAction(sequenceAction);
+                      label.setColor(Color.ORANGE);
+                      label.setFontScale(0.65f, 0.65f);
+                      label.setText("Dangerous");
 
 
-                    labelDangerousCount.setFontScale(0.65f, 0.65f);
-                    labelDangerousCount.setText("+50");
+                      labelDangerousCount.setFontScale(0.65f, 0.65f);
+                      labelDangerousCount.setText("+50");
 //                    label = new Label("Dangerous +50", uiSkin);
 
 
-                    labelCountCar.setText("");
-                    labelCars.setText("");
-                    labelFlyText.setText("");
-                    labelFlyCount.setText("");
-                    labelFlyBonus.setText("");
-                    boosterBonus.setText("");
-                    labelBonusText.setText("");
-                    ladleBonus.setText("");
-                    skullBonus.setText("");
-                    skullBonusText.setText("");
-                    skullBonusCountCar.setText("");
-                    //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
-                    label.setPosition(GameRuners.WIDTH / 4 - 70, GameRuners.HEIGHT / 4 + 200);
-                    labelDangerousCount.setPosition(GameRuners.WIDTH / 4 - 30, GameRuners.HEIGHT / 4 + 160);
-                    stage.addActor(label);
-                    stage.addActor(labelDangerousCount);
+                      labelCountCar.setText("");
+                      labelCars.setText("");
+                      labelFlyText.setText("");
+                      labelFlyCount.setText("");
+                      labelFlyBonus.setText("");
+                      boosterBonus.setText("");
+                      labelBonusText.setText("");
+                      ladleBonus.setText("");
+                      skullBonus.setText("");
+                      skullBonusText.setText("");
+                      skullBonusCountCar.setText("");
+                      //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
+                      label.setPosition(GameRuners.WIDTH / 4 - 70, GameRuners.HEIGHT / 4 + 200);
+                      labelDangerousCount.setPosition(GameRuners.WIDTH / 4 - 30, GameRuners.HEIGHT / 4 + 160);
+                      stage.addActor(label);
+                      stage.addActor(labelDangerousCount);
 
-                    //stage.addActor(new TurnBonusView(new Rectangle(GameRuners.WIDTH/4-(40/2), GameRuners.HEIGHT/4-(50/2), 40, 50), Constants.GEAR_1_ID));
-                    ((PasserCarDataType) passerCar.body.getUserData()).setIsDangerEvolution(true);
+                      //stage.addActor(new TurnBonusView(new Rectangle(GameRuners.WIDTH/4-(40/2), GameRuners.HEIGHT/4-(50/2), 40, 50), Constants.GEAR_1_ID));
+                      ((PasserCarDataType) passerCar.body.getUserData()).setIsDangerEvolution(true);
+                 }
                 }
         }
     }

@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <strings>
+    <string>
+        <id>preload_1_lbl </id>
+        <type>Label</type>
+        <en>Speedy Road
+        </en>
+        <ru>Speedy Road
+        </ru>
+    </string>
+    <string>
+        <id>ms_title_lbl</id>
+        <type>Label
+        </type>
+        <en>Speedy Road
+        </en>
+        <ru>Speedy Road
+        </ru>
+    </string>
+    <string>
+        <id>ms_go_btn_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>Go!
+        </en>
+        <ru>Вперёд!
+        </ru>
+    </string>
+    <string>
+        <id>ms_top_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>Top:
+        </en>
+        <ru>Лучший
+        </ru>
+    </string>
+    <string>
+        <id>settings_title_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>Settings
+        </en>
+        <ru>Настройки
+        </ru>
+    </string>
+    <string>
+        <id>settings_sound_on_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>Sound on
+        </en>
+        <ru>Выкл. звук
+        </ru>
+    </string>
+    <string>
+        <id>settings_sound_off_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>Sound off
+        </en>
+        <ru>Вкл. звук
+        </ru>
+    </string>
+    <string>
+        <id>settings_block_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>Block
+        </en>
+        <ru>Выключить
+        </ru>
+    </string>
+    <string>
+        <id>settings_ads_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>ADS
+        </en>
+        <ru>рекламу
+        </ru>
+    </string>
+    <string>
+        <id>settings_purchase_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>Restore \n purchases
+        </en>
+        <ru>Восстановить \n покупки
+        </ru>
+    </string>
+    <string>
+        <id>settings_tap_controll_first_row_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>Tap
+        </en>
+        <ru>Управление
+        </ru>
+    </string>
+    <string>
+        <id>settings_tap_controll_second_row_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>сontrol
+        </en>
+        <ru>по нажатию
+        </ru>
+    </string>
+    <string>
+        <id>settings_swipe_controll_first_row_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>Swipe
+        </en>
+        <ru>Управление
+        </ru>
+    </string>
+    <string>
+        <id>settings_swipe_controll_second_row_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>сontrol
+        </en>
+        <ru>по движению
+        </ru>
+    </string>
+    <string>
+        <id>sc_title_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>Vehicles
+        </en>
+        <ru>Транспорт
+        </ru>
+    </string>
+    <string>
+    <id>sc_speed_lbl
+    </id>
+    <type>Label
+    </type>
+    <en>Speed
+    </en>
+    <ru>Скорость
+    </ru>
+</string>
+    <string>
+        <id>sc_weight_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>Weight
+        </en>
+        <ru>Масса
+        </ru>
+    </string>
+    <string>
+        <id>game_gear_1_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>1 gear
+        </en>
+        <ru>1 скорость
+        </ru>
+    </string>
+    <string>
+        <id>game_gear_2_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>2 gear
+        </en>
+        <ru>2 скорость
+        </ru>
+    </string>
+    <string>
+        <id>game_gear_3_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>3 gear
+        </en>
+        <ru>3 скорость
+        </ru>
+    </string>
+    <string>
+        <id>game_gear_4_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>4 gear
+        </en>
+        <ru>4 скорость
+        </ru>
+    </string>
+    <string>
+        <id>game_gear_5_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>5 gear
+        </en>
+        <ru>5 скорость
+        </ru>
+    </string>
+    <string>
+        <id>game_gear_6_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>6 gear
+        </en>
+        <ru>6 скорость
+        </ru>
+    </string>
+    <string>
+        <id>game_сoefficient_1_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>x1
+        </en>
+        <ru>x1
+        </ru>
+    </string>
+    <string>
+        <id>game_сoefficient_2_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>x2
+        </en>
+        <ru>x2
+        </ru>
+    </string>
+    <string>
+        <id>game_сoefficient_3_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>x3
+        </en>
+        <ru>x3
+        </ru>
+    </string>
+    <string>
+        <id>game_сoefficient_4_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>x4
+        </en>
+        <ru>x4
+        </ru>
+    </string>
+    <string>
+        <id>game_сoefficient_5_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>x5
+        </en>
+        <ru>x5
+        </ru>
+    </string>
+    <string>
+        <id>game_сoefficient_6_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>x6
+        </en>
+        <ru>x6
+        </ru>
+    </string>
+    <string>
+        <id>game_cars_count_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>CARS
+        </en>
+        <ru>МАШИН
+        </ru>
+    </string>
+    <string>
+        <id>game_bonus_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>BONUS
+        </en>
+        <ru>БОНУС
+        </ru>
+    </string>
+    <string>
+        <id>game_drift_count_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>Drift
+        </en>
+        <ru>Дрифт
+        </ru>
+    </string>
+    <string>
+        <id>game_dangerous_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>Dangerous
+        </en>
+        <ru>На грани
+        </ru>
+    </string>
+    <string> <id> game_destroy_lbl </id><type>	Label</type>	<en>Destroed</en><ru>	Уничтоженно  </ru></string>
+    <string> <id> pause_exit_lbl </id><type>	Label</type>	<en>Exit</en><ru>	Выход  </ru></string>
+    <string><id> pause_resume_lbl </id><type>	Label</type>	<en>Resume	</en><ru>Играть </ru> </string>
+    <string><id> go_save_lbl </id><type>	Label</type><en>	Save me!</en><ru>	Продолжить </ru> </string>
+    <string><id> go_rate_lbl </id><type>	Label</type><en>	Rate us	</en><ru>Оставить отзыв  </ru></string>
+    <string><id> go_title_lbl </id><type>	Label</type><en>	Game over</en><ru>	Игра закончена </ru> </string>
+    <string><id> go_score_lbl </id>	<type>Label </type>	<en>Score:	</en><ru>Очки  </ru></string>
+    <string><id> go_n_lbl </id><type>	Label</type>	<en>New	</en><ru>Новый  </ru></string>
+    <string><id>  go_r_lbl </id><type>	Label</type>	<en>record!</en><ru>	рекорд </ru> </string>
+    <string><id>  go_bonus_lbl </id><type>	Label</type><en>	Get bonus</en><ru>	Бонус </ru> </string>
+    <string><id>  go_win_lbl </id><type>	Label</type><en>	Win</en><ru>	Выиграй  </ru></string>
+    <string><id>  go_prize_lbl </id><type>	Label</type><en>	a prize</en><ru>	приз </ru> </string>
+    <string><id>  go_top_lbl </id><type>	Label</type><en>	Top:	</en><ru>Лучший  </ru></string>
+    <string><id>   go_next_prize_lbl </id><type>	Label</type>	<en>Next prize</en><ru>	След. приз </ru> </string>
+    <string><id>  tutorial_hold_and_swipe_lbl </id><type>Label</type><en>	Hold and swipe</en><ru>	Зажми палец и двигай </ru> </string>
+    <string><id>  tutorial_to_move_lbl </id><type>	Label</type>	<en>to move	</en><ru>его для перемещения </ru> </string>
+    <string><id>  tutorial_tap_lbl </id>	<type>Label</type>	<en>Tap to move	</en><ru>Нажмите для передвижения  </ru></string>
+    <string><id>  tutorial_brake_lbl </id><type>	Label</type>	<en>Press to brake</en>	<ru>Нажмите для торможения </ru> </string>
+    <string><id>  garage_free_lbl </id><type>	Label</type>	<en>Free</en><ru>	Бесплатно  </ru></string>
+    <string><id>  garage_sr_lbl </id>	<type>Label</type>	<en>Speedy Road</en><ru>	Speedy Road  </ru></string>
+    <string><id>  sc_car_name_F1_lbl </id><type>	Label</type><en>	F1 CAR</en>	<ru>F1  </ru></string>
+    <string><id>  sc_car_name_bulldozer_lbl </id><type>	Label</type><en>	BULLDOZER	</en><ru>Бульдозер  </ru></string>
+    <string><id>  sc_car_name_minibus_lbl </id>	<type>Label</type><en>	MINIBUS</en><ru>	Пляжный автобус </ru> </string>
+    <string><id>  sc_car_name_buggy_lbl </id><type>	Label</type>	<en>BUGGY</en><ru>	Багги </ru> </string>
+    <string><id>  sc_car_name_pickup_lbl </id>	<type>Label	</type> <en>PICKUP</en>	<ru>Пикап  </ru></string>
+    <string><id> sc_car_name_cabriolet_lbl </id><type>	Label</type><en>	CABRIOLET</en><ru>	Кабриолет  </ru></string>
+    <string><id> sc_car_name_ponycar_lbl </id><type>	Label	</type> <en>PONY CAR</en><ru>	Жеребец  </ru></string>
+    <string><id> sc_car_name_minicar_lbl </id><type>	Label</type>	<en>MINI CAR</en><ru>	Мини авто </ru> </string>
+    <string><id> sc_car_name_muscleCar1_lbl </id><type>	Label</type><en>	MUSCLE CAR 1</en><ru>	Маслкар </ru> </string>
+    <string><id> sc_car_name_muscleCar2_lbl </id><type>	Label</type>	<en>MUSCLE CAR 2</en><ru>	Маслкар 2  </ru></string>
+    <string><id> sc_car_name_nascar_lbl </id>	<type>Label</type><en>	NASCAR</en>	<ru>Наскар  </ru></string>
+    <string><id> sc_car_name_sportcar_lbl </id>	<type>Label	</type> <en>SPORTCAR	</en><ru>Спортивное авто  </ru></string>
+    <string><id> sc_car_name_streetRacer_lbl </id><type>	Label</type><en>	STREET RACER</en>	<ru>Стрит рейсинг  </ru></string>
+    <string><id> sc_car_name_streetRacingCar2_lbl </id><type>	Label</type><en>	STREET RACING CAR 2</en><ru>	Стрит рейсинг 2 </ru> </string>
+    <string><id> sc_car_name_tractor_lbl </id><type>	Label	</type> <en>TRACTOR</en><ru>	Трактор  </ru></string>
+    <string><id>  sc_car_name_mixerTruck_lbl </id><type>	Label</type><en>	MIXER TRUCK</en><ru>	Бетономешалка  </ru></string>
+    <string><id> sc_car_name_asphaltPaver_lbl </id><type>	Label	</type> <en>ASPHALT PAVER	</en><ru>Асфальтоукладчик </ru> </string>
+    <string><id>  sc_car_name_truck_lbl </id><type>	Label</type><en>	TRUCK</en><ru>	Грузовик  </ru></string>
+    <string><id>  sc_car_name_retroCar_lbl </id><type>	Label</type> <en>	RETRO CAR</en><ru>	Ретро авто </ru> </string>
+    <string><id> sc_car_name_retroRace_lbl </id><type>	Label</type><en>	RETRO RACE</en><ru>	Ретро авто 2  </ru></string>
+    <string><id>  sc_car_name_bigfoot_lbl </id><type>	Label</type>	<en>BIGFOOT	</en><ru>Бигфут  </ru></string>
+    <string><id> sc_car_name_policeCar_lbl </id><type>	Label</type><en>	POLICE CAR</en>	<ru>Полиция  </ru></string>
+    <string><id> sc_car_name_fireFighter_lbl </id><type>	Label</type>	<en>FIRE FIGHTER</en>	<ru>Пожарная машина </ru> </string>
+    <string><id> sc_car_name_futureCar_lbl </id><type>	Label</type><en>	FUTURE CAR</en><ru>	Машина времени </ru> </string>
+    <string><id> sc_car_name_fbiCar_lbl </id>	<type>Label	</type><en> FBI CAR</en><ru>	Машина ФБР  </ru></string>
+    <string><id> sc_car_name_superCar_lbl </id><type>	Label	</type> <en>SUPER CAR</en><ru>	Суперкар  </ru></string>
+
+
+
+    <string><id> sc_car_name_F1_Action_lbl</id><type>	Text</type><en>	F1 CAR RED</en><ru>	F11</ru> </string>
+    <string><id> sc_car_name_ponycar_Action_lbl</id><type>	Text</type><en>	Cobra</en><ru>	Кобра</ru> </string>
+    <string><id> sc_car_name_pickup_Action_lbl</id><type>	Text</type><en>	ARMY PICKUP</en><ru>	Военный пикап</ru> </string>
+
+    <string><id>  go_vk_btn_lbl	</id><type>Label</type><en>	Sign in </en><ru>	Sign in</ru> </string>
+    <string><id> settings_vk_logout_lbl</id><type>	Label</type><en>	Sign out	</en><ru>Sign out</ru> </string>
+    <string><id> inApp_unavailable_message_title</id><type>	Pop up</type><en>	In-App Store unavailable</en><ru>	Магазин недоступен</ru> </string>
+    <string><id>  inApp_unavailable_message_payment_unavailable	</id><type>Pop up</type><en>	Unfortunatelly, payment is unavailable now</en><ru>	К сожалению, покупка недоступна.</ru> </string>
+    <string><id> inApp_unavailable_message_appstore_unavailable</id><type>	Pop up</type><en>	The In-App Store is currently unavailable, please try again later.	</en><ru>Магазин приложений в данный момент недосягаем. Попробуйте позже.</ru> </string>
+    <string><id> inApp_unavailable_message_timeout</id><type>	Pop up</type><en>	Something has gone wrong. Sorry.	</en><ru>Кажется, я поломался. Извините.</ru> </string>
+    <string><id>cm_coins_pack_first_line</id><type>	Label</type><en>	Coins pack</en><ru>	Набор монет</ru> </string>
+    <string><id>  cm_medium_coins_pack_first_line</id><type>	Label</type><en>	Medium coins</en><ru>	Средний набор</ru> </string>
+    <string><id> cm_big_coins_pack_first_line</id><type>	Label</type><en>	Big coins</en><ru>	Большой набор</ru> </string>
+    <string><id> cm_great_coins_pack_first_line</id><type>	Label</type><en>	Great coins</en><ru>	Огромный набор</ru> </string>
+    <string><id> cm_coins_pack_second_line</id><type>	Label</type><en></en><ru></ru> </string>
+    <string><id> cm_medium_coins_pack_second_line</id><type>	Label</type><en>	pack</en><ru>	монет</ru> </string>
+    <string><id>cm_big_coins_pack_second_line</id><type>	Label</type><en>	pack</en><ru>	монет</ru> </string>
+    <string><id>cm_great_coins_pack_second_line</id><type>	Label</type><en>	pack</en><ru>	монет</ru> </string>
+    <string><id> title_vehicles_img</id><type>	Image</type><en>	title_vehicles</en><ru>	title_vehicles</ru> </string>
+    <string><id>title_settings_img</id><type>	Image</type><en>	settings</en><ru>	settings</ru> </string>
+    <string><id> title_coin_img</id><type>	Image</type><en>	coins	</en><ru>coins</ru> </string>
+    <string><id>pop_up_push_first_label</id><type>	Label</type><en>	Remind about</en><ru>	Напомнить о</ru> </string>
+    <string><id> pop_up_push_second_label</id><type>	Label</type><en>	a free prize</en><ru>	бесплатном призе</ru> </string>
+    <string><id>pop_up_push_third_label</id><type>	Label</type><en>	next time?</en><ru>	в следующий раз?</ru> </string>
+    <string><id>pop_up_push_yes_btn_label</id><type>	Label</type><en>	Yes</en><ru>	Да</ru> </string>
+    <string><id> pop_up_push_no_btn_label</id><type>	Label</type><en>	Later</en><ru>	Позже</ru> </string>
+    <string><id>push_notification_day_text</id><type>	Label</type><en>	Choose your vehicle. Hit the gas. Go!</en><ru>	Выбери машину, жми на газ! Вперёд!</ru> </string>
+    <string><id> push_notification_prize_text</id><type>	Label</type><en>	New prize is waiting for you! Return to the game to get it!</en><ru>	Новый приз ждёт тебя! Вернись в игру чтобы забрать его!</ru> </string>
+    <string><id>settings_vk_group</id><type>	Label</type><en>	Vk community	</en><ru>Группа в Вк</ru> </string>
+
+    <string><id>friends_vk_title_label</id><type>	Label</type><en>	Invite friends</en><ru>	Пригласить друга</ru> </string>
+    <string><id>friends_vk_message_first_part_label</id><type>	Label</type><en>	Invite to</en><ru>	Пригласить</ru> </string>
+    <string><id>friends_vk_message_second_part_label</id><type>	Label</type><en>	Speedy Road</en><ru>	в Speedy road</ru> </string>
+    <string><id>friends_vk_cansel_label	</id><type>Label</type><en>	Cansel</en><ru>	Отмена</ru> </string>
+    <string><id>friends_vk_invite_label</id><type>	Label</type><en>	Invite</en><ru>	Пригласить</ru> </string>
+    <string><id>friends_vk_text_invite</id><type>	Label	</type><en>I want to invite you to Speed Road</en><ru>	Я хочу пригласить тебя в игру Speed Road</ru> </string>
+    <string><id>friends_vk_text_cant_invite</id><type>	Label</type><en>	We can't invite your friend</en><ru>	Мы не можем пригласить вашего друга</ru> </string>
+    <string><id>friends_vk_error</id><type>	Label</type><en>	Error</en><ru>	Ошибка</ru> </string>
+    <string><id> friends_vk_ok	</id><type>Label</type><en>	Ok</en><ru>Ok</ru> </string>
+    <string><id>settings_vk_invite_first_line</id><type>	Label</type><en>	Invite</en><ru>	Пригласить</ru> </string>
+    <string><id>settings_vk_invite_second_line</id><type>	Label</type><en>	friends	</en><ru>друга</ru> </string>
+    <string><id>friends_vk_error_load_friend</id><type>	Label</type><en>	We can't loaded your friends list</en><ru>	Мы не смогли загрузить список друзей</ru> </string>
+    <string><id>screenshot_my_lbl</id><type></type><en>		My</en><ru>	Мой</ru> </string>
+    <string><id>screenshot_result_lbl</id><type></type><en>		results</en><ru>	результат</ru> </string>
+    <string><id>screenshot_share_text</id><type>	</type><en>	Choose your vehicle. Hit the gas. Go! #speedyroad https://itunes.apple.com/ru/app/speedy-road-endless-8-bit-race/id1008125487?mt=8</en><ru>	Выбери машину, жми на газ! Вперёд! #speedyroad https://itunes.apple.com/ru/app/speedy-road-endless-8-bit-race/id1008125487?mt=8</ru> </string>
+    <string><id>update_version_title</id><type>	text</type><en>	New update</en><ru>	Новое обновление</ru> </string>
+    <string><id>update_version_text</id><type>	text</type><en>	A new update is available, you want to install it?</en><ru>	Доступно новое обновление, хотите его установить?</ru> </string>
+    <string><id>update_version_cansel</id><type>	text</type><en>	Later</en><ru>	Позже</ru> </string>
+    <string><id>update_version_update</id><type>	text</type><en>	Install</en><ru>	Установить</ru> </string>
+
+    <string><id> mp_active_games_lbl</id><type>	Label</type><en>	Active games:</en><ru>	Активные игры:</ru> </string>
+    <string><id>mp_open_games_lbl</id><type>	Label</type><en>	Open games:</en><ru>	Открытые игры:</ru> </string>
+    <string><id>mp_previous_games_lbl</id><type>	Label</type><en>	Previous games</en><ru>	Сыграные игры:</ru> </string>
+    <string><id>mp_play_btn</id><type>	text</type><en>	Play</en><ru>	Играть</ru> </string>
+    <string><id> mp_round_lbl</id><type>	Label</type><en>	Round	</en><ru>Раунд</ru> </string>
+    <string><id>mp_invite_btn</id><type>	text</type><en>	Invite friends</en><ru>	Пригласить друга</ru> </string>
+    <string><id>mp_random_player_btn</id><type>	text</type><en>	Play with a random player</en><ru>	Играть с случайным игроком</ru> </string>
+    <string><id>mp_play_with_friend_btn	</id><type>text</type><en>	Play with friends</en><ru>	Играть с друзьями</ru> </string>
+    <string><id>mp_your_turn_label</id><type>	text</type><en>	Your turn!	</en><ru>Ваш ход!</ru> </string>
+    <string><id>mp_win_label</id><type>text</type><en>	You win</en><ru>	Победа</ru> </string>
+    <string><id>mp_lose_btn</id><type>	text</type><en>	You lose</en><ru>	Проигрыш</ru> </string>
+    <string><id>mp_draw_btn</id><type>	text</type><en>	No sides</en><ru>	Ничья</ru> </string>
+    <string><id>mp_wait_btn</id><type>	text</type><en>	Wait</en><ru>	Ждите</ru> </string>
+    <string><id>mp_unknow_lbl</id><type>	text</type><en>	Wait for user</en><ru>	Ждите</ru> </string>
+    <string><id> mp_pop_up_text</id><type>	text</type><en>	Enter via the social network to play with your friends</en><ru>	Войдите через социальную сеть, чтобы играть с друзьями</ru> </string>
+    <string><id>mp_havent_friends_in_game_text</id><type>	text</type><en>	We couldn't find any friends in the game</en><ru>	Нам не удалось найти ваших друзей в игре</ru> </string>
+    <string><id> mp_havent_friends_in_game_fb_text</id><type>	text</type><en>	We could not find\nyour friends from Facebook</en><ru>	Мы не смогли найти\nваших друзей из Facebook</ru> </string>
+    <string><id>no_internet_connection_alert</id><type>	text</type><en>	No internet connection</en><ru>	Проверьте интернет соединение</ru> </string>
+    <string><id>mp_pop_up_for_push_text</id><type>	text</type><en>	 Want to stay informed about the next race?</en><ru>	Сообщить, когда ваш следующий заезд?</ru> </string>
+    <string><id>mp_win_or_lose_points</id><type>	text</type><en>	Points</en><ru>	Очков</ru> </string>
+    <string><id>server_is_not_avaible_alert</id><type>	text</type><en>	Server is not avaible now</en><ru>	Сервер игры не доступен в данный момент</ru> </string>
+    <string><id>havent_ansver_from_server</id><type>	text</type><en>	Something went wrong. Try later	Упс!</en><ru> Что-то сломалось</ru> </string>
+    <string><id>other_device_was_connected	</id><type>text</type><en>	Login from other device has occurred in your account</en><ru>	Был выполнен вход с другого устройства</ru> </string>
+    <string><id>error_alert</id><type>	text</type><en>	Error	</en><ru>Ошибка</ru> </string>
+    <string><id> ok_alert</id><type>	text</type><en>	Ok</en><ru>	Ок</ru> </string>
+    <string><id>mp_lose_label	</id><type>text</type><en>	You lose</en><ru>	Проигрыш</ru> </string>
+    <string><id>leaderboard_me_text	</id><type>text</type><en>	Me</en><ru>	Я</ru> </string>
+    <string><id>leaderboard_login_vk_text</id><type>	text</type><en>	Sign in VK</en><ru>	Войти в VK</ru> </string>
+    <string><id>leaderboard_load_error_text	</id><type>text</type><en>	We can't load leaderboard now</en><ru>	Рекорды игроков сейчас недоступны</ru> </string>
+    <string><id>leaderboard_friends_text</id><type>	text</type><en>	Friends</en><ru>	Друзья</ru> </string>
+    <string><id>leaderboard_global_text</id><type>	text</type><en>	Global</en><ru>	Все</ru> </string>
+    <string><id>leaderboard_login_facebook_text</id><type>	text	</type><en>Sign in Facebook</en><ru>	Войти в Facebook</ru> </string>
+    <string><id>leaderboard_invite_text</id><type>	text</type><en>	Invite friends</en><ru>	Пригласить друга</ru> </string>
+    <string><id>go_play_with_friend_btn	</id><type>text</type><en>	Play with friends</en><ru>	Играть с друзьями</ru> </string>
+    <string><id>go_play_with_friend_2_btn</id><type>	text</type><en>	Play online</en><ru>	Играть \n онлайн</ru> </string>
+    <string><id>go_play_with_friend_3_btn</id><type>	text</type><en>	Challenge mode</en><ru>	Бросить вызов</ru> </string>
+    <string><id> ms_sign_in_lbl</id><type>	text</type><en>	Sing in</en><ru>	Войти</ru> </string>
+    <string><id>ms_vk_lbl	</id><type>text</type><en>	VK</en><ru>	VK</ru> </string>
+    <string><id>ms_f_lbl	</id><type>text</type><en>	Facebook	</en><ru>Facebook</ru> </string>
+    <string><id>mp_unknow_lbl</id><type>	text</type><en>	Unknown</en><ru>	Неизвестно</ru> </string>
+    <string><id> push_1</id><type>	text</type><en>	You have been challenged! Are you ready?	</en><ru>Тебе бросили вызов! Ты готов?</ru> </string>
+    <string><id>push_2</id><type>	text</type><en>	Your rival has finished the race, your turn!</en><ru>	Твой противник завершил заезд, твоя очередь!</ru> </string>
+    <string><id>push_3</id><type>	text</type><en>	You won! One more time?</en><ru>	Ты выиграл! Ещё раз?</ru> </string>
+    <string><id>push_4</id><type>	text</type><en>	Sorry, you lost the game! Rematch?	</en><ru>К сожалению, ты проиграл! Реванш?</ru> </string>
+    <string><id>push_5</id><type>	text</type><en>	Draw! One more time?</en><ru>	Ничья! Ещё раз?</ru> </string>
+    <string><id>go_your_lbl	</id><type>text</type><en>	Your score	</en><ru>Твои</ru> </string>
+    <string><id>go_destroyed_lbl</id><type>	text</type><en>	Destroyed</en><ru>	Уничтоженно</ru> </string>
+    <string><id>go_spring_board_lbl</id><type>	text</type><en>	Springboard</en><ru>	Трамплин</ru> </string>
+    <string><id>go_god_mod_lbl</id><type>	text</type><en>	Insane</en><ru>	Безумие</ru> </string>
+    <string><id>go_dangerous_lbl</id><type>	text</type><en>	Dangerous</en><ru>	На грани</ru> </string>
+    <string><id>go_drift_lbl</id><type>	text</type><en>	Drift</en><ru>	Дрифт</ru> </string>
+    <string><id>go_destroyed_lbl</id><type>	text</type><en>	Destroyed</en><ru>	Уничтожено</ru> </string>
+    <string><id>go_rocket_lbl</id><type>	text</type><en>	Rocket</en><ru>	Ракеты</ru> </string>
+    <string><id> go_distance_text</id><type>	text</type><en>	Distance:	</en><ru>Расстояние:</ru> </string>
+    <string><id> go_busters_text</id><type>	text</type><en>	Busters:</en><ru>	Бустеры:</ru> </string>
+    <string><id> go_total_text</id><type>	text</type><en>	Total:	</en><ru>Всего:</ru> </string>
+    <string><id>go_your_score_lbl</id><type>	text</type><en>	New record</en><ru>	Новый рекорд</ru> </string>
+    <string><id>go_your_score_lbl</id><type>	text</type><en>	Your score:	</en><ru>Твои очки:</ru> </string>
+    <string><id>mpgo_bonus_coins_text</id><type>	text</type><en>	Your prize:	</en><ru>Твой приз:</ru> </string>
+    <string><id>title_coin	</id><type>text	</type><en>Coins	</en><ru>Монеты</ru> </string>
+    <string><id>pr_games_played_text</id><type>	text</type><en>	Games played:</en><ru>	Сыграно игр:</ru> </string>
+    <string><id> pr_win_text	</id><type>text	</type><en>Win:\n	</en><ru>Побед:</ru> </string>
+    <string><id> pr_lose_text</id><type>	text	</type><en>Lose:</en><ru>	Поражений:</ru> </string>
+    <string><id> pr_best_score_text	</id><type>text</type><en>	Best score:\n	</en><ru>Лучший результат:\n</ru> </string>
+    <string><id> pr_rating_text</id><type>	text</type><en>	Rating\n</en><ru>	Рейтинг</ru> </string>
+    <string><id> pr_rang_beginer_text</id><type>	text	</type><en>Beginer</en><ru>	Новичок</ru> </string>
+    <string><id> pr_rang_amateur_text</id><type>	text	</type><en>Amateur</en><ru>	Любитель</ru> </string>
+    <string><id> pr_rang_driver_text</id><type>	text</type><en>	Driver</en><ru>	Драйвер</ru> </string>
+    <string><id> pr_rang_profi_text</id><type>	text	</type><en>Profi</en><ru>	Профи</ru> </string>
+    <string><id>pr_rang_racer_text</id><type>	text	</type><en>Racer	</en><ru>Гонщик</ru> </string>
+    <string><id> mpgo_bonus_coins_text</id><type>	text</type><en>	Your prize:	</en><ru>Ты собрал:</ru> </string>
+    <string><id>mp_header_text</id><type>	text</type><en>	Multiplayer</en><ru>	Поединок</ru> </string>
+    <string><id>lb_header_text</id><type>	text</type><en>	Leaderboard	</en><ru>Рекорды</ru> </string>
+    <string><id> profile_header_text</id><type>	text</type><en>	Profile	</en><ru>Профиль</ru> </string>
+    <string><id>sp_header_text</id><type>	text</type><en>	Quick race	</en><ru>Быстрый заезд</ru> </string>
+    <string><id>pr_play_now</id><type>	text	</type><en>To challenge</en><ru>	Бросить вызов</ru> </string>
+    <string><id> mpgo_rating_points</id><type>	text</type><en>	Rating points:</en><ru>	Рейтинговые очки:</ru> </string>
+    <string><id>ac_of_text</id><type>	text	</type><en>of</en><ru>	из</ru> </string>
+    <string><id>ac_time_left</id><type>	text</type><en>	Time left:	</en><ru>Задание закончится через:</ru> </string>
+    <string><id> ac_header</id><type>	text	</type><en>Challenge</en><ru>	Задание</ru> </string>
+    <string><id>ac_you_win</id><type>	text	</type><en>You win!</en><ru>	Ты выиграл!</ru> </string>
+    <string><id>ac_your_prize</id><type>	text</type><en>	Your prize:</en><ru>	Приз:</ru> </string>
+    <string><id>ac_win_header</id><type>	text</type><en>	Congratulations	</en><ru>Поздравляем</ru> </string>
+
+
+    <string><id>ac_text_1</id><type>	text</type><en>	Play 5 games in the multiplayer mode and get:</en><ru>	Сыграй 5 игры в режиме мультиплеера и получи:</ru> </string>
+    <string><id>ac_text_2</id><type>	text</type><en>	Play 20 games and win:</en><ru>	Сыграй 20 игр и получи:</ru> </string>
+    <string><id>ac_text_3</id><type>	text</type><en>	Score 20,000 points and win:</en><ru>	Набери 20000 очков и получи:</ru> </string>
+    <string><id>ac_text_4</id><type>	text</type><en>	Collect 150 coins and get:</en><ru>	Собери 150 монет и получи:</ru> </string>
+    <string><id>ac_text_5</id><type>	text</type><en>	Score 3,000 points in 1 game and get:</en><ru>	Набери 3000 очков в 1 игре и получи:</ru> </string>
+
+    <string><id>ac_name_text_1</id><type>	text</type><en>	Champion	</en><ru>Чемпион</ru> </string>
+    <string><id>ac_name_text_2</id><type>	text</type><en>	Marathon</en><ru>	Марафон</ru> </string>
+    <string><id>ac_name_text_3</id><type>	text</type><en>	Player</en><ru>	Игрок</ru> </string>
+    <string><id>ac_name_text_4	</id><type>text</type><en>	Rich man</en><ru>	Богач</ru> </string>
+    <string><id>ac_name_text_5</id><type>	text</type><en>	Sprinter	</en><ru>Спринтер</ru> </string>
+
+    <string><id> ac_push_1</id><type>	text</type><en>	Here's a new challenge for you! Fulfill the conditions and get a unique car!	</en><ru>Тебя ждёт новое испытание! Выполни условия и получи получи уникальный автомобиль!</ru> </string>
+
+
+</strings>

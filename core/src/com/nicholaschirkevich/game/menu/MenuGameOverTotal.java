@@ -71,9 +71,9 @@ public class MenuGameOverTotal extends Group {
         bestAchiveCount = new Label("", AssetsManager.getUiSkin());
         distance_label = new Label("", AssetsManager.getUiSkin());
         boosters_label = new Label("", AssetsManager.getUiSkin());
-        total_label = new Label("Total:", AssetsManager.getUiSkin());
+        total_label = new Label(GameManager.getStrings().get(Constants.GO_TOTAL_TEXT), AssetsManager.getUiSkin());
         total_count_label = new Label(String.valueOf((int) GameManager.getAchives()), AssetsManager.getUiSkin());
-        dangerous_label = new Label("Dangerous", AssetsManager.getUiSkin());
+        dangerous_label = new Label(GameManager.getStrings().get(Constants.GAME_DANGEROUS_LBL), AssetsManager.getUiSkin());
         rocket_label = new Label("Rocket", AssetsManager.getUiSkin());
         destroyed_label = new Label("Destroyed", AssetsManager.getUiSkin());
         spring_board_label = new Label("Spring Board", AssetsManager.getUiSkin());
@@ -485,7 +485,7 @@ public class MenuGameOverTotal extends Group {
         textButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.BTTN_VK_PRESSED_ID).getTexture()).getDrawable();
         textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
-        vkBttn = new TextButton("Share in VK", textButtonStyle);
+        vkBttn = new TextButton("   Share \n in VK", textButtonStyle);
         vkBttn.getLabel().setFontScale(0.4f, 0.4f);
         vkBttn.getLabelCell().padLeft(10f);
 

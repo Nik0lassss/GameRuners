@@ -58,11 +58,11 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
 
     public CoinShopState(ResumeButtonListener listenerResume, GameStateManager gsm, ActionResolver actionResolver) {
 
-       this.actionResolver = actionResolver;
+        this.actionResolver = actionResolver;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
-        cnr_line =AssetsManager.getTextureRegion(Constants.CNR_LINE_ID).getTexture();
-        backgroung_texture =AssetsManager.getTextureRegion(Constants.BACK_TILE_ID).getTexture();
+        cnr_line = AssetsManager.getTextureRegion(Constants.CNR_LINE_ID).getTexture();
+        backgroung_texture = AssetsManager.getTextureRegion(Constants.BACK_TILE_ID).getTexture();
         backgroung_image = new Image(backgroung_texture);
         backgroung_image.setBounds(0, 0, GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2);
         addActor(backgroung_image);
@@ -71,7 +71,7 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
         sequenceReturn = new SequenceAction();
         this.listenerResume = listenerResume;
         this.gsm = gsm;
-        garageNameTexture =AssetsManager.getTextureRegion(Constants.COIN_SHOP_NAME_ID).getTexture();
+        garageNameTexture = AssetsManager.getTextureRegion(Constants.COIN_SHOP_NAME_ID).getTexture();
         garageNameImage = new Image(garageNameTexture);
         garageNameImage.setBounds(20, GameRuners.HEIGHT / 2 - 40, garageNameTexture.getWidth(), garageNameTexture.getHeight());
 
@@ -104,14 +104,14 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
 
 
     private void setUpBackButton() {
-        backButtonTextureDown =AssetsManager.getTextureRegion(Constants.BACK_BUTTON_PRESSED_ID).getTexture();
+        backButtonTextureDown = AssetsManager.getTextureRegion(Constants.BACK_BUTTON_PRESSED_ID).getTexture();
         backButtonTextureUp = AssetsManager.getTextureRegion(Constants.BACK_BUTTON_ID).getTexture();
 
         backButtonImageDown = new Image(backButtonTextureDown);
         backButtonImageUp = new Image(backButtonTextureUp);
 
 
-        float x = Constants.BACK_BTTN_X_VISIBLE, y = Constants.BACK_BTTN_Y_VISIBLE-35, width = 70, height = 55;
+        float x = Constants.BACK_BTTN_X_VISIBLE, y = Constants.BACK_BTTN_Y_VISIBLE - 35, width = 70, height = 55;
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.down = backButtonImageDown.getDrawable();
         textButtonStyle.up = backButtonImageUp.getDrawable();
@@ -132,7 +132,7 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
                 sequenceReturn.addAction(new Action() {
                     @Override
                     public boolean act(float delta) {
-                        getStage().addActor(new MenuTest(listenerResume, gsm,actionResolver));
+                        getStage().addActor(new MenuTest(listenerResume, gsm, actionResolver));
                         return true;
                     }
                 });
@@ -156,11 +156,11 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
 
         addActor(container);
         ArrayList<CoinShopItem> coinShopItems = new ArrayList<CoinShopItem>();
-        CoinShop coinShop = new CoinShop(1, 0.99f, 500, "Coin pack", 0, Constants.COIN_SHOP_STANDART_ID);
-        CoinShop coinShop2 = new CoinShop(2, 2.99f, 1950, "Medium coins \n       pack", 30, Constants.COIN_SHOP_2_ID);
-        CoinShop coinShop3 = new CoinShop(3, 4.99f, 3750, "Big coins \n    pack", 50, Constants.COIN_SHOP_3_ID);
-        CoinShop coinShop4 = new CoinShop(4, 9.99f, 10000, "Greate coins \n        pack", 100, Constants.COIN_SHOP_4_ID);
-        coinShopItems.add(new CoinShopItem(coinShop, 1, this ));
+        CoinShop coinShop = new CoinShop(1, 0.99f, 500, GameManager.getStrings().get(Constants.CM_COINS_PACK_FIRST_LINE), 0, Constants.COIN_SHOP_STANDART_ID);
+        CoinShop coinShop2 = new CoinShop(2, 2.99f, 1950, GameManager.getStrings().get(Constants.CM_MEDIUM_COINS_PACK_FIRST_LINE) + "\n        " + GameManager.getStrings().get(Constants.CM_MEDIUM_COINS_PACK_SECOND_LINE), 30, Constants.COIN_SHOP_2_ID);
+        CoinShop coinShop3 = new CoinShop(3, 4.99f, 3750, GameManager.getStrings().get(Constants.CM_BIG_COINS_PACK_FIRST_LINE) + "\n        " + GameManager.getStrings().get(Constants.CM_BIG_COINS_PACK_SECOND_LINE), 50, Constants.COIN_SHOP_3_ID);
+        CoinShop coinShop4 = new CoinShop(4, 9.99f, 10000, GameManager.getStrings().get(Constants.CM_GREAT_COINS_PACK_FIRST_LINE)+"\n        "+GameManager.getStrings().get(Constants.CM_GREAT_COINS_PACK_SECOND_LINE), 100, Constants.COIN_SHOP_4_ID);
+        coinShopItems.add(new CoinShopItem(coinShop, 1, this));
         CoinShopAdapter garageAdapter = new CoinShopAdapter(table, coinShopItems);
         table.add(new CoinShopItem(coinShop, 1, this)).row();
         table.add(new CoinShopItem(coinShop2, 1, this)).row();

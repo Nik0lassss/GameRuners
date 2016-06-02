@@ -29,7 +29,7 @@ import com.nicholaschirkevich.game.util.GameManager;
  */
 public class MenuSaveMe extends Group {
 
-    Skin uiSkin = new Skin(Gdx.files.internal("uiskin_digit.json"));
+
     TextButton saveMeButton;
 
     Texture slot_vehicle;
@@ -72,10 +72,10 @@ public class MenuSaveMe extends Group {
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.down = saveMeButtonDownImage.getDrawable();
         textButtonStyle.up = saveMeButtonUpImage.getDrawable();
-        textButtonStyle.font = uiSkin.getFont("default-font");
+        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
 
-        saveMeButton = new TextButton("Save me", textButtonStyle);
+        saveMeButton = new TextButton(GameManager.getStrings().get(Constants.GO_SAVE_LBL), textButtonStyle);
         saveMeButton.addListener(new ClickListener() {
 
                                      @Override

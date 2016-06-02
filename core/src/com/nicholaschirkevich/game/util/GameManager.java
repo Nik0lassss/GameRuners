@@ -19,6 +19,7 @@ import com.nicholaschirkevich.game.model.GearView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -29,12 +30,14 @@ public class GameManager {
 
     private static ArrayList<GearShift> gearShifts = new ArrayList<GearShift>();
     private static ArrayList<CarsType> carsTypes = new ArrayList<CarsType>();
+    private static HashMap<String, String> strings = new HashMap<String, String>();
     private static Car currentCar = new Car();
     public static boolean pauseGame = false;
     private static float contactPointX = 0, contactPointY = 0;
     //private static float boosterSpeed =0;
     private static float lastSpeed = 0;
     private static float achives = 0;
+    private static String locale ="";
 
     private static int dangerousCount = 0;
     private static int rocketCount = 0;
@@ -150,6 +153,15 @@ public class GameManager {
 
     private static float collisionSpeed = 0;
 
+    public static void loadLocale()
+    {
+        locale = java.util.Locale.getDefault().toString();
+    }
+
+    public static String getLocale()
+    {
+        return locale;
+    }
 
     public static void addCar(String id) {
         if (!myCars.contains(id)) {
@@ -160,8 +172,15 @@ public class GameManager {
     }
 
     public static void loadData() {
+        loadLocale();
         gearShifts = XmlHelper.getShifts();
         carsTypes = XmlHelper.getCars();
+        if (locale.equals(Constants.RU_LOCALE)) {
+            strings = XmlHelper.getStringsRus();
+        } else {
+            strings = XmlHelper.getStringsEn();
+        }
+
         preferences = Gdx.app.getPreferences(Constants.PREFERENCES_KEY);
         loadPreferences();
         gearShift = GameManager.getGearShifts().get(GameManager.getCurrentCar().getCurveType() - 1);
@@ -239,6 +258,10 @@ public class GameManager {
 
     public static int getGodModeCount() {
         return godModeCount;
+    }
+
+    public static HashMap<String, String> getStrings() {
+        return strings;
     }
 
     public void resetAchives() {
@@ -326,7 +349,7 @@ public class GameManager {
 
             if (gear + 1 < gearShift.getTimes().size()) {
                 gear++;
-                //stageGameManager.addActor(GearView.getView(gear));
+                stageGameManager.addActor(GearView.getView(gear));
             }
 
             GameManager.setCurrentSpeed(currentSpeed);
@@ -346,15 +369,17 @@ public class GameManager {
     }
 
     public static void setUpLabetDebug() {
-        Skin uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
-        label = new Label("0", uiSkin);
+
+        label = new Label("0", AssetsManager.getUiSkin());
+        label.setFontScale(0.5f,0.5f);
         label.setBounds(GameRuners.WIDTH / 2 - 60, GameRuners.HEIGHT / 2 - 60, label.getWidth(), label.getHeight());
         stageGameManager.addActor(label);
     }
 
     public static void setUpTimeLabetDebug() {
-        Skin uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
-        timeLabel = new Label("0", uiSkin);
+
+        timeLabel = new Label("0",  AssetsManager.getUiSkin());
+        timeLabel.setFontScale(0.5f,0.5f);
         timeLabel.setBounds(GameRuners.WIDTH / 2 - 60, GameRuners.HEIGHT / 2 - 80, label.getWidth(), label.getHeight());
         stageGameManager.addActor(timeLabel);
     }
@@ -369,16 +394,18 @@ public class GameManager {
     }
 
     public static void setUpWorldChildLabetDebug() {
-        Skin uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
-        worldChild = new Label("0", uiSkin);
-        worldChild.setBounds(GameRuners.WIDTH / 2 - 100, GameRuners.HEIGHT / 2 - 100, label.getWidth(), label.getHeight());
+
+        worldChild = new Label("0",  AssetsManager.getUiSkin());
+        worldChild.setFontScale(0.35f,0.35f);
+        worldChild.setBounds(GameRuners.WIDTH / 2 - 110, GameRuners.HEIGHT / 2 - 100, label.getWidth(), label.getHeight());
         stageGameManager.addActor(worldChild);
     }
 
     public static void setUpStageChildLabetDebug() {
-        Skin uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
-        stageChild = new Label("0", uiSkin);
-        stageChild.setBounds(GameRuners.WIDTH / 2 - 100, GameRuners.HEIGHT / 2 - 120, label.getWidth(), label.getHeight());
+
+        stageChild = new Label("0",  AssetsManager.getUiSkin());
+        stageChild.setFontScale(0.35f,0.35f);
+        stageChild.setBounds(GameRuners.WIDTH / 2 - 110, GameRuners.HEIGHT / 2 - 120, label.getWidth(), label.getHeight());
         stageGameManager.addActor(stageChild);
     }
 

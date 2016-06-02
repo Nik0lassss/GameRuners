@@ -310,6 +310,7 @@ public class Constants {
 
     public static final String TITLE_VEHICLES_ID = "title_vehicles";
     public static final String TITLE_VEHICLES_RESOURCE = "title_vehicles.png";
+    public static final String TITLE_VEHICLES_RUS_RESOURCE = "title_vehicles_rus.png";
 
     public static final String DANGER_ID = "danger";
     public static final String DANGER_RESOURCE = "danger.png";
@@ -397,6 +398,7 @@ public class Constants {
 
     public static final String SETTINGS_ID = "settings";
     public static final String SETTINGS_RESOURCE = "settings.png";
+    public static final String SETTINGS_RESOURCE_RU = "settings_rus.png";
 
     public static final String BTTN_BLUE_PRESSED_ID = "bttn_blue_prssd";
     public static final String BTTN_BLUE_PRESSED_RESOURCE = "bttn_blue_prssd.png";
@@ -425,6 +427,7 @@ public class Constants {
 
     public static final String COIN_SHOP_NAME_ID = "coins";
     public static final String COIN_SHOP_NAME_RESOURCE = "coins.png";
+    public static final String COIN_SHOP_NAME_RUS_RESOURCE = "coins_rus.png";
 
     public static final String COIN_SHOP_STANDART_ID = "coins_1";
     public static final String COIN_SHOP_STANDART_RESOURCE = "coins_1.png";
@@ -540,7 +543,7 @@ public class Constants {
     public static final float PRIZE_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 5f;
 
     public static final float VK_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
-    public static final float VK_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 5f+90;
+    public static final float VK_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 5f + 90;
 
 
     public static final float LOGO_POSITION_X = GameRuners.WIDTH / 28;
@@ -641,14 +644,55 @@ public class Constants {
     public static final float SAVE_ME_BONUS_Y = GameRuners.HEIGHT / 5.3f;
 
     public static final String GEAR_SHIFT_FILE_PATH = "gear_shift.xml";
+    public static final String STRINGS_FILE_PATH = "localization.xml";
     public static final String GEAR_SHIFT_FILE_SPEED_KEY = "speeds";
     public static final String GEAR_SHIFT_FILE_CAR_GEARS = "car_gears";
+    public static final String STRINGS_KEY = "strings";
     public static final String GEAR_SHIFT_FILE_TIME_KEY = "times";
     public static final String GEAR_SHIFT_FILE_SPEED_VALUE_KEY = "speed";
     public static final String GEAR_SHIFT_FILE_TIME_VALUE_KEY = "time";
 
     public static float passerCarDistance = 200;
     public static float coinDistance = 20;
+
+
+    public static final String RU_LOCALE="ru_RU";
+    public static final String EN_LOCALE="en_EN";
+
+    public static final String Localization_RU = "ru";
+    public static final String Localization_EN = "en";
+    public static final String Localization_ID = "id";
+
+    public static final String GO_PLAY_WITH_FRIEND_2_BTN = "go_play_with_friend_2_btn";
+    public static final String MP_PLAY_BTN = "mp_play_btn";
+    public static final String SETTINGS_SOUND_ON_LBL = "settings_sound_on_lbl";
+    public static final String SETTINGS_SOUND_OFF_LBL = "settings_sound_off_lbl";
+    public static final String SETTINGS_TAP_CONTROLL_FIRST_ROW_LBL = "settings_tap_controll_first_row_lbl";
+    public static final String SETTINGS_TAP_CONTROLL_SECOND_ROW_LBL = "settings_tap_controll_second_row_lbl";
+    public static final String SETTINGS_BLOCK_LBL    = "settings_block_lbl";
+    public static final String SETTINGS_ADS_LBL    = "settings_ads_lbl";
+    public static final String SETTINGS_PURCHASE_LBL  = "settings_purchase_lbl";
+    public static final String MS_SIGN_IN_LBL = "ms_sign_in_lbl";
+    public static final String MS_VK_LBL = "ms_vk_lbl";
+    public static final String MS_F_LBL = "ms_f_lbl";
+    public static final String CM_COINS_PACK_FIRST_LINE = "cm_coins_pack_first_line";
+    public static final String CM_MEDIUM_COINS_PACK_FIRST_LINE = "cm_medium_coins_pack_first_line";
+    public static final String CM_BIG_COINS_PACK_FIRST_LINE = "cm_big_coins_pack_first_line";
+    public static final String CM_GREAT_COINS_PACK_FIRST_LINE = "cm_great_coins_pack_first_line";
+    public static final String CM_MEDIUM_COINS_PACK_SECOND_LINE = "cm_medium_coins_pack_second_line";
+    public static final String CM_BIG_COINS_PACK_SECOND_LINE = "cm_big_coins_pack_second_line";
+    public static final String CM_GREAT_COINS_PACK_SECOND_LINE = "cm_great_coins_pack_second_line";
+    public static final String SC_SPEED_LBL  = "sc_speed_lbl";
+    public static final String SC_WEIGHT_LBL   = "sc_weight_lbl";
+    public static final String GO_SAVE_LBL = "go_save_lbl";
+    public static final String GO_TOTAL_TEXT = "go_total_text";
+    public static final String GAME_DANGEROUS_LBL = "game_dangerous_lbl";
+    public static final String GO_ROCKET_LBL  = "go_rocket_lbl";
+    public static final String GO_DESTROYED_LBL  = "go_destroyed_lbl";
+    public static final String GO_SPRING_BOARD_LBL  = "go_spring_board_lbl";
+    public static final String GO_GOD_MOD_LBL  = "go_god_mod_lbl";
+
+
 
 
     public static final String CARS_TYPE_FILE_PATH = "cars.xml";

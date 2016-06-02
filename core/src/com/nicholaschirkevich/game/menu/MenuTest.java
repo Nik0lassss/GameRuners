@@ -5,7 +5,11 @@ package com.nicholaschirkevich.game.menu;
  */
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -26,6 +30,7 @@ import com.nicholaschirkevich.game.states.CoinShopState;
 import com.nicholaschirkevich.game.states.GameStateManager;
 import com.nicholaschirkevich.game.util.AssetsManager;
 import com.nicholaschirkevich.game.util.Constants;
+import com.nicholaschirkevich.game.util.GameManager;
 
 /**
  * Created by Nikolas on 10.03.2016.
@@ -43,7 +48,7 @@ public class MenuTest extends Group {
     GameStateManager gsm;
     Group groupView;
     private ActionResolver actionResolver;
-
+    BitmapFont font = new BitmapFont(Gdx.files.internal("SRFont.fnt"), Gdx.files.internal("SRFont.png"), false);
 
     public MenuTest(ResumeButtonListener listener, GameStateManager gsm, ActionResolver actionResolver) {
 
@@ -137,8 +142,9 @@ public class MenuTest extends Group {
 
     private void setUpBackgroung(boolean selected) {
         if (selected) {
-            slot_vehicle =AssetsManager.getTextureRegion(Constants.SLOT_VEHICLE_SELECTED_ID).getTexture();
-        } else slot_vehicle = AssetsManager.getTextureRegion(Constants.SLOT_VEHICLE_ID).getTexture();
+            slot_vehicle = AssetsManager.getTextureRegion(Constants.SLOT_VEHICLE_SELECTED_ID).getTexture();
+        } else
+            slot_vehicle = AssetsManager.getTextureRegion(Constants.SLOT_VEHICLE_ID).getTexture();
         background = new Image(slot_vehicle);
         background.setBounds(0, -20, GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2 + 50);
         addActor(background);
@@ -166,6 +172,7 @@ public class MenuTest extends Group {
         textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
         prizeButton = new TextButton("Sing in", textButtonStyle);
+
         prizeButton.getLabel().setFontScale(0.4f, 0.4f);
         prizeButton.getLabelCell().padLeft(5f);
 
@@ -183,11 +190,32 @@ public class MenuTest extends Group {
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.down = playOnlineDownImage.getDrawable();
         textButtonStyle.up = playOnlineUpImage.getDrawable();
-        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
+//        String RUSSIAN_FONT_NAME = "fonts/SpeedyRoadStr.ttf";
+//        String RUSSIAN_CHARACTERS = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
+//                + "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
+//                + "1234567890.,:;_¡!¿?\"'+-*/()[]={}";
+//
+//        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+//        parameter.characters = RUSSIAN_CHARACTERS;
+//        parameter.size = 24;
+//
+//        // Generate font
+//        FreeTypeFontGenerator generator = new FreeTypeFontGenerator( Gdx.files.internal(RUSSIAN_FONT_NAME) );
+//        BitmapFont font = generator.generateFont(parameter);
+//        // Dispose resources
+//        generator.dispose();
+        //BitmapFont bitmapFont =AssetsManager.getUiSkin().getFont("default-font");
 
-        playOnline = new TextButton("Play \n online", textButtonStyle);
-        playOnline.getLabel().setFontScale(0.4f, 0.4f);
-        playOnline.getLabelCell().padLeft(30f);
+        //BitmapFont font = new BitmapFont (Gdx.files.internal ("SRFont.fnt"), Gdx.files.internal ("SRFont.png"), false);
+        textButtonStyle.font = textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
+        ;
+
+        String playOnlineText =  GameManager.getStrings().get(Constants.GO_PLAY_WITH_FRIEND_2_BTN);
+        //playOnline = new TextButton( GameManager.getStrings().get(Constants.GO_PLAY_WITH_FRIEND_2_BTN), textButtonStyle);
+        playOnline = new TextButton( playOnlineText, textButtonStyle);
+        playOnline.getLabel().setFontScale(0.5f, 0.4f);
+        playOnline.getLabel().setColor(Color.WHITE);
+        playOnline.getLabelCell().padLeft(35f);
 
 
         playOnline.setBounds(x - resumeButtonUpImage.getWidth() / 2, y - resumeButtonUpImage.getHeight() / 2, resumeButtonUpImage.getWidth(), resumeButtonUpImage.getHeight());
@@ -211,7 +239,7 @@ public class MenuTest extends Group {
                                     sequenceCarShop.addAction(new Action() {
                                         @Override
                                         public boolean act(float delta) {
-                                            gsm.push(new CarShopState(gsm,actionResolver));
+                                            gsm.push(new CarShopState(gsm, actionResolver));
                                             return true;
                                         }
                                     });
@@ -235,12 +263,12 @@ public class MenuTest extends Group {
         coinShop.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-               // sequenceCoinShop.addAction(Actions.delay(0.1f));
+                // sequenceCoinShop.addAction(Actions.delay(0.1f));
                 sequenceCoinShop.addAction(new Action() {
                     @Override
                     public boolean act(float delta) {
 
-                        getStage().addActor(new CoinShopState(listener, gsm,actionResolver));
+                        getStage().addActor(new CoinShopState(listener, gsm, actionResolver));
                         return true;
                     }
                 });
@@ -268,7 +296,7 @@ public class MenuTest extends Group {
                 sequenceSetting.addAction(new Action() {
                     @Override
                     public boolean act(float delta) {
-                        getStage().addActor(new MenuSetting(listener, gsm,actionResolver));
+                        getStage().addActor(new MenuSetting(listener, gsm, actionResolver));
                         return true;
                     }
                 });
@@ -310,9 +338,9 @@ public class MenuTest extends Group {
         textButtonStyle.up = resumeButtonUpImage.getDrawable();
         textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
-        resumeButton = new TextButton("Play", textButtonStyle);
-        resumeButton.getLabel().setFontScale(0.6f, 0.6f);
-        resumeButton.getLabelCell().padLeft(25f);
+        resumeButton = new TextButton(GameManager.getStrings().get(Constants.MP_PLAY_BTN), textButtonStyle);
+        resumeButton.getLabel().setFontScale(0.55f, 0.55f);
+        resumeButton.getLabelCell().padLeft(35f);
 
 
         resumeButton.setBounds(x - resumeButtonUpImage.getWidth() / 2, y - resumeButtonUpImage.getHeight() / 2, resumeButtonUpImage.getWidth(), resumeButtonUpImage.getHeight());

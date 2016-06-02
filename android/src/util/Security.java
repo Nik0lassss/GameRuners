@@ -18,6 +18,8 @@ package util;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.nicholaschirkevich.game.BuildConfig;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -55,10 +57,15 @@ public class Security {
      * @param signedData the signed JSON string (signed, not encrypted)
      * @param signature the signature for the data, signed with the private key
      */
-    public static boolean verifyPurchase(String base64PublicKey, String signedData, String signature) {
-        if (TextUtils.isEmpty(signedData) || TextUtils.isEmpty(base64PublicKey) ||
+    public static boolean verifyPurchase(String base64PublicKey,
+                                         String signedData, String signature) {
+        if (TextUtils.isEmpty(signedData) ||
+                TextUtils.isEmpty(base64PublicKey) ||
                 TextUtils.isEmpty(signature)) {
             Log.e(TAG, "Purchase verification failed: missing data.");
+            if (BuildConfig.DEBUG) {
+                return true;
+            }
             return false;
         }
 

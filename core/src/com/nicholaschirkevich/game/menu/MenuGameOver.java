@@ -4,6 +4,7 @@ package com.nicholaschirkevich.game.menu;
  * Created by Nikolas on 20.04.2016.
  */
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -69,13 +70,13 @@ public class MenuGameOver extends Group {
         bestAchiveCount = new Label("", AssetsManager.getUiSkin());
         distance_label = new Label("", AssetsManager.getUiSkin());
         boosters_label = new Label("", AssetsManager.getUiSkin());
-        total_label = new Label("Total:", AssetsManager.getUiSkin());
+        total_label = new Label(GameManager.getStrings().get(Constants.GO_TOTAL_TEXT), AssetsManager.getUiSkin());
         total_count_label = new Label(String.valueOf((int) GameManager.getAchives()), AssetsManager.getUiSkin());
-        dangerous_label = new Label("Dangerous", AssetsManager.getUiSkin());
-        rocket_label = new Label("Rocket", AssetsManager.getUiSkin());
-        destroyed_label = new Label("Destroyed", AssetsManager.getUiSkin());
-        spring_board_label = new Label("Spring Board", AssetsManager.getUiSkin());
-        god_mode_label = new Label("God Mod", AssetsManager.getUiSkin());
+        dangerous_label = new Label(GameManager.getStrings().get(Constants.GAME_DANGEROUS_LBL), AssetsManager.getUiSkin());
+        rocket_label = new Label(GameManager.getStrings().get(Constants.GO_ROCKET_LBL), AssetsManager.getUiSkin());
+        destroyed_label = new Label(GameManager.getStrings().get(Constants.GO_DESTROYED_LBL), AssetsManager.getUiSkin());
+        spring_board_label = new Label(GameManager.getStrings().get(Constants.GO_SPRING_BOARD_LBL), AssetsManager.getUiSkin());
+        god_mode_label = new Label(GameManager.getStrings().get(Constants.GO_GOD_MOD_LBL), AssetsManager.getUiSkin());
         //car_texture = new  Texture("other_car_2_1.png");
         this.groupView = this;
 

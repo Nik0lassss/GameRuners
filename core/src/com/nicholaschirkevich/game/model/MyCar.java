@@ -124,9 +124,14 @@ public class MyCar extends com.nicholaschirkevich.game.model.side_objects.Car {
     public void update(float dt) {
         MyCarDataType myCarDataType = (MyCarDataType) body.getUserData();
 
-        if (getX()<Constants.getCarPostitionXLeft(carAnimation.getKeyFrames()[0].getRegionWidth()+30)+10 || getX()> Constants.getCarPostitionXRight(carAnimation.getKeyFrames()[0].getRegionWidth() -30)-10) isTurnRun = false;
-        if (isTurnRun() == true) System.out.println("IsTurn " + isTurnRun());
+//        if(getActions().size==1)
+//            isTurnRun=false;
+        if (getX() < Constants.getCarPostitionXLeft(carAnimation.getKeyFrames()[0].getRegionWidth() + 30) + 10 || getX() > Constants.getCarPostitionXRight(carAnimation.getKeyFrames()[0].getRegionWidth() - 30) - 10)
+            isTurnRun = false;
+//        if (isTurnRun() == true) System.out.println("IsTurn " + isTurnRun());
 
+//        if (getX() < 270) setIsLeft(true);
+//        else setIsLeft(false);
         bounds.setPosition(getX(), getY());
         body.setTransform(getX(), getY(), getRotation());
 
@@ -138,7 +143,7 @@ public class MyCar extends com.nicholaschirkevich.game.model.side_objects.Car {
 
         }
         if (isPlayAnimation)
-            stateTime += dt;
+            stateTime += dt ;
 
 
     }
@@ -166,13 +171,11 @@ public class MyCar extends com.nicholaschirkevich.game.model.side_objects.Car {
         addAction(moveToStartLineAction);
     }
 
-    public void setLeft()
-    {
+    public void setLeft() {
         setX(Constants.getCarPostitionXLeft(carAnimation.getKeyFrames()[0].getRegionWidth()));
     }
 
-    public void setRight()
-    {
+    public void setRight() {
         setX(Constants.getCarPostitionXRight(carAnimation.getKeyFrames()[0].getRegionWidth()));
     }
 
@@ -210,12 +213,11 @@ public class MyCar extends com.nicholaschirkevich.game.model.side_objects.Car {
             if (isLeft) {
                 setUpMoveToRightAction();
                 addAction(sequenceAction);
-
                 isLeft = false;
             } else {
                 setUpMoveToLeftAction();
                 addAction(sequenceAction);
-                isLeft = true;
+                 isLeft = true;
             }
 
             bounds.setPosition(getX(), getY());

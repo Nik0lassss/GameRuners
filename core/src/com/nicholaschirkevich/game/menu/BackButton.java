@@ -17,13 +17,17 @@
 package com.nicholaschirkevich.game.menu;
 
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.states.GameState;
 import com.nicholaschirkevich.game.states.GameStateManager;
 import com.nicholaschirkevich.game.util.Constants;
+import com.nicholaschirkevich.game.util.GameManager;
 
 public class BackButton extends BackButtonBasic {
     private float x, y, width, height;
     private GameStateManager gsm;
+
+    private ActionResolver actionResolver;
     public interface ResumeButtonListener {
         public void onPause();
 
@@ -32,8 +36,9 @@ public class BackButton extends BackButtonBasic {
 
     private ResumeButtonListener listener;
 
-    public BackButton(float x, float y, float width, float height, GameStateManager gsm) {
+    public BackButton(float x, float y, float width, float height, GameStateManager gsm, ActionResolver actionResolver) {
         super(x, y, width, height);
+        this.actionResolver = actionResolver;
         this.x = x;
         this.y = y;
         this.width = width;
@@ -76,7 +81,7 @@ public class BackButton extends BackButtonBasic {
     public void touched() {
         System.out.println("Touched");
         gsm.pop();
-        //gsm.push(new GameState(gsm,false,false));
+        gsm.push(new GameState(gsm,false,false,actionResolver));
 //        if (GameManager.getInstance().getGameState() == GameState.PAUSED) {
 //            listener.resumeButtonOnResume();
 //        } else {

@@ -26,6 +26,16 @@ public class DesktopLauncher {
 			public boolean isIntertitalLoad() {
 				return false;
 			}
+
+			@Override
+			public void showVkLoginActivity() {
+
+			}
+
+			@Override
+			public void sendPostOnVk() {
+
+			}
 		}), config);
 	}
 }

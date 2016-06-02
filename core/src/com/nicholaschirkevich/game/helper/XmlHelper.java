@@ -21,6 +21,7 @@ import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -48,6 +49,32 @@ public class XmlHelper {
             gearShifts.add(gearShift);
         }
         return gearShifts;
+    }
+
+    public static HashMap<String, String> getStringsRus() {
+        HashMap<String, String> strings = new HashMap<String, String>();
+        XmlReader.Element root = getRoot(Constants.STRINGS_FILE_PATH);
+        //XmlReader.Element stringElement = root.getChildByName(Constants.STRINGS_KEY);
+        for (int i = 0; i < root.getChildCount(); i++) {
+            XmlReader.Element element = root.getChild(i);
+           XmlReader.Element child = element.getChildByName(Constants.Localization_ID);
+           XmlReader.Element valueRu = element.getChildByName(Constants.Localization_RU);
+            strings.put(child.getText(), valueRu.toString().replace("<ru>\n\t","  ").replace("\n</ru>","").replace("\\n","\n"));
+        }
+        return strings;
+    }
+
+    public static HashMap<String, String> getStringsEn() {
+        HashMap<String, String> strings = new HashMap<String, String>();
+        XmlReader.Element root = getRoot(Constants.STRINGS_FILE_PATH);
+        //XmlReader.Element stringElement = root.getChildByName(Constants.STRINGS_KEY);
+        for (int i = 0; i < root.getChildCount(); i++) {
+            XmlReader.Element element = root.getChild(i);
+            XmlReader.Element child = element.getChildByName(Constants.Localization_ID);
+            XmlReader.Element valueEn = element.getChildByName(Constants.Localization_EN);
+            strings.put(child.getText(),valueEn.toString().replace("<en>\n\t","  ").replace("\n</en>","").replace("\\n","\n"));
+        }
+        return strings;
     }
 
     private static XmlReader.Element getRoot(String fileName) {
