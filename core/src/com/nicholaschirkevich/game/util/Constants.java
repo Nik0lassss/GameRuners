@@ -691,6 +691,18 @@ public class Constants {
     public static final String GO_DESTROYED_LBL  = "go_destroyed_lbl";
     public static final String GO_SPRING_BOARD_LBL  = "go_spring_board_lbl";
     public static final String GO_GOD_MOD_LBL  = "go_god_mod_lbl";
+    public static final String GAME_GEAR_1_LBL = "game_gear_1_lbl";
+    public static final String GAME_GEAR_2_LBL = "game_gear_2_lbl";
+    public static final String GAME_GEAR_3_LBL = "game_gear_3_lbl";
+    public static final String GAME_GEAR_4_LBL = "game_gear_4_lbl";
+    public static final String GAME_GEAR_5_LBL = "game_gear_5_lbl";
+    public static final String GAME_GEAR_6_LBL = "game_gear_6_lbl";
+    public static final String GAME_СOEFFICIENT_1_LBL  = "game_сoefficient_1_lbl";
+    public static final String GAME_СOEFFICIENT_2_LBL  = "game_сoefficient_2_lbl";
+    public static final String GAME_СOEFFICIENT_3_LBL  = "game_сoefficient_3_lbl";
+    public static final String GAME_СOEFFICIENT_4_LBL  = "game_сoefficient_4_lbl";
+    public static final String GAME_СOEFFICIENT_5_LBL  = "game_сoefficient_5_lbl";
+    public static final String GAME_СOEFFICIENT_6_LBL  = "game_сoefficient_6_lbl";
 
 
 

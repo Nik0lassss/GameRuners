@@ -60,8 +60,9 @@ public class MenuSaveMe extends Group {
         saveMeSequence = new SequenceAction();
         resumeButtonListener = listener;
         setUpBackgroung(false);
-        setUpSaveMeButton();
         setUpSaveMeBar();
+        setUpSaveMeButton();
+
 
         this.gsm = gsm;
         setBounds(0, 0, GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2);
@@ -76,6 +77,7 @@ public class MenuSaveMe extends Group {
 
 
         saveMeButton = new TextButton(GameManager.getStrings().get(Constants.GO_SAVE_LBL), textButtonStyle);
+        saveMeButton.setWidth(saveMeBarImageBorder.getWidth());
         saveMeButton.addListener(new ClickListener() {
 
                                      @Override

@@ -460,7 +460,7 @@
     <string><id>leaderboard_login_facebook_text</id><type>	text	</type><en>Sign in Facebook</en><ru>	Войти в Facebook</ru> </string>
     <string><id>leaderboard_invite_text</id><type>	text</type><en>	Invite friends</en><ru>	Пригласить друга</ru> </string>
     <string><id>go_play_with_friend_btn	</id><type>text</type><en>	Play with friends</en><ru>	Играть с друзьями</ru> </string>
-    <string><id>go_play_with_friend_2_btn</id><type>	text</type><en>	Play online</en><ru>	Играть \n онлайн</ru> </string>
+    <string><id>go_play_with_friend_2_btn</id><type>	text</type><en>	Play \n online</en><ru>	Играть \n онлайн</ru> </string>
     <string><id>go_play_with_friend_3_btn</id><type>	text</type><en>	Challenge mode</en><ru>	Бросить вызов</ru> </string>
     <string><id> ms_sign_in_lbl</id><type>	text</type><en>	Sing in</en><ru>	Войти</ru> </string>
     <string><id>ms_vk_lbl	</id><type>text</type><en>	VK</en><ru>	VK</ru> </string>

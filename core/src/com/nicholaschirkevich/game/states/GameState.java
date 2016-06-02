@@ -24,6 +24,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.nicholaschirkevich.game.GameRuners;
+import com.nicholaschirkevich.game.action.ViewActionAlfa;
 import com.nicholaschirkevich.game.actions.Landing;
 import com.nicholaschirkevich.game.actions.Prize;
 import com.nicholaschirkevich.game.admob.ActionResolver;
@@ -132,21 +133,21 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     SequenceAction sequenceFlyeBonus = new SequenceAction();
 
     Label label = new Label("Dengerous", AssetsManager.getUiSkin());
-    Label labelDangerousCount = new Label("+50",  AssetsManager.getUiSkin());
-    Label labelCountCar = new Label("",  AssetsManager.getUiSkin());
-    Label labelCars = new Label("",  AssetsManager.getUiSkin());
+    Label labelDangerousCount = new Label("+50", AssetsManager.getUiSkin());
+    Label labelCountCar = new Label("", AssetsManager.getUiSkin());
+    Label labelCars = new Label("", AssetsManager.getUiSkin());
 
-    Label labelFlyText = new Label("",  AssetsManager.getUiSkin());
-    Label labelFlyCount = new Label("",  AssetsManager.getUiSkin());
-    Label labelFlyBonus = new Label("",  AssetsManager.getUiSkin());
+    Label labelFlyText = new Label("", AssetsManager.getUiSkin());
+    Label labelFlyCount = new Label("", AssetsManager.getUiSkin());
+    Label labelFlyBonus = new Label("", AssetsManager.getUiSkin());
 
-    Label boosterBonus = new Label("",  AssetsManager.getUiSkin());
-    Label labelBonusText = new Label("",  AssetsManager.getUiSkin());
-    Label ladleBonus = new Label("",  AssetsManager.getUiSkin());
+    Label boosterBonus = new Label("", AssetsManager.getUiSkin());
+    Label labelBonusText = new Label("", AssetsManager.getUiSkin());
+    Label ladleBonus = new Label("", AssetsManager.getUiSkin());
 
-    Label skullBonus = new Label("",  AssetsManager.getUiSkin());
-    Label skullBonusText = new Label("",  AssetsManager.getUiSkin());
-    Label skullBonusCountCar = new Label("",  AssetsManager.getUiSkin());
+    Label skullBonus = new Label("", AssetsManager.getUiSkin());
+    Label skullBonusText = new Label("", AssetsManager.getUiSkin());
+    Label skullBonusCountCar = new Label("", AssetsManager.getUiSkin());
     private float skullAchives = 0;
     private float skullCarCount = 0;
     private float timeToCoin = 0;
@@ -251,9 +252,9 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         ladles = new ArrayList<Ladle>();
         boosters = new ArrayList<Booster>();
         springboards = new ArrayList<Springboard>();
-        menuSaveMe =new MenuSaveMe(this, gsm,actionResolver);
+        menuSaveMe = new MenuSaveMe(this, gsm, actionResolver);
 
-        afterPauseLabel = new Label("",  AssetsManager.getUiSkin());
+        afterPauseLabel = new Label("", AssetsManager.getUiSkin());
 
         afterPauseLabel.setBounds(GameRuners.WIDTH / 4 - (afterPauseLabel.getPrefWidth() + 10), GameRuners.HEIGHT / 4 - (afterPauseLabel.getPrefHeight() / 2), afterPauseLabel.getPrefWidth(), afterPauseLabel.getPrefHeight());
         stage.addActor(afterPauseLabel);
@@ -273,7 +274,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
 
         if (isFromGarage) startFromGarage();
-        else stage.addActor(new MenuTest(this, gsm,actionResolver));
+        else stage.addActor(new MenuTest(this, gsm, actionResolver));
         textureCollisisonPoint = AssetsManager.getTextureRegion(Constants.CONTACT_POINT_ID).getTexture();
     }
 
@@ -349,7 +350,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 //        pf = new ParticleEffect();
 //
 //        pf.load(Gdx.files.internal("booster_particle"), Gdx.files.internal(""));
-        pf= AssetsManager.getParticleEffect();
+        pf = AssetsManager.getParticleEffect();
         pf.getEmitters().first().setPosition(boostOnCarLeft.get(0).body.getPosition().x + pf.getBoundingBox().getWidth(), boostOnCarLeft.get(0).body.getPosition().y);
         pf.start();
 
@@ -399,7 +400,6 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     }
 
 
-
     public void setUpBushs() {
         for (int i = (int) camera.viewportHeight + (int) camera.position.y; i > 0; i -= 170) {
             bushsArrayLeft.add(new Bushs(world, 90, i, 10, false, Constants.ROAD_1_BUSH_1_STATIC_ASSETS_ID));
@@ -409,8 +409,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     }
 
 
-    public void onAdClose()
-    {
+    public void onAdClose() {
         menuSaveMe.onAdCLose();
     }
 
@@ -632,7 +631,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     }
 
     public void setUpAchivesCountLabel() {
-        Skin uiSkin =AssetsManager.getUiSkin();
+        Skin uiSkin = AssetsManager.getUiSkin();
         labelAchives = new Label("", uiSkin);
         labelAchives.setFontScale(0.60f, 0.60f);
         labelAchives.setBounds(GameRuners.WIDTH / 2 - 160 - labelAchives.getPrefWidth() / 2, GameRuners.HEIGHT / 2 - 30, labelCoinCount.getWidth(), labelCoinCount.getHeight());
@@ -700,7 +699,6 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         if (!isGamePause()) {
             GameManager.updateGear(dt);
             achives = achives + ((GameManager.getCurrentSpeed() * dt) / 35);
-
 
 
             dangerousEvolution(passerCars, myCar);
@@ -1232,12 +1230,9 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                 GameManager.pauseGame = true;
                 // stage.addActor(new MenuGameOver(this, gsm));
                 //stage.addActor(new MenuSaveMe(this, gsm,actionResolver));
-                if(actionResolver !=null && actionResolver.isAvailibleInternet() && actionResolver.isIntertitalLoad())
-                {
+                if (actionResolver != null && actionResolver.isAvailibleInternet() && actionResolver.isIntertitalLoad()) {
                     stage.addActor(menuSaveMe);
-                }
-                else
-                {
+                } else {
                     stage.addActor(new MenuGameOver(gsm, actionResolver));
 
                 }
@@ -1257,9 +1252,9 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
             if (timer > 1) {
                 GameManager.pauseGame = true;
 //                stage.addActor(new MenuSaveMe(this, gsm,actionResolver));
-                if(actionResolver.isAvailibleInternet() && actionResolver.isIntertitalLoad()) stage.addActor(menuSaveMe);
-                else
-                {
+                if (actionResolver.isAvailibleInternet() && actionResolver.isIntertitalLoad())
+                    stage.addActor(menuSaveMe);
+                else {
                     stage.addActor(new MenuGameOver(gsm, actionResolver));
 
                 }
@@ -1328,52 +1323,53 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
     private void dangerousEvolution(ArrayList<PasserCar> passerCars, MyCar myCar) {
         for (PasserCar passerCar : passerCars) {
-            System.out.println("myCar.isLeft() "+myCar.isLeft()+" myCar.getX() "+myCar.getX());
+//            System.out.println("myCar.isLeft() "+myCar.isLeft()+" myCar.getX() "+myCar.getX());
             if (!((PasserCarDataType) passerCar.body.getUserData()).isDangerEvolution())
-                if ( !isAutoTurn && !isZoomCarUpdate && !isUpdateGodeMode && passerCar.getIsLeft() == !myCar.isLeft() && myCar.isTurnRun() && passerCar.getY() - myCar.getY() < 100 && passerCar.getY() - myCar.getY() >0) {
-                 if((myCar.isLeft() && myCar.getX()<95) || (!myCar.isLeft() && myCar.getX()>180)) {
-                      achives += 50;
-                      sequenceAction.addAction(Actions.delay(0.5f));
-                      sequenceAction.addAction(new Action() {
-                          @Override
-                          public boolean act(float delta) {
-                              label.setText("");
-                              labelDangerousCount.setText("");
-                              return true;
-                          }
-                      });
-                      GameManager.addDangerousCount();
-                      label.addAction(sequenceAction);
-                      label.setColor(Color.ORANGE);
-                      label.setFontScale(0.65f, 0.65f);
-                      label.setText("Dangerous");
+                if (!isAutoTurn && !isZoomCarUpdate && !isUpdateGodeMode && passerCar.getIsLeft() == !myCar.isLeft() && myCar.isTurnRun() && passerCar.getY() - myCar.getY() < 100 && passerCar.getY() - myCar.getY() > 0) {
+                    if ((myCar.isLeft() && myCar.getX() < 95) || (!myCar.isLeft() && myCar.getX() > 180)) {
+                        achives += 50;
+                        sequenceAction.addAction(Actions.delay(0.5f));
+                        sequenceAction.addAction(new ViewActionAlfa(label));
+                        sequenceAction.addAction(new Action() {
+                            @Override
+                            public boolean act(float delta) {
+                                label.setText("");
+                                labelDangerousCount.setText("");
+                                return true;
+                            }
+                        });
+                        GameManager.addDangerousCount();
+                        label.addAction(sequenceAction);
+                        label.setColor(Color.ORANGE);
+                        label.setFontScale(0.65f, 0.65f);
+                        label.setText("Dangerous");
 
 
-                      labelDangerousCount.setFontScale(0.65f, 0.65f);
-                      labelDangerousCount.setText("+50");
+                        labelDangerousCount.setFontScale(0.65f, 0.65f);
+                        labelDangerousCount.setText("+50");
 //                    label = new Label("Dangerous +50", uiSkin);
 
 
-                      labelCountCar.setText("");
-                      labelCars.setText("");
-                      labelFlyText.setText("");
-                      labelFlyCount.setText("");
-                      labelFlyBonus.setText("");
-                      boosterBonus.setText("");
-                      labelBonusText.setText("");
-                      ladleBonus.setText("");
-                      skullBonus.setText("");
-                      skullBonusText.setText("");
-                      skullBonusCountCar.setText("");
-                      //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
-                      label.setPosition(GameRuners.WIDTH / 4 - 70, GameRuners.HEIGHT / 4 + 200);
-                      labelDangerousCount.setPosition(GameRuners.WIDTH / 4 - 30, GameRuners.HEIGHT / 4 + 160);
-                      stage.addActor(label);
-                      stage.addActor(labelDangerousCount);
+                        labelCountCar.setText("");
+                        labelCars.setText("");
+                        labelFlyText.setText("");
+                        labelFlyCount.setText("");
+                        labelFlyBonus.setText("");
+                        boosterBonus.setText("");
+                        labelBonusText.setText("");
+                        ladleBonus.setText("");
+                        skullBonus.setText("");
+                        skullBonusText.setText("");
+                        skullBonusCountCar.setText("");
+                        //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
+                        label.setPosition(GameRuners.WIDTH / 4 - 70, GameRuners.HEIGHT / 4 + 200);
+                        labelDangerousCount.setPosition(GameRuners.WIDTH / 4 - 30, GameRuners.HEIGHT / 4 + 160);
+                        stage.addActor(label);
+                        stage.addActor(labelDangerousCount);
 
-                      //stage.addActor(new TurnBonusView(new Rectangle(GameRuners.WIDTH/4-(40/2), GameRuners.HEIGHT/4-(50/2), 40, 50), Constants.GEAR_1_ID));
-                      ((PasserCarDataType) passerCar.body.getUserData()).setIsDangerEvolution(true);
-                 }
+                        //stage.addActor(new TurnBonusView(new Rectangle(GameRuners.WIDTH/4-(40/2), GameRuners.HEIGHT/4-(50/2), 40, 50), Constants.GEAR_1_ID));
+                        ((PasserCarDataType) passerCar.body.getUserData()).setIsDangerEvolution(true);
+                    }
                 }
         }
     }
@@ -1407,7 +1403,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         pauseButtonImageUp = new Image(pauseButtonTextureUp);
         textButtonStyle.down = pauseButtonImageDown.getDrawable();
         textButtonStyle.up = pauseButtonImageUp.getDrawable();
-        textButtonStyle.font =  AssetsManager.getUiSkin().getFont("default-font");
+        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
 
         pauseTextButton = new TextButton("", textButtonStyle);
@@ -1418,7 +1414,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                 pauseGame();
                 isAfterPause = true;
 
-                stage.addActor(new MenuPause(gameState, gsm,actionResolver));
+                stage.addActor(new MenuPause(gameState, gsm, actionResolver));
                 hidePauseButton();
 
                 return true;
@@ -1723,7 +1719,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         pauseGame();
         isAfterPause = true;
         //pauseButton.hide();
-        stage.addActor(new MenuPause(gameState, gsm,actionResolver));
+        stage.addActor(new MenuPause(gameState, gsm, actionResolver));
         //resumeButton.show();
         //garageButton.show();
     }
