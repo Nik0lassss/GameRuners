@@ -8,6 +8,10 @@ public interface ActionResolver {
     boolean isAvailibleInternet();
     boolean isIntertitalLoad();
     void showVkLoginActivity();
+    void getVkStatusLogin();
+    void vkLogout();
     void sendPostOnVk();
+    boolean isVkLogin();
+    void showInviteBox();
 
 }

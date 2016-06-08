@@ -57,26 +57,44 @@ public class TrafficLight {
     public void update(float dt)
     {
         time+=dt;
+        if(time>0.8 && currentState ==1)
+        {
+            AssetsManager.playSound(Constants.SOUND_START1);
+        } else if(time>1.3 && currentState==2)
+        {
+            AssetsManager.playSound(Constants.SOUND_START1);
+        }else if(time>1.8 && currentState ==3)
+        {
+            AssetsManager.playSound(Constants.SOUND_START1);
+        }else if(time>2.4)
+        {
+            AssetsManager.playSound(Constants.SOUND_START_2);
+        }
+
        if(time>0.5 && currentState ==0)
        {
            texture = textureRed;
            currentState++;
+
            return;
        }
          else if(time>1 && currentState ==1)
        {
            texture = textureGreen1;
            currentState++;
+
            return;
        } else if(time>1.5 && currentState ==2)
        {
            texture = textureGreen2;
            currentState++;
+
            return;
        }else if(time>2 && currentState ==3)
        {
            texture = textureGreen3;
            currentState++;
+           AssetsManager.playSound(Constants.SOUND_START_2);
            onTrafficLightListener.onStartTraffic();
            isWork = false;
            currentState=0;

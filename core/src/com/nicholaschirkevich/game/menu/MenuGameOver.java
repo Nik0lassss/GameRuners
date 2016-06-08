@@ -54,9 +54,10 @@ public class MenuGameOver extends Group {
     Label achive, achiveCount, bestAchive, bestAchiveCount, distance_label, boosters_label, dangerous_label, rocket_label, destroyed_label, spring_board_label, god_mode_label, distance_count_label;
     ActionResolver actionResolver;
 
-    public MenuGameOver(final GameStateManager gsm, final ActionResolver actionResolver) {
+    public MenuGameOver(final GameStateManager gsm, final ResumeButtonListener resumeButtonListener, final ActionResolver actionResolver) {
 
         this.actionResolver = actionResolver;
+        this.listener = resumeButtonListener;
         dangerous_count_label = new Label(String.valueOf(GameManager.getDangerousCount()), AssetsManager.getUiSkin());
         rocket_count_label = new Label(String.valueOf(GameManager.getRocketCount()), AssetsManager.getUiSkin());
         destroyed_count_label = new Label(String.valueOf(GameManager.getDestroyedCount()), AssetsManager.getUiSkin());
@@ -64,7 +65,7 @@ public class MenuGameOver extends Group {
         god_mode_count_label = new Label(String.valueOf(GameManager.getGodModeCount()), AssetsManager.getUiSkin());
 
         achive = new Label("", AssetsManager.getUiSkin());
-        distance_count_label = new Label(String.valueOf((int) GameManager.getAchives()), AssetsManager.getUiSkin());
+        distance_count_label = new Label(String.valueOf((int) GameManager.getDistance()), AssetsManager.getUiSkin());
         achiveCount = new Label("", AssetsManager.getUiSkin());
         bestAchive = new Label("", AssetsManager.getUiSkin());
         bestAchiveCount = new Label("", AssetsManager.getUiSkin());
@@ -159,7 +160,7 @@ public class MenuGameOver extends Group {
 
                 //gsm.set(new GameState(gsm, false, false));
                 //groupView.remove();
-                getStage().addActor(new MenuGameOverTotal(gsm, actionResolver));
+                getStage().addActor(new MenuGameOverTotal(gsm,resumeButtonListener, actionResolver));
                 remove();
                 // return true;
 
@@ -300,7 +301,7 @@ public class MenuGameOver extends Group {
         distance_label.setFontScale(0.5f, 0.5f);
         distance_label.setColor(Color.ORANGE);
         distance_label.setBounds(Constants.DISTANCE_LABEL_X - distance_label.getPrefWidth(), Constants.DISTANCE_LABEL_Y, distance_label.getPrefWidth(), distance_label.getPrefHeight());
-        distance_label.setText("Distance:");
+        distance_label.setText(GameManager.getStrings().get(Constants.GO_DISTANCE_TEXT));
         addActor(distance_label);
     }
 
@@ -310,14 +311,14 @@ public class MenuGameOver extends Group {
         boosters_label.setFontScale(0.5f, 0.5f);
         boosters_label.setColor(Color.YELLOW);
         boosters_label.setBounds(Constants.BOOSTERS_GAME_OVER_LABEL_X - boosters_label.getPrefWidth(), Constants.BOOSTERS_GAME_OVER_LABEL_Y, distance_label.getPrefWidth(), distance_label.getPrefHeight());
-        boosters_label.setText("Boosters:");
+        boosters_label.setText(GameManager.getStrings().get(Constants.GO_BUSTERS_TEXT));
         addActor(boosters_label);
     }
 
     public void setUpAchive() {
         achive.setX(Constants.GAME_OVER_ACHIVE_X_VISIBLE);
         achive.setY(Constants.GAME_OVER_ACHIVE_Y_VISIBLE);
-        achive.setText("  You  Score:");
+        achive.setText(GameManager.getStrings().get(Constants.GO_YOUR_SCORE_LBL));
         achive.setColor(Color.ORANGE);
         achive.setFontScale(0.8f, 0.8f);
         addActor(achive);
@@ -335,7 +336,7 @@ public class MenuGameOver extends Group {
     public void setUpBestAchive() {
         bestAchive.setX(Constants.GAME_OVER_BEST_ACHIVE_X_VISIBLE);
         bestAchive.setY(Constants.GAME_OVER_BEST_ACHIVE_Y_VISIBLE);
-        bestAchive.setText("Best score:");
+        bestAchive.setText(GameManager.getStrings().get(Constants.PR_BEST_SCORE_TEXT));
         bestAchive.setFontScale(0.6f, 0.6f);
         addActor(bestAchive);
     }
@@ -482,7 +483,7 @@ public class MenuGameOver extends Group {
                 sequenceSetting.addAction(new Action() {
                     @Override
                     public boolean act(float delta) {
-                        getStage().addActor(new MenuSetting(listener, gsm, actionResolver));
+                        getStage().addActor(new MenuSetting(listener, gsm, actionResolver,groupView));
                         return true;
                     }
                 });

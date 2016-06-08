@@ -76,6 +76,7 @@ public class MenuSaveMe extends Group {
         textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
 
+
         saveMeButton = new TextButton(GameManager.getStrings().get(Constants.GO_SAVE_LBL), textButtonStyle);
         saveMeButton.setWidth(saveMeBarImageBorder.getWidth());
         saveMeButton.addListener(new ClickListener() {
@@ -101,7 +102,7 @@ public class MenuSaveMe extends Group {
                                  }
         );
         saveMeButton.getLabel().setFontScale(0.4f, 0.4f);
-        saveMeButton.getLabelCell().padLeft(25f);
+        saveMeButton.getLabelCell().padLeft(40f);
         saveMeButton.setBounds(x - saveMeButton.getWidth() / 2, y - saveMeButton.getHeight() / 2, saveMeButton.getWidth(), saveMeButton.getHeight());
         addActor(saveMeButton);
     }
@@ -129,9 +130,10 @@ public class MenuSaveMe extends Group {
             if (width > 0)
                 width -= 0.01;
             else {
-                getStage().addActor(new MenuGameOver(gsm, actionResolver));
-                remove();
                 System.out.println("getStage().addActor(new MenuGameOver(gsm));");
+                getStage().addActor(new MenuGameOver(gsm, resumeButtonListener, actionResolver));
+                remove();
+
             }
             time = 0;
         }
@@ -164,7 +166,7 @@ public class MenuSaveMe extends Group {
                                    @Override
                                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 
-                                       getStage().addActor(new MenuGameOver(gsm, actionResolver));
+                                       getStage().addActor(new MenuGameOver(gsm,resumeButtonListener, actionResolver));
                                        remove();
                                        return true;
                                    }

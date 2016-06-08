@@ -17,6 +17,8 @@
 package com.nicholaschirkevich.game.util;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -35,6 +37,42 @@ public class AssetsManager {
 
     private static HashMap<String, TextureRegion> texturesMap = new HashMap<String, TextureRegion>();
     private static HashMap<String, Animation> animationsMap = new HashMap<String, Animation>();
+
+    public static Music getPlayMusic() {
+        return playMusic;
+    }
+    public static void playSound(String soundID)
+    {
+        if(GameManager.isSoundEnable())
+        {
+            getSound(soundID).play();
+        }
+    }
+
+    private static Music playMusic;
+
+    public static void playMusic()
+    {
+        if(GameManager.isSoundEnable()) playMusic.play();
+    }
+
+    public static void stopMusic()
+    {
+        if(GameManager.isSoundEnable()) playMusic.stop();
+    }
+
+    public static void pauseMusic()
+    {
+        if(GameManager.isSoundEnable()) playMusic.pause();
+    }
+
+
+
+    public static Sound getSound(String id) {
+        return soundHashMap.get(id);
+    }
+
+    private static HashMap<String, Sound> soundHashMap = new HashMap<String, Sound>();
 
     private static ArrayList<TextureAtlas> carsTextureAtlasList = new ArrayList<TextureAtlas>();
     private static Skin uiSkin;
@@ -125,7 +163,32 @@ public class AssetsManager {
         AssetsManager.particleEffect = particleEffect;
     }
 
+    public static void loadSound()
+    {
+        soundHashMap.put(Constants.SOUND_START1,Gdx.audio.newSound(Gdx.files.internal(Constants.SOUND_START1_SOURCE)));
+        soundHashMap.put(Constants.SOUND_START_2,Gdx.audio.newSound(Gdx.files.internal(Constants.SOUND_START_2_SOURCE)));
+        soundHashMap.put(Constants.SOUND_BONUS,Gdx.audio.newSound(Gdx.files.internal(Constants.SOUND_BONUS_SOURCE)));
+        soundHashMap.put(Constants.SOUND_BRAKE_LOOP,Gdx.audio.newSound(Gdx.files.internal(Constants.SOUND_BRAKE_LOOP_SOURCE)));
+        soundHashMap.put(Constants.SOUND_CLICK,Gdx.audio.newSound(Gdx.files.internal(Constants.SOUND_CLICK_SOURCE)));
+        soundHashMap.put(Constants.SOUND_CRASH_2,Gdx.audio.newSound(Gdx.files.internal(Constants.SOUND_CRASH_2_SOURCE)));
+        soundHashMap.put(Constants.SOUND_GARAGE_CAR,Gdx.audio.newSound(Gdx.files.internal(Constants.SOUND_GARAGE_CAR_SOURCE)));
+        soundHashMap.put(Constants.SOUND_GARAGE_OPEN,Gdx.audio.newSound(Gdx.files.internal(Constants.SOUND_GARAGE_OPEN_SOURCE)));
+        soundHashMap.put(Constants.SOUND_GARAGE_WIN,Gdx.audio.newSound(Gdx.files.internal(Constants.SOUND_GARAGE_WIN_SOURCE)));
+        soundHashMap.put(Constants.SOUND_GEAR,Gdx.audio.newSound(Gdx.files.internal(Constants.SOUND_GEAR_SOURCE)));
+        soundHashMap.put(Constants.SOUND_HORN_1,Gdx.audio.newSound(Gdx.files.internal(Constants.SOUND_HORN_1_SOURCE)));
+        soundHashMap.put(Constants.SOUND_HORN_2,Gdx.audio.newSound(Gdx.files.internal(Constants.SOUND_HORN_2_SOURCE)));
+        soundHashMap.put(Constants.SOUND_HORN_3,Gdx.audio.newSound(Gdx.files.internal(Constants.SOUND_HORN_3_SOURCE)));
+        soundHashMap.put(Constants.SOUND_JUMP,Gdx.audio.newSound(Gdx.files.internal(Constants.SOUND_JUMP_SOURCE)));
+        soundHashMap.put(Constants.SOUND_MONEY_2,Gdx.audio.newSound(Gdx.files.internal(Constants.SOUND_MONEY_2_SOURCE)));
+        soundHashMap.put(Constants.SOUND_NEW_RECORD1,Gdx.audio.newSound(Gdx.files.internal(Constants.SOUND_NEW_RECORD1_SOURCE)));
+        soundHashMap.put(Constants.SOUND_NEW_RECORD2,Gdx.audio.newSound(Gdx.files.internal(Constants.SOUND_NEW_RECORD2_SOURCE)));
+        soundHashMap.put(Constants.SOUND_ROCKET,Gdx.audio.newSound(Gdx.files.internal(Constants.SOUND_ROCKET_SOURCE)));
+
+    }
+
     public static void loadAssets() {
+        playMusic = Gdx.audio.newMusic(Gdx.files.internal(Constants.SOUND_SPEEDY_ROAD_LOOP_SOURCE));
+        playMusic.setLooping(true);
 
         uiSkin = new Skin(Gdx.files.internal("uiskin_digit.json"));
         //Road
@@ -135,14 +198,11 @@ public class AssetsManager {
 //        texturesMap.put(Constants.MY_CAR_STATIC_ASSETS_ID,
 //                new TextureRegion(new Texture(Gdx.files.internal(Constants.MY_CAR_1_IMAGE_PATH))));
 
-        if(GameManager.getLocale().equals(Constants.RU_LOCALE))
-        {
+        if (GameManager.getLocale().equals(Constants.RU_LOCALE)) {
             texturesMap.put(Constants.SETTINGS_ID, new TextureRegion(new Texture(Constants.SETTINGS_RESOURCE_RU)));
             texturesMap.put(Constants.TITLE_VEHICLES_ID, new TextureRegion(new Texture(Constants.TITLE_VEHICLES_RUS_RESOURCE)));
             texturesMap.put(Constants.COIN_SHOP_NAME_ID, new TextureRegion(new Texture(Constants.COIN_SHOP_NAME_RUS_RESOURCE)));
-        }
-        else
-        {
+        } else {
             texturesMap.put(Constants.SETTINGS_ID, new TextureRegion(new Texture(Constants.SETTINGS_RESOURCE)));
             texturesMap.put(Constants.TITLE_VEHICLES_ID, new TextureRegion(new Texture(Constants.TITLE_VEHICLES_RESOURCE)));
             texturesMap.put(Constants.COIN_SHOP_NAME_ID, new TextureRegion(new Texture(Constants.COIN_SHOP_NAME_RESOURCE)));
@@ -243,7 +303,7 @@ public class AssetsManager {
 
 
         particleEffect = new ParticleEffect();
-        particleEffect.load(Gdx.files.internal("booster_particle"),Gdx.files.internal(""));
+        particleEffect.load(Gdx.files.internal("booster_particle"), Gdx.files.internal(""));
 
 
         //passer Car 1

@@ -12,6 +12,8 @@ public class Constants {
     public static String PREFERENCES_KEY_CAR_ID = "PRefsCarId";
     public static String PREFERENCES_KEY_COIN_COUNT_ID = "PRefsCoinCount";
     public static String PREFERENCES_KEY_ACHIVES_COUNT_ID = "PRefsBestAchivesCount";
+    public static String PREFERENCES_CONTROL_ID = "SETTING_CONTROL_ID";
+    public static String PREFERENCES_SOUND_SETTING_ID = "SETTING_SOUND_PREFERENCE";
     public static String PREFERENCES_KEY_CARS = "PRefsMyCars";
 
     public static final float CAR_POS_X_LEFT = 120;
@@ -493,10 +495,10 @@ public class Constants {
     public static final float RESTORE_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
     public static final float RESTORE_BTTN_Y_VISIBLE = BLOCK_BTTN_Y_VISIBLE - 60;
 
-    public static final float SING_IN_VK_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
+    public static final float SING_IN_VK_BTTN_X_VISIBLE = GameRuners.WIDTH / 4-78;
     public static final float SING_IN_VK_Y_VISIBLE = RESTORE_BTTN_Y_VISIBLE - 60;
 
-    public static final float SING_IN_FB_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
+    public static final float SING_IN_FB_BTTN_X_VISIBLE = GameRuners.WIDTH / 4-78;
     public static final float SING_IN_FB_Y_VISIBLE = SING_IN_VK_Y_VISIBLE - 60;
 
     public static final float BACK_BTTN_X_VISIBLE = GameRuners.WIDTH / 20f;
@@ -656,8 +658,8 @@ public class Constants {
     public static float coinDistance = 20;
 
 
-    public static final String RU_LOCALE="ru_RU";
-    public static final String EN_LOCALE="en_EN";
+    public static final String RU_LOCALE = "ru_RU";
+    public static final String EN_LOCALE = "en_EN";
 
     public static final String Localization_RU = "ru";
     public static final String Localization_EN = "en";
@@ -669,10 +671,13 @@ public class Constants {
     public static final String SETTINGS_SOUND_OFF_LBL = "settings_sound_off_lbl";
     public static final String SETTINGS_TAP_CONTROLL_FIRST_ROW_LBL = "settings_tap_controll_first_row_lbl";
     public static final String SETTINGS_TAP_CONTROLL_SECOND_ROW_LBL = "settings_tap_controll_second_row_lbl";
-    public static final String SETTINGS_BLOCK_LBL    = "settings_block_lbl";
-    public static final String SETTINGS_ADS_LBL    = "settings_ads_lbl";
-    public static final String SETTINGS_PURCHASE_LBL  = "settings_purchase_lbl";
+    public static final String SETTINGS_SWIPE_CONTROLL_FIRST_ROW_LBL = "settings_swipe_controll_first_row_lbl";
+    public static final String SETTINGS_SWIPE_CONTROLL_SECOND_ROW_LBL = "settings_swipe_controll_second_row_lbl";
+    public static final String SETTINGS_BLOCK_LBL = "settings_block_lbl";
+    public static final String SETTINGS_ADS_LBL = "settings_ads_lbl";
+    public static final String SETTINGS_PURCHASE_LBL = "settings_purchase_lbl";
     public static final String MS_SIGN_IN_LBL = "ms_sign_in_lbl";
+    public static final String SETTINGS_VK_LOGOUT_LBL = "settings_vk_logout_lbl";
     public static final String MS_VK_LBL = "ms_vk_lbl";
     public static final String MS_F_LBL = "ms_f_lbl";
     public static final String CM_COINS_PACK_FIRST_LINE = "cm_coins_pack_first_line";
@@ -682,29 +687,35 @@ public class Constants {
     public static final String CM_MEDIUM_COINS_PACK_SECOND_LINE = "cm_medium_coins_pack_second_line";
     public static final String CM_BIG_COINS_PACK_SECOND_LINE = "cm_big_coins_pack_second_line";
     public static final String CM_GREAT_COINS_PACK_SECOND_LINE = "cm_great_coins_pack_second_line";
-    public static final String SC_SPEED_LBL  = "sc_speed_lbl";
-    public static final String SC_WEIGHT_LBL   = "sc_weight_lbl";
+    public static final String SC_SPEED_LBL = "sc_speed_lbl";
+    public static final String SC_WEIGHT_LBL = "sc_weight_lbl";
     public static final String GO_SAVE_LBL = "go_save_lbl";
     public static final String GO_TOTAL_TEXT = "go_total_text";
     public static final String GAME_DANGEROUS_LBL = "game_dangerous_lbl";
-    public static final String GO_ROCKET_LBL  = "go_rocket_lbl";
-    public static final String GO_DESTROYED_LBL  = "go_destroyed_lbl";
-    public static final String GO_SPRING_BOARD_LBL  = "go_spring_board_lbl";
-    public static final String GO_GOD_MOD_LBL  = "go_god_mod_lbl";
+    public static final String GO_ROCKET_LBL = "go_rocket_lbl";
+    public static final String GO_DESTROYED_LBL = "go_destroyed_lbl";
+    public static final String GO_SPRING_BOARD_LBL = "go_spring_board_lbl";
+    public static final String GO_GOD_MOD_LBL = "go_god_mod_lbl";
     public static final String GAME_GEAR_1_LBL = "game_gear_1_lbl";
     public static final String GAME_GEAR_2_LBL = "game_gear_2_lbl";
     public static final String GAME_GEAR_3_LBL = "game_gear_3_lbl";
     public static final String GAME_GEAR_4_LBL = "game_gear_4_lbl";
     public static final String GAME_GEAR_5_LBL = "game_gear_5_lbl";
     public static final String GAME_GEAR_6_LBL = "game_gear_6_lbl";
-    public static final String GAME_СOEFFICIENT_1_LBL  = "game_сoefficient_1_lbl";
-    public static final String GAME_СOEFFICIENT_2_LBL  = "game_сoefficient_2_lbl";
-    public static final String GAME_СOEFFICIENT_3_LBL  = "game_сoefficient_3_lbl";
-    public static final String GAME_СOEFFICIENT_4_LBL  = "game_сoefficient_4_lbl";
-    public static final String GAME_СOEFFICIENT_5_LBL  = "game_сoefficient_5_lbl";
-    public static final String GAME_СOEFFICIENT_6_LBL  = "game_сoefficient_6_lbl";
-
-
+    public static final String GAME_СOEFFICIENT_1_LBL = "game_сoefficient_1_lbl";
+    public static final String GAME_СOEFFICIENT_2_LBL = "game_сoefficient_2_lbl";
+    public static final String GAME_СOEFFICIENT_3_LBL = "game_сoefficient_3_lbl";
+    public static final String GAME_СOEFFICIENT_4_LBL = "game_сoefficient_4_lbl";
+    public static final String GAME_СOEFFICIENT_5_LBL = "game_сoefficient_5_lbl";
+    public static final String GAME_СOEFFICIENT_6_LBL = "game_сoefficient_6_lbl";
+    public static final String GAME_CARS_COUNT_LBL = "game_cars_count_lbl";
+    public static final String GO_DISTANCE_TEXT = "go_distance_text";
+    public static final String GO_BUSTERS_TEXT = "go_busters_text";
+    public static final String GO_YOUR_SCORE_LBL = "go_your_score_lbl";
+    public static final String MPGO_BONUS_COINS_TEXT = "mpgo_bonus_coins_text";
+    public static final String PR_BEST_SCORE_TEXT = "pr_best_score_text";
+    public static final String GO_WIN_LBL = "go_win_lbl";
+    public static final String GO_PRIZE_LBL = "go_prize_lbl";
 
 
     public static final String CARS_TYPE_FILE_PATH = "cars.xml";
@@ -752,6 +763,49 @@ public class Constants {
     public static final float TIME_RELAX_ZONE_START = 30;
     public static final float DURATION_RELAX_ZONE = 2;
     public static final float TIME_SPRINGBOARD = 31;
+
+
+    public static final String SOUND_START_2 = "sound_start_2";
+    public static final String SOUND_BONUS = "bonus";
+    public static final String SOUND_BRAKE_LOOP = "brake_loop";
+    public static final String SOUND_CLICK = "click";
+    public static final String SOUND_CRASH_2 = "crash_2";
+    public static final String SOUND_GARAGE_CAR = "garage_car";
+    public static final String SOUND_GARAGE_OPEN = "garage_open";
+    public static final String SOUND_GARAGE_WIN = "garage_win";
+    public static final String SOUND_GEAR = "gear";
+    public static final String SOUND_HORN_1 = "horn_1";
+    public static final String SOUND_HORN_2 = "horn_2";
+    public static final String SOUND_HORN_3 = "horn_3";
+    public static final String SOUND_JUMP = "jump";
+    public static final String SOUND_MONEY_2 = "money_2";
+    public static final String SOUND_NEW_RECORD1 = "new_record1";
+    public static final String SOUND_NEW_RECORD2 = "new_record2";
+    public static final String SOUND_ROCKET = "rocket";
+    public static final String SOUND_SPEEDY_ROAD_LOOP = "Speedy_road_loop";
+    public static final String SOUND_START1 = "start1";
+
+
+    public static final String SOUND_START_2_SOURCE = "sounds/start2.mp3";
+    public static final String SOUND_BONUS_SOURCE = "sounds/bonus.mp3";
+    public static final String SOUND_BRAKE_LOOP_SOURCE = "sounds/brake_loop.mp3";
+    public static final String SOUND_CLICK_SOURCE = "sounds/click.mp3";
+    public static final String SOUND_CRASH_2_SOURCE = "sounds/crash_2.mp3";
+    public static final String SOUND_GARAGE_CAR_SOURCE = "sounds/garage_car.mp3";
+    public static final String SOUND_GARAGE_OPEN_SOURCE = "sounds/garage_open.mp3";
+    public static final String SOUND_GARAGE_WIN_SOURCE = "sounds/garage_win.mp3";
+    public static final String SOUND_GEAR_SOURCE = "sounds/gear.mp3";
+    public static final String SOUND_HORN_1_SOURCE = "sounds/horn_1.mp3";
+    public static final String SOUND_HORN_2_SOURCE = "sounds/horn_2.mp3";
+    public static final String SOUND_HORN_3_SOURCE = "sounds/horn_3.mp3";
+    public static final String SOUND_JUMP_SOURCE = "sounds/jump.mp3";
+    public static final String SOUND_MONEY_2_SOURCE = "sounds/money_2.mp3";
+    public static final String SOUND_NEW_RECORD1_SOURCE = "sounds/new_record1.mp3";
+    public static final String SOUND_NEW_RECORD2_SOURCE = "sounds/new_record2.mp3";
+    public static final String SOUND_ROCKET_SOURCE = "sounds/rocket.mp3";
+    public static final String SOUND_SPEEDY_ROAD_LOOP_SOURCE = "sounds/Speedy_road_loop.mp3";
+    public static final String SOUND_START1_SOURCE = "sounds/start1.mp3";
+
 
     public static final short MY_CAR_FILTER_ENTITY = 0x8;
     public static final short FLY_SPRING_BOARD_MASK = 0x14;

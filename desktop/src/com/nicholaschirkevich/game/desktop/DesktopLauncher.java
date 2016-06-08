@@ -33,7 +33,27 @@ public class DesktopLauncher {
 			}
 
 			@Override
+			public void getVkStatusLogin() {
+
+			}
+
+			@Override
+			public void vkLogout() {
+
+			}
+
+			@Override
 			public void sendPostOnVk() {
+
+			}
+
+			@Override
+			public boolean isVkLogin() {
+				return false;
+			}
+
+			@Override
+			public void showInviteBox() {
 
 			}
 		}), config);

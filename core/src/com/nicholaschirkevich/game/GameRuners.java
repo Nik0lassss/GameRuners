@@ -4,6 +4,8 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.input.GestureDetector;
+import com.badlogic.gdx.math.Vector2;
 import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.states.GameState;
 import com.nicholaschirkevich.game.states.GameStateManager;
@@ -25,6 +27,9 @@ public class GameRuners extends ApplicationAdapter  {
      this.actionResolver = actionResolver;
     }
 
+
+
+
     @Override
     public void create() {
         batch = new SpriteBatch();
@@ -33,6 +38,8 @@ public class GameRuners extends ApplicationAdapter  {
         GameManager.loadData();
         AssetsManager.loadCars();
         AssetsManager.loadAssets();
+        AssetsManager.loadSound();
+        actionResolver.getVkStatusLogin();
         gameState = new GameState(gsm, true, false,actionResolver);
 
         gsm.push(gameState);

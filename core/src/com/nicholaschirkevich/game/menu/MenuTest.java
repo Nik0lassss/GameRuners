@@ -210,9 +210,9 @@ public class MenuTest extends Group {
         textButtonStyle.font = textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
         ;
 
-        String playOnlineText =  GameManager.getStrings().get(Constants.GO_PLAY_WITH_FRIEND_2_BTN);
+        String playOnlineText = GameManager.getStrings().get(Constants.GO_PLAY_WITH_FRIEND_2_BTN);
         //playOnline = new TextButton( GameManager.getStrings().get(Constants.GO_PLAY_WITH_FRIEND_2_BTN), textButtonStyle);
-        playOnline = new TextButton( playOnlineText, textButtonStyle);
+        playOnline = new TextButton(playOnlineText, textButtonStyle);
         playOnline.getLabel().setFontScale(0.5f, 0.4f);
         playOnline.getLabel().setColor(Color.WHITE);
         playOnline.getLabelCell().padLeft(35f);
@@ -235,6 +235,7 @@ public class MenuTest extends Group {
 
                                 @Override
                                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                                    AssetsManager.playSound(Constants.SOUND_CLICK);
                                     sequenceCarShop.addAction(Actions.delay(0.3f));
                                     sequenceCarShop.addAction(new Action() {
                                         @Override
@@ -263,6 +264,7 @@ public class MenuTest extends Group {
         coinShop.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                AssetsManager.playSound(Constants.SOUND_CLICK);
                 // sequenceCoinShop.addAction(Actions.delay(0.1f));
                 sequenceCoinShop.addAction(new Action() {
                     @Override
@@ -292,11 +294,13 @@ public class MenuTest extends Group {
         settingMenu.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                AssetsManager.playSound(Constants.SOUND_CLICK);
                 sequenceSetting.addAction(Actions.delay(0.1f));
+
                 sequenceSetting.addAction(new Action() {
                     @Override
                     public boolean act(float delta) {
-                        getStage().addActor(new MenuSetting(listener, gsm, actionResolver));
+                        getStage().addActor(new MenuSetting(listener, gsm, actionResolver,groupView));
                         return true;
                     }
                 });
@@ -349,10 +353,12 @@ public class MenuTest extends Group {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 
+                AssetsManager.playSound(Constants.SOUND_CLICK);
                 sequence.addAction(Actions.delay(0.3f));
                 sequence.addAction(new Action() {
                     @Override
                     public boolean act(float delta) {
+
                         listener.resumeButtonOnResume();
                         return true;
                     }

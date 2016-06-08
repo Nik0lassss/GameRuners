@@ -202,13 +202,15 @@ public class CarFilter implements ContactFilter {
             } else {
                 if (myCarDataType != null && passerCarDataType != null && !myCarDataType.isAfterPause()) {
                     onSetCollisionCarsInterface.onCollision();
+                    Gdx.input.vibrate(500);
                     passerCarDataType.setIsContact(true);
                     myCarDataType.setIsContact(true);
+                    System.out.println("-------------------------------------------------------------------------");
                 }
 
                 // passerCarDataType.setIsBlow(true);
                 //myCarDataType.setIsBlow(true);
-                Gdx.input.vibrate(500);
+
                 return true;
             }
 

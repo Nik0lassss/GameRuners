@@ -59,7 +59,7 @@ public class XmlHelper {
             XmlReader.Element element = root.getChild(i);
            XmlReader.Element child = element.getChildByName(Constants.Localization_ID);
            XmlReader.Element valueRu = element.getChildByName(Constants.Localization_RU);
-            strings.put(child.getText(), valueRu.toString().replace("<ru>\n\t","  ").replace("\n</ru>","").replace("\\n","\n"));
+            strings.put(child.getText(), valueRu.toString().replace("<ru>\n\t","  ").replace("\n</ru>","").replace("\\n","\n").replace("\\s"," "));
         }
         return strings;
     }

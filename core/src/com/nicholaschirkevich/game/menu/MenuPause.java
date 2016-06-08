@@ -24,6 +24,7 @@ import com.nicholaschirkevich.game.states.GameState;
 import com.nicholaschirkevich.game.states.GameStateManager;
 import com.nicholaschirkevich.game.util.AssetsManager;
 import com.nicholaschirkevich.game.util.Constants;
+import com.nicholaschirkevich.game.util.GameManager;
 
 /**
  * Created by Nikolas on 10.03.2016.
@@ -47,6 +48,7 @@ public class MenuPause extends Group {
 
 
     public MenuPause(ResumeFromPause resumeFromPause, GameStateManager gsm, ActionResolver actionResolver) {
+       // Gdx.input.setInputProcessor(this.getStage());
         this.actionResolver = actionResolver;
         resumeButtonUpTexture =AssetsManager.getTextureRegion(Constants.BTTN_RESUME_ID).getTexture();
         resumeButtonDownTexture = AssetsManager.getTextureRegion(Constants.BTTN_RESUME_PRESSED_ID).getTexture();
@@ -85,6 +87,7 @@ public class MenuPause extends Group {
 
                                         @Override
                                         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                                            AssetsManager.playSound(Constants.SOUND_CLICK);
                                             resumeSequence.addAction(Actions.delay(0.3f));
                                             resumeSequence.addAction(new Action() {
                                                 @Override
@@ -122,6 +125,7 @@ public class MenuPause extends Group {
 
                                    @Override
                                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                                       AssetsManager.playSound(Constants.SOUND_CLICK);
                                        exitSequence.addAction(Actions.delay(0.3f));
                                        exitSequence.addAction(new Action() {
                                            @Override
@@ -165,7 +169,7 @@ public class MenuPause extends Group {
                                    @Override
                                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 
-                                       remove();
+                                       //remove();
                                        return true;
                                    }
                                }

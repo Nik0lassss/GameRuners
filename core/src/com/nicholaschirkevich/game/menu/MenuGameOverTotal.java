@@ -55,9 +55,10 @@ public class MenuGameOverTotal extends Group {
     Label achive, achiveCount, bestAchive, bestAchiveCount, distance_label, boosters_label, dangerous_label, rocket_label, destroyed_label, spring_board_label, god_mode_label, distance_count_label;
     ActionResolver actionResolver;
 
-    public MenuGameOverTotal(final GameStateManager gsm, ActionResolver actionResolver) {
+    public MenuGameOverTotal(final GameStateManager gsm,ResumeButtonListener resumeButtonListener, ActionResolver actionResolver) {
 
         this.actionResolver = actionResolver;
+        this.listener = resumeButtonListener;
         dangerous_count_label = new Label(String.valueOf(GameManager.getDangerousCount()), AssetsManager.getUiSkin());
         rocket_count_label = new Label(String.valueOf(GameManager.getRocketCount()), AssetsManager.getUiSkin());
         destroyed_count_label = new Label(String.valueOf(GameManager.getDestroyedCount()), AssetsManager.getUiSkin());
@@ -365,7 +366,7 @@ public class MenuGameOverTotal extends Group {
     public void setUpAchive() {
         achive.setX(Constants.GAME_OVER_TOTAL_ACHIVE_X_VISIBLE);
         achive.setY(Constants.GAME_OVER_TOTAL_ACHIVE_Y_VISIBLE);
-        achive.setText("  You  Score:");
+        achive.setText(GameManager.getStrings().get(Constants.GO_YOUR_SCORE_LBL));
         achive.setColor(Color.ORANGE);
         achive.setFontScale(0.8f, 0.8f);
         addActor(achive);
@@ -381,9 +382,9 @@ public class MenuGameOverTotal extends Group {
     }
 
     public void setUpBestAchive() {
-        bestAchive.setX(Constants.GAME_OVER_BEST_ACHIVE_X_VISIBLE);
+        bestAchive.setX(Constants.GAME_OVER_BEST_ACHIVE_X_VISIBLE-bestAchive.getPrefWidth()/2);
         bestAchive.setY(Constants.GAME_OVER_BEST_ACHIVE_Y_VISIBLE);
-        bestAchive.setText("Best score:");
+        bestAchive.setText(GameManager.getStrings().get(Constants.PR_BEST_SCORE_TEXT));
         bestAchive.setFontScale(0.8f, 0.8f);
         bestAchive.setColor(Color.ORANGE);
         addActor(bestAchive);
@@ -445,7 +446,7 @@ public class MenuGameOverTotal extends Group {
         textButtonStyle.up = getPrizeUpButtonImage.getDrawable();
         textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
-        prizeButton = new TextButton("Win \n a prize", textButtonStyle);
+        prizeButton = new TextButton(GameManager.getStrings().get(Constants.GO_WIN_LBL)+"\n"+GameManager.getStrings().get(Constants.GO_PRIZE_LBL), textButtonStyle);
         prizeButton.getLabel().setFontScale(0.4f, 0.4f);
         prizeButton.getLabelCell().padLeft(2f);
 
@@ -500,6 +501,7 @@ public class MenuGameOverTotal extends Group {
                                             @Override
                                             public boolean act(float delta) {
                                                actionResolver.sendPostOnVk();
+                                               //actionResolver.showInviteBox();
                                                 return true;
                                             }
                                         });
@@ -523,7 +525,7 @@ public class MenuGameOverTotal extends Group {
         textButtonStyle.up = playOnlineUpImage.getDrawable();
         textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
-        playOnline = new TextButton("Play \n online", textButtonStyle);
+        playOnline = new TextButton(GameManager.getStrings().get(Constants.GO_PLAY_WITH_FRIEND_2_BTN), textButtonStyle);
         playOnline.getLabel().setFontScale(0.4f, 0.4f);
         playOnline.getLabelCell().padLeft(30f);
 
@@ -591,7 +593,7 @@ public class MenuGameOverTotal extends Group {
                 sequenceSetting.addAction(new Action() {
                     @Override
                     public boolean act(float delta) {
-                        getStage().addActor(new MenuSetting(listener, gsm,actionResolver));
+                        getStage().addActor(new MenuSetting(listener, gsm,actionResolver,groupView));
                         return true;
                     }
                 });
@@ -633,7 +635,7 @@ public class MenuGameOverTotal extends Group {
         textButtonStyle.up = resumeButtonUpImage.getDrawable();
         textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
-        resumeButton = new TextButton("Play", textButtonStyle);
+        resumeButton = new TextButton(GameManager.getStrings().get(Constants.MP_PLAY_BTN), textButtonStyle);
         resumeButton.getLabel().setFontScale(0.6f, 0.6f);
         resumeButton.getLabelCell().padLeft(25f);
 

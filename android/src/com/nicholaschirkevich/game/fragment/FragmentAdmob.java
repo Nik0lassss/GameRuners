@@ -1,15 +1,18 @@
 package com.nicholaschirkevich.game.fragment;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
@@ -20,18 +23,30 @@ import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.R;
 import com.nicholaschirkevich.game.activity.LoginActivity;
+import com.nicholaschirkevich.game.adapter.FriendDialogListAdapter;
 import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.internet.InternetHelper;
+import com.nicholaschirkevich.game.vkmodel.User;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKScope;
 import com.vk.sdk.VKSdk;
+import com.vk.sdk.api.VKApi;
+import com.vk.sdk.api.VKApiConst;
 import com.vk.sdk.api.VKError;
+import com.vk.sdk.api.VKParameters;
+import com.vk.sdk.api.VKRequest;
+import com.vk.sdk.api.VKResponse;
+import com.vk.sdk.api.httpClient.VKHttpClient;
+import com.vk.sdk.api.methods.VKApiGroups;
 import com.vk.sdk.api.model.VKApiPhoto;
+import com.vk.sdk.api.model.VKApiUserFull;
 import com.vk.sdk.api.model.VKPhotoArray;
+import com.vk.sdk.api.model.VKUsersArray;
 import com.vk.sdk.api.photo.VKImageParameters;
 import com.vk.sdk.api.photo.VKUploadImage;
 import com.vk.sdk.dialogs.VKShareDialog;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import util.IabHelper;
@@ -48,14 +63,20 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     private RewardedVideoAd mAd;
     private String appId = "ca-app-pub-3929550233974663/5014713038";
     private Button showButton, byButton;
+    VKRequest currentRequest;
     private static final String TAG =
             "test_tag";
+    private View view;
+
+
+
+
     IabHelper mHelper;
     GameRuners gameRuners;
     static final String ITEM_SKU = "android.test.purchased";
     //static final String ITEM_SKU = "com.example.sp";
 
-    private String[] vkScope = new String[]{ VKScope.WALL,VKScope.PHOTOS,VKScope.ADS,VKScope.NOTES,VKScope.NOHTTPS,VKScope.PAGES,VKScope.STATS,VKScope.STATUS};
+    private String[] vkScope = new String[]{VKScope.WALL, VKScope.PHOTOS, VKScope.ADS, VKScope.NOTES, VKScope.NOHTTPS, VKScope.PAGES, VKScope.STATS, VKScope.STATUS};
 
 
     @Nullable
@@ -63,7 +84,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
-       // VKSdk.login(getActivity(), vkScope);
+        // VKSdk.login(getActivity(), vkScope);
         mInterstitialAd = new InterstitialAd(getContext());
 
 
@@ -73,13 +94,11 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         final IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener
                 = new IabHelper.OnIabPurchaseFinishedListener() {
             public void onIabPurchaseFinished(IabResult result,
-                                              Purchase purchase)
-            {
+                                              Purchase purchase) {
                 if (result.isFailure()) {
                     // Handle error
                     return;
-                }
-                else if (purchase.getSku().equals(ITEM_SKU)) {
+                } else if (purchase.getSku().equals(ITEM_SKU)) {
                     consumeItem();
                     byButton.setEnabled(false);
                 }
@@ -108,14 +127,13 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
                 mHelper.startSetup(new
                                            IabHelper.OnIabSetupFinishedListener() {
-                                               public void onIabSetupFinished(IabResult result)
-                                               {
+                                               public void onIabSetupFinished(IabResult result) {
                                                    if (!result.isSuccess()) {
-                                                       Toast.makeText(getContext(),"In-app Billing setup failed:",Toast.LENGTH_LONG).show();
+                                                       Toast.makeText(getContext(), "In-app Billing setup failed:", Toast.LENGTH_LONG).show();
                                                        Log.d(TAG, "In-app Billing setup failed: " +
                                                                result);
                                                    } else {
-                                                       Toast.makeText(getContext(),"In-app Billing is set up OK",Toast.LENGTH_LONG).show();
+                                                       Toast.makeText(getContext(), "In-app Billing is set up OK", Toast.LENGTH_LONG).show();
                                                        Log.d(TAG, "In-app Billing is set up OK");
                                                    }
                                                }
@@ -153,8 +171,6 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         };
 
 
-
-
         mInterstitialAd.setAdListener(new AdListener() {
             @Override
             public void onAdClosed() {
@@ -165,6 +181,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         startGame();
         gameRuners = new GameRuners(this);
 
+
         return initializeForView(gameRuners);
 
 
@@ -172,8 +189,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
 
     public void consumeItem() {
-        mHelper.queryInventoryAsync(new IabHelper.QueryInventoryFinishedListener()
-        {
+        mHelper.queryInventoryAsync(new IabHelper.QueryInventoryFinishedListener() {
 
             @Override
             public void onQueryInventoryFinished(IabResult result, Inventory inv) {
@@ -181,8 +197,6 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
             }
         });
     }
-
-
 
 
     private void showInterstitial() {
@@ -235,7 +249,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
     @Override
     public boolean isIntertitalLoad() {
-            return !mInterstitialAd.isLoading();
+        return !mInterstitialAd.isLoading();
     }
 
     @Override
@@ -245,6 +259,118 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 //        startActivity(intent);
         VKSdk.login(getActivity(), vkScope);
     }
+
+    @Override
+    public boolean isVkLogin() {
+        return VKSdk.isLoggedIn();
+    }
+
+    @Override
+    public void showInviteBox() {
+
+        currentRequest = VKApi.friends().get(VKParameters.from(VKApiConst.FIELDS, "id,first_name,last_name"));
+        final ArrayList<User> users = new ArrayList<>();
+
+        currentRequest.executeWithListener(new VKRequest.VKRequestListener() {
+            @Override
+            public void onComplete(VKResponse response) {
+                super.onComplete(response);
+                Log.d("VkDemoApp", "onComplete " + response);
+
+                VKUsersArray usersArray = (VKUsersArray) response.parsedModel;
+                users.clear();
+
+                for (VKApiUserFull userFull : usersArray) {
+
+                    users.add(new User(userFull.toString(), userFull.id));
+                }
+
+                final Dialog dialog = new Dialog(getContext());
+
+                View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_main, null);
+
+                ListView lv = (ListView) view.findViewById(R.id.list_friends_dialog_main);
+
+
+                // Change MyActivity.this and myListOfItems to your own values
+                FriendDialogListAdapter clad = new FriendDialogListAdapter(getContext(), users);
+
+                lv.setAdapter(clad);
+
+                //lv.setOnItemClickListener(........);
+
+                dialog.setContentView(view);
+
+                dialog.show();
+            }
+
+            @Override
+            public void attemptFailed(VKRequest request, int attemptNumber, int totalAttempts) {
+                super.attemptFailed(request, attemptNumber, totalAttempts);
+                Log.d("VkDemoApp", "attemptFailed " + request + " " + attemptNumber + " " + totalAttempts);
+            }
+
+            @Override
+            public void onError(VKError error) {
+                super.onError(error);
+                Log.d("VkDemoApp", "onError: " + error);
+            }
+
+            @Override
+            public void onProgress(VKRequest.VKProgressType progressType, long bytesLoaded, long bytesTotal) {
+                super.onProgress(progressType, bytesLoaded, bytesTotal);
+                Log.d("VkDemoApp", "onProgress " + progressType + " " + bytesLoaded + " " + bytesTotal);
+            }
+        });
+
+
+
+
+
+    }
+
+
+    public void getFriends() {
+        VKRequest request = VKApi.users().get();
+    }
+
+    @Override
+    public void getVkStatusLogin() {
+
+
+        VKSdk.wakeUpSession(getActivity(), new VKCallback<VKSdk.LoginState>() {
+
+            @Override
+            public void onResult(VKSdk.LoginState loginState) {
+                switch (loginState) {
+                    case LoggedOut:
+
+                        //showLogin();
+                        break;
+                    case LoggedIn:
+
+                        //showLogout();
+                        break;
+                    case Pending:
+                        break;
+                    case Unknown:
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(VKError vkError) {
+
+            }
+        });
+    }
+
+
+    @Override
+    public void vkLogout() {
+        showLogout();
+    }
+
 
     @Override
     public void sendPostOnVk() {
@@ -277,14 +403,14 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         Bitmap bm2 = BitmapFactory.decodeResource(getResources(), R.drawable.sr_logo);
         final Bitmap b = bm2;
         VKPhotoArray photos = new VKPhotoArray();
-        photos.add(new VKApiPhoto("photo-47594638_689374739"));
+        photos.add(new VKApiPhoto(getString(R.string.photo_id)));
         new VKShareDialog()
-                .setText("Choose your vehicle. Hit the gas. Go! #speedyroad ")
+                .setText(getString(R.string.VkDialogText))
                 .setUploadedPhotos(photos)
                 .setAttachmentImages(new VKUploadImage[]{
                         new VKUploadImage(b, VKImageParameters.pngImage())
                 })
-                .setAttachmentLink("Posted from app Speedy Road", "https://itunes.apple.com/ru/app/speedy-road-endless-8-bit-race/id1008125487?mt=8")
+                .setAttachmentLink(getString(R.string.VkDialogLinkText), getString(R.string.VkDialogLink))
                 .setShareDialogListener(new VKShareDialog.VKShareDialogListener() {
                     @Override
                     public void onVkShareComplete(int postId) {
@@ -300,13 +426,22 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
                     @Override
                     public void onVkShareError(VKError error) {
-                       // Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
+                        // Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
                     }
                 }).show(getFragmentManager(), "VK_SHARE_DIALOG");
     }
 
     private void showLogin() {
         VKSdk.login(getActivity(), vkScope);
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .replace(R.id., new LoginFragment())
+//                .commitAllowingStateLoss();
+    }
+
+    private void showLogout() {
+        VKSdk.logout();
+
 //        getSupportFragmentManager()
 //                .beginTransaction()
 //                .replace(R.id., new LoginFragment())

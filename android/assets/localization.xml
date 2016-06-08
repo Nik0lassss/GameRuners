@@ -381,7 +381,7 @@
     <string><id> sc_car_name_pickup_Action_lbl</id><type>	Text</type><en>	ARMY PICKUP</en><ru>	Военный пикап</ru> </string>
 
     <string><id>  go_vk_btn_lbl	</id><type>Label</type><en>	Sign in </en><ru>	Sign in</ru> </string>
-    <string><id> settings_vk_logout_lbl</id><type>	Label</type><en>	Sign out	</en><ru>Sign out</ru> </string>
+    <string><id> settings_vk_logout_lbl</id><type>Label</type><en>Sign out</en><ru>Выйти </ru> </string>
     <string><id> inApp_unavailable_message_title</id><type>	Pop up</type><en>	In-App Store unavailable</en><ru>	Магазин недоступен</ru> </string>
     <string><id>  inApp_unavailable_message_payment_unavailable	</id><type>Pop up</type><en>	Unfortunatelly, payment is unavailable now</en><ru>	К сожалению, покупка недоступна.</ru> </string>
     <string><id> inApp_unavailable_message_appstore_unavailable</id><type>	Pop up</type><en>	The In-App Store is currently unavailable, please try again later.	</en><ru>Магазин приложений в данный момент недосягаем. Попробуйте позже.</ru> </string>
@@ -489,7 +489,7 @@
     <string><id>pr_games_played_text</id><type>	text</type><en>	Games played:</en><ru>	Сыграно игр:</ru> </string>
     <string><id> pr_win_text	</id><type>text	</type><en>Win:\n	</en><ru>Побед:</ru> </string>
     <string><id> pr_lose_text</id><type>	text	</type><en>Lose:</en><ru>	Поражений:</ru> </string>
-    <string><id> pr_best_score_text	</id><type>text</type><en>	Best score:\n	</en><ru>Лучший результат:\n</ru> </string>
+    <string><id> pr_best_score_text	</id><type>text</type><en>	Best score:\n	</en><ru>\s Лучший \n результат:\n</ru> </string>
     <string><id> pr_rating_text</id><type>	text</type><en>	Rating\n</en><ru>	Рейтинг</ru> </string>
     <string><id> pr_rang_beginer_text</id><type>	text	</type><en>Beginer</en><ru>	Новичок</ru> </string>
     <string><id> pr_rang_amateur_text</id><type>	text	</type><en>Amateur</en><ru>	Любитель</ru> </string>

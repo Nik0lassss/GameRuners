@@ -51,7 +51,7 @@ public class GearView extends Actor {
         gearText.setColor(Color.ORANGE);
 
         achiveLabel = new Label(achivesText,AssetsManager.getUiSkin());
-        achiveLabel.setBounds(GameRuners.WIDTH / 4 - achiveLabel.getWidth() / 2 +15, GameRuners.HEIGHT / 4 - (height / 2), width, height);
+        achiveLabel.setBounds(GameRuners.WIDTH / 4 - achiveLabel.getWidth() / 2 +10, GameRuners.HEIGHT / 4 - (height / 2), width, height);
         achiveLabel.setFontScale(0.6f, 0.6f);
 
         achiveLabel.setColor(achiveLabel.getColor().r,achiveLabel.getColor().g,achiveLabel.getColor().b,0f);
@@ -92,6 +92,7 @@ public class GearView extends Actor {
     }
 
     public static Actor getView(int gear) {
+        AssetsManager.playSound(Constants.SOUND_GEAR);
 //        //System.out.println("Get view gear "+gear);
 //        switch (gear) {
 //            case 1:

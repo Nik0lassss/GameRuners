@@ -9,6 +9,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -45,12 +46,12 @@ public class MenuSetting extends Group {
     GameStateManager gsm;
     ResumeButtonListener listenerResume;
     private ActionResolver actionResolver;
-    private int addWidth=5;
+    private int addWidth = 5;
+    private Group parentView;
 
+    public MenuSetting(ResumeButtonListener listenerResume, GameStateManager gsm, ActionResolver actionResolver, Group parentView) {
 
-    public MenuSetting(ResumeButtonListener listenerResume, GameStateManager gsm, ActionResolver actionResolver) {
-
-
+        this.parentView = parentView;
         this.listenerResume = listenerResume;
         this.actionResolver = actionResolver;
         soundButtonUp = AssetsManager.getTextureRegion(Constants.BTTN_BLUE_ID).getTexture();
@@ -111,7 +112,7 @@ public class MenuSetting extends Group {
 
 
         imageLogo = new Image(AssetsManager.getTextureRegion(Constants.SETTINGS_ID));
-        imageLogo.setBounds(Constants.SETTING_LOGO_POSITION_X, Constants.SETTING_LOGO_POSITION_Y, imageLogo.getWidth()+addWidth, imageLogo.getHeight());
+        imageLogo.setBounds(Constants.SETTING_LOGO_POSITION_X, Constants.SETTING_LOGO_POSITION_Y, imageLogo.getWidth() + addWidth, imageLogo.getHeight());
         addActor(imageLogo);
     }
 
@@ -134,8 +135,10 @@ public class MenuSetting extends Group {
         textButtonStyle.down = soundButtonDownImage.getDrawable();
         textButtonStyle.up = soundButtonUpImage.getDrawable();
         textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
-
-        soundButton = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_SOUND_OFF_LBL), textButtonStyle);
+        if (GameManager.isSoundEnable())
+            soundButton = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_SOUND_ON_LBL), textButtonStyle);
+        else
+            soundButton = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_SOUND_OFF_LBL), textButtonStyle);
         soundButton.getLabel().setFontScale(0.4f, 0.4f);
         soundButton.getLabelCell().padLeft(25f);
 
@@ -143,12 +146,19 @@ public class MenuSetting extends Group {
         soundButton.addActor(sound_on_image);
 
 
-        soundButton.setBounds(x - soundButtonUpImage.getWidth() / 2, y - soundButtonUpImage.getHeight() / 2, soundButtonUpImage.getWidth()+addWidth, soundButtonUpImage.getHeight());
+        soundButton.setBounds(x - soundButtonUpImage.getWidth() / 2, y - soundButtonUpImage.getHeight() / 2, soundButtonUpImage.getWidth() + addWidth, soundButtonUpImage.getHeight());
 
         soundButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-
+                AssetsManager.playSound(Constants.SOUND_CLICK);
+                if (GameManager.isSoundEnable()) {
+                    soundButton.setText(GameManager.getStrings().get(Constants.SETTINGS_SOUND_OFF_LBL));
+                    GameManager.setIsSoundEnable(false);
+                } else {
+                    soundButton.setText(GameManager.getStrings().get(Constants.SETTINGS_SOUND_ON_LBL));
+                    GameManager.setIsSoundEnable(true);
+                }
                 sequence.addAction(Actions.delay(0.3f));
                 sequence.addAction(new Action() {
                     @Override
@@ -176,7 +186,11 @@ public class MenuSetting extends Group {
         textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
 //        swipe_controll_button = new TextButton("Swipe game \n control", textButtonStyle);
-        swipe_controll_button = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_TAP_CONTROLL_FIRST_ROW_LBL)+"\n"+GameManager.getStrings().get(Constants.SETTINGS_TAP_CONTROLL_SECOND_ROW_LBL), textButtonStyle);
+        if (!GameManager.isTouchControl())
+            swipe_controll_button = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_TAP_CONTROLL_FIRST_ROW_LBL) + "\n" + GameManager.getStrings().get(Constants.SETTINGS_TAP_CONTROLL_SECOND_ROW_LBL), textButtonStyle);
+        else {
+            swipe_controll_button = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_SWIPE_CONTROLL_FIRST_ROW_LBL) + "\n" + GameManager.getStrings().get(Constants.SETTINGS_SWIPE_CONTROLL_SECOND_ROW_LBL), textButtonStyle);
+        }
         swipe_controll_button.getLabel().setFontScale(0.4f, 0.4f);
         swipe_controll_button.getLabelCell().padLeft(25f);
 
@@ -184,7 +198,7 @@ public class MenuSetting extends Group {
         swipe_controll_button.addActor(swipe_image);
 
 
-        swipe_controll_button.setBounds(x - soundButtonUpImage.getWidth() / 2, y - soundButtonUpImage.getHeight() / 2, soundButtonUpImage.getWidth()+addWidth, soundButtonUpImage.getHeight());
+        swipe_controll_button.setBounds(x - soundButtonUpImage.getWidth() / 2, y - soundButtonUpImage.getHeight() / 2, soundButtonUpImage.getWidth() + addWidth, soundButtonUpImage.getHeight());
 
         swipe_controll_button.addListener(new ClickListener() {
             @Override
@@ -192,12 +206,24 @@ public class MenuSetting extends Group {
 
                 swipeButtonSequence.addAction(Actions.delay(0.3f));
                 swipeButtonSequence.addAction(new Action() {
-                    @Override
-                    public boolean act(float delta) {
-                        //listener.resumeButtonOnResume();
-                        return true;
-                    }
-                });
+                                                  @Override
+                                                  public boolean act(float delta) {
+                                                      AssetsManager.playSound(Constants.SOUND_CLICK);
+                                                      if (GameManager.isTouchControl()) {
+                                                          GameManager.setIsTouchControl(false);
+                                                          swipe_controll_button.setText(GameManager.getStrings().get(Constants.SETTINGS_TAP_CONTROLL_FIRST_ROW_LBL) + "\n" + GameManager.getStrings().get(Constants.SETTINGS_TAP_CONTROLL_SECOND_ROW_LBL));
+                                                      } else {
+                                                          swipe_controll_button.setText(GameManager.getStrings().get(Constants.SETTINGS_SWIPE_CONTROLL_FIRST_ROW_LBL) + "\n" + GameManager.getStrings().get(Constants.SETTINGS_SWIPE_CONTROLL_SECOND_ROW_LBL));
+                                                          GameManager.setIsTouchControl(true);
+                                                      }
+
+                                                      //listener.resumeButtonOnResume();
+                                                      return true;
+                                                  }
+                                              }
+
+                );
+
                 //swipeButtonSequence.addAction(Actions.removeActor());
                 addAction(swipeButtonSequence);
 
@@ -217,7 +243,7 @@ public class MenuSetting extends Group {
         textButtonStyle.up = soundButtonUpImage.getDrawable();
         textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
-        block_rds_button = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_BLOCK_LBL)+"\n"+GameManager.getStrings().get(Constants.SETTINGS_ADS_LBL), textButtonStyle);
+        block_rds_button = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_BLOCK_LBL) + "\n" + GameManager.getStrings().get(Constants.SETTINGS_ADS_LBL), textButtonStyle);
         block_rds_button.getLabel().setFontScale(0.4f, 0.4f);
         block_rds_button.getLabelCell().padLeft(25f);
 
@@ -225,12 +251,12 @@ public class MenuSetting extends Group {
         block_rds_button.addActor(rds_image);
 
 
-        block_rds_button.setBounds(x - soundButtonUpImage.getWidth() / 2, y - soundButtonUpImage.getHeight() / 2, soundButtonUpImage.getWidth()+addWidth, soundButtonUpImage.getHeight());
+        block_rds_button.setBounds(x - soundButtonUpImage.getWidth() / 2, y - soundButtonUpImage.getHeight() / 2, soundButtonUpImage.getWidth() + addWidth, soundButtonUpImage.getHeight());
 
         block_rds_button.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-
+                AssetsManager.playSound(Constants.SOUND_CLICK);
                 swipeButtonSequence.addAction(Actions.delay(0.3f));
                 swipeButtonSequence.addAction(new Action() {
                     @Override
@@ -266,12 +292,12 @@ public class MenuSetting extends Group {
         restore_button.addActor(restore_image);
 
 
-        restore_button.setBounds(x - soundButtonUpImage.getWidth() / 2, y - soundButtonUpImage.getHeight() / 2, soundButtonUpImage.getWidth()+addWidth, soundButtonUpImage.getHeight());
+        restore_button.setBounds(x - soundButtonUpImage.getWidth() / 2, y - soundButtonUpImage.getHeight() / 2, soundButtonUpImage.getWidth() + addWidth, soundButtonUpImage.getHeight());
 
         restore_button.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-
+                AssetsManager.playSound(Constants.SOUND_CLICK);
                 swipeButtonSequence.addAction(Actions.delay(0.3f));
                 swipeButtonSequence.addAction(new Action() {
                     @Override
@@ -299,8 +325,10 @@ public class MenuSetting extends Group {
         textButtonStyle.down = soundButtonDownImage.getDrawable();
         textButtonStyle.up = soundButtonUpImage.getDrawable();
         textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
-
-        singInVkBttn = new TextButton(GameManager.getStrings().get(Constants.MS_SIGN_IN_LBL), textButtonStyle);
+        if (actionResolver.isVkLogin())
+            singInVkBttn = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_VK_LOGOUT_LBL), textButtonStyle);
+        else
+            singInVkBttn = new TextButton(GameManager.getStrings().get(Constants.MS_SIGN_IN_LBL), textButtonStyle);
         singInVkBttn.getLabel().setFontScale(0.4f, 0.4f);
         singInVkBttn.getLabelCell().padLeft(25f);
 
@@ -308,17 +336,30 @@ public class MenuSetting extends Group {
         singInVkBttn.addActor(singInVkImage);
 
 
-        singInVkBttn.setBounds(x - singInVkBttn.getWidth() / 2, y - singInVkBttn.getHeight() / 2, singInVkBttn.getWidth() + addWidth, singInVkBttn.getHeight());
+        singInVkBttn.setBounds(x, y - singInVkBttn.getHeight() / 2, 158 + addWidth, singInVkBttn.getHeight());
 
         singInVkBttn.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-
+                AssetsManager.playSound(Constants.SOUND_CLICK);
                 swipeButtonSequence.addAction(Actions.delay(0.3f));
                 swipeButtonSequence.addAction(new Action() {
                     @Override
                     public boolean act(float delta) {
-                        actionResolver.showVkLoginActivity();
+                        if (actionResolver.isVkLogin()) {
+
+                            actionResolver.vkLogout();
+
+                            if (actionResolver.isAvailibleInternet()) {
+                                singInVkBttn.setText(GameManager.getStrings().get(Constants.MS_SIGN_IN_LBL));
+                                setUpSingInFb();
+                            }
+                        } else {
+                            actionResolver.showVkLoginActivity();
+                            singInFbBttn.remove();
+                            singInVkBttn.setText(GameManager.getStrings().get(Constants.SETTINGS_VK_LOGOUT_LBL));
+                        }
+
                         //listener.resumeButtonOnResume();
                         return true;
                     }
@@ -336,43 +377,45 @@ public class MenuSetting extends Group {
 
     private void setUpSingInFb() {
 
-        float x = Constants.SING_IN_FB_BTTN_X_VISIBLE, y = Constants.SING_IN_FB_Y_VISIBLE, width = 70, height = 55;
-        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.down = soundButtonDownImage.getDrawable();
-        textButtonStyle.up = soundButtonUpImage.getDrawable();
-        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
+        if (!actionResolver.isVkLogin()) {
+            float x = Constants.SING_IN_FB_BTTN_X_VISIBLE, y = Constants.SING_IN_FB_Y_VISIBLE, width = 70, height = 55;
+            TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+            textButtonStyle.down = soundButtonDownImage.getDrawable();
+            textButtonStyle.up = soundButtonUpImage.getDrawable();
+            textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
-        singInFbBttn = new TextButton(GameManager.getStrings().get(Constants.MS_SIGN_IN_LBL), textButtonStyle);
-        singInFbBttn.getLabel().setFontScale(0.4f, 0.4f);
-        singInFbBttn.getLabelCell().padLeft(25f);
+            singInFbBttn = new TextButton(GameManager.getStrings().get(Constants.MS_SIGN_IN_LBL), textButtonStyle);
+            singInFbBttn.getLabel().setFontScale(0.4f, 0.4f);
+            singInFbBttn.getLabelCell().padLeft(25f);
 
-        singInFbImage.setPosition(getX() + 5, getY() + 13);
-        singInFbBttn.addActor(singInFbImage);
+            singInFbImage.setPosition(getX() + 5, getY() + 13);
+            singInFbBttn.addActor(singInFbImage);
 
 
-        singInFbBttn.setBounds(x - singInFbBttn.getWidth() / 2, y - singInFbBttn.getHeight() / 2, singInFbBttn.getWidth()+addWidth, singInFbBttn.getHeight());
+            singInFbBttn.setBounds(x, y - singInFbBttn.getHeight() / 2, 158 + addWidth, singInFbBttn.getHeight());
 
-        singInFbBttn.addListener(new ClickListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+            singInFbBttn.addListener(new ClickListener() {
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    AssetsManager.playSound(Constants.SOUND_CLICK);
 
-                swipeButtonSequence.addAction(Actions.delay(0.3f));
-                swipeButtonSequence.addAction(new Action() {
-                    @Override
-                    public boolean act(float delta) {
-                        //listener.resumeButtonOnResume();
-                        return true;
-                    }
-                });
-                //swipeButtonSequence.addAction(Actions.removeActor());
-                addAction(swipeButtonSequence);
+                    swipeButtonSequence.addAction(Actions.delay(0.3f));
+                    swipeButtonSequence.addAction(new Action() {
+                        @Override
+                        public boolean act(float delta) {
+                            //listener.resumeButtonOnResume();
+                            return true;
+                        }
+                    });
+                    //swipeButtonSequence.addAction(Actions.removeActor());
+                    addAction(swipeButtonSequence);
 
-                return true;
-            }
-        });
+                    return true;
+                }
+            });
 
-        addActor(singInFbBttn);
-
+            addActor(singInFbBttn);
+        }
     }
 
     private void setUpBackButton() {
@@ -393,12 +436,14 @@ public class MenuSetting extends Group {
         backBttn.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-
+                AssetsManager.playSound(Constants.SOUND_CLICK);
                 sequenceReturn.addAction(Actions.delay(0.1f));
                 sequenceReturn.addAction(new Action() {
                     @Override
                     public boolean act(float delta) {
-                        getStage().addActor(new MenuTest(listenerResume, gsm, actionResolver));
+
+                        getStage().addActor(parentView);
+                        // getStage().addActor(new MenuTest(listenerResume, gsm, actionResolver));
                         return true;
                     }
                 });

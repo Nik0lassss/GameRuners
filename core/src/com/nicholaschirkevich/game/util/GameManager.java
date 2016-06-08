@@ -37,13 +37,44 @@ public class GameManager {
     //private static float boosterSpeed =0;
     private static float lastSpeed = 0;
     private static float achives = 0;
-    private static String locale ="";
 
+    public static float getDistance() {
+        return distance;
+    }
+
+    public static void setDistance(float distance) {
+        GameManager.distance = distance;
+    }
+
+    private static float distance = 0;
+    private static String locale = "";
+
+    public static boolean isVkLogin() {
+        return isVkLogin;
+    }
+
+    public static void setIsVkLogin(boolean isLogin) {
+        isVkLogin = isLogin;
+    }
+
+    private static boolean isVkLogin = false;
     private static int dangerousCount = 0;
     private static int rocketCount = 0;
     private static int destroyedCount = 0;
     private static int springBoardCount = 0;
     private static int godModeCount = 0;
+    private static boolean isSoundEnable;
+
+    public static boolean isSoundEnable() {
+        return isSoundEnable;
+    }
+
+    public static void setIsSoundEnable(boolean isSoundEnable) {
+        preferences.putBoolean(Constants.PREFERENCES_SOUND_SETTING_ID, isSoundEnable);
+        preferences.flush();
+        GameManager.isSoundEnable = isSoundEnable;
+    }
+
 
     public static List<String> getMyCars() {
         return myCars;
@@ -53,24 +84,24 @@ public class GameManager {
     static Json json = new Json();
 
     public static void addDangerousCount() {
-        dangerousCount++;
+        dangerousCount+=50;
     }
 
 
     public static void addRocketCount() {
-        rocketCount++;
+        rocketCount+=100;
     }
 
     public static void addDestroyedCount() {
-        destroyedCount++;
+        destroyedCount+=100;
     }
 
     public static void addSpringBoardCount() {
-        springBoardCount++;
+        springBoardCount+=100;
     }
 
     public static void addGodModeCount() {
-        godModeCount++;
+        godModeCount+=100;
     }
 
     public static void resetCountBusters() {
@@ -125,6 +156,18 @@ public class GameManager {
     private static float dtTimeAhive = 0;
     private static boolean isCollisionWithCar = false;
 
+    public static boolean isTouchControl() {
+        return isTouchControl;
+    }
+
+    public static void setIsTouchControl(boolean isTouchControl) {
+        preferences.putBoolean(Constants.PREFERENCES_CONTROL_ID, isTouchControl);
+        preferences.flush();
+        GameManager.isTouchControl = isTouchControl;
+    }
+
+    private static boolean isTouchControl;
+
     private static Label label;
     private static Label timeLabel;
     private static Label stageChild;
@@ -153,13 +196,11 @@ public class GameManager {
 
     private static float collisionSpeed = 0;
 
-    public static void loadLocale()
-    {
+    public static void loadLocale() {
         locale = java.util.Locale.getDefault().toString();
     }
 
-    public static String getLocale()
-    {
+    public static String getLocale() {
         return locale;
     }
 
@@ -213,7 +254,13 @@ public class GameManager {
         isCollision = false;
     }
 
+
+    public static void resetDtTime()
+    {
+        dtTime=0;
+    }
     public static void resetTime() {
+        resetCountBusters();
         allTime = 0;
         dtTime = 0;
         dtTimeAhive = 0;
@@ -277,6 +324,9 @@ public class GameManager {
 
         coinCounter = preferences.getInteger(Constants.PREFERENCES_KEY_COIN_COUNT_ID, 0);
         bestAchives = preferences.getInteger(Constants.PREFERENCES_KEY_ACHIVES_COUNT_ID, 0);
+        isTouchControl = preferences.getBoolean(Constants.PREFERENCES_CONTROL_ID);
+        isSoundEnable = preferences.getBoolean(Constants.PREFERENCES_SOUND_SETTING_ID);
+
 
     }
 
@@ -371,15 +421,15 @@ public class GameManager {
     public static void setUpLabetDebug() {
 
         label = new Label("0", AssetsManager.getUiSkin());
-        label.setFontScale(0.5f,0.5f);
+        label.setFontScale(0.5f, 0.5f);
         label.setBounds(GameRuners.WIDTH / 2 - 60, GameRuners.HEIGHT / 2 - 60, label.getWidth(), label.getHeight());
         stageGameManager.addActor(label);
     }
 
     public static void setUpTimeLabetDebug() {
 
-        timeLabel = new Label("0",  AssetsManager.getUiSkin());
-        timeLabel.setFontScale(0.5f,0.5f);
+        timeLabel = new Label("0", AssetsManager.getUiSkin());
+        timeLabel.setFontScale(0.5f, 0.5f);
         timeLabel.setBounds(GameRuners.WIDTH / 2 - 60, GameRuners.HEIGHT / 2 - 80, label.getWidth(), label.getHeight());
         stageGameManager.addActor(timeLabel);
     }
@@ -395,16 +445,16 @@ public class GameManager {
 
     public static void setUpWorldChildLabetDebug() {
 
-        worldChild = new Label("0",  AssetsManager.getUiSkin());
-        worldChild.setFontScale(0.35f,0.35f);
+        worldChild = new Label("0", AssetsManager.getUiSkin());
+        worldChild.setFontScale(0.35f, 0.35f);
         worldChild.setBounds(GameRuners.WIDTH / 2 - 110, GameRuners.HEIGHT / 2 - 100, label.getWidth(), label.getHeight());
         stageGameManager.addActor(worldChild);
     }
 
     public static void setUpStageChildLabetDebug() {
 
-        stageChild = new Label("0",  AssetsManager.getUiSkin());
-        stageChild.setFontScale(0.35f,0.35f);
+        stageChild = new Label("0", AssetsManager.getUiSkin());
+        stageChild.setFontScale(0.35f, 0.35f);
         stageChild.setBounds(GameRuners.WIDTH / 2 - 110, GameRuners.HEIGHT / 2 - 120, label.getWidth(), label.getHeight());
         stageGameManager.addActor(stageChild);
     }

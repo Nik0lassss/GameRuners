@@ -1,12 +1,16 @@
 package com.nicholaschirkevich.game.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.audio.Sound;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Action;
@@ -32,6 +36,7 @@ import com.nicholaschirkevich.game.entity.Car;
 import com.nicholaschirkevich.game.entity.CarsType;
 import com.nicholaschirkevich.game.filters.CarContactListener;
 import com.nicholaschirkevich.game.filters.CarFilter;
+import com.nicholaschirkevich.game.interfaces.CarTurnInterface;
 import com.nicholaschirkevich.game.interfaces.DirtListener;
 import com.nicholaschirkevich.game.interfaces.GenerateHoleAfterLadle;
 import com.nicholaschirkevich.game.interfaces.ListenerAddBoost;
@@ -77,6 +82,7 @@ import com.nicholaschirkevich.game.model.boosters.ThronsOnCarRight;
 import com.nicholaschirkevich.game.model.side_objects.TrafficLight;
 import com.nicholaschirkevich.game.model.boosters.WingOnCarLeft;
 import com.nicholaschirkevich.game.model.boosters.WingOnCarRight;
+import com.nicholaschirkevich.game.unput.GestureListnener;
 import com.nicholaschirkevich.game.userdata.BoosterDataType;
 import com.nicholaschirkevich.game.userdata.CoinDataType;
 import com.nicholaschirkevich.game.userdata.DirtDataType;
@@ -93,10 +99,10 @@ import com.nicholaschirkevich.game.util.RandomUtil;
 
 import java.util.ArrayList;
 
-;
+;import sun.misc.LRUCache;
 
 
-public class GameState extends State implements OnSetCollisionCars, ResumeFromPause, OnTrafficLightListener, OnCrushCarListener, OnGearUp, ResumeButtonListener, PauseButton.pauseButtonListener, PauseAfterCollision, UpdateCoinCount, OnStartRelaxZone, ListenerAddBoost, ListenerAddLadle, GenerateHoleAfterLadle, SetGodMode, ZoomCarListener, DirtListener {
+public class GameState extends State implements OnSetCollisionCars, ResumeFromPause, OnTrafficLightListener, OnCrushCarListener, OnGearUp, ResumeButtonListener, PauseButton.pauseButtonListener, PauseAfterCollision, UpdateCoinCount, OnStartRelaxZone, ListenerAddBoost, ListenerAddLadle, GenerateHoleAfterLadle, SetGodMode, ZoomCarListener, DirtListener, CarTurnInterface {
 
     private GameState gameState;
     MyCar myCar;
@@ -132,7 +138,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     SequenceAction sequenceFlyBonusCount = new SequenceAction();
     SequenceAction sequenceFlyeBonus = new SequenceAction();
 
-    Label label = new Label("Dengerous", AssetsManager.getUiSkin());
+    Label label = new Label("", AssetsManager.getUiSkin());
     Label labelDangerousCount = new Label("+50", AssetsManager.getUiSkin());
     Label labelCountCar = new Label("", AssetsManager.getUiSkin());
     Label labelCars = new Label("", AssetsManager.getUiSkin());
@@ -152,6 +158,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     private float skullCarCount = 0;
     private float timeToCoin = 0;
     private float achives = 0;
+    private float distacne = 0;
     private float achivesBooster = 0;
     private float achivesFly = 0;
     private Texture textureCollisisonPoint;
@@ -159,6 +166,9 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     private boolean isDirt = false;
     private boolean isDirtUpdate = false;
     private boolean isLadle = false;
+
+    //////////////////save me
+    private boolean isSavedMe = false;
 
     private boolean isAfterPauseUpdate = false;
     private boolean isStartAfterPause = false;
@@ -220,6 +230,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     private ArrayList<RoadHole> roadHoles = new ArrayList<RoadHole>();
     private Landing landing;
 
+
     private ArrayList<ThronsOnCarLeft> thronsOnCarLeft = new ArrayList<ThronsOnCarLeft>();
     private ArrayList<ThronsOnCarRight> thronsOnCarRight = new ArrayList<ThronsOnCarRight>();
     private ArrayList<Dirt> dirts = new ArrayList<Dirt>();
@@ -232,6 +243,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
     public GameState(GameStateManager gsm, boolean isNeedTutorial, boolean isFromGarage, ActionResolver actionResolver) {
         super(gsm);
+
         setUpWorld();
         setUpStage();
         gameState = this;
@@ -295,7 +307,12 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
     public void setUpStage() {
         stage = new Stage(new StretchViewport(GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2));
-        Gdx.input.setInputProcessor(stage);
+        //Gdx.input.setInputProcessor(new GestureDetector(0.0f, 0.0f, 0.0f, 5f, new GestureListnener()));
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+        inputMultiplexer.addProcessor(new GestureDetector(0.0f, 0.0f, 0.0f, 5f, new GestureListnener(this)));
+        inputMultiplexer.addProcessor(stage);
+        Gdx.input.setInputProcessor(inputMultiplexer);
+        //Gdx.input.setInputProcessor(stage);
     }
 
     public void setUpCamera() {
@@ -318,6 +335,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     public void pauseGame() {
         //if (!isPause) stage.addActor(new MenuGameOver(this, gsm));
         isPause = true;
+        AssetsManager.pauseMusic();
 
     }
 
@@ -329,6 +347,10 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         isPause = false;
         isGameStart = true;
         setPauseTextButton();
+        System.out.println("start play sound");
+        AssetsManager.playMusic();
+
+
         //pauseButton.show();
 
     }
@@ -673,6 +695,11 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     public void onStartTraffic() {
         StartGame();
         resetSpeed();
+//        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+//
+//        inputMultiplexer.addProcessor(new GestureDetector(0.0f, 0.0f, 0.0f, 5f, new GestureListnener(this)));
+//        inputMultiplexer.addProcessor(stage);
+//        Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
     public void resetSpeed() {
@@ -686,12 +713,17 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         handleInput();
         if (isStartTrafficLighter && isGameStart == false) trafficLight.update(dt);
         GameManager.setAchives(achives);
+        GameManager.setDistance(distacne);
+
+        System.out.println("isPause " + isPause);
+        System.out.println("Gamepause "+GameManager.pauseGame);
 
         if (GameManager.pauseGame) {
 
 
             pauseGame();
         }
+        else  isPause =false;
 
         if (isMyCarCollision || isMyCarCollisionWithBlocks)
             playTimeAnimation += dt;
@@ -700,6 +732,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
             GameManager.updateGear(dt);
             achives = achives + ((GameManager.getCurrentSpeed() * dt) / 35);
 
+            distacne = distacne + ((GameManager.getCurrentSpeed() * dt) / 35);
 
             dangerousEvolution(passerCars, myCar);
             labelAchives.setText(String.valueOf((int) achives));
@@ -777,8 +810,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                     boosterBonus.setColor(Color.ORANGE);
                     boosterBonus.setFontScale(0.7f, 0.7f);
 
-                    boosterBonus.setPosition(GameRuners.WIDTH / 4 - 45, GameRuners.HEIGHT / 4 + 220);
-                    boosterBonus.setText("Bonus ");
+                    boosterBonus.setPosition(GameRuners.WIDTH / 4 - boosterBonus.getPrefWidth() / 2, GameRuners.HEIGHT / 4 + 220);
+                    boosterBonus.setText(GameManager.getStrings().get(Constants.MPGO_BONUS_COINS_TEXT));
                     stage.addActor(boosterBonus);
                     labelCountCar.addAction(sequenceBonusCarCount);
 
@@ -805,6 +838,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
 
             if (isAfterPause) {
+                AssetsManager.playMusic();
                 isAfterPause = false;
             }
             if (isAfterPauseUpdate) {
@@ -962,8 +996,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                                 labelFlyBonus.setFontScale(0.7f, 0.7f);
                                 //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
 
-                                labelFlyBonus.setPosition(GameRuners.WIDTH / 4 - 45, GameRuners.HEIGHT / 4 + 220);
-                                labelFlyBonus.setText("Bonus");
+                                labelFlyBonus.setPosition(GameRuners.WIDTH / 4 - labelFlyBonus.getPrefWidth() / 2, GameRuners.HEIGHT / 4 + 220);
+                                labelFlyBonus.setText(GameManager.getStrings().get(Constants.MPGO_BONUS_COINS_TEXT));
                                 stage.addActor(labelFlyBonus);
 
                                 labelFlyCount.addAction(sequenceFlyBonusCount);
@@ -1026,8 +1060,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                             labelFlyBonus.setFontScale(0.7f, 0.7f);
                             //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
 
-                            labelFlyBonus.setPosition(GameRuners.WIDTH / 4 - 45, GameRuners.HEIGHT / 4 + 220);
-                            labelFlyBonus.setText("Bonus");
+                            labelFlyBonus.setPosition(GameRuners.WIDTH / 4 - labelFlyBonus.getPrefWidth() / 2, GameRuners.HEIGHT / 4 + 220);
+                            labelFlyBonus.setText(GameManager.getStrings().get(Constants.MPGO_BONUS_COINS_TEXT));
                             stage.addActor(labelFlyBonus);
 
                             labelFlyCount.addAction(sequenceFlyBonusCount);
@@ -1115,8 +1149,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                     labelFlyBonus.setFontScale(0.7f, 0.7f);
                     //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
 
-                    labelFlyBonus.setPosition(GameRuners.WIDTH / 4 - 45, GameRuners.HEIGHT / 4 + 220);
-                    labelFlyBonus.setText("Bonus");
+                    labelFlyBonus.setText(GameManager.getStrings().get(Constants.MPGO_BONUS_COINS_TEXT));
+                    labelFlyBonus.setPosition(GameRuners.WIDTH / 4 - labelFlyBonus.getPrefWidth() / 2, GameRuners.HEIGHT / 4 + 220);
                     stage.addActor(labelFlyBonus);
 
                     labelFlyCount.addAction(sequenceFlyBonusCount);
@@ -1151,6 +1185,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                 ladleOnCar.update(dt, myCar.getX(), myCar.getY() + myCar.getCarTexture().getRegionHeight() / 2 + ladleOnCar.getLadleOnCar().getRegionHeight() / 2);
             if (!updateLadle && ladleOnCar != null) {
                 achives += 100;
+                AssetsManager.playSound(Constants.SOUND_BONUS);
                 sequenceLAdleBonus.reset();
                 sequenceLAdleBonus.addAction(Actions.delay(2f));
                 sequenceLAdleBonus.addAction(new Action() {
@@ -1166,8 +1201,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                 ladleBonus.setFontScale(0.7f, 0.7f);
                 //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
 
-                ladleBonus.setPosition(GameRuners.WIDTH / 4 - 45, GameRuners.HEIGHT / 4 + 220);
-                ladleBonus.setText("Bonus ");
+                ladleBonus.setPosition(GameRuners.WIDTH / 4 - ladleBonus.getPrefWidth() / 2, GameRuners.HEIGHT / 4 + 220);
+                ladleBonus.setText(GameManager.getStrings().get(Constants.MPGO_BONUS_COINS_TEXT));
                 stage.addActor(ladleBonus);
 
                 sequenceLadleBonusText.reset();
@@ -1228,12 +1263,19 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
             if (timer > 1) {
                 GameManager.pauseGame = true;
+                AssetsManager.stopMusic();
                 // stage.addActor(new MenuGameOver(this, gsm));
                 //stage.addActor(new MenuSaveMe(this, gsm,actionResolver));
-                if (actionResolver != null && actionResolver.isAvailibleInternet() && actionResolver.isIntertitalLoad()) {
-                    stage.addActor(menuSaveMe);
+                if (actionResolver != null && actionResolver.isAvailibleInternet() && actionResolver.isIntertitalLoad() && !isSavedMe && distacne > 100) {
+                    {
+                        isMyCarCollision=false;
+                        stage.addActor(menuSaveMe);
+                        isSavedMe = true;
+                    }
                 } else {
-                    stage.addActor(new MenuGameOver(gsm, actionResolver));
+
+                    isMyCarCollision=false;
+                    stage.addActor(new MenuGameOver(gsm, this, actionResolver));
 
                 }
                 System.out.println("Pause");
@@ -1252,11 +1294,12 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
             if (timer > 1) {
                 GameManager.pauseGame = true;
 //                stage.addActor(new MenuSaveMe(this, gsm,actionResolver));
-                if (actionResolver.isAvailibleInternet() && actionResolver.isIntertitalLoad())
+                if (actionResolver.isAvailibleInternet() && actionResolver.isIntertitalLoad() && !isSavedMe && distacne > 100) {
+                    isSavedMe = true;
                     stage.addActor(menuSaveMe);
-                else {
-                    stage.addActor(new MenuGameOver(gsm, actionResolver));
-
+                } else {
+                    stage.addActor(new MenuGameOver(gsm, this, actionResolver));
+                    System.out.println("from timer >1 isMyCarCollisionWithBlocks");
                 }
                 System.out.println("Pause");
                 timer = 0;
@@ -1294,6 +1337,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                 if (passerCar.getY() - myCar.getY() < 50 && passerCar.getY() - myCar.getY() > 0) {
                     ((PasserCarDataType) passerCar.body.getUserData()).setOvertaking(true);
                     carsCountTurn++;
+                    AssetsManager.playSound(Constants.SOUND_BONUS);
                     achivesBooster += 100;
 //                sequenceActionCountCar.addAction(Actions.delay(2f));
 //                sequenceActionCountCar.addAction(Actions.removeActor());
@@ -1302,8 +1346,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                     labelCars.setFontScale(0.7f, 0.7f);
                     //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
 
-                    labelCars.setPosition(GameRuners.WIDTH / 4 - 35, GameRuners.HEIGHT / 4 + 220);
-                    labelCars.setText("Cars");
+                    labelCars.setPosition(GameRuners.WIDTH / 4 - labelCars.getPrefWidth() / 2, GameRuners.HEIGHT / 4 + 220);
+                    labelCars.setText(GameManager.getStrings().get(Constants.GAME_CARS_COUNT_LBL));
                     stage.addActor(labelCars);
 
                     labelCountCar.addAction(sequenceActionCountCar);
@@ -1328,6 +1372,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                 if (!isAutoTurn && !isZoomCarUpdate && !isUpdateGodeMode && passerCar.getIsLeft() == !myCar.isLeft() && myCar.isTurnRun() && passerCar.getY() - myCar.getY() < 100 && passerCar.getY() - myCar.getY() > 0) {
                     if ((myCar.isLeft() && myCar.getX() < 95) || (!myCar.isLeft() && myCar.getX() > 180)) {
                         achives += 50;
+                        AssetsManager.playSound(Constants.SOUND_BONUS);
                         sequenceAction.addAction(Actions.delay(0.5f));
                         sequenceAction.addAction(new ViewActionAlfa(label));
                         sequenceAction.addAction(new Action() {
@@ -1342,7 +1387,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                         label.addAction(sequenceAction);
                         label.setColor(Color.ORANGE);
                         label.setFontScale(0.65f, 0.65f);
-                        label.setText("Dangerous");
+                        label.setText(GameManager.getStrings().get(Constants.GAME_DANGEROUS_LBL));
 
 
                         labelDangerousCount.setFontScale(0.65f, 0.65f);
@@ -1362,8 +1407,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                         skullBonusText.setText("");
                         skullBonusCountCar.setText("");
                         //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
-                        label.setPosition(GameRuners.WIDTH / 4 - 70, GameRuners.HEIGHT / 4 + 200);
-                        labelDangerousCount.setPosition(GameRuners.WIDTH / 4 - 30, GameRuners.HEIGHT / 4 + 160);
+                        label.setPosition(GameRuners.WIDTH / 4 - label.getPrefWidth() / 2, GameRuners.HEIGHT / 4 + 200);
+                        labelDangerousCount.setPosition(GameRuners.WIDTH / 4 - labelDangerousCount.getPrefWidth() / 2, GameRuners.HEIGHT / 4 + 160);
                         stage.addActor(label);
                         stage.addActor(labelDangerousCount);
 
@@ -1474,7 +1519,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 //        sb.draw(effectBooster.getEffect2(),effectBooster.getPosEffectBoost2().x,effectBooster.getPosEffectBoost2().y);
 
         if (isAutoTurn || isZoomCarUpdate) {
-            System.out.println(" effectBooster.draw(sb);  ");
+            //System.out.println(" effectBooster.draw(sb);  ");
             effectBooster.draw(sb);
         }
         if (isUpdateGodeMode)
@@ -1639,12 +1684,12 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     @Override
     protected void handleInput() {
 
-        if (Gdx.input.justTouched()) {
-            if (!isGamePause() && !isJumpCarUpdate)
-                if (!isAfterPause && !isAutoTurn && !isMyCarCollision && !isMyCarCollisionWithBlocks)
-                    myCar.turn();
-                else isAfterPause = false;
-        }
+//        if (Gdx.input.justTouched()) {
+//            if (!isGamePause() && !isJumpCarUpdate)
+//                if (!isAfterPause && !isAutoTurn && !isMyCarCollision && !isMyCarCollisionWithBlocks)
+//                    myCar.turn();
+//                else isAfterPause = false;
+//        }
     }
 
     @Override
@@ -1677,15 +1722,18 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
     @Override
     public void onSaveMe() {
-        for (int i = 0; i < passerCars.size() - 1; i++) {
-            if (((PasserCarDataType) passerCars.get(i).body.getUserData()).isContact()) {
+        for (int i = 0; i < passerCars.size() ; i++) {
+            //if (((PasserCarDataType) passerCars.get(i).body.getUserData()).isContact()) {
                 passerCars.get(i).remove();
                 world.destroyBody(passerCars.get(i).body);
                 passerCars.remove(i);
-            }
+            //}
         }
         playTimeAnimation = 0;
+
+
         isPause = false;
+
         isMyCarCollision = false;
 
         GameManager.resetSpeed();
@@ -1752,6 +1800,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
     @Override
     public void onAddBoost() {
+        AssetsManager.playSound(Constants.SOUND_ROCKET);
         isBost = true;
         isAutoTurn = true;
     }
@@ -1784,9 +1833,9 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         skullBonusText.setColor(Color.RED);
         skullBonusText.setFontScale(0.7f, 0.7f);
         //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
+        skullBonusText.setText(GameManager.getStrings().get(Constants.GAME_CARS_COUNT_LBL));
+        skullBonusText.setPosition(GameRuners.WIDTH / 4 - skullBonusText.getPrefWidth() / 2, GameRuners.HEIGHT / 4 + 220);
 
-        skullBonusText.setPosition(GameRuners.WIDTH / 4 - 25, GameRuners.HEIGHT / 4 + 220);
-        skullBonusText.setText("Car");
         stage.addActor(skullBonusText);
 
         skullBonusCountCar.setColor(Color.WHITE);
@@ -1798,7 +1847,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         GameManager.addGodModeCount();
         skullBonusCountCar.setText(String.valueOf((int) skullCarCount));
         stage.addActor(skullBonusCountCar);
-
+        AssetsManager.playSound(Constants.SOUND_BONUS);
         skullAchives += 100;
     }
 
@@ -1820,8 +1869,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
             skullBonusText.setFontScale(0.7f, 0.7f);
             //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
 
-            skullBonusText.setPosition(GameRuners.WIDTH / 4 - 25, GameRuners.HEIGHT / 4 + 220);
-            skullBonusText.setText("Car");
+            skullBonusText.setPosition(GameRuners.WIDTH / 4 - skullBonusText.getPrefWidth() / 2, GameRuners.HEIGHT / 4 + 220);
+            skullBonusText.setText(GameManager.getStrings().get(Constants.GAME_CARS_COUNT_LBL));
             stage.addActor(skullBonusText);
 
             skullBonusCountCar.setColor(Color.WHITE);
@@ -1855,6 +1904,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
     @Override
     public void onZoomJump() {
+        AssetsManager.playSound(Constants.SOUND_JUMP);
         isJumpCar = true;
         isJumpCarUpdate = true;
     }
@@ -1870,6 +1920,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     @Override
     public void onCollision() {
         if (!isMyCarCollision) {
+            AssetsManager.playSound(Constants.SOUND_CRASH_2);
             Array<Action> actions = myCar.getActions();
             for (Action action : actions) {
                 myCar.removeAction(action);
@@ -1912,9 +1963,9 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         achivesFly += 100;
         labelFlyText.setColor(Color.RED);
         labelFlyText.setFontScale(0.7f, 0.7f);
+        labelFlyText.setText(GameManager.getStrings().get(Constants.GAME_CARS_COUNT_LBL));
+        labelFlyText.setPosition(GameRuners.WIDTH / 4 - labelFlyText.getPrefWidth() / 2, GameRuners.HEIGHT / 4 + 220);
 
-        labelFlyText.setPosition(GameRuners.WIDTH / 4 - 35, GameRuners.HEIGHT / 4 + 220);
-        labelFlyText.setText("Cars");
         stage.addActor(labelFlyText);
 
         labelFlyCount.setColor(Color.WHITE);
@@ -1956,5 +2007,13 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         ((MyCarDataType) myCar.body.getUserData()).setIsAfterPause(true);
         isAfterPauseUpdate = true;
         isStartAfterPause = true;
+    }
+
+    @Override
+    public void turn() {
+        if (!isGamePause() && !isJumpCarUpdate)
+            if (!isAfterPause && !isAutoTurn && !isMyCarCollision && !isMyCarCollisionWithBlocks)
+                myCar.turn();
+            else isAfterPause = false;
     }
 }
