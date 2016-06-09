@@ -33,6 +33,16 @@ public class GameManager {
     private static HashMap<String, String> strings = new HashMap<String, String>();
     private static Car currentCar = new Car();
     public static boolean pauseGame = false;
+
+    public static boolean isAfterSaveMe() {
+        return isAfterSaveMe;
+    }
+
+    public static void setIsAfterSaveMe(boolean isAfterSaveMe) {
+        GameManager.isAfterSaveMe = isAfterSaveMe;
+    }
+
+    public static boolean isAfterSaveMe = false;
     private static float contactPointX = 0, contactPointY = 0;
     //private static float boosterSpeed =0;
     private static float lastSpeed = 0;
@@ -84,24 +94,24 @@ public class GameManager {
     static Json json = new Json();
 
     public static void addDangerousCount() {
-        dangerousCount+=50;
+        dangerousCount += 50;
     }
 
 
     public static void addRocketCount() {
-        rocketCount+=100;
+        rocketCount += 100;
     }
 
     public static void addDestroyedCount() {
-        destroyedCount+=100;
+        destroyedCount += 100;
     }
 
     public static void addSpringBoardCount() {
-        springBoardCount+=100;
+        springBoardCount += 100;
     }
 
     public static void addGodModeCount() {
-        godModeCount+=100;
+        godModeCount += 100;
     }
 
     public static void resetCountBusters() {
@@ -152,6 +162,16 @@ public class GameManager {
     private static GearShift gearShift;
     private static float toSpeed = 0;
     private static float currentSpeed = 0;
+
+    public static boolean isPauseDtTimer() {
+        return pauseDtTimer;
+    }
+
+    public static void setPauseDtTimer(boolean pauseDtTimer) {
+        GameManager.pauseDtTimer = pauseDtTimer;
+    }
+
+    private static boolean pauseDtTimer = false;
     private static float dtTime = 0;
     private static float dtTimeAhive = 0;
     private static boolean isCollisionWithCar = false;
@@ -255,10 +275,10 @@ public class GameManager {
     }
 
 
-    public static void resetDtTime()
-    {
-        dtTime=0;
+    public static void resetDtTime() {
+        dtTime = 0;
     }
+
     public static void resetTime() {
         resetCountBusters();
         allTime = 0;
@@ -381,8 +401,12 @@ public class GameManager {
 //        System.out.println("toSpeed " + toSpeed);
 //        System.out.println("-----------------------------");
 
-        dtTime += dt;
-        dtTimeAhive += dt;
+        if(!isPauseDtTimer())
+        {
+            dtTime += dt;
+            dtTimeAhive += dt;
+        }
+
         allTime += dt;
         toSpeed = gearShift.getSpeeds().get(gear);
         // System.out.println("isCollision " + isCollision);

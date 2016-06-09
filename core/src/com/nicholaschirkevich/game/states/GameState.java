@@ -124,6 +124,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     ArrayList<Springboard> springboards;
     MenuSaveMe menuSaveMe;
 
+
     SequenceAction sequenceAction = new SequenceAction();
     SequenceAction sequenceActionDangerousCount = new SequenceAction();
     SequenceAction sequenceActionCountCar = new SequenceAction();
@@ -266,6 +267,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         springboards = new ArrayList<Springboard>();
         menuSaveMe = new MenuSaveMe(this, gsm, actionResolver);
 
+
         afterPauseLabel = new Label("", AssetsManager.getUiSkin());
 
         afterPauseLabel.setBounds(GameRuners.WIDTH / 4 - (afterPauseLabel.getPrefWidth() + 10), GameRuners.HEIGHT / 4 - (afterPauseLabel.getPrefHeight() / 2), afterPauseLabel.getPrefWidth(), afterPauseLabel.getPrefHeight());
@@ -334,6 +336,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
     public void pauseGame() {
         //if (!isPause) stage.addActor(new MenuGameOver(this, gsm));
+        System.out.println("Set pause");
         isPause = true;
         AssetsManager.pauseMusic();
 
@@ -715,15 +718,31 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         GameManager.setAchives(achives);
         GameManager.setDistance(distacne);
 
-        System.out.println("isPause " + isPause);
-        System.out.println("Gamepause "+GameManager.pauseGame);
 
         if (GameManager.pauseGame) {
-
-
             pauseGame();
         }
-        else  isPause =false;
+        if (GameManager.isAfterSaveMe) {
+            isPause = false;
+            StartGame();
+            GameManager.setPauseDtTimer(true);
+            ((MyCarDataType) myCar.body.getUserData()).setIsAfterPause(true);
+            isAfterPauseUpdate = true;
+            isStartAfterPause = true;
+            GameManager.isAfterSaveMe = false;
+/////////////////////////////////////////////////////////////crash
+            myCar.setIsTurnRun(false);
+            isGameStart = true;
+
+            if (myCar.isLeft()) {
+                myCar.setLeft();
+            } else {
+                myCar.setRight();
+            }
+            myCar.setIsTurnRun(false);
+            isGameStart = true;
+        }
+
 
         if (isMyCarCollision || isMyCarCollisionWithBlocks)
             playTimeAnimation += dt;
@@ -846,6 +865,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                 if (timeAfterPause > 3) {
                     ((MyCarDataType) myCar.body.getUserData()).setIsAfterPause(false);
                     isAfterPauseUpdate = false;
+                    GameManager.setPauseDtTimer(false);
                     timeAfterPause = 0;
                     myCar.setAlfa(1);
                 } else {
@@ -1268,13 +1288,13 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                 //stage.addActor(new MenuSaveMe(this, gsm,actionResolver));
                 if (actionResolver != null && actionResolver.isAvailibleInternet() && actionResolver.isIntertitalLoad() && !isSavedMe && distacne > 100) {
                     {
-                        isMyCarCollision=false;
+                        isMyCarCollision = false;
                         stage.addActor(menuSaveMe);
                         isSavedMe = true;
                     }
                 } else {
 
-                    isMyCarCollision=false;
+                    isMyCarCollision = false;
                     stage.addActor(new MenuGameOver(gsm, this, actionResolver));
 
                 }
@@ -1722,19 +1742,17 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
     @Override
     public void onSaveMe() {
-        for (int i = 0; i < passerCars.size() ; i++) {
-            //if (((PasserCarDataType) passerCars.get(i).body.getUserData()).isContact()) {
-                passerCars.get(i).remove();
-                world.destroyBody(passerCars.get(i).body);
-                passerCars.remove(i);
-            //}
-        }
+//        for (int i = 0; i < passerCars.size() ; i++) {
+//            //if (((PasserCarDataType) passerCars.get(i).body.getUserData()).isContact()) {
+//                passerCars.get(i).remove();
+//                world.destroyBody(passerCars.get(i).body);
+//                passerCars.remove(i);
+//            //}
+//        }
         playTimeAnimation = 0;
 
-
-        isPause = false;
-
         isMyCarCollision = false;
+
 
         GameManager.resetSpeed();
         GameManager.setIsCollisionWithCar(false);
@@ -1746,6 +1764,11 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
             myCar.setRight();
         }
         myCar.setIsTurnRun(false);
+        isGameStart = true;
+        GameManager.pauseGame = false;
+        GameManager.isAfterSaveMe = true;
+
+
     }
 
 
@@ -2007,6 +2030,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         ((MyCarDataType) myCar.body.getUserData()).setIsAfterPause(true);
         isAfterPauseUpdate = true;
         isStartAfterPause = true;
+        GameManager.setPauseDtTimer(true);
     }
 
     @Override
