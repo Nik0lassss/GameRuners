@@ -7,4 +7,10 @@
     <string name="VkDialogText">"Choose your vehicle. Hit the gas. Go! #speedyroad "</string>
     <string name="VkDialogLink">https://itunes.apple.com/ru/app/speedy-road-endless-8-bit-race/id1008125487?mt=8</string>
     <string name="VkDialogLinkText">Posted from app Speedy Road</string>
+    <string name="base64EncodedKey">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAl+2QLNYn/X4JTQuVos5SJDKfIs3ve8JGL9xOw/DAmCrkQSC3GmDYlq5mzn0XyQl7aUJcj9jAq1AOKg89iDXyaskrhpkeVxfPidZEJCtQLEeNVYmm2xo4iaqaFgRXJMS0cxTbsVO+0c38HrfXvWr7Bg0bmguRy6+Hh2WnNaMuXg43o1gELh+rRcWRoviXVgnLyB/A7PSCjtV6a5PzMypQ/8IYPXpgwsQ644l/5VJA+Po0QBPoh3G5+l479nRXfm4eZ31mZYhF/Q8wNPgjOWnriUnXumenAu8z+C8xL/JCi2ovLqbMnK2hBWdyjwAeuTsSKc6gQfNnM+adCcQAi+IxfwIDAQAB</string>
+    <string name="purchasetocken">speedy_road_tocken</string>
+    <string name="inAppBuillingOk">In-app Billing is set up OK</string>
+    <string name="inAppBuillingErrore">In-app Billing setup failed:</string>
+    <string name="packagePurchase">com.example.</string>
+
 </resources>

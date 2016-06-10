@@ -34,6 +34,9 @@ public class GameManager {
     private static Car currentCar = new Car();
     public static boolean pauseGame = false;
 
+
+
+
     public static boolean isAfterSaveMe() {
         return isAfterSaveMe;
     }
@@ -232,6 +235,13 @@ public class GameManager {
         }
     }
 
+    public static void addCar(Car car) {
+        if (!myCars.contains(car.getID())) {
+            myCars.add(car.getID());
+            preferences.putString(Constants.PREFERENCES_KEY_CARS, json.toJson(myCars).toString());
+            preferences.flush();
+        }
+    }
     public static void loadData() {
         loadLocale();
         gearShifts = XmlHelper.getShifts();
@@ -304,7 +314,7 @@ public class GameManager {
                     cars.add(car);
             }
         }
-        return cars.get(RandomUtil.getRand(0, cars.size()));
+        return cars.get(RandomUtil.getRand(0, cars.size()-1));
     }
 
     public static int getDangerousCount() {

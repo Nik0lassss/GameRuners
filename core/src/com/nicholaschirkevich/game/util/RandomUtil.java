@@ -1,9 +1,12 @@
 package com.nicholaschirkevich.game.util;
 
+import com.nicholaschirkevich.game.entity.Car;
+import com.nicholaschirkevich.game.entity.CarsType;
 import com.nicholaschirkevich.game.enums.BushType;
 import com.nicholaschirkevich.game.enums.OtherCarType;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 /**
@@ -44,6 +47,19 @@ public class RandomUtil {
     }
 
     ;
+
+    public static void generateRandPossabilityCarHashMap(ArrayList<CarsType> cars) {
+        ArrayList<String> carsRandromPossability = new ArrayList<String>();
+        for (CarsType carsType : cars) {
+            for (Car car: carsType.getCars())
+            {
+                for(int i =0;i<car.getPossability();i++)
+                    carsRandromPossability.add(car.getID());
+            }
+
+        }
+
+    }
 
     public static int getNoRand(int min, int max) {
         Random rand = new Random();

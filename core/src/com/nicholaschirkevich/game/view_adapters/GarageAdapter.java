@@ -2,6 +2,7 @@ package com.nicholaschirkevich.game.view_adapters;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.entity.Car;
 import com.nicholaschirkevich.game.entity.CarsType;
 import com.nicholaschirkevich.game.interfaces.UpdateGarageTable;
@@ -18,9 +19,11 @@ public class GarageAdapter implements UpdateGarageTable {
     private ArrayList<CarsType> carsTypes;
     private int selectedItmeIndex;
     private ArrayList<CarGarageItem> carGarageItems = new ArrayList<CarGarageItem>();
+    private ActionResolver actionResolver;
 
 
-    public GarageAdapter(Table table, ArrayList<CarsType> carsTypes) {
+    public GarageAdapter(Table table, ArrayList<CarsType> carsTypes, ActionResolver actionResolver) {
+        this.actionResolver = actionResolver;
         this.table = table;
         this.carsTypes = carsTypes;
 
@@ -32,7 +35,7 @@ public class GarageAdapter implements UpdateGarageTable {
             CarsType carsType = carsTypes.get(i);
             for (int z = 0; z < carsType.getCars().size(); z++) {
                 Car car = carsType.getCars().get(z);
-                CarGarageItem carGarageItem = new CarGarageItem(car,index, this, AssetsManager.getUiSkin());
+                CarGarageItem carGarageItem = new CarGarageItem(car, index, this, AssetsManager.getUiSkin(), actionResolver);
                 carGarageItems.add(carGarageItem);
                 // CarGarageItem item = new CarGarageItem(car);
                 //item.addListener(new CarGarageItemClickListener(car.getID(),this));

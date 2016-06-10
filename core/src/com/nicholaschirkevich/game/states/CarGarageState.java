@@ -1,5 +1,6 @@
 package com.nicholaschirkevich.game.states;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -44,7 +45,7 @@ public class CarGarageState extends State {
     Image image;
     SequenceAction sequence;
     TextButton resumeButton;
-    Image resumeButtonUpImage, resumeButtonDownImage;
+    Image resumeButtonUpImage, resumeButtonDownImage, getPrizeButtonImageUp,getPrizeButtonImageDown;
 
     private Animation garageAnimation;
     ArrayList<Bushs> bushsArrayLeft, bushsArrayRight;
@@ -52,18 +53,24 @@ public class CarGarageState extends State {
     Texture garageTexture;
     Image garage, myCar;
     StartGameGarageButton startGameGarageButton;
+
     private float platTime = 0;
     private float posX = 85, posY = 460;
     private int heightTexture = prizeCarTexture.getHeight();
     private int fullHeight = prizeCarTexture.getHeight();
     Road road;
     private ActionResolver actionResolver;
+    private TextButton getPrizeButton;
+    private boolean isPlayAnimation = false;
+
 
     public CarGarageState(GameStateManager gsm, ActionResolver actionResolver) {
         super(gsm);
         this.actionResolver = actionResolver;
         bushsArrayLeft = new ArrayList<Bushs>();
         bushsArrayRight = new ArrayList<Bushs>();
+
+
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
         stage = new Stage(new StretchViewport(GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2));
@@ -79,6 +86,8 @@ public class CarGarageState extends State {
         }
         resumeButtonUpImage = new Image(AssetsManager.getTextureRegion(Constants.MAIN_MENU_PLAY_BTTN_UP_ID));
         resumeButtonDownImage = new Image(AssetsManager.getTextureRegion(Constants.MAIN_MENU_PLAY_BTTN_PRESSERD_ID));
+        getPrizeButtonImageUp = new Image(AssetsManager.getTextureRegion(Constants.CAR_GARAGE_BTTN_GREEN_UP));
+        getPrizeButtonImageDown = new Image(AssetsManager.getTextureRegion(Constants.CAR_GARAGE_BTTN_GREEN_DOWN));
 
         //textureRegion.setRegionHeight(70);
         sequence = new SequenceAction();
@@ -96,10 +105,11 @@ public class CarGarageState extends State {
 //        garageNameImage = new Image(garageNameTexture);
 //        garageNameImage.setBounds(20, GameRuners.HEIGHT / 2 - 40, garageNameTexture.getWidth(), garageNameTexture.getHeight());
 
-
+        setUpGetPrize();
         //setUpGarage();
         setUpBackButton();
         setUpStartButton();
+
         stage.addActor(garage);
         //stage.addActor(myCar);
         //stage.addActor(image);
@@ -111,7 +121,7 @@ public class CarGarageState extends State {
     public void setUpBackButton() {
 
         float width = 43, height = 49;
-        backButton = new BackButton(Constants.GARAGE_BTTN_X_VISIBLE, Constants.GARAGE_BTTN_Y - (height / 2), width, height, gsm,actionResolver);
+        backButton = new BackButton(Constants.GARAGE_BTTN_X_VISIBLE, Constants.GARAGE_BTTN_Y - (height / 2), width, height, gsm, actionResolver);
         backButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -129,13 +139,29 @@ public class CarGarageState extends State {
     }
 
 
-    @Override
-    protected void handleInput() {
+    public void setUpGetPrize() {
+        float x = Constants.GET_PRIZE_BTTN_X_VISIBLE, y = Constants.GET_PRIZE_Y_VISIBLE;
+        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+        textButtonStyle.down = getPrizeButtonImageUp.getDrawable();
+        textButtonStyle.up = getPrizeButtonImageDown.getDrawable();
+        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
+        getPrizeButton = new TextButton(GameManager.getStrings().get(Constants.GARAGE_FREE_LBL), textButtonStyle);
+        getPrizeButton.getLabel().setFontScale(0.4f, 0.4f);
+        getPrizeButton.setBounds(x, y, 120, 60);
+        getPrizeButton.addListener(new ClickListener(){
 
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                isPlayAnimation=true;
+                GameManager.addCar(prizeCar);
+                getPrizeButton.remove();
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
+        stage.addActor(getPrizeButton);
     }
 
-    @Override
-    public void update(float dt) {
+    public void animation(float dt) {
         platTime += dt;
         if (platTime > 1) {
             if (posY > 300) {
@@ -148,12 +174,22 @@ public class CarGarageState extends State {
                 textureRegion = new TextureRegion(prizeCarTexture);
 
                 textureRegion.setRegion(0, (int) heightTexture, textureRegion.getRegionWidth(), textureRegion.getRegionHeight() - heightTexture);
-            }
-            else {
+            } else {
                 setUpResume();
             }
         }
+    }
 
+
+    @Override
+    protected void handleInput() {
+
+    }
+
+    @Override
+    public void update(float dt) {
+
+        if (isPlayAnimation) animation(dt);
 
     }
 
@@ -165,6 +201,7 @@ public class CarGarageState extends State {
         textButtonStyle.up = resumeButtonUpImage.getDrawable();
         textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
+        GameManager.setCurrentCarID(prizeCar.getID());
         resumeButton = new TextButton("Play", textButtonStyle);
         resumeButton.getLabel().setFontScale(0.6f, 0.6f);
         resumeButton.getLabelCell().padLeft(25f);
@@ -180,7 +217,7 @@ public class CarGarageState extends State {
                 sequence.addAction(new Action() {
                     @Override
                     public boolean act(float delta) {
-                        gsm.push(new GameState(gsm,false,true,actionResolver));
+                        gsm.push(new GameState(gsm, false, true, actionResolver));
                         return true;
                     }
                 });
@@ -191,7 +228,7 @@ public class CarGarageState extends State {
             }
         });
 
-       stage.addActor(resumeButton);
+        stage.addActor(resumeButton);
 
     }
 

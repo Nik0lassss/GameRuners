@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
+import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.entity.Car;
 import com.nicholaschirkevich.game.interfaces.UpdateGarageTable;
 import com.nicholaschirkevich.game.listeners.CarGarageItemClickListener;
@@ -35,11 +36,13 @@ public class CarGarageItem extends Group implements UpdateGarageCarItem {
     Skin skin;
     Image buyImage;
     Label countLabel;
+    ActionResolver actionResolver;
 
 
-    public CarGarageItem(Car car, Integer index, UpdateGarageTable updateGarageTable, Skin skin) {
+    public CarGarageItem(Car car, Integer index, UpdateGarageTable updateGarageTable, Skin skin, ActionResolver actionResolver) {
 
 
+        this.actionResolver = actionResolver;
         this.updateGarageTable = updateGarageTable;
         this.index = index;
         car_texture = AssetsManager.getTextureRegion(car.getID()).getTexture();
@@ -215,6 +218,14 @@ public class CarGarageItem extends Group implements UpdateGarageCarItem {
                 background.setDrawable(new SpriteDrawable(new Sprite(AssetsManager.getTextureRegion(Constants.SLOT_VEHICLE_ID))));
             }
 
+        }else if(car.getIsForRealMoney() &&!GameManager.getMyCars().contains(car.getID())){
+         if(selected)
+         {
+             actionResolver.buyProduct("sp000");
+         }
+            else {
+
+         }
         } else if (GameManager.getMyCars().contains(car.getID())) {
 
             if (selected) {

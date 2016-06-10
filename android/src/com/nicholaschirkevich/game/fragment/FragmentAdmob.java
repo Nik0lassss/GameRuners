@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +21,6 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.R;
-import com.nicholaschirkevich.game.activity.LoginActivity;
 import com.nicholaschirkevich.game.adapter.FriendDialogListAdapter;
 import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.internet.InternetHelper;
@@ -36,8 +34,6 @@ import com.vk.sdk.api.VKError;
 import com.vk.sdk.api.VKParameters;
 import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
-import com.vk.sdk.api.httpClient.VKHttpClient;
-import com.vk.sdk.api.methods.VKApiGroups;
 import com.vk.sdk.api.model.VKApiPhoto;
 import com.vk.sdk.api.model.VKApiUserFull;
 import com.vk.sdk.api.model.VKPhotoArray;
@@ -47,7 +43,6 @@ import com.vk.sdk.api.photo.VKUploadImage;
 import com.vk.sdk.dialogs.VKShareDialog;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import util.IabHelper;
 import util.IabResult;
@@ -68,12 +63,13 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
             "test_tag";
     private View view;
 
-
-
+    private IabHelper.OnConsumeFinishedListener mConsumeFinishedListener;
+    private IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener;
 
     IabHelper mHelper;
     GameRuners gameRuners;
     static final String ITEM_SKU = "android.test.purchased";
+    static final String ITEM_SKU_SP = "com.example.sp000";
     //static final String ITEM_SKU = "com.example.sp";
 
     private String[] vkScope = new String[]{VKScope.WALL, VKScope.PHOTOS, VKScope.ADS, VKScope.NOTES, VKScope.NOHTTPS, VKScope.PAGES, VKScope.STATS, VKScope.STATUS};
@@ -91,11 +87,12 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         mInterstitialAd.setAdUnitId(appId);
         byButton = (Button) getActivity().findViewById(R.id.bttn_by);
         byButton.setEnabled(false);
-        final IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener
+         mPurchaseFinishedListener
                 = new IabHelper.OnIabPurchaseFinishedListener() {
             public void onIabPurchaseFinished(IabResult result,
                                               Purchase purchase) {
                 if (result.isFailure()) {
+
                     // Handle error
                     return;
                 } else if (purchase.getSku().equals(ITEM_SKU)) {
@@ -109,8 +106,8 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         byButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mHelper.launchPurchaseFlow(getActivity(), ITEM_SKU, 10001,
-                        mPurchaseFinishedListener, "mypurchasetoken");
+//                mHelper.launchPurchaseFlow(getActivity(), ITEM_SKU_SP, 10001,
+//                        mPurchaseFinishedListener, getString(R.string.purchasetocken));
             }
         });
         showButton = (Button) getActivity().findViewById(R.id.bttn_show);
@@ -121,7 +118,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                 showButton.setEnabled(false);
                 byButton.setEnabled(true);
                 String base64EncodedPublicKey =
-                        "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAl+2QLNYn/X4JTQuVos5SJDKfIs3ve8JGL9xOw/DAmCrkQSC3GmDYlq5mzn0XyQl7aUJcj9jAq1AOKg89iDXyaskrhpkeVxfPidZEJCtQLEeNVYmm2xo4iaqaFgRXJMS0cxTbsVO+0c38HrfXvWr7Bg0bmguRy6+Hh2WnNaMuXg43o1gELh+rRcWRoviXVgnLyB/A7PSCjtV6a5PzMypQ/8IYPXpgwsQ644l/5VJA+Po0QBPoh3G5+l479nRXfm4eZ31mZYhF/Q8wNPgjOWnriUnXumenAu8z+C8xL/JCi2ovLqbMnK2hBWdyjwAeuTsSKc6gQfNnM+adCcQAi+IxfwIDAQAB";
+                        getString(R.string.base64EncodedKey);
 
                 mHelper = new IabHelper(getContext(), base64EncodedPublicKey);
 
@@ -129,12 +126,12 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                                            IabHelper.OnIabSetupFinishedListener() {
                                                public void onIabSetupFinished(IabResult result) {
                                                    if (!result.isSuccess()) {
-                                                       Toast.makeText(getContext(), "In-app Billing setup failed:", Toast.LENGTH_LONG).show();
-                                                       Log.d(TAG, "In-app Billing setup failed: " +
+                                                       Toast.makeText(getContext(), getString(R.string.inAppBuillingErrore), Toast.LENGTH_LONG).show();
+                                                       Log.d(TAG, getString(R.string.inAppBuillingErrore) +
                                                                result);
                                                    } else {
-                                                       Toast.makeText(getContext(), "In-app Billing is set up OK", Toast.LENGTH_LONG).show();
-                                                       Log.d(TAG, "In-app Billing is set up OK");
+                                                       Toast.makeText(getContext(), getString(R.string.inAppBuillingOk), Toast.LENGTH_LONG).show();
+                                                       Log.d(TAG, getString(R.string.inAppBuillingOk));
                                                    }
                                                }
                                            });
@@ -142,8 +139,8 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
             }
         });
 
-
-        final IabHelper.OnConsumeFinishedListener mConsumeFinishedListener =
+        mConsumeFinishedListener
+                =
                 new IabHelper.OnConsumeFinishedListener() {
                     public void onConsumeFinished(Purchase purchase,
                                                   IabResult result) {
@@ -187,6 +184,15 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode,
+                                    Intent data)
+    {
+        if (!mHelper.handleActivityResult(requestCode,
+                resultCode, data)) {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
 
     public void consumeItem() {
         mHelper.queryInventoryAsync(new IabHelper.QueryInventoryFinishedListener() {
@@ -324,8 +330,13 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         });
 
 
+    }
 
-
+    @Override
+    public void buyProduct(String id) {
+        mHelper.flagEndAsync();
+        mHelper.launchPurchaseFlow(getActivity(), getString(R.string.packagePurchase) + id, 10001,
+                mPurchaseFinishedListener, getString(R.string.purchasetocken));
 
     }
 

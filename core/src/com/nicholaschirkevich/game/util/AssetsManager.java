@@ -262,6 +262,9 @@ public class AssetsManager {
         texturesMap.put(Constants.BACK_BUTTON_ID, new TextureRegion(new Texture(Constants.BACK_BUTTON_RESOURCE)));
 
 
+        texturesMap.put(Constants.CAR_GARAGE_BTTN_GREEN_DOWN,new TextureRegion(new Texture(Constants.CAR_GARAGE_BTTN_GREEN_DOWN_SOURCE)));
+        texturesMap.put(Constants.CAR_GARAGE_BTTN_GREEN_UP,new TextureRegion(new Texture(Constants.CAR_GARAGE_BTTN_GREEN_UP_SOURCE)));
+
         texturesMap.put(Constants.CNR_LINE_ID, new TextureRegion(new Texture(Constants.CNR_LINE_RESOURCE)));
         texturesMap.put(Constants.BACK_TILE_ID, new TextureRegion(new Texture(Constants.BACK_TILE_RESOURCE)));
         texturesMap.put(Constants.BUTTON_BUT_REAL_EMPTY_ID, new TextureRegion(new Texture(Constants.BUTTON_BUT_REAL_EMPTY_RESOURCE)));

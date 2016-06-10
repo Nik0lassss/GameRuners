@@ -25,15 +25,15 @@ public class Prize {
         if (time > timeToGeneratePrize) {
            if (RandomUtil.getRandomBoolean()) {
                 System.out.println("prize");
-//               int pos = 0;
-//               for (int i = 0; i < 4; i++) {
-//                   if(i==0)coins.add(new Coin(world, 90, (int) posYLastCar + 270 + pos, 10,isLeftLastCar));
-//                   else coins.add(new Coin(world, 90, (int) posYLastCar + 270 + pos, 10,coins.get(i-1).isLeft()));
-//                   pos += 30;
-//
-//               }
+               int pos = 0;
+               for (int i = 0; i < 4; i++) {
+                   if(i==0)coins.add(new Coin(world, 90, (int) posYLastCar + 270 + pos, 10,isLeftLastCar));
+                   else coins.add(new Coin(world, 90, (int) posYLastCar + 270 + pos, 10,coins.get(i-1).isLeft()));
+                   pos += 30;
+
+               }
                // springboards.add(new Springboard(world,90,(int)posYLastCar+270,10));
-                skulls.add(new Skull(world, 90, (int) posYLastCar + 270, 10, !isLeftLastCar));
+                //skulls.add(new Skull(world, 90, (int) posYLastCar + 270, 10, !isLeftLastCar));
 //                ladles.add(new Ladle(world, 90,(int) posYLastCar + 290, 10,isLeftLastCar));
                //flySpringboards.add(new FlySpringboard(world, 90,(int) posYLastCar + 270, 10,isLeftLastCar));
 //                 boosters.add(new Booster(world, 90,(int) posYLastCar + 650, 10,!isLeftLastCar));
@@ -41,29 +41,29 @@ public class Prize {
             } else {
                // dirts.add(new Dirt(world,90,(int)posYLastCar+270,10,isLeftLastCar));
                //springboards.add(new Springboard(world,90,(int)posYLastCar+270,10));
-               skulls.add(new Skull(world, 90, (int) posYLastCar + 270, 10, !isLeftLastCar));
+               //skulls.add(new Skull(world, 90, (int) posYLastCar + 270, 10, !isLeftLastCar));
                //   ladles.add(new Ladle(world, 90,(int) posYLastCar + 270, 10,isLeftLastCar));
                //flySpringboards.add(new FlySpringboard(world, 90,(int) posYLastCar + 290, 10,isLeftLastCar));
                //  boosters.add(new Booster(world, 90,(int) posYLastCar + 650, 10,!isLeftLastCar));
-//                switch (RandomUtil.getNoRand(1, 5)) {
-//                    case 1:
-//                        ladles.add(new Ladle(world, 90, (int) posYLastCar + 290, 10,isLeftLastCar));
-//                        break;
-//                    case 2:
-//                        boosters.add(new Booster(world, 90,(int) posYLastCar + 290, 10,isLeftLastCar));
-//                        break;
-//                    case 3:
-//                        skulls.add(new Skull(world, 90, (int) posYLastCar + 290, 10,isLeftLastCar));
-//                       break;
-//                    case 4:
-//                        dirts.add(new Dirt(world,90,(int)posYLastCar+290,10,isLeftLastCar));
-//                        break;
-//                    case 5:
-//                        flySpringboards.add(new FlySpringboard(world, 90,(int) posYLastCar + 270, 10,isLeftLastCar));
-//                        break;
-//
-//
-//               }
+                switch (RandomUtil.getNoRand(1, 5)) {
+                    case 1:
+                        ladles.add(new Ladle(world, 90, (int) posYLastCar + 290, 10,isLeftLastCar));
+                        break;
+                    case 2:
+                        boosters.add(new Booster(world, 90,(int) posYLastCar + 290, 10,isLeftLastCar));
+                        break;
+                    case 3:
+                        skulls.add(new Skull(world, 90, (int) posYLastCar + 290, 10,isLeftLastCar));
+                       break;
+                    case 4:
+                        dirts.add(new Dirt(world,90,(int)posYLastCar+290,10,isLeftLastCar));
+                        break;
+                    case 5:
+                        flySpringboards.add(new FlySpringboard(world, 90,(int) posYLastCar + 270, 10,isLeftLastCar));
+                        break;
+
+
+               }
 ////
 //
 //                System.out.println("else prize");

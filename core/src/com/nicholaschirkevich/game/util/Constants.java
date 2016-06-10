@@ -63,6 +63,12 @@ public class Constants {
     public static final String MAIN_MENU_WIN_PRIZE_PRESSED_RESOURCE = "button_win_a_prize_pressed.png";
     public static final String MAIN_MENU_WIN_PRIZE_UP_RESOURCE = "button_win_a_prize.png";
 
+
+
+    public static final String CAR_GARAGE_BTTN_GREEN_DOWN = "bttn_green_prssd";
+    public static final String CAR_GARAGE_BTTN_GREEN_UP = "bttn_green";
+    public static final String CAR_GARAGE_BTTN_GREEN_DOWN_SOURCE= "bttn_green_prssd.png";
+    public static final String CAR_GARAGE_BTTN_GREEN_UP_SOURCE = "bttn_green.png";
     public static final String MAIN_MENU_CARS_PRESSERD_ID = "bttn_cars_prssd";
     public static final String MAIN_MENU_CARS_UP_ID = "bttn_cars";
     public static final String MAIN_MENU_CARS_PRESSED_RESOURCE = "bttn_cars_prssd.png";
@@ -509,6 +515,9 @@ public class Constants {
     public static final float RESUME_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 12f - 30;
     public static final float RESUME_BTTN_Y_INVISIBLE = -200;
 
+    public static final float GET_PRIZE_BTTN_X_VISIBLE = GameRuners.HEIGHT / 12f +10;
+    public static final float GET_PRIZE_Y_VISIBLE = GameRuners.WIDTH / 4-50;
+
     public static final float SAVE_ME_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
     public static final float SAVE_ME_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 3.4f;
 
@@ -544,9 +553,16 @@ public class Constants {
     public static final float PRIZE_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
     public static final float PRIZE_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 5f;
 
+
+    public static final float SECOND_POSITION_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
+    public static final float SECOND_POSITION_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 7f - 30;
+
     public static final float VK_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
     public static final float VK_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 5f + 90;
 
+
+    public static final float VK_BTTN_X_VISIBLE_SECOND_LINE = GameRuners.WIDTH / 4;
+    public static final float VK_BTTN_Y_VISIBLE_SECOND_LINE = GameRuners.HEIGHT / 5f ;
 
     public static final float LOGO_POSITION_X = GameRuners.WIDTH / 28;
     public static final float LOGO_POSITION_Y = GameRuners.HEIGHT / 3.2f;
@@ -645,6 +661,9 @@ public class Constants {
     public static final float SAVE_ME_BONUS_X = GameRuners.WIDTH / 3.35f;
     public static final float SAVE_ME_BONUS_Y = GameRuners.HEIGHT / 5.3f;
 
+    public static final float FREE_FOR_PRIZE_SECOND_LINE_BONUS_X = GameRuners.WIDTH / 3.35f;
+    public static final float FREE_FOR_PRIZE_SECOND_LINE_BONUS_Y = GameRuners.HEIGHT / 5.3f-90;
+
     public static final String GEAR_SHIFT_FILE_PATH = "gear_shift.xml";
     public static final String STRINGS_FILE_PATH = "localization.xml";
     public static final String GEAR_SHIFT_FILE_SPEED_KEY = "speeds";
@@ -716,6 +735,7 @@ public class Constants {
     public static final String PR_BEST_SCORE_TEXT = "pr_best_score_text";
     public static final String GO_WIN_LBL = "go_win_lbl";
     public static final String GO_PRIZE_LBL = "go_prize_lbl";
+    public static final String GARAGE_FREE_LBL = "garage_free_lbl";
 
 
     public static final String CARS_TYPE_FILE_PATH = "cars.xml";

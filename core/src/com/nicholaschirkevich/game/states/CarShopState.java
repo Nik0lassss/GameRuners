@@ -46,7 +46,7 @@ public class CarShopState extends State implements ResumeButtonListener, UpdateG
 
     public CarShopState(GameStateManager gsm, ActionResolver actionResolver) {
         super(gsm);
-
+        this.actionResolver = actionResolver;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
         stage = new Stage(new StretchViewport(GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2));
@@ -71,7 +71,7 @@ public class CarShopState extends State implements ResumeButtonListener, UpdateG
     public void setUpBackButton() {
 
         float width = 43, height = 49;
-        backButton = new BackButton(Constants.GARAGE_BTTN_X_VISIBLE, Constants.GARAGE_BTTN_Y - (height / 2), width, height, gsm,actionResolver);
+        backButton = new BackButton(Constants.GARAGE_BTTN_X_VISIBLE, Constants.GARAGE_BTTN_Y - (height / 2), width, height, gsm, actionResolver);
         stage.addActor(backButton);
     }
 
@@ -86,7 +86,7 @@ public class CarShopState extends State implements ResumeButtonListener, UpdateG
         table = new Table();
         stage.addActor(container);
         ArrayList<CarsType> carsTypes = GameManager.getCarsTypes();
-        GarageAdapter garageAdapter = new GarageAdapter(table, carsTypes);
+        GarageAdapter garageAdapter = new GarageAdapter(table, carsTypes, actionResolver);
         garageAdapter.loadTableData();
 
         scrollPane2 = new ScrollPane(table);

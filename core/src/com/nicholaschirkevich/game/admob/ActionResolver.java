@@ -13,5 +13,6 @@ public interface ActionResolver {
     void sendPostOnVk();
     boolean isVkLogin();
     void showInviteBox();
+    void buyProduct(String id);
 
 }

@@ -93,7 +93,7 @@ public class MenuTest extends Group {
         setUpBackgroung(false);
         setUpResume();
         setUpImageLogo();
-        setUpPlayOnline();
+        //setUpPlayOnline();
         //setUpPrize();
         //setUpSaveMe();
         setCarShop();

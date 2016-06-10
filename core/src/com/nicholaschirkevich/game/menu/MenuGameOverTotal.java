@@ -4,7 +4,6 @@ package com.nicholaschirkevich.game.menu;
  * Created by Nikolas on 20.04.2016.
  */
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Action;
@@ -16,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
@@ -153,9 +151,9 @@ public class MenuGameOverTotal extends Group {
         setUpBackgroung();
         setUpResume();
         setUpImageLogo();
-        setUpPlayOnline();
+        //setUpPlayOnline();
         setUpPrize();
-        setUpSaveMe();
+        setFreeForPrize();
         setCarShop();
         setCoinShop();
         setSettingMenu();
@@ -407,7 +405,7 @@ public class MenuGameOverTotal extends Group {
         addActor(imageLogo);
     }
 
-    private void setUpSaveMe() {
+    private void setFreeForPrize() {
 
         Texture saveMeBonus = new Texture("free_for_prize.png");
 
@@ -416,7 +414,7 @@ public class MenuGameOverTotal extends Group {
         imageLogo = new Image(saveMeBonus);
         imageLogo.setAlign(Align.top);
         imageLogo.setRotation(0.5f);
-        imageLogo.setBounds(Constants.SAVE_ME_BONUS_X, Constants.SAVE_ME_BONUS_Y, imageLogo.getWidth(), imageLogo.getHeight());
+        imageLogo.setBounds(Constants.FREE_FOR_PRIZE_SECOND_LINE_BONUS_X, Constants.FREE_FOR_PRIZE_SECOND_LINE_BONUS_Y, imageLogo.getWidth(), imageLogo.getHeight());
         addActor(imageLogo);
     }
 
@@ -440,7 +438,7 @@ public class MenuGameOverTotal extends Group {
 
     private void setUpPrize() {
 
-        float x = Constants.PRIZE_BTTN_X_VISIBLE, y = Constants.PRIZE_BTTN_Y_VISIBLE, width = 70, height = 55;
+        float x = Constants.SECOND_POSITION_BTTN_X_VISIBLE, y = Constants.SECOND_POSITION_BTTN_Y_VISIBLE, width = 70, height = 55;
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.down = getPrizeDownButtonImage.getDrawable();
         textButtonStyle.up = getPrizeUpButtonImage.getDrawable();
@@ -479,7 +477,7 @@ public class MenuGameOverTotal extends Group {
 
     private void setUpVkShare() {
 
-        float x = Constants.VK_BTTN_X_VISIBLE, y = Constants.VK_BTTN_Y_VISIBLE;
+        float x = Constants.VK_BTTN_X_VISIBLE_SECOND_LINE, y = Constants.VK_BTTN_Y_VISIBLE_SECOND_LINE;
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         Image down = new Image(AssetsManager.getTextureRegion(Constants.BTTN_VK_PRESSED_ID).getTexture());
         textButtonStyle.down = down.getDrawable();
