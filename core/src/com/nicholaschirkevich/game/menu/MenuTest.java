@@ -99,7 +99,7 @@ public class MenuTest extends Group {
         setCarShop();
         setCoinShop();
         setSettingMenu();
-        setLeaderBoard();
+        //setLeaderBoard();
         setLeadersBoard();
         //setUpIcon();
         //setUpIconSpeed();

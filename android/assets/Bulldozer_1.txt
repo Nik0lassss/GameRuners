@@ -1,0 +1,33 @@
+Bulldozer_1.png
+size: 512,128
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Bulldozer_1
+  rotate: false
+  xy: 2, 2
+  size: 62, 69
+  orig: 62, 69
+  offset: 0, 0
+  index: -1
+Bulldozer_2
+  rotate: false
+  xy: 66, 2
+  size: 62, 69
+  orig: 62, 69
+  offset: 0, 0
+  index: -1
+Bulldozer_3
+  rotate: false
+  xy: 130, 2
+  size: 62, 69
+  orig: 62, 69
+  offset: 0, 0
+  index: -1
+Bulldozer_4
+  rotate: false
+  xy: 194, 2
+  size: 62, 69
+  orig: 62, 69
+  offset: 0, 0
+  index: -1

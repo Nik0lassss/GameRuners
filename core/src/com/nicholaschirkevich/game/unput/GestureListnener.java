@@ -3,6 +3,7 @@ package com.nicholaschirkevich.game.unput;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.nicholaschirkevich.game.interfaces.CarTurnInterface;
+import com.nicholaschirkevich.game.util.Constants;
 import com.nicholaschirkevich.game.util.GameManager;
 
 /**
@@ -10,6 +11,7 @@ import com.nicholaschirkevich.game.util.GameManager;
  */
 public class GestureListnener implements GestureDetector.GestureListener {
     private CarTurnInterface carTurnInterface;
+    private float touchPosX = 0, touchPosY = 0;
 
     public GestureListnener(CarTurnInterface carTurnInterface) {
         this.carTurnInterface = carTurnInterface;
@@ -17,10 +19,14 @@ public class GestureListnener implements GestureDetector.GestureListener {
 
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
-        if (GameManager.isTouchControl()) {
+        touchPosX = x;
+        touchPosY = y;
+        System.out.println("touchPosX "+touchPosX);
+        System.out.println("touchPosY "+touchPosY);
+        if (GameManager.isTouchControl() && !(x < Constants.xTouchBourder && y < Constants.yTouchBourder)) {
             carTurnInterface.turn();
         }
-        System.out.println("Touch");
+
         return false;
     }
 
@@ -36,16 +42,12 @@ public class GestureListnener implements GestureDetector.GestureListener {
 
     @Override
     public boolean fling(float velocityX, float velocityY, int button) {
-        if (!GameManager.isTouchControl()) {
+        if (!GameManager.isTouchControl() && !(touchPosX < Constants.xTouchBourder && touchPosY < Constants.yTouchBourder)) {
             if (Math.abs(velocityX) > 60) {
-//                System.out.println("velocityX: " + velocityX);
-//                System.out.println("velocityY: " + velocityY);
                 carTurnInterface.turn();
             }
         }
-//
-        System.out.println("velocityX: " + velocityX);
-        System.out.println("velocityY: " + velocityY);
+
         return true;
     }
 

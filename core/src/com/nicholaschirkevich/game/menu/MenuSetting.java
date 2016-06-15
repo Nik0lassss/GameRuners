@@ -15,6 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -30,24 +32,28 @@ import com.nicholaschirkevich.game.util.GameManager;
  * Created by Nikolas on 10.03.2016.
  */
 public class MenuSetting extends Group {
-    Texture slot_vehicle;
-    Texture speed_bar;
-    TextButton soundButton, swipe_controll_button, block_rds_button, restore_button, singInVkBttn, singInFbBttn, backBttn;
-    Image background;
-    Image soundButtonUpImage, soundButtonDownImage, playOnlineDownImage, playOnlineUpImage, getPrizeUpButtonImage, getPrizeDownButtonImage, carShopImageUp, carShopImageDown, coinShomImageUp, coinShopImageDown, settingMenuImageUp, settingMenuImageDown, leaderBoardImageUp, leaderBoardImageDown, leaderBoardsImageUp, leaderBoardsImageDown;
-    Texture sound_on, sound_off;
-    Image sound_on_image, sound_off_image, backButtonImageUp, backButtonImageDown;
-    Image swipe_image, rds_image, restore_image, singInVkImage, singInFbImage;
-    Texture swipe_texture, rds_texture, restore_texture, singInVk, singInFb, backButtonTextureUp, backButtonTextureDown;
-    Texture soundButtonUp, soundButtonDown, playOnlineDownImageTexture, playOnlineUpImageTexture, getPrizeUpButtonImageTexture, getPrizeDownButtonImageTexture, carShopTextureUp, carShopTextureDown, coinShopTextureUp, coinShopTextureDown, settingMenuTextureUp, settingMenuTextureDown, leaderBoardTextureUp, leaderBoardTextureDown, leaderBoardsTextureUp, leaderBoardsTextureDown;
-    Image imageLogo;
-    ResumeButtonListener listener;
-    SequenceAction sequence, sequenceCarShop, swipeButtonSequence, sequenceReturn;
-    GameStateManager gsm;
-    ResumeButtonListener listenerResume;
+    private  Texture slot_vehicle;
+    private  Texture speed_bar;
+    private  TextButton soundButton, swipe_controll_button, block_rds_button, restore_button, singInVkBttn, singInFbBttn, backBttn;
+    private  Image background;
+    private  Image soundButtonUpImage, soundButtonDownImage, playOnlineDownImage, playOnlineUpImage, getPrizeUpButtonImage, getPrizeDownButtonImage, carShopImageUp, carShopImageDown, coinShomImageUp, coinShopImageDown, settingMenuImageUp, settingMenuImageDown, leaderBoardImageUp, leaderBoardImageDown, leaderBoardsImageUp, leaderBoardsImageDown;
+    private  Texture sound_on, sound_off;
+    private  Image sound_on_image, sound_off_image, backButtonImageUp, backButtonImageDown;
+    private  Image swipe_image, rds_image, restore_image, singInVkImage, singInFbImage;
+    private  Texture swipe_texture, rds_texture, restore_texture, singInVk, singInFb, backButtonTextureUp, backButtonTextureDown;
+    private  Texture soundButtonUp, soundButtonDown, playOnlineDownImageTexture, playOnlineUpImageTexture, getPrizeUpButtonImageTexture, getPrizeDownButtonImageTexture, carShopTextureUp, carShopTextureDown, coinShopTextureUp, coinShopTextureDown, settingMenuTextureUp, settingMenuTextureDown, leaderBoardTextureUp, leaderBoardTextureDown, leaderBoardsTextureUp, leaderBoardsTextureDown;
+    private  Image imageLogo;
+    private  ResumeButtonListener listener;
+    private  SequenceAction sequence, sequenceCarShop, swipeButtonSequence, sequenceReturn;
+    private  GameStateManager gsm;
+    private ResumeButtonListener listenerResume;
     private ActionResolver actionResolver;
     private int addWidth = 5;
+    private int buttonWidth = 159,buttonHeight = 50;
     private Group parentView;
+    private int distance_button = 15;
+    private ImageButton imageButton, resumeImageButton;
+    private Label labelCoinCount;
 
     public MenuSetting(ResumeButtonListener listenerResume, GameStateManager gsm, ActionResolver actionResolver, Group parentView) {
 
@@ -103,10 +109,24 @@ public class MenuSetting extends Group {
         setUpSingInVk();
         setUpSingInFb();
         setUpBackButton();
-
+        setUpImageCoinCount();
+        setUpCoinCountLabel();
         setBounds(0, 0, GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2);
     }
 
+    public void setUpImageCoinCount() {
+        imageButton = new ImageButton(new Image(AssetsManager.getTextureRegion(Constants.COIN_ICON_1_NAME_ID)).getDrawable());
+        //imageButton.setBounds(labelCoinCount.getX() + 50, labelCoinCount.getY() - 2, imageButton.getWidth(), imageButton.getHeight());
+        imageButton.setBounds(GameRuners.WIDTH / 2 - 25, GameRuners.HEIGHT / 2 - 30, imageButton.getWidth(), imageButton.getHeight());
+        addActor(imageButton);
+    }
+
+    public void setUpCoinCountLabel() {
+        labelCoinCount = new Label(String.valueOf(GameManager.getCoinCounter()), AssetsManager.getUiSkin());
+        labelCoinCount.setFontScale(0.60f, 0.60f);
+        labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() -5, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
+        addActor(labelCoinCount);
+    }
 
     private void setUpImageLogo() {
 
@@ -146,7 +166,7 @@ public class MenuSetting extends Group {
         soundButton.addActor(sound_on_image);
 
 
-        soundButton.setBounds(x - soundButtonUpImage.getWidth() / 2, y - soundButtonUpImage.getHeight() / 2, soundButtonUpImage.getWidth() + addWidth, soundButtonUpImage.getHeight());
+        soundButton.setBounds(x - soundButtonUpImage.getWidth() / 2, y - soundButtonUpImage.getHeight() / 2, buttonWidth, buttonHeight);
 
         soundButton.addListener(new ClickListener() {
             @Override
@@ -194,11 +214,11 @@ public class MenuSetting extends Group {
         swipe_controll_button.getLabel().setFontScale(0.4f, 0.4f);
         swipe_controll_button.getLabelCell().padLeft(25f);
 
-        swipe_image.setPosition(getX() + 5, getY() + 13);
+        swipe_image.setPosition(getX() + 5, getY() + distance_button);
         swipe_controll_button.addActor(swipe_image);
 
 
-        swipe_controll_button.setBounds(x - soundButtonUpImage.getWidth() / 2, y - soundButtonUpImage.getHeight() / 2, soundButtonUpImage.getWidth() + addWidth, soundButtonUpImage.getHeight());
+        swipe_controll_button.setBounds(x - soundButtonUpImage.getWidth() / 2, y - soundButtonUpImage.getHeight() / 2, buttonWidth, buttonHeight);
 
         swipe_controll_button.addListener(new ClickListener() {
             @Override
@@ -247,11 +267,11 @@ public class MenuSetting extends Group {
         block_rds_button.getLabel().setFontScale(0.4f, 0.4f);
         block_rds_button.getLabelCell().padLeft(25f);
 
-        rds_image.setPosition(getX() + 5, getY() + 13);
+        rds_image.setPosition(getX() + 5, getY() + distance_button);
         block_rds_button.addActor(rds_image);
 
 
-        block_rds_button.setBounds(x - soundButtonUpImage.getWidth() / 2, y - soundButtonUpImage.getHeight() / 2, soundButtonUpImage.getWidth() + addWidth, soundButtonUpImage.getHeight());
+        block_rds_button.setBounds(x - soundButtonUpImage.getWidth() / 2, y - soundButtonUpImage.getHeight() / 2, buttonWidth, buttonHeight);
 
         block_rds_button.addListener(new ClickListener() {
             @Override
@@ -288,11 +308,11 @@ public class MenuSetting extends Group {
         restore_button.getLabel().setFontScale(0.4f, 0.4f);
         restore_button.getLabelCell().padLeft(25f);
 
-        restore_image.setPosition(getX() + 5, getY() + 13);
+        restore_image.setPosition(getX() + 5, getY() + distance_button);
         restore_button.addActor(restore_image);
 
 
-        restore_button.setBounds(x - soundButtonUpImage.getWidth() / 2, y - soundButtonUpImage.getHeight() / 2, soundButtonUpImage.getWidth() + addWidth, soundButtonUpImage.getHeight());
+        restore_button.setBounds(x - soundButtonUpImage.getWidth() / 2, y - soundButtonUpImage.getHeight() / 2, buttonWidth, buttonHeight);
 
         restore_button.addListener(new ClickListener() {
             @Override
@@ -332,11 +352,11 @@ public class MenuSetting extends Group {
         singInVkBttn.getLabel().setFontScale(0.4f, 0.4f);
         singInVkBttn.getLabelCell().padLeft(25f);
 
-        singInVkImage.setPosition(getX() + 5, getY() + 13);
+        singInVkImage.setPosition(getX()+5 , getY() + distance_button);
         singInVkBttn.addActor(singInVkImage);
 
 
-        singInVkBttn.setBounds(x, y - singInVkBttn.getHeight() / 2, 158 + addWidth, singInVkBttn.getHeight());
+        singInVkBttn.setBounds(x, y - singInVkBttn.getHeight() / 2, buttonWidth, buttonHeight);
 
         singInVkBttn.addListener(new ClickListener() {
             @Override
@@ -348,16 +368,18 @@ public class MenuSetting extends Group {
                     public boolean act(float delta) {
                         if (actionResolver.isVkLogin()) {
 
-                            actionResolver.vkLogout();
+                            if (actionResolver.isAvailibleInternet()) actionResolver.vkLogout();
 
                             if (actionResolver.isAvailibleInternet()) {
                                 singInVkBttn.setText(GameManager.getStrings().get(Constants.MS_SIGN_IN_LBL));
                                 setUpSingInFb();
                             }
                         } else {
-                            actionResolver.showVkLoginActivity();
-                            singInFbBttn.remove();
-                            singInVkBttn.setText(GameManager.getStrings().get(Constants.SETTINGS_VK_LOGOUT_LBL));
+                            if (actionResolver.isAvailibleInternet()) {
+                                actionResolver.showVkLoginActivity();
+                                singInFbBttn.remove();
+                                singInVkBttn.setText(GameManager.getStrings().get(Constants.SETTINGS_VK_LOGOUT_LBL));
+                            }
                         }
 
                         //listener.resumeButtonOnResume();
@@ -386,13 +408,13 @@ public class MenuSetting extends Group {
 
             singInFbBttn = new TextButton(GameManager.getStrings().get(Constants.MS_SIGN_IN_LBL), textButtonStyle);
             singInFbBttn.getLabel().setFontScale(0.4f, 0.4f);
-            singInFbBttn.getLabelCell().padLeft(25f);
+            singInFbBttn.getLabelCell().padLeft(30f);
 
-            singInFbImage.setPosition(getX() + 5, getY() + 13);
+            singInFbImage.setPosition(getX()+5 , getY() + distance_button);
             singInFbBttn.addActor(singInFbImage);
 
 
-            singInFbBttn.setBounds(x, y - singInFbBttn.getHeight() / 2, 158 + addWidth, singInFbBttn.getHeight());
+            singInFbBttn.setBounds(x, y - singInFbBttn.getHeight() / 2, buttonWidth, buttonHeight);
 
             singInFbBttn.addListener(new ClickListener() {
                 @Override
@@ -420,7 +442,7 @@ public class MenuSetting extends Group {
 
     private void setUpBackButton() {
 
-        float x = Constants.BACK_BTTN_X_VISIBLE, y = Constants.BACK_BTTN_Y_VISIBLE, width = 70, height = 55;
+        float x = Constants.BACK_BTTN_X_VISIBLE, y = Constants.BACK_BTTN_Y_VISIBLE - 35, width = 70, height = 55;
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.down = backButtonImageDown.getDrawable();
         textButtonStyle.up = backButtonImageUp.getDrawable();

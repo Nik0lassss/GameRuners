@@ -1,0 +1,117 @@
+Betonomeshalka_1.png
+size: 512,256
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Betonomeshalka_1
+  rotate: false
+  xy: 2, 170
+  size: 62, 82
+  orig: 62, 82
+  offset: 0, 0
+  index: -1
+Betonomeshalka_2
+  rotate: false
+  xy: 2, 86
+  size: 62, 82
+  orig: 62, 82
+  offset: 0, 0
+  index: -1
+Betonomeshalka_3
+  rotate: false
+  xy: 66, 170
+  size: 62, 82
+  orig: 62, 82
+  offset: 0, 0
+  index: -1
+Betonomeshalka_4
+  rotate: false
+  xy: 2, 2
+  size: 62, 82
+  orig: 62, 82
+  offset: 0, 0
+  index: -1
+Betonomeshalka_5
+  rotate: false
+  xy: 66, 86
+  size: 62, 82
+  orig: 62, 82
+  offset: 0, 0
+  index: -1
+Betonomeshalka_6
+  rotate: false
+  xy: 130, 170
+  size: 62, 82
+  orig: 62, 82
+  offset: 0, 0
+  index: -1
+Betonomeshalka_7
+  rotate: false
+  xy: 66, 2
+  size: 62, 82
+  orig: 62, 82
+  offset: 0, 0
+  index: -1
+Betonomeshalka_8
+  rotate: false
+  xy: 130, 86
+  size: 62, 82
+  orig: 62, 82
+  offset: 0, 0
+  index: -1
+Betonomeshalka_9
+  rotate: false
+  xy: 194, 170
+  size: 62, 82
+  orig: 62, 82
+  offset: 0, 0
+  index: -1
+Betonomeshalka_10
+  rotate: false
+  xy: 130, 2
+  size: 62, 82
+  orig: 62, 82
+  offset: 0, 0
+  index: -1
+Betonomeshalka_11
+  rotate: false
+  xy: 194, 86
+  size: 62, 82
+  orig: 62, 82
+  offset: 0, 0
+  index: -1
+Betonomeshalka_12
+  rotate: false
+  xy: 258, 170
+  size: 62, 82
+  orig: 62, 82
+  offset: 0, 0
+  index: -1
+Betonomeshalka_13
+  rotate: false
+  xy: 194, 2
+  size: 62, 82
+  orig: 62, 82
+  offset: 0, 0
+  index: -1
+Betonomeshalka_14
+  rotate: false
+  xy: 258, 86
+  size: 62, 82
+  orig: 62, 82
+  offset: 0, 0
+  index: -1
+Betonomeshalka_15
+  rotate: false
+  xy: 322, 170
+  size: 62, 82
+  orig: 62, 82
+  offset: 0, 0
+  index: -1
+Betonomeshalka_16
+  rotate: false
+  xy: 258, 2
+  size: 62, 82
+  orig: 62, 82
+  offset: 0, 0
+  index: -1

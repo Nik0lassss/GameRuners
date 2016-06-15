@@ -16,25 +16,23 @@ import java.util.ArrayList;
  */
 public class GarageAdapter implements UpdateGarageTable {
     private Table table;
-    private ArrayList<CarsType> carsTypes;
+    private ArrayList<Car> cars;
     private int selectedItmeIndex;
     private ArrayList<CarGarageItem> carGarageItems = new ArrayList<CarGarageItem>();
     private ActionResolver actionResolver;
 
 
-    public GarageAdapter(Table table, ArrayList<CarsType> carsTypes, ActionResolver actionResolver) {
+    public GarageAdapter(Table table, ArrayList<Car> cars, ActionResolver actionResolver) {
         this.actionResolver = actionResolver;
         this.table = table;
-        this.carsTypes = carsTypes;
-
+        this.cars = cars;
     }
+
 
     public void loadTableData() {
         int index = 0;
-        for (int i = 0; i < carsTypes.size(); i++) {
-            CarsType carsType = carsTypes.get(i);
-            for (int z = 0; z < carsType.getCars().size(); z++) {
-                Car car = carsType.getCars().get(z);
+            for (int z = 0; z < cars.size(); z++) {
+                Car car = cars.get(z);
                 CarGarageItem carGarageItem = new CarGarageItem(car, index, this, AssetsManager.getUiSkin(), actionResolver);
                 carGarageItems.add(carGarageItem);
                 // CarGarageItem item = new CarGarageItem(car);
@@ -42,7 +40,7 @@ public class GarageAdapter implements UpdateGarageTable {
                 table.add(carGarageItem).row();
                 index++;
             }
-        }
+
     }
 
     @Override

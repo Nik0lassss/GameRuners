@@ -21,6 +21,7 @@ import com.nicholaschirkevich.game.interfaces.UpdateGarageTable;
 import com.nicholaschirkevich.game.menu.BackButton;
 import com.nicholaschirkevich.game.menu.StartGameGarageButton;
 import com.nicholaschirkevich.game.util.AssetsManager;
+import com.nicholaschirkevich.game.util.CarSortingManager;
 import com.nicholaschirkevich.game.util.Constants;
 import com.nicholaschirkevich.game.util.GameManager;
 import com.nicholaschirkevich.game.view_adapters.GarageAdapter;
@@ -86,7 +87,9 @@ public class CarShopState extends State implements ResumeButtonListener, UpdateG
         table = new Table();
         stage.addActor(container);
         ArrayList<CarsType> carsTypes = GameManager.getCarsTypes();
-        GarageAdapter garageAdapter = new GarageAdapter(table, carsTypes, actionResolver);
+        GarageAdapter garageAdapter = new GarageAdapter(table, CarSortingManager.sortCars(carsTypes), actionResolver);
+        table.top();
+        table.padTop(20f);
         garageAdapter.loadTableData();
 
         scrollPane2 = new ScrollPane(table);
@@ -94,6 +97,7 @@ public class CarShopState extends State implements ResumeButtonListener, UpdateG
         scrollPane2.setScrollingDisabled(true, false);
         scrollPane2.setOverscroll(false, false);
         scrollPane2.invalidate();
+
         stage.addActor(scrollPane2);
 
 

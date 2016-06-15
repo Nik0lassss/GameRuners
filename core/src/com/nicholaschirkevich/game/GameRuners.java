@@ -13,7 +13,7 @@ import com.nicholaschirkevich.game.util.AssetsManager;
 import com.nicholaschirkevich.game.util.GameManager;
 
 
-public class GameRuners extends ApplicationAdapter  {
+public class GameRuners extends ApplicationAdapter {
     public static final int WIDTH = 640;
     public static final int HEIGHT = 1136;
 
@@ -24,10 +24,8 @@ public class GameRuners extends ApplicationAdapter  {
     private GameState gameState;
 
     public GameRuners(ActionResolver actionResolver) {
-     this.actionResolver = actionResolver;
+        this.actionResolver = actionResolver;
     }
-
-
 
 
     @Override
@@ -40,7 +38,7 @@ public class GameRuners extends ApplicationAdapter  {
         AssetsManager.loadAssets();
         AssetsManager.loadSound();
         actionResolver.getVkStatusLogin();
-        gameState = new GameState(gsm, true, false,actionResolver);
+        gameState = new GameState(gsm, true, false, actionResolver);
 
         gsm.push(gameState);
 
@@ -49,9 +47,12 @@ public class GameRuners extends ApplicationAdapter  {
 
     }
 
-    public void onAdClose()
-    {
+    public void onAdClose() {
         gameState.onAdClose();
+    }
+
+    public void onAdCloseAfterGetBonus() {
+        gameState.onAdCloseAfterAddCoins();
     }
 
     @Override

@@ -438,6 +438,15 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         menuSaveMe.onAdCLose();
     }
 
+    public void onAdCloseAfterAddCoins() {
+        GameManager.setDefaultSpeed();
+        GameManager.pauseGame = false;
+        GameManager.resetTime();
+        gsm.set(new GameState(gsm, false, false, actionResolver));
+        GameManager.addCoin(179);
+       // menuSaveMe.onAdCLose();
+    }
+
     public void updateBushs(ArrayList<Bushs> bushsArray, float dt, boolean isLeft) {
         if (camera.viewportHeight - bushsArray.get(bushsArray.size() - 1).getPosition().y > 10) {
             bushsArray.add(new Bushs(world, 90, (int) camera.viewportHeight + 150, 10, isLeft, Constants.ROAD_1_BUSH_1_STATIC_ASSETS_ID));
@@ -634,17 +643,16 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     }
 
     public void setUpImageCoinCount() {
-        imageButton = new ImageButton(new Image(AssetsManager.getAnimation(Constants.COIN_ASSETS_ID).getKeyFrames()[0].getTexture()).getDrawable());
+        imageButton = new ImageButton(new Image(AssetsManager.getTextureRegion(Constants.COIN_ICON_1_NAME_ID)).getDrawable());
         //imageButton.setBounds(labelCoinCount.getX() + 50, labelCoinCount.getY() - 2, imageButton.getWidth(), imageButton.getHeight());
-        imageButton.setBounds(GameRuners.WIDTH / 2 - 40, GameRuners.HEIGHT / 2 - 35, imageButton.getWidth(), imageButton.getHeight());
+        imageButton.setBounds(GameRuners.WIDTH / 2 - 25, GameRuners.HEIGHT / 2 - 30, imageButton.getWidth(), imageButton.getHeight());
         stage.addActor(imageButton);
     }
 
     public void setUpCoinCountLabel() {
-        Skin uiSkin = AssetsManager.getUiSkin();
-        labelCoinCount = new Label(String.valueOf(GameManager.getCoinCounter()), uiSkin);
+        labelCoinCount = new Label(String.valueOf(GameManager.getCoinCounter()), AssetsManager.getUiSkin());
         labelCoinCount.setFontScale(0.60f, 0.60f);
-        labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
+        labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
         stage.addActor(labelCoinCount);
     }
 
@@ -1459,6 +1467,24 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
     private void setPauseTextButton() {
 
+        TextButton.TextButtonStyle textButtonStyleInvisible = new TextButton.TextButtonStyle();
+        textButtonStyleInvisible.font = AssetsManager.getUiSkin().getFont("default-font");
+        TextButton invisibleClickButtonPause = new TextButton("",textButtonStyleInvisible);
+        invisibleClickButtonPause.setBounds(Constants.PAUSE_BTTN_X_VISIBLE-30, Constants.PAUSE_BTTN_Y-30 , 100, 100);
+        invisibleClickButtonPause.addListener(new ClickListener() {
+
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                pauseGame();
+                isAfterPause = true;
+
+                stage.addActor(new MenuPause(gameState, gsm, actionResolver));
+                hidePauseButton();
+
+                return true;
+            }
+        });
+
         float width = 24, height = 25;
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
 
@@ -1488,6 +1514,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
         pauseTextButton.setBounds(Constants.PAUSE_BTTN_X_VISIBLE, Constants.PAUSE_BTTN_Y - (height / 2), width, height);
         stage.addActor(pauseTextButton);
+        stage.addActor(invisibleClickButtonPause);
 
     }
 

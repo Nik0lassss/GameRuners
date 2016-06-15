@@ -26,7 +26,7 @@ Firefichter_car_3
 Firefichter_car_4
   rotate: false
   xy: 183, 0
-  size: 62, 82
-  orig: 62, 82
+  size: 61, 82
+  orig: 61, 82
   offset: 0, 0
   index: -1

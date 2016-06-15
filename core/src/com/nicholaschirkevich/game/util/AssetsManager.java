@@ -49,6 +49,14 @@ public class AssetsManager {
         }
     }
 
+    public static void playSoundLow(String soundID)
+    {
+        if(GameManager.isSoundEnable())
+        {
+            getSound(soundID).play(0.2f);
+        }
+    }
+
     private static Music playMusic;
 
     public static void playMusic()
@@ -238,6 +246,10 @@ public class AssetsManager {
         texturesMap.put(Constants.BTTN_CAR_SHOP_BUY_REAL_EMPTY_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BTTN_CAR_SHOP_BUY_EMPTY_REAL_RESOURCE))));
         texturesMap.put(Constants.BTTN_CAR_SHOP_BUY_REAL_EMPTY_DIS_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BTTN_CAR_SHOP_BUY_EMPTY_REAL_DIS_RESOURCE))));
         texturesMap.put(Constants.BTTN_CAR_SHOP_CHECKED_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BTTN_CAR_SHOP_CHECKED_RESOURCE))));
+        texturesMap.put(Constants.BTTN_NEXT_PRIZE_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BTTN_NEXT_PRIZE_RESOURCE))));
+        texturesMap.put(Constants.BTTN_NEXT_PRIZE_PRESSED_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BTTN_NEXT_PRIZE_PRESSED_RESOURCE))));
+        texturesMap.put(Constants.BTTN_GET_BONUS_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BTTN_GET_BONUS_RESOURCE))));
+        texturesMap.put(Constants.BTTN_GET_BONUS_PRESSED_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BTTN_GET_BONUS_PRESSED_RESOURCE))));
 
         texturesMap.put(Constants.SPEED_TEXT_ID, new TextureRegion(new Texture(Constants.SPEED_TEXT_RESOURCE)));
         texturesMap.put(Constants.SPEED_BAR_ID, new TextureRegion(new Texture(Constants.SPEED_BAR_RESOURCE)));
@@ -287,6 +299,9 @@ public class AssetsManager {
         texturesMap.put(Constants.BOOSTER_ID, new TextureRegion(new Texture(Constants.BOOSTER_RESOURCE)));
         texturesMap.put(Constants.ROCKETS_ID, new TextureRegion(new Texture(Constants.ROCKETS_RESOURCE)));
         texturesMap.put(Constants.SKULL_ON_ROAD_ID, new TextureRegion(new Texture(Constants.SKULL_ON_ROAD_RESOURCE)));
+        texturesMap.put(Constants.COIN_ICON_1_NAME_ID, new TextureRegion(new Texture(Constants.COIN_ICON_1_RESOURCE)));
+        texturesMap.put(Constants.RESUME_BTTN_ID, new TextureRegion(new Texture(Constants.RESUME_BTTN_RESOURCE)));
+        texturesMap.put(Constants.RESUME_BTTN_PRESSED_ID, new TextureRegion(new Texture(Constants.RESUME_BTTN_PRESSED_RESOURCE)));
         texturesMap.put(Constants.DESTRICTION_ID, new TextureRegion(new Texture(Constants.DESTRICTION_RESOURCE)));
         texturesMap.put(Constants.START_LINE_ID, new TextureRegion(new Texture(Constants.START_LINE_RESOURCE)));
         texturesMap.put(Constants.START_LIGHT_1_ID, new TextureRegion(new Texture(Constants.START_LIGHT_1_RESOURCE)));

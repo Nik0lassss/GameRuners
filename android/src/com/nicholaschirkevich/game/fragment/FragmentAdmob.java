@@ -87,7 +87,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         mInterstitialAd.setAdUnitId(appId);
         byButton = (Button) getActivity().findViewById(R.id.bttn_by);
         byButton.setEnabled(false);
-         mPurchaseFinishedListener
+        mPurchaseFinishedListener
                 = new IabHelper.OnIabPurchaseFinishedListener() {
             public void onIabPurchaseFinished(IabResult result,
                                               Purchase purchase) {
@@ -103,6 +103,8 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
             }
         };
 
+
+        initialBillingServie();
         byButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,13 +170,6 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         };
 
 
-        mInterstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                startGame();
-                gameRuners.onAdClose();
-            }
-        });
         startGame();
         gameRuners = new GameRuners(this);
 
@@ -186,8 +181,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
     @Override
     public void onActivityResult(int requestCode, int resultCode,
-                                    Intent data)
-    {
+                                 Intent data) {
         if (!mHelper.handleActivityResult(requestCode,
                 resultCode, data)) {
             super.onActivityResult(requestCode, resultCode, data);
@@ -205,18 +199,37 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     }
 
 
-    private void showInterstitial() {
+    private void showInterstitial(final boolean isAfterGetBonus) {
 
 
         try {
             runOnUiThread(new Runnable() {
+
+
                 public void run() {
+
+                    mInterstitialAd.setAdListener(new AdListener() {
+                        @Override
+                        public void onAdClosed() {
+                            if (isAfterGetBonus) {
+                                gameRuners. onAdCloseAfterGetBonus();
+                            } else {
+                                startGame();
+                                gameRuners.onAdClose();
+                            }
+                        }
+                    });
+
                     if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
                         mInterstitialAd.show();
                     } else {
                         Toast.makeText(getContext(), "Ad did not load", Toast.LENGTH_SHORT).show();
-                        gameRuners.onAdClose();
-                        startGame();
+                        if (isAfterGetBonus) {
+
+                        } else {
+                            gameRuners.onAdClose();
+                            startGame();
+                        }
                     }
                 }
             });
@@ -236,6 +249,29 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
     }
 
+    private void initialBillingServie() {
+        String base64EncodedPublicKey =
+                getString(R.string.base64EncodedKey);
+
+        mHelper = new IabHelper(getContext(), base64EncodedPublicKey);
+
+        mHelper.startSetup(new
+                                   IabHelper.OnIabSetupFinishedListener() {
+                                       public void onIabSetupFinished(IabResult result) {
+                                           if (!result.isSuccess()) {
+                                               Toast.makeText(getContext(), getString(R.string.inAppBuillingErrore), Toast.LENGTH_LONG).show();
+                                               Log.d(TAG, getString(R.string.inAppBuillingErrore) +
+                                                       result);
+                                           } else {
+                                               Toast.makeText(getContext(), getString(R.string.inAppBuillingOk), Toast.LENGTH_LONG).show();
+                                               Log.d(TAG, getString(R.string.inAppBuillingOk));
+                                           }
+                                       }
+                                   });
+        //showInterstitial();
+    }
+
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -244,8 +280,8 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     }
 
     @Override
-    public void showOrLoadInterstital() {
-        showInterstitial();
+    public void showOrLoadInterstital(boolean isAfterGetBonus) {
+        showInterstitial(isAfterGetBonus);
     }
 
     @Override

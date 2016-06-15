@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.entity.Car;
 import com.nicholaschirkevich.game.entity.CarsType;
@@ -19,8 +20,10 @@ import com.nicholaschirkevich.game.model.GearView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Nikolas on 11.03.2016.
@@ -33,8 +36,7 @@ public class GameManager {
     private static HashMap<String, String> strings = new HashMap<String, String>();
     private static Car currentCar = new Car();
     public static boolean pauseGame = false;
-
-
+    private static Date lastFreeCarPrize;
 
 
     public static boolean isAfterSaveMe() {
@@ -242,6 +244,7 @@ public class GameManager {
             preferences.flush();
         }
     }
+
     public static void loadData() {
         loadLocale();
         gearShifts = XmlHelper.getShifts();
@@ -306,15 +309,18 @@ public class GameManager {
     public static Car getRandomCarForGarage() {
         ArrayList<Car> cars = new ArrayList<Car>();
 
-        for (int i = 0; i < carsTypes.size(); i++) {
-            CarsType carsType = carsTypes.get(i);
-            for (int z = 0; z < carsType.getCars().size(); z++) {
-                Car car = carsType.getCars().get(z);
-                if (!getMyCars().contains(car.getID()))
-                    cars.add(car);
-            }
-        }
-        return cars.get(RandomUtil.getRand(0, cars.size()-1));
+        ArrayList<Car> possabilityArrayList = RandomUtil.generateRandPossabilityCarHashMap(carsTypes, getMyCars());
+
+//        for (int i = 0; i < carsTypes.size(); i++) {
+//            CarsType carsType = carsTypes.get(i);
+//            for (int z = 0; z < carsType.getCars().size(); z++) {
+//                Car car = carsType.getCars().get(z);
+//                if (!getMyCars().contains(car.getID()))
+//                    cars.add(car);
+//            }
+//        }
+        //return cars.get(RandomUtil.getRand(0, cars.size()-1));
+        return possabilityArrayList.get(RandomUtil.getRand(0, possabilityArrayList.size() - 1));
     }
 
     public static int getDangerousCount() {
@@ -356,12 +362,33 @@ public class GameManager {
         bestAchives = preferences.getInteger(Constants.PREFERENCES_KEY_ACHIVES_COUNT_ID, 0);
         isTouchControl = preferences.getBoolean(Constants.PREFERENCES_CONTROL_ID);
         isSoundEnable = preferences.getBoolean(Constants.PREFERENCES_SOUND_SETTING_ID);
+        Long lastCarUpdateTimePrize = preferences.getLong(Constants.PREFERENCES_LAST_CAR_PRIZE_TIME_MILLIS, 0);
+        if (lastCarUpdateTimePrize.equals(0l)) {
+            lastFreeCarPrize = new Date();
 
+            preferences.putLong(Constants.PREFERENCES_LAST_CAR_PRIZE_TIME_MILLIS, lastFreeCarPrize.getTime());
+            preferences.flush();
+        } else {
+            lastFreeCarPrize = new Date(lastCarUpdateTimePrize);
+
+        }
 
     }
 
     public static ArrayList<GearShift> getGearShifts() {
         return gearShifts;
+    }
+
+    public static boolean isNeedFreeCarPrize() {
+        if ((new Date()).after(new Date(lastFreeCarPrize.getTime() + TimeUnit.HOURS.toMillis(4)))) {
+            return true;
+        } else return false;
+    }
+
+    public static void setNewFreeCarPrizeDate() {
+        lastFreeCarPrize = new Date();
+        preferences.putLong(Constants.PREFERENCES_LAST_CAR_PRIZE_TIME_MILLIS, (lastFreeCarPrize.getTime()));
+        preferences.flush();
     }
 
     public static ArrayList<CarsType> getCarsTypes() {
@@ -411,8 +438,7 @@ public class GameManager {
 //        System.out.println("toSpeed " + toSpeed);
 //        System.out.println("-----------------------------");
 
-        if(!isPauseDtTimer())
-        {
+        if (!isPauseDtTimer()) {
             dtTime += dt;
             dtTimeAhive += dt;
         }
@@ -505,6 +531,12 @@ public class GameManager {
 
     public static Integer addCoint() {
         coinCounter++;
+        setCountCoint(coinCounter);
+        return coinCounter;
+    }
+
+    public static Integer addCoin(int count) {
+        coinCounter+=count;
         setCountCoint(coinCounter);
         return coinCounter;
     }

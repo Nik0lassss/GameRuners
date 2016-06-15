@@ -59,16 +59,16 @@ public class TrafficLight {
         time+=dt;
         if(time>0.8 && currentState ==1)
         {
-            AssetsManager.playSound(Constants.SOUND_START1);
+            AssetsManager.playSoundLow(Constants.SOUND_START1);
         } else if(time>1.3 && currentState==2)
         {
-            AssetsManager.playSound(Constants.SOUND_START1);
+            AssetsManager.playSoundLow(Constants.SOUND_START1);
         }else if(time>1.8 && currentState ==3)
         {
-            AssetsManager.playSound(Constants.SOUND_START1);
+            AssetsManager.playSoundLow(Constants.SOUND_START_2);
         }else if(time>2.4)
         {
-            AssetsManager.playSound(Constants.SOUND_START_2);
+            //AssetsManager.playSound(Constants.SOUND_START_2);
         }
 
        if(time>0.5 && currentState ==0)
@@ -94,7 +94,7 @@ public class TrafficLight {
        {
            texture = textureGreen3;
            currentState++;
-           AssetsManager.playSound(Constants.SOUND_START_2);
+           //AssetsManager.playSound(Constants.SOUND_START_2);
            onTrafficLightListener.onStartTraffic();
            isWork = false;
            currentState=0;

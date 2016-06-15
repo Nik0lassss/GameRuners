@@ -90,7 +90,7 @@ public class MenuSaveMe extends Group {
 //                                                 resumeButtonListener.onSaveMe();
 //                                                 GameManager.pauseGame = false;
 //                                                 GameManager.setIsCollision(false);
-                                                 actionResolver.showOrLoadInterstital();
+                                                 actionResolver.showOrLoadInterstital(false);
                                                  return true;
                                              }
                                          });

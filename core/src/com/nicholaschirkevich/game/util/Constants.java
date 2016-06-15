@@ -15,6 +15,7 @@ public class Constants {
     public static String PREFERENCES_CONTROL_ID = "SETTING_CONTROL_ID";
     public static String PREFERENCES_SOUND_SETTING_ID = "SETTING_SOUND_PREFERENCE";
     public static String PREFERENCES_KEY_CARS = "PRefsMyCars";
+    public static String PREFERENCES_LAST_CAR_PRIZE_TIME_MILLIS = "PREFERENCES_LAST_CAR_PRIZE_TIME_MILLIS";
 
     public static final float CAR_POS_X_LEFT = 120;
     public static final float CAR_POS_X_RIGHT = 215;
@@ -115,6 +116,19 @@ public class Constants {
 
     public static final String BTTN_CAR_SHOP_CHECKED_ID = "checked-icon";
     public static final String BTTN_CAR_SHOP_CHECKED_RESOURCE = "checked-icon.png";
+
+
+    public static final String BTTN_GET_BONUS_ID = "button_get_bonus_2";
+    public static final String BTTN_GET_BONUS_RESOURCE = "button_get_bonus_2.png";
+
+    public static final String BTTN_GET_BONUS_PRESSED_ID = "button_get_bonus_2_pressed";
+    public static final String BTTN_GET_BONUS_PRESSED_RESOURCE = "button_get_bonus_2_pressed.png";
+
+    public static final String BTTN_NEXT_PRIZE_ID = "button_next_prize";
+    public static final String BTTN_NEXT_PRIZE_RESOURCE = "button_next_prize.png";
+
+    public static final String BTTN_NEXT_PRIZE_PRESSED_ID = "button_next_prize_pressed";
+    public static final String BTTN_NEXT_PRIZE_PRESSED_RESOURCE = "button_next_prize_pressed.png";
 
     public static final String BTTN_VK_ID = "button_vk";
     public static final String BTTN_VK_RESOURCE = "button_vk.png";
@@ -433,6 +447,14 @@ public class Constants {
     public static final String BACK_BUTTON_PRESSED_ID = "bttn_back_prssd";
     public static final String BACK_BUTTON_PRESSED_RESOURCE = "bttn_back_prssd.png";
 
+    public static final String RESUME_BTTN_ID = "bttn_resume";
+    public static final String RESUME_BTTN_RESOURCE = "bttn_resume.png";
+    public static final String RESUME_BTTN_PRESSED_ID = "bttn_resume_prssd";
+    public static final String RESUME_BTTN_PRESSED_RESOURCE = "bttn_resume_prssd.png";
+
+    public static final String COIN_ICON_1_NAME_ID = "coin_icon_1";
+    public static final String COIN_ICON_1_RESOURCE = "coin_icon_1.png";
+
     public static final String COIN_SHOP_NAME_ID = "coins";
     public static final String COIN_SHOP_NAME_RESOURCE = "coins.png";
     public static final String COIN_SHOP_NAME_RUS_RESOURCE = "coins_rus.png";
@@ -489,23 +511,23 @@ public class Constants {
     public static final float GARAGE_BTTN_X_INVISIBLE = -50;
     public static final float GARAGE_BTTN_Y = GameRuners.HEIGHT / 2 - 500;
 
-    public static final float SOUND_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
+    public static final float SOUND_BTTN_X_VISIBLE = GameRuners.WIDTH / 4-2;
     public static final float SOUND_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 2.5f;
 
-    public static final float CONTROL_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
-    public static final float CONTROL_BTTN_Y_VISIBLE = SOUND_BTTN_Y_VISIBLE - 60;
+    public static final float CONTROL_BTTN_X_VISIBLE = GameRuners.WIDTH / 4-2;
+    public static final float CONTROL_BTTN_Y_VISIBLE = SOUND_BTTN_Y_VISIBLE - 70;
 
-    public static final float BLOCK_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
-    public static final float BLOCK_BTTN_Y_VISIBLE = CONTROL_BTTN_Y_VISIBLE - 60;
+    public static final float BLOCK_BTTN_X_VISIBLE = GameRuners.WIDTH / 4-2;
+    public static final float BLOCK_BTTN_Y_VISIBLE = CONTROL_BTTN_Y_VISIBLE - 70;
 
-    public static final float RESTORE_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
-    public static final float RESTORE_BTTN_Y_VISIBLE = BLOCK_BTTN_Y_VISIBLE - 60;
+    public static final float RESTORE_BTTN_X_VISIBLE = GameRuners.WIDTH / 4-2;
+    public static final float RESTORE_BTTN_Y_VISIBLE = BLOCK_BTTN_Y_VISIBLE - 70;
 
-    public static final float SING_IN_VK_BTTN_X_VISIBLE = GameRuners.WIDTH / 4-78;
-    public static final float SING_IN_VK_Y_VISIBLE = RESTORE_BTTN_Y_VISIBLE - 60;
+    public static final float SING_IN_VK_BTTN_X_VISIBLE = GameRuners.WIDTH / 4-81;
+    public static final float SING_IN_VK_Y_VISIBLE = RESTORE_BTTN_Y_VISIBLE - 70;
 
-    public static final float SING_IN_FB_BTTN_X_VISIBLE = GameRuners.WIDTH / 4-78;
-    public static final float SING_IN_FB_Y_VISIBLE = SING_IN_VK_Y_VISIBLE - 60;
+    public static final float SING_IN_FB_BTTN_X_VISIBLE = GameRuners.WIDTH / 4-81;
+    public static final float SING_IN_FB_Y_VISIBLE = SING_IN_VK_Y_VISIBLE - 70;
 
     public static final float BACK_BTTN_X_VISIBLE = GameRuners.WIDTH / 20f;
     public static final float BACK_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 18f;
@@ -556,6 +578,9 @@ public class Constants {
 
     public static final float SECOND_POSITION_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
     public static final float SECOND_POSITION_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 7f - 30;
+
+    public static final float THIRD_POSITION_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
+    public static final float THIRD_POSITION_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 7f +40;
 
     public static final float VK_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
     public static final float VK_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 5f + 90;
@@ -734,8 +759,18 @@ public class Constants {
     public static final String MPGO_BONUS_COINS_TEXT = "mpgo_bonus_coins_text";
     public static final String PR_BEST_SCORE_TEXT = "pr_best_score_text";
     public static final String GO_WIN_LBL = "go_win_lbl";
+    public static final String GO_NEXT_PRIZE_LBL = "go_next_prize_lbl";
+    public static final String GO_BONUS_LBL = "go_bonus_lbl";
     public static final String GO_PRIZE_LBL = "go_prize_lbl";
     public static final String GARAGE_FREE_LBL = "garage_free_lbl";
+
+
+
+
+
+
+    public static final int xTouchBourder = 160;
+    public static final int yTouchBourder = 140;
 
 
     public static final String CARS_TYPE_FILE_PATH = "cars.xml";

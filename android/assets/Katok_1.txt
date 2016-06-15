@@ -1,0 +1,33 @@
+Katok_1.png
+size: 512,128
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Katok_1
+  rotate: false
+  xy: 2, 2
+  size: 62, 72
+  orig: 62, 72
+  offset: 0, 0
+  index: -1
+Katok_2
+  rotate: false
+  xy: 66, 2
+  size: 62, 72
+  orig: 62, 72
+  offset: 0, 0
+  index: -1
+Katok_3
+  rotate: false
+  xy: 130, 2
+  size: 62, 72
+  orig: 62, 72
+  offset: 0, 0
+  index: -1
+Katok_4
+  rotate: false
+  xy: 194, 2
+  size: 62, 72
+  orig: 62, 72
+  offset: 0, 0
+  index: -1

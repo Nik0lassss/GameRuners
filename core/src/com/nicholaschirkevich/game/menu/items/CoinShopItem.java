@@ -19,14 +19,16 @@ import com.nicholaschirkevich.game.util.Constants;
  */
 public class CoinShopItem extends Group implements UpdateGarageCarItem {
 
-    Texture slot_vehicle, slot_vehicle_left, buy_real_empty_texture;
-    Texture coins;
-    Label coin_count_label;
-    Texture delimiterTexture;
-    Image background, background_left, buy_real_empty_image, discount_image;
-    CoinShop coinShop;
-    UpdateGarageTable updateGarageTable;
-    Integer index;
+    private Texture slot_vehicle, slot_vehicle_left, buy_real_empty_texture;
+    private Texture coins;
+    private Label coin_count_label;
+    private Texture delimiterTexture;
+    private Image background, background_left, buy_real_empty_image, discount_image;
+    private CoinShop coinShop;
+    private UpdateGarageTable updateGarageTable;
+    private Integer index;
+    private int addHeight =10;
+    private float scaleX=0.25f, scaleY = 0.6f;
 
     public CoinShopItem(CoinShop coinShop, Integer index, UpdateGarageTable updateGarageTable) {
 
@@ -39,22 +41,22 @@ public class CoinShopItem extends Group implements UpdateGarageCarItem {
         delimiterTexture = AssetsManager.getTextureRegion(Constants.DELIMITER_ID).getTexture();
 
         this.coinShop = coinShop;
+        setUpCoinsImage(coinShop.getImage_source());
+        if (coinShop.getDiscount() != 0) setUpDiscount(coinShop.getDiscount());
 
-        setUpCarName(coinShop.getImage_source());
         setUpCoinCountLabel();
         setUpBuyRealEmpty();
-        if (coinShop.getDiscount() != 0) setUpDiscount(coinShop.getDiscount());
+
 
         setUpDelimiterSpeedBar();
         addListener(new CarGarageItemClickListener(this));
 
 
-        setBounds(0, 0, slot_vehicle.getWidth(), slot_vehicle.getHeight());
+        setBounds(0, 0, slot_vehicle.getWidth(), slot_vehicle.getHeight()+addHeight);
     }
 
 
     private void setUpDiscount(int discount) {
-        String discount_src = new String();
         switch (discount) {
             case 30:
                 discount_image = new Image(AssetsManager.getTextureRegion(Constants.DISCOUNT_30_ID));
@@ -67,14 +69,15 @@ public class CoinShopItem extends Group implements UpdateGarageCarItem {
                 break;
         }
 
-        discount_image.setScale(0.7f, 0.7f);
-        discount_image.setBounds(getX() + 38, getY() + 71, discount_image.getPrefWidth(), discount_image.getPrefHeight());
+        discount_image.setScale(0.9f, 0.9f);
+        discount_image.setBounds(getX() + 38, getY() + 73, discount_image.getPrefWidth(), discount_image.getPrefHeight());
+
         addActor(discount_image);
     }
 
     private void setUpCoinCountLabel() {
         coin_count_label = new Label(String.valueOf(coinShop.getCoins()), AssetsManager.getUiSkin());
-        coin_count_label.setBounds(getX() + 35 - coin_count_label.getPrefWidth() / 4, getY(), coin_count_label.getPrefWidth(), coin_count_label.getPrefHeight());
+        coin_count_label.setBounds(getX() + 40 - coin_count_label.getPrefWidth() / 4, getY(), coin_count_label.getPrefWidth(), coin_count_label.getPrefHeight());
         coin_count_label.setFontScale(0.6f, 0.6f);
         addActor(coin_count_label);
     }
@@ -85,9 +88,9 @@ public class CoinShopItem extends Group implements UpdateGarageCarItem {
         slot_vehicle =AssetsManager.getTextureRegion(Constants.SLOT_VEHICLE_SELECTED_ID).getTexture();
         slot_vehicle_left = AssetsManager.getTextureRegion(Constants.SLOT_VEHICLE_ID).getTexture();
         background = new Image(slot_vehicle);
-        background.setBounds(getX(), getY(), 78, slot_vehicle.getHeight());
+        background.setBounds(getX(), getY(), 98, slot_vehicle.getHeight()+addHeight);
         background_left = new Image(slot_vehicle_left);
-        background_left.setBounds(getX() + 78, getY(), slot_vehicle_left.getWidth() - 78, slot_vehicle_left.getHeight());
+        background_left.setBounds(getX() + 98, getY(), slot_vehicle_left.getWidth() - 98, slot_vehicle_left.getHeight()+addHeight);
         addActor(background);
         addActor(background_left);
 
@@ -95,15 +98,15 @@ public class CoinShopItem extends Group implements UpdateGarageCarItem {
 
     private void setUpBuyRealEmpty() {
         Label labelPriceCoins = new Label(String.valueOf(coinShop.getPrice()), AssetsManager.getUiSkin());
-        labelPriceCoins.setBounds(getX() + 170, getY() + 60, labelPriceCoins.getPrefWidth(), labelPriceCoins.getPrefHeight());
-        labelPriceCoins.setFontScale(0.4f, 0.4f);
+        labelPriceCoins.setBounds(getX() + 190, getY() + 55, labelPriceCoins.getPrefWidth(), labelPriceCoins.getPrefHeight());
+        labelPriceCoins.setFontScale(0.6f, 0.6f);
         Label labelNameCoinPack = new Label(coinShop.getName(),  AssetsManager.getUiSkin());
-        labelNameCoinPack.setBounds(getX() + 170 - labelNameCoinPack.getPrefWidth() / 4, getY() + 30 - labelNameCoinPack.getPrefHeight() / 2, labelNameCoinPack.getPrefWidth(), labelNameCoinPack.getPrefHeight());
-        labelNameCoinPack.setFontScale(0.55f, 0.55f);
+        labelNameCoinPack.setBounds(getX() + 195 - labelNameCoinPack.getPrefWidth() / 4, getY() + 30 - labelNameCoinPack.getPrefHeight() / 2, labelNameCoinPack.getPrefWidth(), labelNameCoinPack.getPrefHeight());
+        labelNameCoinPack.setFontScale(0.5f, 0.5f);
 
         buy_real_empty_texture = AssetsManager.getTextureRegion(Constants.BUTTON_BUT_REAL_EMPTY_ID).getTexture();
         buy_real_empty_image = new Image(buy_real_empty_texture);
-        buy_real_empty_image.setBounds(getX() + 140, getY() + 60, buy_real_empty_image.getPrefWidth(), buy_real_empty_image.getPrefHeight());
+        buy_real_empty_image.setBounds(getX() + 160, getY() + 50, buy_real_empty_image.getPrefWidth()+10, buy_real_empty_image.getPrefHeight()+10);
         addActor(buy_real_empty_image);
         addActor(labelPriceCoins);
         addActor(labelNameCoinPack);
@@ -113,16 +116,32 @@ public class CoinShopItem extends Group implements UpdateGarageCarItem {
     private void setUpDelimiterSpeedBar() {
 
         Image delimiter = new Image(delimiterTexture);
-        delimiter.setBounds(getX() + 78, getY(), delimiter.getWidth(), delimiter.getHeight());
+        delimiter.setBounds(getX() + 93, getY(), delimiter.getWidth(), delimiter.getHeight());
         addActor(delimiter);
     }
 
 
-    private void setUpCarName(String imageId) {
+    private void setUpCoinsImage(String imageId) {
         Texture carNameTexture = AssetsManager.getTextureRegion(imageId).getTexture();
         Image carName = new Image(carNameTexture);
-        carName.setScale(0.35f, 0.35f);
-        carName.setBounds(getX() + 35 - carNameTexture.getWidth() / 6.2f, getY() + 15, carNameTexture.getHeight(), carNameTexture.getHeight());
+        switch (coinShop.getDiscount()) {
+            case 30:
+                scaleX = 0.3f;
+                scaleY=0.6f;
+                break;
+            case 50:
+                scaleX = 0.5f;
+                scaleY=0.5f;
+                break;
+            case 100:
+                scaleX = 0.5f;
+                scaleY=0.5f;
+                break;
+        }
+
+        carName.setScale(scaleX, scaleY);
+        carName.setBounds(getX()+50- carNameTexture.getWidth() /4f, getY() + 15, carNameTexture.getHeight(), carNameTexture.getHeight());
+//        carName.setBounds(getX() + 35 - carNameTexture.getWidth() / 6.2f, getY() + 15, carNameTexture.getHeight(), carNameTexture.getHeight());
         addActor(carName);
     }
 

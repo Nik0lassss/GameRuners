@@ -56,6 +56,11 @@ public class DesktopLauncher {
 			public void showInviteBox() {
 
 			}
+
+			@Override
+			public void buyProduct(String id) {
+
+			}
 		}), config);
 	}
 }

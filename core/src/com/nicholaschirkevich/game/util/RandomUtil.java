@@ -7,6 +7,7 @@ import com.nicholaschirkevich.game.enums.OtherCarType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -48,16 +49,17 @@ public class RandomUtil {
 
     ;
 
-    public static void generateRandPossabilityCarHashMap(ArrayList<CarsType> cars) {
-        ArrayList<String> carsRandromPossability = new ArrayList<String>();
+    public static ArrayList<Car> generateRandPossabilityCarHashMap(ArrayList<CarsType> cars, List<String> myCarIdList) {
+        ArrayList<Car> carsRandromPossability = new ArrayList<Car>();
         for (CarsType carsType : cars) {
-            for (Car car: carsType.getCars())
-            {
-                for(int i =0;i<car.getPossability();i++)
-                    carsRandromPossability.add(car.getID());
+            for (Car car : carsType.getCars()) {
+                if (!myCarIdList.contains(car.getID()) && car.getIsForRealMoney())
+                    for (int i = 0; i < car.getPossability()*10; i++)
+                        carsRandromPossability.add(car);
             }
 
         }
+        return carsRandromPossability;
 
     }
 

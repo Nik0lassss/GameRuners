@@ -1,0 +1,33 @@
+Tractor_1.png
+size: 512,128
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Tractor_1
+  rotate: false
+  xy: 2, 2
+  size: 62, 70
+  orig: 62, 70
+  offset: 0, 0
+  index: -1
+Tractor_2
+  rotate: false
+  xy: 66, 2
+  size: 62, 70
+  orig: 62, 70
+  offset: 0, 0
+  index: -1
+Tractor_3
+  rotate: false
+  xy: 130, 2
+  size: 62, 70
+  orig: 62, 70
+  offset: 0, 0
+  index: -1
+Tractor_4
+  rotate: false
+  xy: 194, 2
+  size: 62, 70
+  orig: 62, 70
+  offset: 0, 0
+  index: -1

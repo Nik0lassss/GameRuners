@@ -201,7 +201,7 @@ public class CarGarageState extends State {
         textButtonStyle.up = resumeButtonUpImage.getDrawable();
         textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
-        GameManager.setCurrentCarID(prizeCar.getID());
+
         resumeButton = new TextButton("Play", textButtonStyle);
         resumeButton.getLabel().setFontScale(0.6f, 0.6f);
         resumeButton.getLabelCell().padLeft(25f);
@@ -217,6 +217,7 @@ public class CarGarageState extends State {
                 sequence.addAction(new Action() {
                     @Override
                     public boolean act(float delta) {
+                        GameManager.setCurrentCarID(prizeCar.getID());
                         gsm.push(new GameState(gsm, false, true, actionResolver));
                         return true;
                     }
@@ -231,6 +232,8 @@ public class CarGarageState extends State {
         stage.addActor(resumeButton);
 
     }
+
+
 
 
     @Override
