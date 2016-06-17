@@ -211,10 +211,11 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                     mInterstitialAd.setAdListener(new AdListener() {
                         @Override
                         public void onAdClosed() {
+                            startGame();
                             if (isAfterGetBonus) {
                                 gameRuners. onAdCloseAfterGetBonus();
                             } else {
-                                startGame();
+
                                 gameRuners.onAdClose();
                             }
                         }
@@ -224,6 +225,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                         mInterstitialAd.show();
                     } else {
                         Toast.makeText(getContext(), "Ad did not load", Toast.LENGTH_SHORT).show();
+                        startGame();
                         if (isAfterGetBonus) {
 
                         } else {
@@ -241,8 +243,8 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     private void startGame() {
         // Request a new ad if one isn't already loaded, hide the button, and kick off the timer.
         if (!mInterstitialAd.isLoading() && !mInterstitialAd.isLoaded()) {
-            AdRequest adRequest = new AdRequest.Builder().addTestDevice("024E787E6EB1DF2F6E701EE93F986BA4").build();
-            // AdRequest adRequest = new AdRequest.Builder().build();
+            //AdRequest adRequest = new AdRequest.Builder().addTestDevice("024E787E6EB1DF2F6E701EE93F986BA4").build();
+             AdRequest adRequest = new AdRequest.Builder().build();
             mInterstitialAd.loadAd(adRequest);
         }
 
@@ -295,6 +297,25 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     }
 
     @Override
+    public boolean isIntertatlLoaded() {
+        final boolean[] isLoaded = {false};
+        try {
+
+
+            runOnUiThread(new Runnable() {
+
+
+                public void run() {
+                    isLoaded[0] = mInterstitialAd.isLoaded();
+
+                }
+            });
+        } catch (Exception e) {
+        }
+          return isLoaded[0];
+    };
+
+    @Override
     public void showVkLoginActivity() {
 //        Intent intent = new Intent(getActivity(), LoginActivity.class);
 //        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -310,7 +331,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     @Override
     public void showInviteBox() {
 
-        currentRequest = VKApi.friends().get(VKParameters.from(VKApiConst.FIELDS, "id,first_name,last_name"));
+        currentRequest = VKApi.friends().get(VKParameters.from(VKApiConst.FIELDS, "id,first_name,last_name,photo_100","count","10"));
         final ArrayList<User> users = new ArrayList<>();
 
         currentRequest.executeWithListener(new VKRequest.VKRequestListener() {
@@ -324,7 +345,8 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
                 for (VKApiUserFull userFull : usersArray) {
 
-                    users.add(new User(userFull.toString(), userFull.id));
+                    users.add(new User(userFull.toString(), userFull.id,  userFull.photo_100));
+
                 }
 
                 final Dialog dialog = new Dialog(getContext());

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ProgressBar
+        android:id="@+id/image_progress_bar_view_scale_pr_bar"
+        android:layout_width="150px"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        style="?android:attr/progressBarStyleHorizontal"
+        />
+    <com.nicholaschirkevich.game.entity.ImageView
+        android:id="@+id/image_progress_bar_view_scale_image_view_avatar"
+        android:layout_width="90px"
+        android:layout_height="90px" />
+</LinearLayout>

@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
@@ -32,24 +33,24 @@ import com.nicholaschirkevich.game.util.GameManager;
  * Created by Nikolas on 10.03.2016.
  */
 public class MenuSetting extends Group {
-    private  Texture slot_vehicle;
-    private  Texture speed_bar;
-    private  TextButton soundButton, swipe_controll_button, block_rds_button, restore_button, singInVkBttn, singInFbBttn, backBttn;
-    private  Image background;
-    private  Image soundButtonUpImage, soundButtonDownImage, playOnlineDownImage, playOnlineUpImage, getPrizeUpButtonImage, getPrizeDownButtonImage, carShopImageUp, carShopImageDown, coinShomImageUp, coinShopImageDown, settingMenuImageUp, settingMenuImageDown, leaderBoardImageUp, leaderBoardImageDown, leaderBoardsImageUp, leaderBoardsImageDown;
-    private  Texture sound_on, sound_off;
-    private  Image sound_on_image, sound_off_image, backButtonImageUp, backButtonImageDown;
-    private  Image swipe_image, rds_image, restore_image, singInVkImage, singInFbImage;
-    private  Texture swipe_texture, rds_texture, restore_texture, singInVk, singInFb, backButtonTextureUp, backButtonTextureDown;
-    private  Texture soundButtonUp, soundButtonDown, playOnlineDownImageTexture, playOnlineUpImageTexture, getPrizeUpButtonImageTexture, getPrizeDownButtonImageTexture, carShopTextureUp, carShopTextureDown, coinShopTextureUp, coinShopTextureDown, settingMenuTextureUp, settingMenuTextureDown, leaderBoardTextureUp, leaderBoardTextureDown, leaderBoardsTextureUp, leaderBoardsTextureDown;
-    private  Image imageLogo;
-    private  ResumeButtonListener listener;
-    private  SequenceAction sequence, sequenceCarShop, swipeButtonSequence, sequenceReturn;
-    private  GameStateManager gsm;
+    private Texture slot_vehicle;
+    private Texture speed_bar;
+    private TextButton soundButton, swipe_controll_button, block_rds_button, restore_button, singInVkBttn, singInFbBttn, backBttn;
+    private Image background;
+    private Image soundButtonUpImage, soundButtonDownImage, playOnlineDownImage, playOnlineUpImage, getPrizeUpButtonImage, getPrizeDownButtonImage, carShopImageUp, carShopImageDown, coinShomImageUp, coinShopImageDown, settingMenuImageUp, settingMenuImageDown, leaderBoardImageUp, leaderBoardImageDown, leaderBoardsImageUp, leaderBoardsImageDown;
+    private Texture sound_on, sound_off;
+    private Image sound_on_image, sound_off_image, backButtonImageUp, backButtonImageDown;
+    private Image swipe_image, rds_image, restore_image, singInVkImage, singInFbImage;
+    private Texture swipe_texture, rds_texture, restore_texture, singInVk, singInFb, backButtonTextureUp, backButtonTextureDown;
+    private Texture soundButtonUp, soundButtonDown, playOnlineDownImageTexture, playOnlineUpImageTexture, getPrizeUpButtonImageTexture, getPrizeDownButtonImageTexture, carShopTextureUp, carShopTextureDown, coinShopTextureUp, coinShopTextureDown, settingMenuTextureUp, settingMenuTextureDown, leaderBoardTextureUp, leaderBoardTextureDown, leaderBoardsTextureUp, leaderBoardsTextureDown;
+    private Image imageLogo;
+    private ResumeButtonListener listener;
+    private SequenceAction sequence, sequenceCarShop, swipeButtonSequence, sequenceReturn;
+    private GameStateManager gsm;
     private ResumeButtonListener listenerResume;
     private ActionResolver actionResolver;
     private int addWidth = 5;
-    private int buttonWidth = 159,buttonHeight = 50;
+    private int buttonWidth = 159, buttonHeight = 50;
     private Group parentView;
     private int distance_button = 15;
     private ImageButton imageButton, resumeImageButton;
@@ -111,6 +112,7 @@ public class MenuSetting extends Group {
         setUpBackButton();
         setUpImageCoinCount();
         setUpCoinCountLabel();
+        setUpInviteFriends();
         setBounds(0, 0, GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2);
     }
 
@@ -124,7 +126,7 @@ public class MenuSetting extends Group {
     public void setUpCoinCountLabel() {
         labelCoinCount = new Label(String.valueOf(GameManager.getCoinCounter()), AssetsManager.getUiSkin());
         labelCoinCount.setFontScale(0.60f, 0.60f);
-        labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() -5, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
+        labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
         addActor(labelCoinCount);
     }
 
@@ -155,12 +157,15 @@ public class MenuSetting extends Group {
         textButtonStyle.down = soundButtonDownImage.getDrawable();
         textButtonStyle.up = soundButtonUpImage.getDrawable();
         textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
+
         if (GameManager.isSoundEnable())
             soundButton = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_SOUND_ON_LBL), textButtonStyle);
         else
             soundButton = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_SOUND_OFF_LBL), textButtonStyle);
         soundButton.getLabel().setFontScale(0.4f, 0.4f);
-        soundButton.getLabelCell().padLeft(25f);
+        soundButton.getLabelCell().padLeft(30f);
+        soundButton.getLabel().setAlignment(Align.left, Align.left);
+
 
         sound_on_image.setPosition(soundButton.getX() + 5, soundButton.getY() + 13);
         soundButton.addActor(sound_on_image);
@@ -212,8 +217,8 @@ public class MenuSetting extends Group {
             swipe_controll_button = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_SWIPE_CONTROLL_FIRST_ROW_LBL) + "\n" + GameManager.getStrings().get(Constants.SETTINGS_SWIPE_CONTROLL_SECOND_ROW_LBL), textButtonStyle);
         }
         swipe_controll_button.getLabel().setFontScale(0.4f, 0.4f);
-        swipe_controll_button.getLabelCell().padLeft(25f);
-
+        swipe_controll_button.getLabelCell().padLeft(30f);
+        swipe_controll_button.getLabel().setAlignment(Align.left, Align.left);
         swipe_image.setPosition(getX() + 5, getY() + distance_button);
         swipe_controll_button.addActor(swipe_image);
 
@@ -263,10 +268,12 @@ public class MenuSetting extends Group {
         textButtonStyle.up = soundButtonUpImage.getDrawable();
         textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
+
         block_rds_button = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_BLOCK_LBL) + "\n" + GameManager.getStrings().get(Constants.SETTINGS_ADS_LBL), textButtonStyle);
         block_rds_button.getLabel().setFontScale(0.4f, 0.4f);
-        block_rds_button.getLabelCell().padLeft(25f);
 
+        block_rds_button.getLabelCell().padLeft(30f);
+        block_rds_button.getLabel().setAlignment(Align.left, Align.left);
         rds_image.setPosition(getX() + 5, getY() + distance_button);
         block_rds_button.addActor(rds_image);
 
@@ -305,9 +312,10 @@ public class MenuSetting extends Group {
         textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
         restore_button = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_PURCHASE_LBL), textButtonStyle);
-        restore_button.getLabel().setFontScale(0.4f, 0.4f);
-        restore_button.getLabelCell().padLeft(25f);
-
+       // restore_button = new TextButton("sdasda"+"\n"+"sdadad", textButtonStyle);
+        restore_button.getLabel().setFontScale(0.37f, 0.37f);
+        restore_button.getLabelCell().padLeft(30f);
+        restore_button.getLabel().setAlignment(Align.left,Align.left);
         restore_image.setPosition(getX() + 5, getY() + distance_button);
         restore_button.addActor(restore_image);
 
@@ -350,9 +358,9 @@ public class MenuSetting extends Group {
         else
             singInVkBttn = new TextButton(GameManager.getStrings().get(Constants.MS_SIGN_IN_LBL), textButtonStyle);
         singInVkBttn.getLabel().setFontScale(0.4f, 0.4f);
-        singInVkBttn.getLabelCell().padLeft(25f);
-
-        singInVkImage.setPosition(getX()+5 , getY() + distance_button);
+        singInVkBttn.getLabelCell().padLeft(30f);
+        singInVkBttn.getLabel().setAlignment(Align.left, Align.left);
+        singInVkImage.setPosition(getX() + 5, getY() + distance_button);
         singInVkBttn.addActor(singInVkImage);
 
 
@@ -409,8 +417,8 @@ public class MenuSetting extends Group {
             singInFbBttn = new TextButton(GameManager.getStrings().get(Constants.MS_SIGN_IN_LBL), textButtonStyle);
             singInFbBttn.getLabel().setFontScale(0.4f, 0.4f);
             singInFbBttn.getLabelCell().padLeft(30f);
-
-            singInFbImage.setPosition(getX()+5 , getY() + distance_button);
+            singInFbBttn.getLabel().setAlignment(Align.left, Align.left);
+            singInFbImage.setPosition(getX() + 5, getY() + distance_button);
             singInFbBttn.addActor(singInFbImage);
 
 
@@ -437,6 +445,50 @@ public class MenuSetting extends Group {
             });
 
             addActor(singInFbBttn);
+        }
+    }
+
+    private void setUpInviteFriends() {
+
+        if (actionResolver.isVkLogin()) {
+            float x = Constants.SING_IN_FB_BTTN_X_VISIBLE, y = Constants.SING_IN_FB_Y_VISIBLE, width = 70, height = 55;
+            TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+            textButtonStyle.down = soundButtonDownImage.getDrawable();
+            textButtonStyle.up = soundButtonUpImage.getDrawable();
+            textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
+            final SequenceAction sequenceAction = new SequenceAction();
+
+            TextButton inviteFriends = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_VK_INVITE_FIRST_LINE) + "\n" + GameManager.getStrings().get(Constants.SETTINGS_VK_INVITE_SECOND_LINE), textButtonStyle);
+            inviteFriends.getLabel().setFontScale(0.4f, 0.4f);
+            inviteFriends.getLabelCell().padLeft(10f);
+
+            inviteFriends.setPosition(getX() + 5, getY() + distance_button);
+//            inviteFriends.addActor(singInFbImage);
+
+
+            inviteFriends.setBounds(x, y - inviteFriends.getHeight() / 2, buttonWidth, buttonHeight);
+
+            inviteFriends.addListener(new ClickListener() {
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    AssetsManager.playSound(Constants.SOUND_CLICK);
+
+                    sequenceAction.addAction(Actions.delay(0.3f));
+                    sequenceAction.addAction(new Action() {
+                        @Override
+                        public boolean act(float delta) {
+                            actionResolver.showInviteBox();
+                            return true;
+                        }
+                    });
+                    //swipeButtonSequence.addAction(Actions.removeActor());
+                    addAction(sequenceAction);
+
+                    return true;
+                }
+            });
+
+            addActor(inviteFriends);
         }
     }
 

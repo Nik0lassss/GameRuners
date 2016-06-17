@@ -45,7 +45,7 @@ public class CarGarageState extends State {
     Image image;
     SequenceAction sequence;
     TextButton resumeButton;
-    Image resumeButtonUpImage, resumeButtonDownImage, getPrizeButtonImageUp,getPrizeButtonImageDown;
+    Image resumeButtonUpImage, resumeButtonDownImage, getPrizeButtonImageUp, getPrizeButtonImageDown;
 
     private Animation garageAnimation;
     ArrayList<Bushs> bushsArrayLeft, bushsArrayRight;
@@ -62,13 +62,15 @@ public class CarGarageState extends State {
     private ActionResolver actionResolver;
     private TextButton getPrizeButton;
     private boolean isPlayAnimation = false;
+    private boolean isFree;
 
 
-    public CarGarageState(GameStateManager gsm, ActionResolver actionResolver) {
+    public CarGarageState(GameStateManager gsm, ActionResolver actionResolver, boolean isFree) {
         super(gsm);
         this.actionResolver = actionResolver;
         bushsArrayLeft = new ArrayList<Bushs>();
         bushsArrayRight = new ArrayList<Bushs>();
+        this.isFree = isFree;
 
 
         camera = new OrthographicCamera();
@@ -138,27 +140,46 @@ public class CarGarageState extends State {
         stage.addActor(startGameGarageButton);
     }
 
+    public void setUpCoin(float x, float y) {
+
+    }
+
 
     public void setUpGetPrize() {
         float x = Constants.GET_PRIZE_BTTN_X_VISIBLE, y = Constants.GET_PRIZE_Y_VISIBLE;
+        final Image coinImage = new Image(AssetsManager.getAnimation(Constants.COIN_ASSETS_ID).getKeyFrames()[0]);
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.down = getPrizeButtonImageUp.getDrawable();
         textButtonStyle.up = getPrizeButtonImageDown.getDrawable();
         textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
-        getPrizeButton = new TextButton(GameManager.getStrings().get(Constants.GARAGE_FREE_LBL), textButtonStyle);
-        getPrizeButton.getLabel().setFontScale(0.4f, 0.4f);
+        if (isFree) {
+            getPrizeButton = new TextButton(GameManager.getStrings().get(Constants.GARAGE_FREE_LBL), textButtonStyle);
+            getPrizeButton.getLabel().setFontScale(0.4f, 0.4f);
+        } else {
+
+            getPrizeButton = new TextButton("300", textButtonStyle);
+
+            getPrizeButton.getLabel().setFontScale(0.6f, 0.6f);
+
+            coinImage.setBounds(x + 85, y + 20, coinImage.getWidth() - 3, coinImage.getHeight() - 3);
+
+        }
+
         getPrizeButton.setBounds(x, y, 120, 60);
-        getPrizeButton.addListener(new ClickListener(){
+        getPrizeButton.addListener(new ClickListener() {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                isPlayAnimation=true;
+                isPlayAnimation = true;
                 GameManager.addCar(prizeCar);
                 getPrizeButton.remove();
+                coinImage.remove();
+                if (!isFree) GameManager.setCountCoint(GameManager.getCoinCounter() - 300);
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
         stage.addActor(getPrizeButton);
+        if (!isFree) stage.addActor(coinImage);
     }
 
     public void animation(float dt) {
@@ -232,8 +253,6 @@ public class CarGarageState extends State {
         stage.addActor(resumeButton);
 
     }
-
-
 
 
     @Override

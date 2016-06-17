@@ -512,22 +512,22 @@ public class Constants {
     public static final float GARAGE_BTTN_Y = GameRuners.HEIGHT / 2 - 500;
 
     public static final float SOUND_BTTN_X_VISIBLE = GameRuners.WIDTH / 4-2;
-    public static final float SOUND_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 2.5f;
+    public static final float SOUND_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 2.5f-12;
 
     public static final float CONTROL_BTTN_X_VISIBLE = GameRuners.WIDTH / 4-2;
-    public static final float CONTROL_BTTN_Y_VISIBLE = SOUND_BTTN_Y_VISIBLE - 70;
+    public static final float CONTROL_BTTN_Y_VISIBLE = SOUND_BTTN_Y_VISIBLE - 65;
 
     public static final float BLOCK_BTTN_X_VISIBLE = GameRuners.WIDTH / 4-2;
-    public static final float BLOCK_BTTN_Y_VISIBLE = CONTROL_BTTN_Y_VISIBLE - 70;
+    public static final float BLOCK_BTTN_Y_VISIBLE = CONTROL_BTTN_Y_VISIBLE - 65;
 
     public static final float RESTORE_BTTN_X_VISIBLE = GameRuners.WIDTH / 4-2;
-    public static final float RESTORE_BTTN_Y_VISIBLE = BLOCK_BTTN_Y_VISIBLE - 70;
+    public static final float RESTORE_BTTN_Y_VISIBLE = BLOCK_BTTN_Y_VISIBLE - 65;
 
     public static final float SING_IN_VK_BTTN_X_VISIBLE = GameRuners.WIDTH / 4-81;
-    public static final float SING_IN_VK_Y_VISIBLE = RESTORE_BTTN_Y_VISIBLE - 70;
+    public static final float SING_IN_VK_Y_VISIBLE = RESTORE_BTTN_Y_VISIBLE - 65;
 
     public static final float SING_IN_FB_BTTN_X_VISIBLE = GameRuners.WIDTH / 4-81;
-    public static final float SING_IN_FB_Y_VISIBLE = SING_IN_VK_Y_VISIBLE - 70;
+    public static final float SING_IN_FB_Y_VISIBLE = SING_IN_VK_Y_VISIBLE - 65;
 
     public static final float BACK_BTTN_X_VISIBLE = GameRuners.WIDTH / 20f;
     public static final float BACK_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 18f;
@@ -577,10 +577,10 @@ public class Constants {
 
 
     public static final float SECOND_POSITION_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
-    public static final float SECOND_POSITION_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 7f - 30;
+    public static final float SECOND_POSITION_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 7f+16;
 
     public static final float THIRD_POSITION_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
-    public static final float THIRD_POSITION_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 7f +40;
+    public static final float THIRD_POSITION_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 7f +79;
 
     public static final float VK_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
     public static final float VK_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 5f + 90;
@@ -656,32 +656,32 @@ public class Constants {
     public static final float TOTAL_LABEL_OVER_LABEL_Y = GameRuners.HEIGHT / 4f - 255f;
 
     public static final float GAME_OVER_LOGO_POSITION_X = GameRuners.WIDTH / 6.8f;
-    public static final float GAME_OVER_LOGO_POSITION_Y = GameRuners.HEIGHT / 2.4f;
+    public static final float GAME_OVER_LOGO_POSITION_Y = GameRuners.HEIGHT / 2.4f-35;
 
     public static final float GAME_OVER_ACHIVE_X_VISIBLE = GameRuners.WIDTH / 8.3f - 30;
     public static final float GAME_OVER_ACHIVE_Y_VISIBLE = GameRuners.HEIGHT / 2.5f + 75;
 
-    public static final float GAME_OVER_TOTAL_ACHIVE_X_VISIBLE = GameRuners.WIDTH / 8.3f - 30;
-    public static final float GAME_OVER_TOTAL_ACHIVE_Y_VISIBLE = GameRuners.HEIGHT / 3 + 40f;
+    public static final float GAME_OVER_TOTAL_ACHIVE_X_VISIBLE = GameRuners.WIDTH / 8.3f+45;
+    public static final float GAME_OVER_TOTAL_ACHIVE_Y_VISIBLE = GameRuners.HEIGHT / 3 +19f;
 
     public static final float GAME_OVER_ACHIVE_COUNT_X_VISIBLE = GameRuners.WIDTH / 4f;
-    public static final float GAME_OVER_ACHIVE_COUNT_Y_VISIBLE = GameRuners.HEIGHT / 3f + 110;
+    public static final float GAME_OVER_ACHIVE_COUNT_Y_VISIBLE = GameRuners.HEIGHT / 3f + 113;
 
-    public static final float GAME_OVER_TOTAL_ACHIVE_COUNT_X_VISIBLE = GameRuners.WIDTH / 4f;
-    public static final float GAME_OVER_TOTAL_ACHIVE_COUNT_Y_VISIBLE = GameRuners.HEIGHT / 3f;
+    public static final float GAME_OVER_TOTAL_ACHIVE_COUNT_X_VISIBLE = GameRuners.WIDTH / 4f-5;
+    public static final float GAME_OVER_TOTAL_ACHIVE_COUNT_Y_VISIBLE = GameRuners.HEIGHT / 3f-4;
 
-    public static final float GAME_OVER_BEST_ACHIVE_X_VISIBLE = GameRuners.WIDTH / 7f - 30;
-    public static final float GAME_OVER_BEST_ACHIVE_Y_VISIBLE = GameRuners.HEIGHT / 3.5f;
+    public static final float GAME_OVER_BEST_ACHIVE_X_VISIBLE = GameRuners.WIDTH / 7f +15;
+    public static final float GAME_OVER_BEST_ACHIVE_Y_VISIBLE = GameRuners.HEIGHT / 3.5f+8;
 
     public static final float GAME_OVER_TOTAL_BEST_ACHIVE_X_VISIBLE = GameRuners.WIDTH / 7f;
     public static final float GAME_OVER_TOTAL_BEST_ACHIVE_Y_VISIBLE = GameRuners.HEIGHT / 2.9f;
 
-    public static final float GAME_OVER_BEST_ACHIVE_COUNT_X_VISIBLE = GameRuners.WIDTH / 4f;
-    public static final float GAME_OVER_BEST_ACHIVE_COUNT_Y_VISIBLE = GameRuners.HEIGHT / 4f;
+    public static final float GAME_OVER_BEST_ACHIVE_COUNT_X_VISIBLE = GameRuners.WIDTH / 4f-7;
+    public static final float GAME_OVER_BEST_ACHIVE_COUNT_Y_VISIBLE = GameRuners.HEIGHT / 4f+30;
 
 
     public static final float SETTING_LOGO_POSITION_X = GameRuners.WIDTH / 20;
-    public static final float SETTING_LOGO_POSITION_Y = GameRuners.HEIGHT / 2.3f;
+    public static final float SETTING_LOGO_POSITION_Y = GameRuners.HEIGHT / 2.3f+3;
 
     public static final float SAVE_ME_BONUS_X = GameRuners.WIDTH / 3.35f;
     public static final float SAVE_ME_BONUS_Y = GameRuners.HEIGHT / 5.3f;
@@ -721,6 +721,9 @@ public class Constants {
     public static final String SETTINGS_ADS_LBL = "settings_ads_lbl";
     public static final String SETTINGS_PURCHASE_LBL = "settings_purchase_lbl";
     public static final String MS_SIGN_IN_LBL = "ms_sign_in_lbl";
+    public static final String FRIENDS_VK_TITLE_LABEL = "friends_vk_title_label";
+    public static final String SETTINGS_VK_INVITE_FIRST_LINE = "settings_vk_invite_first_line";
+    public static final String SETTINGS_VK_INVITE_SECOND_LINE = "settings_vk_invite_second_line";
     public static final String SETTINGS_VK_LOGOUT_LBL = "settings_vk_logout_lbl";
     public static final String MS_VK_LBL = "ms_vk_lbl";
     public static final String MS_F_LBL = "ms_f_lbl";
@@ -735,6 +738,7 @@ public class Constants {
     public static final String SC_WEIGHT_LBL = "sc_weight_lbl";
     public static final String GO_SAVE_LBL = "go_save_lbl";
     public static final String GO_TOTAL_TEXT = "go_total_text";
+    public static final String GO_TOP_LBL = "go_top_lbl";
     public static final String GAME_DANGEROUS_LBL = "game_dangerous_lbl";
     public static final String GO_ROCKET_LBL = "go_rocket_lbl";
     public static final String GO_DESTROYED_LBL = "go_destroyed_lbl";
@@ -758,6 +762,7 @@ public class Constants {
     public static final String GO_YOUR_SCORE_LBL = "go_your_score_lbl";
     public static final String MPGO_BONUS_COINS_TEXT = "mpgo_bonus_coins_text";
     public static final String PR_BEST_SCORE_TEXT = "pr_best_score_text";
+    public static final String GO_SCORE_LBL = "go_score_lbl";
     public static final String GO_WIN_LBL = "go_win_lbl";
     public static final String GO_NEXT_PRIZE_LBL = "go_next_prize_lbl";
     public static final String GO_BONUS_LBL = "go_bonus_lbl";

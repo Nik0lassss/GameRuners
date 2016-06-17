@@ -6,11 +6,18 @@ package com.nicholaschirkevich.game.vkmodel;
 public class User {
     private final String name;
     private final int ID;
+    private final String photo_100;
+    public String getPhoto_100() {
+        return photo_100;
+    }
 
-    public User(String name, int ID) {
+
+
+    public User(String name, int ID, String photo_100) {
         this.name = name;
         this.ID = ID;
 
+        this.photo_100 = photo_100;
     }
 
 

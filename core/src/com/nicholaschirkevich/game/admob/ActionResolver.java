@@ -7,6 +7,7 @@ public interface ActionResolver {
     void showOrLoadInterstital(boolean isAfterGetBonus);
     boolean isAvailibleInternet();
     boolean isIntertitalLoad();
+    boolean isIntertatlLoaded();
     void showVkLoginActivity();
     void getVkStatusLogin();
     void vkLogout();

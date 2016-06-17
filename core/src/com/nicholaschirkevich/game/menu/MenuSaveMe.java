@@ -59,7 +59,7 @@ public class MenuSaveMe extends Group {
         saveMeButtonDownImage = new Image(saveMeButtonDownTexture);
         saveMeSequence = new SequenceAction();
         resumeButtonListener = listener;
-        setUpBackgroung(false);
+        setUpBackgroung();
         setUpSaveMeBar();
         setUpSaveMeButton();
 
@@ -155,11 +155,9 @@ public class MenuSaveMe extends Group {
         GameManager.pauseGame = false;
         GameManager.setIsCollision(false);
     }
-    private void setUpBackgroung(boolean selected) {
-        if (selected) {
-            slot_vehicle = new Texture("slot_vehicle_2_selected.png");
-        } else slot_vehicle = new Texture("slot_vehicle.png");
-        background = new Image(slot_vehicle);
+    private void setUpBackgroung() {
+
+        background = new Image(AssetsManager.getTextureRegion(Constants.SLOT_VEHICLE_ID));
         background.setBounds(0, -20, GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2 + 50);
         background.addListener(new ClickListener() {
 

@@ -177,50 +177,50 @@ public class MenuGameOver extends Group {
 
     public void setUpDisntanceCountLabel() {
         distance_count_label.setBounds(Constants.DISTANCE_COUNT_LABEL_X - distance_count_label.getPrefWidth() / 4 + 5, Constants.DISTANCE_COUNT_LABEL_Y, distance_count_label.getPrefWidth(), distance_count_label.getPrefHeight());
-        distance_count_label.setFontScale(0.4f, 0.4f);
+        distance_count_label.setFontScale(0.6f, 0.6f);
         addActor(distance_count_label);
     }
 
     public void setUpTotalLabel() {
         total_label.setBounds(Constants.TOTAL_LABEL_GAME_OVER_LABEL_X, Constants.TOTAL_LABEL_OVER_LABEL_Y, total_label.getPrefWidth(), total_label.getPrefHeight());
-        total_label.setFontScale(0.5f, 0.5f);
+        total_label.setFontScale(0.6f, 0.6f);
         total_label.setColor(Color.ORANGE);
         addActor(total_label);
     }
 
     public void setUpTotalCountLabel() {
         total_count_label.setBounds(Constants.TOTAL_COUNT_LABEL_GAME_OVER_LABEL_X - total_count_label.getPrefWidth() / 4 + 5, Constants.TOTAL_COUNT_LABEL_OVER_LABEL_Y, total_count_label.getPrefWidth(), total_count_label.getPrefHeight());
-        total_count_label.setFontScale(0.4f, 0.4f);
+        total_count_label.setFontScale(0.5f, 0.5f);
         addActor(total_count_label);
     }
 
     public void setUpDangerousCountLabel() {
         dangerous_count_label.setBounds(Constants.DANGEROUS_COUNT_LABEL_GAME_OVER_LABEL_X, Constants.DANGEROUS_COUNT_LABEL_OVER_LABEL_Y, dangerous_count_label.getPrefWidth(), dangerous_count_label.getPrefHeight());
-        dangerous_count_label.setFontScale(0.4f, 0.4f);
+        dangerous_count_label.setFontScale(0.5f, 0.5f);
         addActor(dangerous_count_label);
     }
 
     public void setUpRocketCountLabel() {
         rocket_count_label.setBounds(Constants.ROCKET_COUNT_LABEL_GAME_OVER_LABEL_X, Constants.ROCKET_COUNT_LABEL_OVER_LABEL_Y, rocket_count_label.getPrefWidth(), rocket_count_label.getPrefHeight());
-        rocket_count_label.setFontScale(0.4f, 0.4f);
+        rocket_count_label.setFontScale(0.5f, 0.5f);
         addActor(rocket_count_label);
     }
 
     public void setUpDestroyedCountLabel() {
         destroyed_count_label.setBounds(Constants.DESTROYED_COUNT_LABEL_GAME_OVER_LABEL_X, Constants.DESTROYED_COUNT_LABEL_OVER_LABEL_Y, destroyed_count_label.getPrefWidth(), destroyed_count_label.getPrefHeight());
-        destroyed_count_label.setFontScale(0.4f, 0.4f);
+        destroyed_count_label.setFontScale(0.5f, 0.5f);
         addActor(destroyed_count_label);
     }
 
     public void setUpSpringBoardCountLabel() {
         spring_bozrd_count_label.setBounds(Constants.SPRING_BOARD_COUNT_LABEL_GAME_OVER_LABEL_X, Constants.SPRING_BOARD_COUNT_LABEL_OVER_LABEL_Y, spring_bozrd_count_label.getPrefWidth(), spring_bozrd_count_label.getPrefHeight());
-        spring_bozrd_count_label.setFontScale(0.4f, 0.4f);
+        spring_bozrd_count_label.setFontScale(0.5f, 0.5f);
         addActor(spring_bozrd_count_label);
     }
 
     public void setUpGodModCountLabel() {
         god_mode_count_label.setBounds(Constants.GODE_MODE_COUNT_LABEL_GAME_OVER_LABEL_X, Constants.GODE_MODE_COUNT_LABEL_OVER_LABEL_Y, god_mode_count_label.getPrefWidth(), god_mode_count_label.getPrefHeight());
-        god_mode_count_label.setFontScale(0.4f, 0.4f);
+        god_mode_count_label.setFontScale(0.5f, 0.5f);
         addActor(god_mode_count_label);
     }
 
@@ -242,28 +242,28 @@ public class MenuGameOver extends Group {
 
     public void setUpDangerousLabel() {
         dangerous_label.setBounds(Constants.DANGEROUS_LABEL_GAME_OVER_LABEL_X, Constants.DANGEROUS_LABEL_OVER_LABEL_Y, dangerous_label.getPrefWidth(), dangerous_label.getPrefHeight());
-        dangerous_label.setFontScale(0.4f, 0.4f);
+        dangerous_label.setFontScale(0.5f, 0.5f);
         addActor(dangerous_label);
     }
 
 
     public void setUpRocketLabel() {
         rocket_label.setBounds(Constants.ROCKET_LABEL_GAME_OVER_LABEL_X, Constants.ROCKET_LABEL_OVER_LABEL_Y, rocket_label.getPrefWidth(), rocket_label.getPrefHeight());
-        rocket_label.setFontScale(0.4f, 0.4f);
+        rocket_label.setFontScale(0.5f, 0.5f);
         addActor(rocket_label);
     }
 
 
     public void setUpDestroyedLabel() {
         destroyed_label.setBounds(Constants.DESTROYED_LABEL_GAME_OVER_LABEL_X, Constants.DESTROYED_LABEL_OVER_LABEL_Y, destroyed_label.getPrefWidth(), destroyed_label.getPrefHeight());
-        destroyed_label.setFontScale(0.4f, 0.4f);
+        destroyed_label.setFontScale(0.5f, 0.5f);
         addActor(destroyed_label);
     }
 
 
     public void setUpSpringBoardLabel() {
         spring_board_label.setBounds(Constants.SPRING_BOARD_LABEL_GAME_OVER_LABEL_X, Constants.SPRING_BOARD_LABEL_OVER_LABEL_Y, spring_board_label.getPrefWidth(), spring_board_label.getPrefHeight());
-        spring_board_label.setFontScale(0.4f, 0.4f);
+        spring_board_label.setFontScale(0.5f, 0.5f);
         addActor(spring_board_label);
     }
 
@@ -271,7 +271,7 @@ public class MenuGameOver extends Group {
     public void setUpGodModeLabel() {
 
         god_mode_label.setBounds(Constants.GODE_MODE_LABEL_GAME_OVER_LABEL_X, Constants.GODE_MODE_LABEL_OVER_LABEL_Y, god_mode_label.getPrefWidth(), god_mode_label.getPrefHeight());
-        god_mode_label.setFontScale(0.4f, 0.4f);
+        god_mode_label.setFontScale(0.5f, 0.5f);
         addActor(god_mode_label);
     }
 
@@ -298,7 +298,7 @@ public class MenuGameOver extends Group {
 
     public void setUpDistance() {
 
-        distance_label.setFontScale(0.5f, 0.5f);
+        distance_label.setFontScale(0.65f, 0.65f);
         distance_label.setColor(Color.ORANGE);
         distance_label.setBounds(Constants.DISTANCE_LABEL_X - distance_label.getPrefWidth(), Constants.DISTANCE_LABEL_Y, distance_label.getPrefWidth(), distance_label.getPrefHeight());
         distance_label.setText(GameManager.getStrings().get(Constants.GO_DISTANCE_TEXT));
@@ -308,7 +308,7 @@ public class MenuGameOver extends Group {
 
     public void setUpBoosters() {
 
-        boosters_label.setFontScale(0.5f, 0.5f);
+        boosters_label.setFontScale(0.65f, 0.65f);
         boosters_label.setColor(Color.YELLOW);
         boosters_label.setBounds(Constants.BOOSTERS_GAME_OVER_LABEL_X - boosters_label.getPrefWidth(), Constants.BOOSTERS_GAME_OVER_LABEL_Y, distance_label.getPrefWidth(), distance_label.getPrefHeight());
         boosters_label.setText(GameManager.getStrings().get(Constants.GO_BUSTERS_TEXT));

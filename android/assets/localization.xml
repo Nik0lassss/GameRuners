@@ -94,7 +94,7 @@
         </type>
         <en>Restore \n purchases
         </en>
-        <ru>Восстановить \n покупки
+        <ru>  Восстановить \n  покупки
         </ru>
     </string>
     <string>
@@ -333,13 +333,13 @@
     <string><id> go_save_lbl </id><type>	Label</type><en>	Save me!</en><ru>	Продолжить </ru> </string>
     <string><id> go_rate_lbl </id><type>	Label</type><en>	Rate us	</en><ru>Оставить отзыв  </ru></string>
     <string><id> go_title_lbl </id><type>	Label</type><en>	Game over</en><ru>	Игра закончена </ru> </string>
-    <string><id> go_score_lbl </id>	<type>Label </type>	<en>Score:	</en><ru>Очки  </ru></string>
+    <string><id> go_score_lbl </id>	<type>Label </type>	<en>Score:	</en><ru>Очки:  </ru></string>
     <string><id> go_n_lbl </id><type>	Label</type>	<en>New	</en><ru>Новый  </ru></string>
     <string><id>  go_r_lbl </id><type>	Label</type>	<en>record!</en><ru>	рекорд </ru> </string>
     <string><id>  go_bonus_lbl </id><type>	Label</type><en>	Get bonus</en><ru>	Бонус </ru> </string>
     <string><id>  go_win_lbl </id><type>	Label</type><en>	Win</en><ru>	Выиграй  </ru></string>
     <string><id>  go_prize_lbl </id><type>	Label</type><en>	a prize</en><ru>	приз </ru> </string>
-    <string><id>  go_top_lbl </id><type>	Label</type><en>	Top:	</en><ru>Лучший  </ru></string>
+    <string><id>  go_top_lbl </id><type>	Label</type><en>	Top:	</en><ru>Лучший:  </ru></string>
     <string><id>   go_next_prize_lbl </id><type>	Label</type>	<en>Next prize</en><ru>	След. приз </ru> </string>
     <string><id>  tutorial_hold_and_swipe_lbl </id><type>Label</type><en>	Hold and swipe</en><ru>	Зажми палец и двигай </ru> </string>
     <string><id>  tutorial_to_move_lbl </id><type>	Label</type>	<en>to move	</en><ru>его для перемещения </ru> </string>

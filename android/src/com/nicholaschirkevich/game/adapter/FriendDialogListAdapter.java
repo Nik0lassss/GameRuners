@@ -8,8 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.nicholaschirkevich.game.R;
+import com.nicholaschirkevich.game.entity.ImageProgressViewScale;
 import com.nicholaschirkevich.game.vkmodel.User;
-import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKApiConst;
 import com.vk.sdk.api.VKError;
 import com.vk.sdk.api.VKParameters;
@@ -25,6 +25,10 @@ public class FriendDialogListAdapter extends BaseAdapter {
 
     private ArrayList<User> users;
     private LayoutInflater layoutInflater;
+    TextView unitView;
+    TextView quantityView ;
+    ImageProgressViewScale imageView ;
+
 
     public FriendDialogListAdapter(Context context, ArrayList<User> users) {
         this.users = users;
@@ -50,19 +54,28 @@ public class FriendDialogListAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         final User user;
 
-        ViewHolder holder;
-        if (convertView == null) {
-            convertView = layoutInflater.inflate(R.layout.friend_invite_dialog_item_layout, null);
-            holder = new ViewHolder();
-            holder.unitView = (TextView) convertView.findViewById(R.id.first_name_frined_invite_dialog_item_layout);
-            holder.quantityView = (TextView) convertView.findViewById(R.id.last_name_frined_invite_dialog_item_layout);
-            convertView.setTag(holder);
-        } else {
-            holder = (ViewHolder) convertView.getTag();
-        }
 
-        holder.unitView.setText(users.get(position).getName().toString());
-        holder.quantityView.setText(String.valueOf(users.get(position).getID()));
+//        ViewHolder holder;
+//        if (convertView == null) {
+            convertView = layoutInflater.inflate(R.layout.friend_invite_dialog_item_layout, null);
+//            holder = new ViewHolder();
+             unitView = (TextView) convertView.findViewById(R.id.first_name_frined_invite_dialog_item_layout);
+             quantityView = (TextView) convertView.findViewById(R.id.last_name_frined_invite_dialog_item_layout);
+             imageView = (ImageProgressViewScale) convertView.findViewById(R.id.fragment_friends_item_friend_image);
+//            convertView.setTag(R.id.first_name_frined_invite_dialog_item_layout,unitView);
+//            convertView.setTag(R.id.last_name_frined_invite_dialog_item_layout,quantityView);
+//            convertView.setTag(R.id.fragment_friends_item_friend_image,imageView);
+//        }
+//            convertView.setTag(holder);
+//        } else {
+//            holder = (ViewHolder) convertView.getTag();
+//        }
+//         unitView= (TextView) convertView.getTag(R.id.first_name_frined_invite_dialog_item_layout);
+//         quantityView =(TextView) convertView.getTag(R.id.last_name_frined_invite_dialog_item_layout);
+//         imageView = (ImageProgressViewScale) convertView.getTag(R.id.fragment_friends_item_friend_image);
+        unitView.setText(users.get(position).getName().toString());
+        quantityView.setText(String.valueOf(users.get(position).getID()));
+        imageView.setImageCircleUrl(users.get(position).getPhoto_100());
 
         user = users.get(position);
 
@@ -95,5 +108,6 @@ public class FriendDialogListAdapter extends BaseAdapter {
     static class ViewHolder {
         TextView unitView;
         TextView quantityView;
+        ImageProgressViewScale imageView;
     }
 }

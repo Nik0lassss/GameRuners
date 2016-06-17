@@ -12,8 +12,10 @@ public class DesktopLauncher {
 		config.height = GameRuners.HEIGHT;
 		config.title = GameRuners.TITLE;
 		new LwjglApplication(new GameRuners(new ActionResolver() {
+
+
 			@Override
-			public void showOrLoadInterstital() {
+			public void showOrLoadInterstital(boolean isAfterGetBonus) {
 
 			}
 
@@ -24,6 +26,11 @@ public class DesktopLauncher {
 
 			@Override
 			public boolean isIntertitalLoad() {
+				return false;
+			}
+
+			@Override
+			public boolean isIntertatlLoaded() {
 				return false;
 			}
 

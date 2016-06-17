@@ -45,6 +45,7 @@ public class MenuGameOverTotal extends Group {
     private Image resumeButtonUpImage, resumeButtonDownImage, playOnlineDownImage, playOnlineUpImage, getPrizeUpButtonImage, getPrizeDownButtonImage, carShopImageUp, carShopImageDown, coinShomImageUp, coinShopImageDown, settingMenuImageUp, settingMenuImageDown, leaderBoardImageUp, leaderBoardImageDown, leaderBoardsImageUp, leaderBoardsImageDown;
     private Texture resumeButtonUp, resumeButtonDown, playOnlineDownImageTexture, playOnlineUpImageTexture, getPrizeUpButtonImageTexture, getPrizeDownButtonImageTexture, carShopTextureUp, carShopTextureDown, coinShopTextureUp, coinShopTextureDown, settingMenuTextureUp, settingMenuTextureDown, leaderBoardTextureUp, leaderBoardTextureDown, leaderBoardsTextureUp, leaderBoardsTextureDown;
     private Image imageLogo;
+    private ImageButton imageButton;
     private ResumeButtonListener listener;
     private SequenceAction sequence, sequenceCarShop, sequenceSetting, sequencePrizeButton, vkSequenceButton, sequenceCoinShop;
     private GameStateManager gsm;
@@ -73,7 +74,7 @@ public class MenuGameOverTotal extends Group {
         bestAchiveCount = new Label("", AssetsManager.getUiSkin());
         distance_label = new Label("", AssetsManager.getUiSkin());
         boosters_label = new Label("", AssetsManager.getUiSkin());
-        total_label = new Label(GameManager.getStrings().get(Constants.GO_TOTAL_TEXT), AssetsManager.getUiSkin());
+        total_label = new Label(GameManager.getStrings().get(Constants.GO_TOP_LBL), AssetsManager.getUiSkin());
         total_count_label = new Label(String.valueOf((int) GameManager.getAchives()), AssetsManager.getUiSkin());
         dangerous_label = new Label(GameManager.getStrings().get(Constants.GAME_DANGEROUS_LBL), AssetsManager.getUiSkin());
         rocket_label = new Label("Rocket", AssetsManager.getUiSkin());
@@ -87,6 +88,7 @@ public class MenuGameOverTotal extends Group {
         dangerousImage = new Image(dangerousTexture);
         rocketTexture = new Texture("rockets.png");
         rocketImage = new Image(rocketTexture);
+
 
         destroyedTexture = new Texture("destruction.png");
         destroyedImage = new Image(destroyedTexture);
@@ -157,77 +159,37 @@ public class MenuGameOverTotal extends Group {
         //setUpPlayOnline();
 
         if (GameManager.isNeedFreeCarPrize()) {
-            setUpPrize();
             setFreeForPrize();
+            setUpPrize();
+
             GameManager.setNewFreeCarPrizeDate();
+        } else
+        {
+            setUpNextPrize();
+        }
+
+        if (actionResolver.isIntertitalLoad()  && actionResolver.isIntertatlLoaded()) {
+            setGetBonus();
         }
         setCarShop();
         setCoinShop();
         setSettingMenu();
-        setUpNextPrize();
-        setGetBonus();
+
+
         //setLeaderBoard();
         setLeadersBoard();
         setUpAchive();
         setUpBestAchive();
         setUpBestAchiveCount();
+        setUpImageCoinCount();
+        setUpCoinCountLabel();
+
 
         setUpAchiveCount();
-        //setUpVkShare();
-//        setUpBagroundRectagnle();
-//        setUpBagroundRectagnleTotal();
-//        setUpDistance();
-//        setUpBoosters();
-//        setUpDangerousImage();
-//        setUpRocketImage();
-//        setUpDestroyedImage();
-//        setUpSpringBoardImage();
-//        setUpGodModeImage();
-//
-//        setUpTotalLabel();
-//        setUpTotalCountLabel();
-//        setUpDisntanceCountLabel();
-//
-//        setUpDangerousLabel();
-//        setUpRocketLabel();
-//        setUpDestroyedLabel();
-//        setUpSpringBoardLabel();
-//        setUpGodModeLabel();
-//
-//        setUpDangerousCountLabel();
-//        setUpRocketCountLabel();
-//        setUpDestroyedCountLabel();
-//        setUpSpringBoardCountLabel();
-//        setUpGodModCountLabel();
-
         setBounds(0, 0, GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2);
 
-//        addListener(new ClickListener() {
-//            @Override
-//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-//
-////                sequence.addAction(Actions.delay(0.3f));
-//
-////                sequence.addAction(new Action() {
-////                    @Override
-////                    public boolean act(float delta) {
-//                GameManager.setDefaultSpeed();
-//                GameManager.pauseGame = false;
-//                GameManager.resetTime();
-//                GameManager.resetCountBusters();
-//                gsm.set(new GameState(gsm, false, false));
-//                groupView.remove();
-//                // return true;
-//
-////                    }
-////                });
-////                sequence.addAction(Actions.removeActor());
-////                addAction(sequence);
-//
-//                return true;
-//            }
-//        });
     }
+
     public void setGetBonus() {
         float x = Constants.THIRD_POSITION_BTTN_X_VISIBLE, y = Constants.THIRD_POSITION_BTTN_Y_VISIBLE, width = 70, height = 55;
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
@@ -238,15 +200,16 @@ public class MenuGameOverTotal extends Group {
 
         TextButton getBonusBttn = new TextButton(GameManager.getStrings().get(Constants.GO_BONUS_LBL) + "\n \n", textButtonStyle);
         getBonusBttn.getLabel().setFontScale(0.4f, 0.4f);
-        getBonusBttn.getLabelCell().padLeft(35f);
+        getBonusBttn.getLabelCell().padLeft(45f);
+        getBonusBttn.getLabel().setAlignment(Align.left);
 
         Label coinCountLabel = new Label("+179", AssetsManager.getUiSkin());
 
-        coinCountLabel.setBounds(x + 25 - coinCountLabel.getWidth() / 2, y - 22, coinCountLabel.getWidth(), coinCountLabel.getHeight());
-        coinCountLabel.setFontScale(0.6f, 0.6f);
+        coinCountLabel.setBounds(getX()+95  - coinCountLabel.getWidth() / 2, getY() +10, coinCountLabel.getWidth(), coinCountLabel.getHeight());
+        coinCountLabel.setFontScale(0.7f, 0.7f);
 
         Image coinImage = new Image(AssetsManager.getAnimation(Constants.COIN_ASSETS_ID).getKeyFrames()[0]);
-        coinImage.setBounds(x + 40, y - 17, coinImage.getWidth() - 3, coinImage.getHeight() - 3);
+        coinImage.setBounds(getX()+ 115, getY()+15, coinImage.getWidth() - 3, coinImage.getHeight() - 3);
 
         getBonusBttn.setBounds(x - AssetsManager.getTextureRegion(Constants.BTTN_GET_BONUS_PRESSED_ID).getTexture().getWidth() / 2, y - AssetsManager.getTextureRegion(Constants.BTTN_GET_BONUS_PRESSED_ID).getTexture().getHeight() / 2, AssetsManager.getTextureRegion(Constants.BTTN_GET_BONUS_PRESSED_ID).getTexture().getWidth(), AssetsManager.getTextureRegion(Constants.BTTN_GET_BONUS_PRESSED_ID).getTexture().getHeight());
         getBonusBttn.addListener(new ClickListener() {
@@ -257,7 +220,7 @@ public class MenuGameOverTotal extends Group {
                                          getBonusSequence.addAction(new Action() {
                                              @Override
                                              public boolean act(float delta) {
-                                                actionResolver.showOrLoadInterstital(true);
+                                                 actionResolver.showOrLoadInterstital(true);
                                                  return true;
                                              }
                                          });
@@ -268,12 +231,10 @@ public class MenuGameOverTotal extends Group {
                                  }
         );
 
-
+        getBonusBttn.addActor(coinCountLabel);
+        getBonusBttn.addActor(coinImage);
         addActor(getBonusBttn);
-        addActor(coinCountLabel);
-        addActor(coinImage);
     }
-
 
 
     public void setUpNextPrize() {
@@ -292,189 +253,67 @@ public class MenuGameOverTotal extends Group {
         if (coinCount < 0) coinCount = 0;
         Label coinCountLabel = new Label(String.valueOf(coinCount), AssetsManager.getUiSkin());
 
-        coinCountLabel.setBounds(x + 15 - coinCountLabel.getWidth() / 2, y - 22, coinCountLabel.getWidth(), coinCountLabel.getHeight());
+        coinCountLabel.setBounds(getX()+90  - coinCountLabel.getWidth() / 2, getY() +5, coinCountLabel.getWidth(), coinCountLabel.getHeight());
         coinCountLabel.setFontScale(0.6f, 0.6f);
 
         Image coinImage = new Image(AssetsManager.getAnimation(Constants.COIN_ASSETS_ID).getKeyFrames()[0]);
-        coinImage.setBounds(x + 40, y - 17, coinImage.getWidth() - 3, coinImage.getHeight() - 3);
+        coinImage.setBounds(getX()+ 115, getY()+10, coinImage.getWidth() - 3, coinImage.getHeight() - 3);
 
         getNextPrize.setBounds(x - AssetsManager.getTextureRegion(Constants.BTTN_GET_BONUS_PRESSED_ID).getTexture().getWidth() / 2, y - AssetsManager.getTextureRegion(Constants.BTTN_GET_BONUS_PRESSED_ID).getTexture().getHeight() / 2, AssetsManager.getTextureRegion(Constants.BTTN_GET_BONUS_PRESSED_ID).getTexture().getWidth(), AssetsManager.getTextureRegion(Constants.BTTN_GET_BONUS_PRESSED_ID).getTexture().getHeight());
-        if (coinCount == 0) getNextPrize.addListener(new ClickListener() {
+        if (coinCount == 0)
+            getNextPrize.addListener(new ClickListener() {
 
-                                                         @Override
-                                                         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                                                             getNextPrizeSequence.addAction(Actions.delay(0.3f));
-                                                             getNextPrizeSequence.addAction(new Action() {
-                                                                 @Override
-                                                                 public boolean act(float delta) {
-                                                                     gsm.push(new CarGarageState(gsm, actionResolver));
-                                                                     GameManager.pauseGame = false;
-                                                                     return true;
-                                                                 }
-                                                             });
-                                                             getNextPrizeSequence.addAction(Actions.removeActor());
-                                                             addAction(getNextPrizeSequence);
+                                         @Override
+                                         public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                                             getNextPrizeSequence.addAction(Actions.delay(0.3f));
+                                             getNextPrizeSequence.addAction(new Action() {
+                                                 @Override
+                                                 public boolean act(float delta) {
+                                                     gsm.push(new CarGarageState(gsm, actionResolver, false));
+                                                     GameManager.pauseGame = false;
+                                                     return true;
+                                                 }
+                                             });
+                                             getNextPrizeSequence.addAction(Actions.removeActor());
+                                             addAction(getNextPrizeSequence);
 
-                                                             return true;
-                                                         }
-                                                     }
-        );
+                                             return true;
+                                         }
+                                     }
+            );
 
 
+        getNextPrize.addActor(coinCountLabel);
+        getNextPrize.addActor(coinImage);
         addActor(getNextPrize);
-        addActor(coinCountLabel);
-        addActor(coinImage);
+
     }
 
 
-    public void setUpDisntanceCountLabel() {
-        distance_count_label.setBounds(Constants.DISTANCE_COUNT_LABEL_X - distance_count_label.getPrefWidth() / 4 + 5, Constants.DISTANCE_COUNT_LABEL_Y, distance_count_label.getPrefWidth(), distance_count_label.getPrefHeight());
-        distance_count_label.setFontScale(0.4f, 0.4f);
-        addActor(distance_count_label);
-    }
-
-    public void setUpTotalLabel() {
-        total_label.setBounds(Constants.TOTAL_LABEL_GAME_OVER_LABEL_X, Constants.TOTAL_LABEL_OVER_LABEL_Y, total_label.getPrefWidth(), total_label.getPrefHeight());
-        total_label.setFontScale(0.5f, 0.5f);
-        total_label.setColor(Color.ORANGE);
-        addActor(total_label);
-    }
-
-    public void setUpTotalCountLabel() {
-        total_count_label.setBounds(Constants.TOTAL_COUNT_LABEL_GAME_OVER_LABEL_X - total_count_label.getPrefWidth() / 4 + 5, Constants.TOTAL_COUNT_LABEL_OVER_LABEL_Y, total_count_label.getPrefWidth(), total_count_label.getPrefHeight());
-        total_count_label.setFontScale(0.4f, 0.4f);
-        addActor(total_count_label);
-    }
-
-    public void setUpDangerousCountLabel() {
-        dangerous_count_label.setBounds(Constants.DANGEROUS_COUNT_LABEL_GAME_OVER_LABEL_X, Constants.DANGEROUS_COUNT_LABEL_OVER_LABEL_Y, dangerous_count_label.getPrefWidth(), dangerous_count_label.getPrefHeight());
-        dangerous_count_label.setFontScale(0.4f, 0.4f);
-        addActor(dangerous_count_label);
-    }
-
-    public void setUpRocketCountLabel() {
-        rocket_count_label.setBounds(Constants.ROCKET_COUNT_LABEL_GAME_OVER_LABEL_X, Constants.ROCKET_COUNT_LABEL_OVER_LABEL_Y, rocket_count_label.getPrefWidth(), rocket_count_label.getPrefHeight());
-        rocket_count_label.setFontScale(0.4f, 0.4f);
-        addActor(rocket_count_label);
-    }
-
-    public void setUpDestroyedCountLabel() {
-        destroyed_count_label.setBounds(Constants.DESTROYED_COUNT_LABEL_GAME_OVER_LABEL_X, Constants.DESTROYED_COUNT_LABEL_OVER_LABEL_Y, destroyed_count_label.getPrefWidth(), destroyed_count_label.getPrefHeight());
-        destroyed_count_label.setFontScale(0.4f, 0.4f);
-        addActor(destroyed_count_label);
-    }
-
-    public void setUpSpringBoardCountLabel() {
-        spring_bozrd_count_label.setBounds(Constants.SPRING_BOARD_COUNT_LABEL_GAME_OVER_LABEL_X, Constants.SPRING_BOARD_COUNT_LABEL_OVER_LABEL_Y, spring_bozrd_count_label.getPrefWidth(), spring_bozrd_count_label.getPrefHeight());
-        spring_bozrd_count_label.setFontScale(0.4f, 0.4f);
-        addActor(spring_bozrd_count_label);
-    }
-
-    public void setUpGodModCountLabel() {
-        god_mode_count_label.setBounds(Constants.GODE_MODE_COUNT_LABEL_GAME_OVER_LABEL_X, Constants.GODE_MODE_COUNT_LABEL_OVER_LABEL_Y, god_mode_count_label.getPrefWidth(), god_mode_count_label.getPrefHeight());
-        god_mode_count_label.setFontScale(0.4f, 0.4f);
-        addActor(god_mode_count_label);
-    }
-
-
-    public void setUpBagroundRectagnle() {
-        addActor(new GameOverRectangle());
-    }
-
-
-    public void setUpBagroundRectagnleTotal() {
-        addActor(new GameOverRectangleTotal());
-    }
-
-    public void setUpDangerousImage() {
-        dangerousImage.setBounds(Constants.DANGEROUS_IMAGE_GAME_OVER_LABEL_X, Constants.DANGEROUS_IMAGE_OVER_LABEL_Y, dangerousImage.getPrefWidth(), dangerousImage.getPrefHeight());
-        addActor(dangerousImage);
-    }
-
-
-    public void setUpDangerousLabel() {
-        dangerous_label.setBounds(Constants.DANGEROUS_LABEL_GAME_OVER_LABEL_X, Constants.DANGEROUS_LABEL_OVER_LABEL_Y, dangerous_label.getPrefWidth(), dangerous_label.getPrefHeight());
-        dangerous_label.setFontScale(0.4f, 0.4f);
-        addActor(dangerous_label);
-    }
-
-
-    public void setUpRocketLabel() {
-        rocket_label.setBounds(Constants.ROCKET_LABEL_GAME_OVER_LABEL_X, Constants.ROCKET_LABEL_OVER_LABEL_Y, rocket_label.getPrefWidth(), rocket_label.getPrefHeight());
-        rocket_label.setFontScale(0.4f, 0.4f);
-        addActor(rocket_label);
-    }
-
-
-    public void setUpDestroyedLabel() {
-        destroyed_label.setBounds(Constants.DESTROYED_LABEL_GAME_OVER_LABEL_X, Constants.DESTROYED_LABEL_OVER_LABEL_Y, destroyed_label.getPrefWidth(), destroyed_label.getPrefHeight());
-        destroyed_label.setFontScale(0.4f, 0.4f);
-        addActor(destroyed_label);
-    }
-
-
-    public void setUpSpringBoardLabel() {
-        spring_board_label.setBounds(Constants.SPRING_BOARD_LABEL_GAME_OVER_LABEL_X, Constants.SPRING_BOARD_LABEL_OVER_LABEL_Y, spring_board_label.getPrefWidth(), spring_board_label.getPrefHeight());
-        spring_board_label.setFontScale(0.4f, 0.4f);
-        addActor(spring_board_label);
-    }
-
-
-    public void setUpGodModeLabel() {
-
-        god_mode_label.setBounds(Constants.GODE_MODE_LABEL_GAME_OVER_LABEL_X, Constants.GODE_MODE_LABEL_OVER_LABEL_Y, god_mode_label.getPrefWidth(), god_mode_label.getPrefHeight());
-        god_mode_label.setFontScale(0.4f, 0.4f);
-        addActor(god_mode_label);
-    }
-
-
-    public void setUpRocketImage() {
-        rocketImage.setBounds(Constants.ROCKET_IMAGE_GAME_OVER_LABEL_X, Constants.ROCKET_IMAGE_OVER_LABEL_Y, dangerousImage.getPrefWidth(), dangerousImage.getPrefHeight());
-        addActor(rocketImage);
-    }
-
-    public void setUpDestroyedImage() {
-        destroyedImage.setBounds(Constants.DESTROYED_IMAGE_GAME_OVER_LABEL_X, Constants.DESTROYED_IMAGE_OVER_LABEL_Y, dangerousImage.getPrefWidth(), dangerousImage.getPrefHeight());
-        addActor(destroyedImage);
-    }
-
-    public void setUpSpringBoardImage() {
-        springBoardImage.setBounds(Constants.SPRING_BOARD_IMAGE_GAME_OVER_LABEL_X, Constants.SPRING_BOARD_IMAGE_OVER_LABEL_Y, dangerousImage.getPrefWidth(), dangerousImage.getPrefHeight());
-        addActor(springBoardImage);
-    }
-
-    public void setUpGodModeImage() {
-        godModeImage.setBounds(Constants.GODE_MODE_IMAGE_GAME_OVER_LABEL_X, Constants.GODE_MODE_IMAGE_OVER_LABEL_Y, dangerousImage.getPrefWidth(), dangerousImage.getPrefHeight());
-        addActor(godModeImage);
-    }
-
-    public void setUpDistance() {
-
-        distance_label.setFontScale(0.5f, 0.5f);
-        distance_label.setColor(Color.ORANGE);
-        distance_label.setBounds(Constants.DISTANCE_LABEL_X - distance_label.getPrefWidth(), Constants.DISTANCE_LABEL_Y, distance_label.getPrefWidth(), distance_label.getPrefHeight());
-        distance_label.setText("Distance:");
-        addActor(distance_label);
-    }
-
-
-    public void setUpBoosters() {
-
-        boosters_label.setFontScale(0.5f, 0.5f);
-        boosters_label.setColor(Color.YELLOW);
-        boosters_label.setBounds(Constants.BOOSTERS_GAME_OVER_LABEL_X - boosters_label.getPrefWidth(), Constants.BOOSTERS_GAME_OVER_LABEL_Y, distance_label.getPrefWidth(), distance_label.getPrefHeight());
-        boosters_label.setText("Boosters:");
-        addActor(boosters_label);
-    }
 
     public void setUpAchive() {
         achive.setX(Constants.GAME_OVER_TOTAL_ACHIVE_X_VISIBLE);
         achive.setY(Constants.GAME_OVER_TOTAL_ACHIVE_Y_VISIBLE);
-        achive.setText(GameManager.getStrings().get(Constants.GO_YOUR_SCORE_LBL));
-        achive.setColor(Color.ORANGE);
-        achive.setFontScale(0.8f, 0.8f);
+        achive.setText(GameManager.getStrings().get(Constants.GO_SCORE_LBL));
+        achive.setColor(Color.WHITE);
+        achive.setFontScale(0.5f, 0.5f);
         addActor(achive);
     }
+
+    public void setUpImageCoinCount() {
+        imageButton = new ImageButton(new Image(AssetsManager.getTextureRegion(Constants.COIN_ICON_1_NAME_ID)).getDrawable());
+        //imageButton.setBounds(labelCoinCount.getX() + 50, labelCoinCount.getY() - 2, imageButton.getWidth(), imageButton.getHeight());
+        imageButton.setBounds(GameRuners.WIDTH / 2 - 25, GameRuners.HEIGHT / 2 - 30, imageButton.getWidth(), imageButton.getHeight());
+        addActor(imageButton);
+    }
+
+    public void setUpCoinCountLabel() {
+        Label  labelCoinCount = new Label(String.valueOf(GameManager.getCoinCounter()), AssetsManager.getUiSkin());
+        labelCoinCount.setFontScale(0.60f, 0.60f);
+        labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
+        addActor(labelCoinCount);
+    }
+
 
     public void setUpAchiveCount() {
         achiveCount.setText(String.valueOf((int) GameManager.getAchives()));
@@ -488,9 +327,9 @@ public class MenuGameOverTotal extends Group {
     public void setUpBestAchive() {
         bestAchive.setX(Constants.GAME_OVER_BEST_ACHIVE_X_VISIBLE - bestAchive.getPrefWidth() / 2);
         bestAchive.setY(Constants.GAME_OVER_BEST_ACHIVE_Y_VISIBLE);
-        bestAchive.setText(GameManager.getStrings().get(Constants.PR_BEST_SCORE_TEXT));
-        bestAchive.setFontScale(0.8f, 0.8f);
-        bestAchive.setColor(Color.ORANGE);
+        bestAchive.setText(GameManager.getStrings().get(Constants.GO_TOP_LBL));
+        bestAchive.setFontScale(0.5f, 0.5f);
+        bestAchive.setColor(Color.WHITE);
         addActor(bestAchive);
     }
 
@@ -499,7 +338,7 @@ public class MenuGameOverTotal extends Group {
         bestAchiveCount.setX(Constants.GAME_OVER_BEST_ACHIVE_COUNT_X_VISIBLE - bestAchiveCount.getPrefWidth() / 3 - 5);
         bestAchiveCount.setY(Constants.GAME_OVER_BEST_ACHIVE_COUNT_Y_VISIBLE);
 
-        bestAchiveCount.setFontScale(0.9f, 0.9f);
+        bestAchiveCount.setFontScale(1f, 1f);
         addActor(bestAchiveCount);
     }
 
@@ -564,7 +403,7 @@ public class MenuGameOverTotal extends Group {
                                         sequencePrizeButton.addAction(new Action() {
                                             @Override
                                             public boolean act(float delta) {
-                                                gsm.push(new CarGarageState(gsm, actionResolver));
+                                                gsm.push(new CarGarageState(gsm, actionResolver,true));
                                                 GameManager.pauseGame = false;
                                                 return true;
                                             }
@@ -750,20 +589,24 @@ public class MenuGameOverTotal extends Group {
 
     private void setUpResume() {
 
+
+        ImageButton resumeImageButton = new ImageButton(new Image(AssetsManager.getTextureRegion(Constants.RESUME_BTTN_ID)).getDrawable(),new Image(AssetsManager.getTextureRegion(Constants.RESUME_BTTN_ID)).getDrawable());
+        resumeImageButton.setBounds(GameRuners.WIDTH / 4-45,GameRuners.HEIGHT / 4-217,resumeImageButton.getWidth(),resumeImageButton.getHeight());
+
         float x = Constants.RESUME_BTTN_X_VISIBLE, y = Constants.RESUME_BTTN_Y_VISIBLE, width = 70, height = 55;
-        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.down = resumeButtonDownImage.getDrawable();
-        textButtonStyle.up = resumeButtonUpImage.getDrawable();
-        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
+//        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+//        textButtonStyle.down =new Image(AssetsManager.getTextureRegion(Constants.RESUME_BTTN_PRESSED_ID)).getDrawable();
+//        textButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.RESUME_BTTN_ID)).getDrawable();
+//        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
+//
+//        resumeButton = new TextButton("", textButtonStyle);
+//        resumeButton.getLabel().setFontScale(0.6f, 0.6f);
+//        resumeButton.getLabelCell().padLeft(25f);
 
-        resumeButton = new TextButton(GameManager.getStrings().get(Constants.MP_PLAY_BTN), textButtonStyle);
-        resumeButton.getLabel().setFontScale(0.6f, 0.6f);
-        resumeButton.getLabelCell().padLeft(25f);
 
+       // resumeButton.setBounds(x - resumeButtonUpImage.getWidth() / 2, y - resumeButtonUpImage.getHeight() / 2, resumeButtonUpImage.getWidth(), resumeButtonUpImage.getHeight());
 
-        resumeButton.setBounds(x - resumeButtonUpImage.getWidth() / 2, y - resumeButtonUpImage.getHeight() / 2, resumeButtonUpImage.getWidth(), resumeButtonUpImage.getHeight());
-
-        resumeButton.addListener(new ClickListener() {
+        resumeImageButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 
@@ -788,7 +631,7 @@ public class MenuGameOverTotal extends Group {
             }
         });
 
-        addActor(resumeButton);
+        addActor(resumeImageButton);
 
     }
 

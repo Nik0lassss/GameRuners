@@ -99,7 +99,7 @@ import com.nicholaschirkevich.game.util.RandomUtil;
 
 import java.util.ArrayList;
 
-;import sun.misc.LRUCache;
+
 
 
 public class GameState extends State implements OnSetCollisionCars, ResumeFromPause, OnTrafficLightListener, OnCrushCarListener, OnGearUp, ResumeButtonListener, PauseButton.pauseButtonListener, PauseAfterCollision, UpdateCoinCount, OnStartRelaxZone, ListenerAddBoost, ListenerAddLadle, GenerateHoleAfterLadle, SetGodMode, ZoomCarListener, DirtListener, CarTurnInterface {
@@ -1294,7 +1294,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                 AssetsManager.stopMusic();
                 // stage.addActor(new MenuGameOver(this, gsm));
                 //stage.addActor(new MenuSaveMe(this, gsm,actionResolver));
-                if (actionResolver != null && actionResolver.isAvailibleInternet() && actionResolver.isIntertitalLoad() && !isSavedMe && distacne > 100) {
+                if (actionResolver != null && actionResolver.isAvailibleInternet() && actionResolver.isIntertatlLoaded() && actionResolver.isIntertitalLoad() && !isSavedMe && distacne > 100) {
                     {
                         isMyCarCollision = false;
                         stage.addActor(menuSaveMe);
@@ -1322,7 +1322,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
             if (timer > 1) {
                 GameManager.pauseGame = true;
 //                stage.addActor(new MenuSaveMe(this, gsm,actionResolver));
-                if (actionResolver.isAvailibleInternet() && actionResolver.isIntertitalLoad() && !isSavedMe && distacne > 100) {
+                if (actionResolver.isAvailibleInternet()&& actionResolver.isIntertatlLoaded()&& actionResolver.isIntertitalLoad() && !isSavedMe && distacne > 100) {
                     isSavedMe = true;
                     stage.addActor(menuSaveMe);
                 } else {
@@ -1397,7 +1397,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         for (PasserCar passerCar : passerCars) {
 //            System.out.println("myCar.isLeft() "+myCar.isLeft()+" myCar.getX() "+myCar.getX());
             if (!((PasserCarDataType) passerCar.body.getUserData()).isDangerEvolution())
-                if (!isAutoTurn && !isZoomCarUpdate && !isUpdateGodeMode && passerCar.getIsLeft() == !myCar.isLeft() && myCar.isTurnRun() && passerCar.getY() - myCar.getY() < 100 && passerCar.getY() - myCar.getY() > 0) {
+                if (!isAfterPauseUpdate && !isAutoTurn && !isZoomCarUpdate && !isUpdateGodeMode && passerCar.getIsLeft() == !myCar.isLeft() && myCar.isTurnRun() && passerCar.getY() - myCar.getY() < 100 && passerCar.getY() - myCar.getY() > 0) {
                     if ((myCar.isLeft() && myCar.getX() < 95) || (!myCar.isLeft() && myCar.getX() > 180)) {
                         achives += 50;
                         AssetsManager.playSound(Constants.SOUND_BONUS);
