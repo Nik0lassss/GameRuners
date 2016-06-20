@@ -5,8 +5,9 @@
     xmlns:ads="http://schemas.android.com/apk/res-auto"
 
     tools:context=".MainActivity"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
 
     <FrameLayout
         android:id="@+id/GameView"
@@ -24,6 +25,12 @@
         <!--android:layout_centerHorizontal="true"-->
         <!--ads:adUnitId="ca-app-pub-3929550233974663/5983415436"-->
         <!--ads:adSize="SMART_BANNER" />-->
+    <ImageView
+        android:id="@+id/default_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/default_screen_iphone5"
+        />
     <Button
         android:id="@+id/bttn_show"
         android:layout_width="wrap_content"

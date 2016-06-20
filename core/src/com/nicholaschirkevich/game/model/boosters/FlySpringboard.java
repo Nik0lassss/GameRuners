@@ -76,12 +76,12 @@ public class FlySpringboard extends Prize {
         body.setUserData(new FlySpringBoardDataType());
         body.createFixture(fixtureDef);
         stateTime = 0f;
-        for (int i = 0; i < 3; i++) {
-            blocks.add(new Block(world, (int) position.x + i * 69, (int) position.y + 150, 10));
-        }
-        for (int i = 0; i < 3; i++) {
-            blocks.add(new Block(world, (int) position.x + i * 69, (int) position.y + 100, 10));
-        }
+//        for (int i = 0; i < 3; i++) {
+//            blocks.add(new Block(world, (int) position.x + i * 69, (int) position.y + 150, 10));
+//        }
+//        for (int i = 0; i < 3; i++) {
+//            blocks.add(new Block(world, (int) position.x + i * 69, (int) position.y + 100, 10));
+//        }
     }
 
 

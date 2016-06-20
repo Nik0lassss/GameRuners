@@ -459,7 +459,8 @@ public class GameManager {
 
             if (gear + 1 < gearShift.getTimes().size()) {
                 gear++;
-                stageGameManager.addActor(GearView.getView(gear));
+                GearView.getView(gear);
+                //stageGameManager.addActor(GearView.getView(gear));
             }
 
             GameManager.setCurrentSpeed(currentSpeed);

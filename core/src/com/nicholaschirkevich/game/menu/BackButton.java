@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.states.GameState;
 import com.nicholaschirkevich.game.states.GameStateManager;
+import com.nicholaschirkevich.game.util.AssetsManager;
 import com.nicholaschirkevich.game.util.Constants;
 import com.nicholaschirkevich.game.util.GameManager;
 
@@ -79,6 +80,7 @@ public class BackButton extends BackButtonBasic {
     }
     @Override
     public void touched() {
+        AssetsManager.playSound(Constants.SOUND_CLICK);
         System.out.println("Touched");
         gsm.pop();
         gsm.push(new GameState(gsm,false,false,actionResolver));

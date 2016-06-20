@@ -15,5 +15,6 @@ public interface ActionResolver {
     boolean isVkLogin();
     void showInviteBox();
     void buyProduct(String id);
+    void goneDefaultImage();
 
 }

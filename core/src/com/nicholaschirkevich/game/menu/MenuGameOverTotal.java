@@ -216,6 +216,7 @@ public class MenuGameOverTotal extends Group {
 
                                      @Override
                                      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                                         AssetsManager.playSound(Constants.SOUND_CLICK);
                                          getBonusSequence.addAction(Actions.delay(0.3f));
                                          getBonusSequence.addAction(new Action() {
                                              @Override
@@ -265,6 +266,7 @@ public class MenuGameOverTotal extends Group {
 
                                          @Override
                                          public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                                             AssetsManager.playSound(Constants.SOUND_CLICK);
                                              getNextPrizeSequence.addAction(Actions.delay(0.3f));
                                              getNextPrizeSequence.addAction(new Action() {
                                                  @Override
@@ -399,6 +401,7 @@ public class MenuGameOverTotal extends Group {
 
                                     @Override
                                     public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                                        AssetsManager.playSound(Constants.SOUND_CLICK);
                                         sequencePrizeButton.addAction(Actions.delay(0.3f));
                                         sequencePrizeButton.addAction(new Action() {
                                             @Override
@@ -491,6 +494,7 @@ public class MenuGameOverTotal extends Group {
 
                                 @Override
                                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                                    AssetsManager.playSound(Constants.SOUND_CLICK);
                                     sequenceCarShop.addAction(Actions.delay(0.3f));
                                     sequenceCarShop.addAction(new Action() {
                                         @Override
@@ -549,6 +553,7 @@ public class MenuGameOverTotal extends Group {
         settingMenu.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                AssetsManager.playSound(Constants.SOUND_CLICK);
                 sequenceSetting.addAction(Actions.delay(0.1f));
                 sequenceSetting.addAction(new Action() {
                     @Override
@@ -615,6 +620,7 @@ public class MenuGameOverTotal extends Group {
                 sequence.addAction(new Action() {
                     @Override
                     public boolean act(float delta) {
+                        AssetsManager.playSound(Constants.SOUND_CLICK);
                         GameManager.setDefaultSpeed();
                         GameManager.pauseGame = false;
                         GameManager.resetTime();

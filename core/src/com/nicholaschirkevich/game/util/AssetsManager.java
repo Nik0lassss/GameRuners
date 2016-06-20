@@ -84,7 +84,8 @@ public class AssetsManager {
 
     private static ArrayList<TextureAtlas> carsTextureAtlasList = new ArrayList<TextureAtlas>();
     private static Skin uiSkin;
-    private static ParticleEffect particleEffect;
+    private static ParticleEffect particleEffectLeft;
+    private static ParticleEffect particleEffectRight;
 
     private static TextureAtlas carTextureAtlas;
     private static TextureAtlas menuBttnTextureAtlas;
@@ -163,12 +164,15 @@ public class AssetsManager {
         }
     }
 
-    public static ParticleEffect getParticleEffect() {
-        return particleEffect;
+    public static ParticleEffect getParticleEffectLeft() {
+        return particleEffectLeft;
     }
 
+    public static ParticleEffect getParticleEffectRight() {
+        return particleEffectRight;
+    }
     public static void setParticleEffect(ParticleEffect particleEffect) {
-        AssetsManager.particleEffect = particleEffect;
+        AssetsManager.particleEffectLeft = particleEffect;
     }
 
     public static void loadSound()
@@ -320,9 +324,10 @@ public class AssetsManager {
         texturesMap.put(Constants.BTTN_VK_PRESSED_ID, new TextureRegion(new Texture(Constants.BTTN_VK_PRESSED_RESOURCE)));
 
 
-        particleEffect = new ParticleEffect();
-        particleEffect.load(Gdx.files.internal("booster_particle"), Gdx.files.internal(""));
-
+        particleEffectLeft = new ParticleEffect();
+        particleEffectLeft.load(Gdx.files.internal("booster_particle"), Gdx.files.internal(""));
+        particleEffectRight = new ParticleEffect();
+        particleEffectRight.load(Gdx.files.internal("booster_particle"), Gdx.files.internal(""));
 
         //passer Car 1
         texturesMap.put(Constants.PASSER_CAR_2_ID,

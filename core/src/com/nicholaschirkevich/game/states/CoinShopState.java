@@ -92,7 +92,7 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
     public void setUpResumeImageButton()
     {
         resumeImageButton = new ImageButton(new Image(AssetsManager.getTextureRegion(Constants.RESUME_BTTN_ID)).getDrawable(),new Image(AssetsManager.getTextureRegion(Constants.RESUME_BTTN_ID)).getDrawable());
-        resumeImageButton.setBounds(GameRuners.WIDTH / 4-45,GameRuners.HEIGHT / 4-282,resumeImageButton.getWidth(),resumeImageButton.getHeight());
+        resumeImageButton.setBounds(GameRuners.WIDTH / 4-40,GameRuners.HEIGHT / 4-282,resumeImageButton.getWidth(),resumeImageButton.getHeight());
         resumeImageButton.addListener(new ClickListener(){
 
             @Override

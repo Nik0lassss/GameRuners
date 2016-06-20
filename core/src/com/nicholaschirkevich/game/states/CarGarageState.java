@@ -170,6 +170,7 @@ public class CarGarageState extends State {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                AssetsManager.playSound(Constants.SOUND_CLICK);
                 isPlayAnimation = true;
                 GameManager.addCar(prizeCar);
                 getPrizeButton.remove();
@@ -233,7 +234,7 @@ public class CarGarageState extends State {
         resumeButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-
+                AssetsManager.playSound(Constants.SOUND_CLICK);
                 sequence.addAction(Actions.delay(0.3f));
                 sequence.addAction(new Action() {
                     @Override

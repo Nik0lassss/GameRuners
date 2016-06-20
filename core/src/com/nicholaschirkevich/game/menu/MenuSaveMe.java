@@ -83,6 +83,7 @@ public class MenuSaveMe extends Group {
 
                                      @Override
                                      public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                                         AssetsManager.playSound(Constants.SOUND_CLICK);
                                          saveMeSequence.addAction(Actions.delay(0.3f));
                                          saveMeSequence.addAction(new Action() {
                                              @Override
@@ -163,7 +164,7 @@ public class MenuSaveMe extends Group {
 
                                    @Override
                                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-
+                                       AssetsManager.playSound(Constants.SOUND_CLICK);
                                        getStage().addActor(new MenuGameOver(gsm,resumeButtonListener, actionResolver));
                                        remove();
                                        return true;

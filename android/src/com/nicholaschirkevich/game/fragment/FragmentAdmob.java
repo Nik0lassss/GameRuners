@@ -11,10 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
@@ -55,6 +57,7 @@ import util.Purchase;
 public class FragmentAdmob extends AndroidFragmentApplication implements ActionResolver {
 
     private InterstitialAd mInterstitialAd;
+    private ImageView defaultImage;
     private RewardedVideoAd mAd;
     private String appId = "ca-app-pub-3929550233974663/5014713038";
     private Button showButton, byButton;
@@ -85,6 +88,8 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
 
         mInterstitialAd.setAdUnitId(appId);
+        defaultImage = (ImageView) getActivity().findViewById(R.id.default_image);
+
         byButton = (Button) getActivity().findViewById(R.id.bttn_by);
         byButton.setEnabled(false);
         mPurchaseFinishedListener
@@ -213,7 +218,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                         public void onAdClosed() {
                             startGame();
                             if (isAfterGetBonus) {
-                                gameRuners. onAdCloseAfterGetBonus();
+                                gameRuners.onAdCloseAfterGetBonus();
                             } else {
 
                                 gameRuners.onAdClose();
@@ -244,7 +249,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         // Request a new ad if one isn't already loaded, hide the button, and kick off the timer.
         if (!mInterstitialAd.isLoading() && !mInterstitialAd.isLoaded()) {
             //AdRequest adRequest = new AdRequest.Builder().addTestDevice("024E787E6EB1DF2F6E701EE93F986BA4").build();
-             AdRequest adRequest = new AdRequest.Builder().build();
+            AdRequest adRequest = new AdRequest.Builder().build();
             mInterstitialAd.loadAd(adRequest);
         }
 
@@ -312,8 +317,10 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
             });
         } catch (Exception e) {
         }
-          return isLoaded[0];
-    };
+        return isLoaded[0];
+    }
+
+    ;
 
     @Override
     public void showVkLoginActivity() {
@@ -331,7 +338,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     @Override
     public void showInviteBox() {
 
-        currentRequest = VKApi.friends().get(VKParameters.from(VKApiConst.FIELDS, "id,first_name,last_name,photo_100","count","10"));
+        currentRequest = VKApi.friends().get(VKParameters.from(VKApiConst.FIELDS, "id,first_name,last_name,photo_100", "count", "10"));
         final ArrayList<User> users = new ArrayList<>();
 
         currentRequest.executeWithListener(new VKRequest.VKRequestListener() {
@@ -345,7 +352,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
                 for (VKApiUserFull userFull : usersArray) {
 
-                    users.add(new User(userFull.toString(), userFull.id,  userFull.photo_100));
+                    users.add(new User(userFull.toString(), userFull.id, userFull.photo_100));
 
                 }
 
@@ -398,122 +405,131 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
     }
 
-
-    public void getFriends() {
-        VKRequest request = VKApi.users().get();
-    }
-
     @Override
-    public void getVkStatusLogin() {
-
-
-        VKSdk.wakeUpSession(getActivity(), new VKCallback<VKSdk.LoginState>() {
-
-            @Override
-            public void onResult(VKSdk.LoginState loginState) {
-                switch (loginState) {
-                    case LoggedOut:
-
-                        //showLogin();
-                        break;
-                    case LoggedIn:
-
-                        //showLogout();
-                        break;
-                    case Pending:
-                        break;
-                    case Unknown:
-                        break;
-                }
-            }
-
-            @Override
-            public void onError(VKError vkError) {
-
+    public void goneDefaultImage() {
+        runOnUiThread(new Runnable() {
+            public void run() {
+                defaultImage.setVisibility(View.GONE);
             }
         });
-    }
+     }
 
 
-    @Override
-    public void vkLogout() {
-        showLogout();
-    }
+     public void getFriends() {
+         VKRequest request = VKApi.users().get();
+     }
+
+     @Override
+     public void getVkStatusLogin() {
 
 
-    @Override
-    public void sendPostOnVk() {
+         VKSdk.wakeUpSession(getActivity(), new VKCallback<VKSdk.LoginState>() {
 
-        VKSdk.wakeUpSession(getActivity(), new VKCallback<VKSdk.LoginState>() {
-            @Override
-            public void onResult(VKSdk.LoginState res) {
+             @Override
+             public void onResult(VKSdk.LoginState loginState) {
+                 switch (loginState) {
+                     case LoggedOut:
 
-                switch (res) {
-                    case LoggedOut:
-                        showLogin();
-                        break;
-                    case LoggedIn:
-                        //showLogout();
-                        break;
-                    case Pending:
-                        break;
-                    case Unknown:
-                        break;
-                }
+                         //showLogin();
+                         break;
+                     case LoggedIn:
 
-            }
+                         //showLogout();
+                         break;
+                     case Pending:
+                         break;
+                     case Unknown:
+                         break;
+                 }
+             }
 
-            @Override
-            public void onError(VKError error) {
+             @Override
+             public void onError(VKError vkError) {
 
-            }
-        });
+             }
+         });
+     }
 
-        Bitmap bm2 = BitmapFactory.decodeResource(getResources(), R.drawable.sr_logo);
-        final Bitmap b = bm2;
-        VKPhotoArray photos = new VKPhotoArray();
-        photos.add(new VKApiPhoto(getString(R.string.photo_id)));
-        new VKShareDialog()
-                .setText(getString(R.string.VkDialogText))
-                .setUploadedPhotos(photos)
-                .setAttachmentImages(new VKUploadImage[]{
-                        new VKUploadImage(b, VKImageParameters.pngImage())
-                })
-                .setAttachmentLink(getString(R.string.VkDialogLinkText), getString(R.string.VkDialogLink))
-                .setShareDialogListener(new VKShareDialog.VKShareDialogListener() {
-                    @Override
-                    public void onVkShareComplete(int postId) {
-                        //контент отправлен
-                        Toast.makeText(getContext(), "контент отправлен", Toast.LENGTH_LONG).show();
-                    }
 
-                    @Override
-                    public void onVkShareCancel() {
-                        //Toast.makeText(getContext(), "отмена", Toast.LENGTH_LONG).show();
-                        //отмена
-                    }
+     @Override
+     public void vkLogout() {
+         showLogout();
+     }
 
-                    @Override
-                    public void onVkShareError(VKError error) {
-                        // Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
-                    }
-                }).show(getFragmentManager(), "VK_SHARE_DIALOG");
-    }
 
-    private void showLogin() {
-        VKSdk.login(getActivity(), vkScope);
+     @Override
+     public void sendPostOnVk() {
+
+         VKSdk.wakeUpSession(getActivity(), new VKCallback<VKSdk.LoginState>() {
+             @Override
+             public void onResult(VKSdk.LoginState res) {
+
+                 switch (res) {
+                     case LoggedOut:
+                         showLogin();
+                         break;
+                     case LoggedIn:
+                         //showLogout();
+                         break;
+                     case Pending:
+                         break;
+                     case Unknown:
+                         break;
+                 }
+
+             }
+
+             @Override
+             public void onError(VKError error) {
+
+             }
+         });
+
+         Bitmap bm2 = BitmapFactory.decodeResource(getResources(), R.drawable.sr_logo);
+         final Bitmap b = bm2;
+         VKPhotoArray photos = new VKPhotoArray();
+         photos.add(new VKApiPhoto(getString(R.string.photo_id)));
+         new VKShareDialog()
+                 .setText(getString(R.string.VkDialogText))
+                 .setUploadedPhotos(photos)
+                 .setAttachmentImages(new VKUploadImage[]{
+                         new VKUploadImage(b, VKImageParameters.pngImage())
+                 })
+                 .setAttachmentLink(getString(R.string.VkDialogLinkText), getString(R.string.VkDialogLink))
+                 .setShareDialogListener(new VKShareDialog.VKShareDialogListener() {
+                     @Override
+                     public void onVkShareComplete(int postId) {
+                         //контент отправлен
+                         Toast.makeText(getContext(), "контент отправлен", Toast.LENGTH_LONG).show();
+                     }
+
+                     @Override
+                     public void onVkShareCancel() {
+                         //Toast.makeText(getContext(), "отмена", Toast.LENGTH_LONG).show();
+                         //отмена
+                     }
+
+                     @Override
+                     public void onVkShareError(VKError error) {
+                         // Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
+                     }
+                 }).show(getFragmentManager(), "VK_SHARE_DIALOG");
+     }
+
+     private void showLogin() {
+         VKSdk.login(getActivity(), vkScope);
 //        getSupportFragmentManager()
 //                .beginTransaction()
 //                .replace(R.id., new LoginFragment())
 //                .commitAllowingStateLoss();
-    }
+     }
 
-    private void showLogout() {
-        VKSdk.logout();
+     private void showLogout() {
+         VKSdk.logout();
 
 //        getSupportFragmentManager()
 //                .beginTransaction()
 //                .replace(R.id., new LoginFragment())
 //                .commitAllowingStateLoss();
-    }
-}
+     }
+ }

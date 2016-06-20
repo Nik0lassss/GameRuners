@@ -329,6 +329,15 @@ public class MenuTest extends Group {
 
         leaderBoards = new ImageButton(leaderBoardsImageUp.getDrawable(), leaderBoardsImageDown.getDrawable());
         leaderBoards.setBounds(x - leaderBoardsImageDown.getWidth() / 2, y - leaderBoardsImageDown.getHeight() / 2, leaderBoardsImageDown.getWidth(), leaderBoardsImageDown.getHeight());
+        leaderBoards.addListener(new ClickListener(){
+
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                AssetsManager.playSound(Constants.SOUND_CLICK);
+                return super.touchDown(event, x, y, pointer, button);
+            }
+        });
+
         addActor(leaderBoards);
 
     }

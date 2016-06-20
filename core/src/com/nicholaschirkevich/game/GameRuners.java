@@ -4,8 +4,6 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.input.GestureDetector;
-import com.badlogic.gdx.math.Vector2;
 import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.states.GameState;
 import com.nicholaschirkevich.game.states.GameStateManager;
@@ -33,6 +31,7 @@ public class GameRuners extends ApplicationAdapter {
         batch = new SpriteBatch();
         gsm = new GameStateManager();
         Gdx.gl.glClearColor(1, 1, 1, 1);
+
         GameManager.loadData();
         AssetsManager.loadCars();
         AssetsManager.loadAssets();
@@ -40,6 +39,7 @@ public class GameRuners extends ApplicationAdapter {
         actionResolver.getVkStatusLogin();
         gameState = new GameState(gsm, true, false, actionResolver);
 
+        actionResolver.goneDefaultImage();
         gsm.push(gameState);
 
 

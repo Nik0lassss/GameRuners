@@ -80,6 +80,7 @@ public class CarShopState extends State implements ResumeButtonListener, UpdateG
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                AssetsManager.playSound(Constants.SOUND_CLICK);
                 gsm.push(new GameState(gsm, false, true, actionResolver));
                 return true;
             }
