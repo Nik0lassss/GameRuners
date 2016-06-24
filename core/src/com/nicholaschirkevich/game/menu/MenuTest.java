@@ -28,9 +28,13 @@ import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
 import com.nicholaschirkevich.game.states.CarShopState;
 import com.nicholaschirkevich.game.states.CoinShopState;
 import com.nicholaschirkevich.game.states.GameStateManager;
+import com.nicholaschirkevich.game.states.TestShopState;
 import com.nicholaschirkevich.game.util.AssetsManager;
 import com.nicholaschirkevich.game.util.Constants;
 import com.nicholaschirkevich.game.util.GameManager;
+
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 
 /**
  * Created by Nikolas on 10.03.2016.
@@ -270,7 +274,7 @@ public class MenuTest extends Group {
                     @Override
                     public boolean act(float delta) {
 
-                        getStage().addActor(new CoinShopState(listener, gsm, actionResolver));
+                        getStage().addActor(new CoinShopState(listener, gsm, actionResolver,groupView));
                         return true;
                     }
                 });
@@ -334,6 +338,18 @@ public class MenuTest extends Group {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 AssetsManager.playSound(Constants.SOUND_CLICK);
+//                TabbedPane.TabbedPaneStyle tabbedPaneStyle = new TabbedPane.TabbedPaneStyle();
+//                tabbedPaneStyle.font= AssetsManager.getUiSkin().getFont("default-font");
+//                tabbedPaneStyle.bodyBackground=new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_UNSELECTED_ID)).getDrawable();
+//                TabbedPane tabPane = new TabbedPane(tabbedPaneStyle);
+//
+//                tabPane.addTab("Все ", new Image(coinShomImageUp.getDrawable()));
+//                tabPane.addTab("Друзья ", new Image(coinShomImageUp.getDrawable()));
+//                tabPane.setBounds(GameRuners.WIDTH/4-50,GameRuners.HEIGHT/4,100f,100f);
+
+                addActor(new TestShopState( gsm, actionResolver,groupView));
+
+
                 return super.touchDown(event, x, y, pointer, button);
             }
         });

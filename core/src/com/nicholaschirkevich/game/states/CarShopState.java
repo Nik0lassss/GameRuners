@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -45,6 +46,7 @@ public class CarShopState extends State implements ResumeButtonListener, UpdateG
     StartGameGarageButton startGameGarageButton;
     Table table, container;
     private ActionResolver actionResolver;
+    private   ImageButton imageButton;
 
 
     public CarShopState(GameStateManager gsm, ActionResolver actionResolver) {
@@ -59,7 +61,7 @@ public class CarShopState extends State implements ResumeButtonListener, UpdateG
 
         garageNameTexture = AssetsManager.getTextureRegion(Constants.TITLE_VEHICLES_ID).getTexture();
         garageNameImage = new Image(garageNameTexture);
-        garageNameImage.setBounds(20, GameRuners.HEIGHT / 2 - 40, garageNameTexture.getWidth(), garageNameTexture.getHeight());
+        garageNameImage.setBounds(5, GameRuners.HEIGHT / 2 - 40, garageNameTexture.getWidth(), garageNameTexture.getHeight());
 
 
         setUpGarage();
@@ -68,10 +70,23 @@ public class CarShopState extends State implements ResumeButtonListener, UpdateG
         setUpResumeImageButton();
         stage.addActor(image);
         stage.addActor(garageNameImage);
-
+        setUpImageCoinCount();
+        setUpCoinCountLabel();
         Gdx.input.setInputProcessor(stage);
     }
+    public void setUpImageCoinCount() {
+        imageButton = new ImageButton(new Image(AssetsManager.getTextureRegion(Constants.COIN_ICON_1_NAME_ID)).getDrawable());
+        //imageButton.setBounds(labelCoinCount.getX() + 50, labelCoinCount.getY() - 2, imageButton.getWidth(), imageButton.getHeight());
+        imageButton.setBounds(GameRuners.WIDTH / 2 - 25, GameRuners.HEIGHT / 2 - 30, imageButton.getWidth(), imageButton.getHeight());
+        stage.addActor(imageButton);
+    }
 
+    public void setUpCoinCountLabel() {
+        Label labelCoinCount = new Label(String.valueOf(GameManager.getCoinCounter()), AssetsManager.getUiSkin());
+        labelCoinCount.setFontScale(0.60f, 0.60f);
+        labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() -5, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
+        stage.addActor(labelCoinCount);
+    }
     public void setUpResumeImageButton()
     {
        ImageButton resumeImageButton = new ImageButton(new Image(AssetsManager.getTextureRegion(Constants.RESUME_BTTN_ID)).getDrawable(),new Image(AssetsManager.getTextureRegion(Constants.RESUME_BTTN_ID)).getDrawable());
@@ -91,7 +106,7 @@ public class CarShopState extends State implements ResumeButtonListener, UpdateG
     public void setUpBackButton() {
 
         float width = 43, height = 49;
-        backButton = new BackButton(Constants.GARAGE_BTTN_X_VISIBLE-10, Constants.GARAGE_BTTN_Y - (height / 2)-10, width, height, gsm, actionResolver);
+        backButton = new BackButton(Constants.GARAGE_BTTN_X_VISIBLE-25, Constants.GARAGE_BTTN_Y - (height / 2)-40, width, height, gsm, actionResolver);
         stage.addActor(backButton);
     }
 

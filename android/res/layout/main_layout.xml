@@ -6,7 +6,8 @@
 
     tools:context=".MainActivity"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/vk_share_top_blue_color">
 
 
     <FrameLayout
@@ -15,6 +16,7 @@
         android:layout_height="fill_parent"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:background="@color/vk_share_top_blue_color"
        />
 
     <!--<com.google.android.gms.ads.AdView-->
@@ -29,6 +31,7 @@
         android:id="@+id/default_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scaleType="centerCrop"
         android:src="@drawable/default_screen_iphone5"
         />
     <Button

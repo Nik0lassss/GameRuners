@@ -12,5 +12,7 @@
     <string name="inAppBuillingOk">In-app Billing is set up OK</string>
     <string name="inAppBuillingErrore">In-app Billing setup failed:</string>
     <string name="packagePurchase">com.example.</string>
+    <string name="server_url">http://s.pixelplex.by:3001/</string>
+    <string name="server_url_get_leaderboards">leaderboard</string>
 
 </resources>

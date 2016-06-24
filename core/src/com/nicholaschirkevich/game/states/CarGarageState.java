@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.admob.ActionResolver;
@@ -149,23 +150,24 @@ public class CarGarageState extends State {
         float x = Constants.GET_PRIZE_BTTN_X_VISIBLE, y = Constants.GET_PRIZE_Y_VISIBLE;
         final Image coinImage = new Image(AssetsManager.getAnimation(Constants.COIN_ASSETS_ID).getKeyFrames()[0]);
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.down = getPrizeButtonImageUp.getDrawable();
-        textButtonStyle.up = getPrizeButtonImageDown.getDrawable();
+        textButtonStyle.down = getPrizeButtonImageDown.getDrawable();
+        textButtonStyle.up = getPrizeButtonImageUp.getDrawable();
         textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
         if (isFree) {
             getPrizeButton = new TextButton(GameManager.getStrings().get(Constants.GARAGE_FREE_LBL), textButtonStyle);
-            getPrizeButton.getLabel().setFontScale(0.4f, 0.4f);
+            getPrizeButton.getLabel().setFontScale(0.40f, 0.40f);
         } else {
 
             getPrizeButton = new TextButton("300", textButtonStyle);
-
+            getPrizeButton.getLabel().setAlignment(Align.left);
+            getPrizeButton.getLabelCell().padLeft(30f);
             getPrizeButton.getLabel().setFontScale(0.6f, 0.6f);
 
-            coinImage.setBounds(x + 85, y + 20, coinImage.getWidth() - 3, coinImage.getHeight() - 3);
+            coinImage.setBounds(x + 75, y + 20, coinImage.getWidth() - 3, coinImage.getHeight() - 7);
 
         }
 
-        getPrizeButton.setBounds(x, y, 120, 60);
+        getPrizeButton.setBounds(x, y, 120, 55);
         getPrizeButton.addListener(new ClickListener() {
 
             @Override
@@ -224,9 +226,9 @@ public class CarGarageState extends State {
         textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
 
-        resumeButton = new TextButton("Play", textButtonStyle);
-        resumeButton.getLabel().setFontScale(0.6f, 0.6f);
-        resumeButton.getLabelCell().padLeft(25f);
+        resumeButton = new TextButton(GameManager.getStrings().get(Constants.MP_PLAY_BTN), textButtonStyle);
+        resumeButton.getLabel().setFontScale(0.45f, 0.45f);
+        resumeButton.getLabelCell().padLeft(45f);
 
 
         resumeButton.setBounds(x - resumeButtonUpImage.getWidth() / 2, y - resumeButtonUpImage.getHeight() / 2, resumeButtonUpImage.getWidth(), resumeButtonUpImage.getHeight());

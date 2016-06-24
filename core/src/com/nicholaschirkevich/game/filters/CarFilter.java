@@ -254,6 +254,7 @@ public class CarFilter implements ContactFilter {
 
             coinDataType.setIsRecievedByMycar(true);
             GameManager.addCoint();
+            GameManager.setGameCoin(GameManager.getCoinCount()+1);
             gameState.updateCoinCount(GameManager.getCoinCounter());
 //            System.out.println(stringA);
 //            System.out.println(stringB);

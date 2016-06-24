@@ -92,9 +92,9 @@
         </id>
         <type>Label
         </type>
-        <en>Restore \n purchases
+        <en>Restore \npurchases
         </en>
-        <ru>  Восстановить \n  покупки
+        <ru>Восстановить \nпокупки
         </ru>
     </string>
     <string>
@@ -333,7 +333,7 @@
     <string><id> go_save_lbl </id><type>	Label</type><en>	Save me!</en><ru>	Продолжить </ru> </string>
     <string><id> go_rate_lbl </id><type>	Label</type><en>	Rate us	</en><ru>Оставить отзыв  </ru></string>
     <string><id> go_title_lbl </id><type>	Label</type><en>	Game over</en><ru>	Игра закончена </ru> </string>
-    <string><id> go_score_lbl </id>	<type>Label </type>	<en>Score:	</en><ru>Очки:  </ru></string>
+    <string><id> go_score_lbl </id>	<type>Label </type>	<en>Score:</en><ru>Очки:</ru></string>
     <string><id> go_n_lbl </id><type>	Label</type>	<en>New	</en><ru>Новый  </ru></string>
     <string><id>  go_r_lbl </id><type>	Label</type>	<en>record!</en><ru>	рекорд </ru> </string>
     <string><id>  go_bonus_lbl </id><type>	Label</type><en>	Get bonus</en><ru>	Бонус </ru> </string>
@@ -429,7 +429,7 @@
     <string><id> mp_active_games_lbl</id><type>	Label</type><en>	Active games:</en><ru>	Активные игры:</ru> </string>
     <string><id>mp_open_games_lbl</id><type>	Label</type><en>	Open games:</en><ru>	Открытые игры:</ru> </string>
     <string><id>mp_previous_games_lbl</id><type>	Label</type><en>	Previous games</en><ru>	Сыграные игры:</ru> </string>
-    <string><id>mp_play_btn</id><type>	text</type><en>	Play</en><ru>	Играть</ru> </string>
+    <string><id>mp_play_btn</id><type>	text</type><en>Play</en><ru>Играть</ru> </string>
     <string><id> mp_round_lbl</id><type>	Label</type><en>	Round	</en><ru>Раунд</ru> </string>
     <string><id>mp_invite_btn</id><type>	text</type><en>	Invite friends</en><ru>	Пригласить друга</ru> </string>
     <string><id>mp_random_player_btn</id><type>	text</type><en>	Play with a random player</en><ru>	Играть с случайным игроком</ru> </string>
@@ -475,7 +475,7 @@
     <string><id>go_destroyed_lbl</id><type>	text</type><en>	Destroyed</en><ru>	Уничтоженно</ru> </string>
     <string><id>go_spring_board_lbl</id><type>	text</type><en>	Springboard</en><ru>	Трамплин</ru> </string>
     <string><id>go_god_mod_lbl</id><type>	text</type><en>	Insane</en><ru>	Безумие</ru> </string>
-    <string><id>go_dangerous_lbl</id><type>	text</type><en>	Dangerous</en><ru>	На грани</ru> </string>
+    <string><id>go_dangerous_lbl</id><type>	text</type><en>	Dangerous</en><ru>На грани</ru> </string>
     <string><id>go_drift_lbl</id><type>	text</type><en>	Drift</en><ru>	Дрифт</ru> </string>
     <string><id>go_destroyed_lbl</id><type>	text</type><en>	Destroyed</en><ru>	Уничтожено</ru> </string>
     <string><id>go_rocket_lbl</id><type>	text</type><en>	Rocket</en><ru>	Ракеты</ru> </string>

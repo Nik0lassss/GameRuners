@@ -68,6 +68,11 @@ public class DesktopLauncher {
 			public void buyProduct(String id) {
 
 			}
+
+			@Override
+			public void goneDefaultImage() {
+
+			}
 		}), config);
 	}
 }

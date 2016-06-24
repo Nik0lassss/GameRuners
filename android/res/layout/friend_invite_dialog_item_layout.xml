@@ -3,18 +3,40 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:minHeight="50dp"
+    android:background="@color/vk_white"
     android:orientation="horizontal"
     android:padding="5dip">
 
-    <com.nicholaschirkevich.game.entity.ImageProgressViewScale
+    <!--<com.nicholaschirkevich.game.entity.ImageProgressViewScale-->
+        <!--android:id="@+id/fragment_friends_item_friend_image"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:padding="5dp" />-->
+
+    <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/fragment_friends_item_friend_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="8dp" />
+
+    <!-- Movie Title -->
+    <TextView
+        android:id="@+id/first_name_frined_invite_dialog_item_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:padding="5dp" />
+        android:layout_alignTop="@+id/fragment_friends_item_friend_image"
+        android:layout_toRightOf="@+id/fragment_friends_item_friend_image"
+        android:textSize="@dimen/title"
+        android:textColor="@color/vk_black"
+        android:textStyle="bold" />
 
-    <TextView
+
+
+
+  <!--  <TextView
         android:id="@+id/first_name_frined_invite_dialog_item_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -26,6 +48,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:textColor="#343434"
-        android:textSize="12sp" />
+        android:textSize="12sp" />-->
 
 </RelativeLayout>

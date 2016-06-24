@@ -78,6 +78,16 @@ public class GameManager {
     private static int destroyedCount = 0;
     private static int springBoardCount = 0;
     private static int godModeCount = 0;
+
+    public static int getCoinCount() {
+        return coinCount;
+    }
+
+    public static void setGameCoin(int coinCount) {
+        GameManager.coinCount = coinCount;
+    }
+
+    private static int coinCount = 0;
     private static boolean isSoundEnable;
 
     public static boolean isSoundEnable() {
@@ -125,6 +135,7 @@ public class GameManager {
         destroyedCount = 0;
         springBoardCount = 0;
         godModeCount = 0;
+        coinCount = 0;
     }
 
     public static float getBestAchives() {
@@ -385,6 +396,15 @@ public class GameManager {
         } else return false;
     }
 
+    public static String timeToNextFreePrize()
+    {
+       Long currentTime = new Date().getTime();
+
+        lastFreeCarPrize.getTime();
+        Date date = new Date(currentTime-lastFreeCarPrize.getTime());
+       return "";
+    }
+
     public static void setNewFreeCarPrizeDate() {
         lastFreeCarPrize = new Date();
         preferences.putLong(Constants.PREFERENCES_LAST_CAR_PRIZE_TIME_MILLIS, (lastFreeCarPrize.getTime()));
@@ -537,7 +557,7 @@ public class GameManager {
     }
 
     public static Integer addCoin(int count) {
-        coinCounter+=count;
+        coinCounter += count;
         setCountCoint(coinCounter);
         return coinCounter;
     }

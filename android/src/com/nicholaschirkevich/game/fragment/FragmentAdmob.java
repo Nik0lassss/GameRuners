@@ -1,6 +1,5 @@
 package com.nicholaschirkevich.game.fragment;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,21 +11,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.R;
-import com.nicholaschirkevich.game.adapter.FriendDialogListAdapter;
+import com.nicholaschirkevich.game.activity.FriendsInviteActivity;
 import com.nicholaschirkevich.game.admob.ActionResolver;
+import com.nicholaschirkevich.game.api.ServerApi;
+import com.nicholaschirkevich.game.entity.LeaderboardEntity;
+import com.nicholaschirkevich.game.entity.VkUser;
 import com.nicholaschirkevich.game.internet.InternetHelper;
-import com.nicholaschirkevich.game.vkmodel.User;
+import com.nicholaschirkevich.game.listeners.OnGetLidearBoards;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKScope;
 import com.vk.sdk.VKSdk;
@@ -38,8 +38,8 @@ import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
 import com.vk.sdk.api.model.VKApiPhoto;
 import com.vk.sdk.api.model.VKApiUserFull;
+import com.vk.sdk.api.model.VKList;
 import com.vk.sdk.api.model.VKPhotoArray;
-import com.vk.sdk.api.model.VKUsersArray;
 import com.vk.sdk.api.photo.VKImageParameters;
 import com.vk.sdk.api.photo.VKUploadImage;
 import com.vk.sdk.dialogs.VKShareDialog;
@@ -75,7 +75,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     static final String ITEM_SKU_SP = "com.example.sp000";
     //static final String ITEM_SKU = "com.example.sp";
 
-    private String[] vkScope = new String[]{VKScope.WALL, VKScope.PHOTOS, VKScope.ADS, VKScope.NOTES, VKScope.NOHTTPS, VKScope.PAGES, VKScope.STATS, VKScope.STATUS};
+    private String[] vkScope = new String[]{VKScope.WALL, VKScope.PHOTOS, VKScope.NOHTTPS, VKScope.PAGES};
 
 
     @Nullable
@@ -338,8 +338,103 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     @Override
     public void showInviteBox() {
 
-        currentRequest = VKApi.friends().get(VKParameters.from(VKApiConst.FIELDS, "id,first_name,last_name,photo_100", "count", "10"));
-        final ArrayList<User> users = new ArrayList<>();
+        Intent intent = new Intent(getActivity(), FriendsInviteActivity.class);
+        startActivity(intent);
+//        currentRequest = VKApi.friends().get(VKParameters.from(VKApiConst.FIELDS, "id,first_name,last_name,photo_100"));
+//        final ArrayList<User> users = new ArrayList<>();
+//
+//        currentRequest.executeWithListener(new VKRequest.VKRequestListener() {
+//            @Override
+//            public void onComplete(VKResponse response) {
+//                super.onComplete(response);
+//                Log.d("VkDemoApp", "onComplete " + response);
+//
+//                VKUsersArray usersArray = (VKUsersArray) response.parsedModel;
+//                users.clear();
+//
+//                for (VKApiUserFull userFull : usersArray) {
+//
+//                    users.add(new User(userFull.toString(), userFull.id, userFull.photo_100));
+//
+//                }
+//
+//                final Dialog dialog = new Dialog(getContext());
+//
+//                View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_main, null);
+//
+//                ListView lv = (ListView) view.findViewById(R.id.list_friends_dialog_main);
+//
+//
+//                // Change MyActivity.this and myListOfItems to your own values
+//                FriendDialogListAdapter clad = new FriendDialogListAdapter(getContext(), users);
+//
+//                lv.setAdapter(clad);
+//
+        //               lv.setOnItemClickListener(........);
+//
+//                dialog.setContentView(view);
+//
+//                dialog.show();
+//            }
+//
+//            @Override
+//            public void attemptFailed(VKRequest request, int attemptNumber, int totalAttempts) {
+//                super.attemptFailed(request, attemptNumber, totalAttempts);
+//                Log.d("VkDemoApp", "attemptFailed " + request + " " + attemptNumber + " " + totalAttempts);
+//            }
+//
+//            @Override
+//            public void onError(VKError error) {
+//                super.onError(error);
+//                Log.d("VkDemoApp", "onError: " + error);
+//            }
+//
+//            @Override
+//            public void onProgress(VKRequest.VKProgressType progressType, long bytesLoaded, long bytesTotal) {
+//                super.onProgress(progressType, bytesLoaded, bytesTotal);
+//                Log.d("VkDemoApp", "onProgress " + progressType + " " + bytesLoaded + " " + bytesTotal);
+//            }
+//        });
+//
+
+    }
+
+    @Override
+    public void buyProduct(String id) {
+        mHelper.flagEndAsync();
+        mHelper.launchPurchaseFlow(getActivity(), getString(R.string.packagePurchase) + id, 10001,
+                mPurchaseFinishedListener, getString(R.string.purchasetocken));
+
+    }
+
+    @Override
+    public void goneDefaultImage() {
+        runOnUiThread(new Runnable() {
+            public void run() {
+                defaultImage.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    @Override
+    public void getLidearBoards(OnGetLidearBoards onGetLidearBoards) {
+        ServerApi.getLeaderBoards(onGetLidearBoards);
+    }
+
+    @Override
+    public void getVkImageLidearBoards(final OnGetLidearBoards onGetLidearBoards, ArrayList<LeaderboardEntity> leaderboardEntities) {
+        StringBuilder ids = new StringBuilder();
+        for (int i = 0; i < leaderboardEntities.size(); i++) {
+            LeaderboardEntity leaderboardEntity = leaderboardEntities.get(i);
+            if (!leaderboardEntity.getVk_id().equals("null"))
+                if (i + 1 < leaderboardEntities.size())
+                    ids.append(leaderboardEntity.getVk_id() + ",");
+                else ids.append(leaderboardEntity.getVk_id());
+
+        }
+        VKRequest currentRequest;
+        currentRequest = VKApi.users().get(VKParameters.from(VKApiConst.USER_IDS, ids, VKApiConst.FIELDS, "id,first_name,last_name,photo_100"));
+        final ArrayList<VkUser> images = new ArrayList<>();
 
         currentRequest.executeWithListener(new VKRequest.VKRequestListener() {
             @Override
@@ -347,32 +442,16 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                 super.onComplete(response);
                 Log.d("VkDemoApp", "onComplete " + response);
 
-                VKUsersArray usersArray = (VKUsersArray) response.parsedModel;
-                users.clear();
+                VKList<VKApiUserFull> usersArray = (VKList<VKApiUserFull>) response.parsedModel;
+                images.clear();
 
                 for (VKApiUserFull userFull : usersArray) {
 
-                    users.add(new User(userFull.toString(), userFull.id, userFull.photo_100));
+                    images.add(new VkUser(String.valueOf(userFull.id), userFull.photo_100,userFull.first_name,userFull.last_name));
 
                 }
+                onGetLidearBoards.onGetVkImageLidearboardsData(images);
 
-                final Dialog dialog = new Dialog(getContext());
-
-                View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_main, null);
-
-                ListView lv = (ListView) view.findViewById(R.id.list_friends_dialog_main);
-
-
-                // Change MyActivity.this and myListOfItems to your own values
-                FriendDialogListAdapter clad = new FriendDialogListAdapter(getContext(), users);
-
-                lv.setAdapter(clad);
-
-                //lv.setOnItemClickListener(........);
-
-                dialog.setContentView(view);
-
-                dialog.show();
             }
 
             @Override
@@ -393,143 +472,129 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                 Log.d("VkDemoApp", "onProgress " + progressType + " " + bytesLoaded + " " + bytesTotal);
             }
         });
-
-
     }
 
     @Override
-    public void buyProduct(String id) {
-        mHelper.flagEndAsync();
-        mHelper.launchPurchaseFlow(getActivity(), getString(R.string.packagePurchase) + id, 10001,
-                mPurchaseFinishedListener, getString(R.string.purchasetocken));
+    public void getByteImage(OnGetLidearBoards onGetLidearBoards, String url,int index) {
+        ServerApi.getImages(onGetLidearBoards, url);
+    }
 
+
+    public void getFriends() {
+        VKRequest request = VKApi.users().get();
     }
 
     @Override
-    public void goneDefaultImage() {
-        runOnUiThread(new Runnable() {
-            public void run() {
-                defaultImage.setVisibility(View.GONE);
+    public void getVkStatusLogin() {
+
+
+        VKSdk.wakeUpSession(getActivity(), new VKCallback<VKSdk.LoginState>() {
+
+            @Override
+            public void onResult(VKSdk.LoginState loginState) {
+                switch (loginState) {
+                    case LoggedOut:
+
+                        //showLogin();
+                        break;
+                    case LoggedIn:
+
+                        //showLogout();
+                        break;
+                    case Pending:
+                        break;
+                    case Unknown:
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(VKError vkError) {
+
             }
         });
-     }
+    }
 
 
-     public void getFriends() {
-         VKRequest request = VKApi.users().get();
-     }
-
-     @Override
-     public void getVkStatusLogin() {
+    @Override
+    public void vkLogout() {
+        showLogout();
+    }
 
 
-         VKSdk.wakeUpSession(getActivity(), new VKCallback<VKSdk.LoginState>() {
+    @Override
+    public void sendPostOnVk() {
 
-             @Override
-             public void onResult(VKSdk.LoginState loginState) {
-                 switch (loginState) {
-                     case LoggedOut:
+        VKSdk.wakeUpSession(getActivity(), new VKCallback<VKSdk.LoginState>() {
+            @Override
+            public void onResult(VKSdk.LoginState res) {
 
-                         //showLogin();
-                         break;
-                     case LoggedIn:
+                switch (res) {
+                    case LoggedOut:
+                        showLogin();
+                        break;
+                    case LoggedIn:
+                        //showLogout();
+                        break;
+                    case Pending:
+                        break;
+                    case Unknown:
+                        break;
+                }
 
-                         //showLogout();
-                         break;
-                     case Pending:
-                         break;
-                     case Unknown:
-                         break;
-                 }
-             }
+            }
 
-             @Override
-             public void onError(VKError vkError) {
+            @Override
+            public void onError(VKError error) {
 
-             }
-         });
-     }
+            }
+        });
 
+        Bitmap bm2 = BitmapFactory.decodeResource(getResources(), R.drawable.sr_logo);
+        final Bitmap b = bm2;
+        VKPhotoArray photos = new VKPhotoArray();
+        photos.add(new VKApiPhoto(getString(R.string.photo_id)));
+        new VKShareDialog()
+                .setText(getString(R.string.VkDialogText))
+                .setUploadedPhotos(photos)
+                .setAttachmentImages(new VKUploadImage[]{
+                        new VKUploadImage(b, VKImageParameters.pngImage())
+                })
+                .setAttachmentLink(getString(R.string.VkDialogLinkText), getString(R.string.VkDialogLink))
+                .setShareDialogListener(new VKShareDialog.VKShareDialogListener() {
+                    @Override
+                    public void onVkShareComplete(int postId) {
+                        //контент отправлен
+                        Toast.makeText(getContext(), "контент отправлен", Toast.LENGTH_LONG).show();
+                    }
 
-     @Override
-     public void vkLogout() {
-         showLogout();
-     }
+                    @Override
+                    public void onVkShareCancel() {
+                        //Toast.makeText(getContext(), "отмена", Toast.LENGTH_LONG).show();
+                        //отмена
+                    }
 
+                    @Override
+                    public void onVkShareError(VKError error) {
+                        // Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
+                    }
+                }).show(getFragmentManager(), "VK_SHARE_DIALOG");
+    }
 
-     @Override
-     public void sendPostOnVk() {
-
-         VKSdk.wakeUpSession(getActivity(), new VKCallback<VKSdk.LoginState>() {
-             @Override
-             public void onResult(VKSdk.LoginState res) {
-
-                 switch (res) {
-                     case LoggedOut:
-                         showLogin();
-                         break;
-                     case LoggedIn:
-                         //showLogout();
-                         break;
-                     case Pending:
-                         break;
-                     case Unknown:
-                         break;
-                 }
-
-             }
-
-             @Override
-             public void onError(VKError error) {
-
-             }
-         });
-
-         Bitmap bm2 = BitmapFactory.decodeResource(getResources(), R.drawable.sr_logo);
-         final Bitmap b = bm2;
-         VKPhotoArray photos = new VKPhotoArray();
-         photos.add(new VKApiPhoto(getString(R.string.photo_id)));
-         new VKShareDialog()
-                 .setText(getString(R.string.VkDialogText))
-                 .setUploadedPhotos(photos)
-                 .setAttachmentImages(new VKUploadImage[]{
-                         new VKUploadImage(b, VKImageParameters.pngImage())
-                 })
-                 .setAttachmentLink(getString(R.string.VkDialogLinkText), getString(R.string.VkDialogLink))
-                 .setShareDialogListener(new VKShareDialog.VKShareDialogListener() {
-                     @Override
-                     public void onVkShareComplete(int postId) {
-                         //контент отправлен
-                         Toast.makeText(getContext(), "контент отправлен", Toast.LENGTH_LONG).show();
-                     }
-
-                     @Override
-                     public void onVkShareCancel() {
-                         //Toast.makeText(getContext(), "отмена", Toast.LENGTH_LONG).show();
-                         //отмена
-                     }
-
-                     @Override
-                     public void onVkShareError(VKError error) {
-                         // Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
-                     }
-                 }).show(getFragmentManager(), "VK_SHARE_DIALOG");
-     }
-
-     private void showLogin() {
-         VKSdk.login(getActivity(), vkScope);
+    private void showLogin() {
+        VKSdk.login(getActivity(), vkScope);
 //        getSupportFragmentManager()
 //                .beginTransaction()
 //                .replace(R.id., new LoginFragment())
 //                .commitAllowingStateLoss();
-     }
+    }
 
-     private void showLogout() {
-         VKSdk.logout();
+    private void showLogout() {
+        VKSdk.logout();
 
 //        getSupportFragmentManager()
 //                .beginTransaction()
 //                .replace(R.id., new LoginFragment())
 //                .commitAllowingStateLoss();
-     }
- }
+    }
+}

@@ -163,7 +163,7 @@ public class MenuSetting extends Group {
         else
             soundButton = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_SOUND_OFF_LBL), textButtonStyle);
         soundButton.getLabel().setFontScale(0.4f, 0.4f);
-        soundButton.getLabelCell().padLeft(30f);
+        soundButton.getLabelCell().padLeft(40f);
         soundButton.getLabel().setAlignment(Align.left, Align.left);
 
 
@@ -217,7 +217,7 @@ public class MenuSetting extends Group {
             swipe_controll_button = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_SWIPE_CONTROLL_FIRST_ROW_LBL) + "\n" + GameManager.getStrings().get(Constants.SETTINGS_SWIPE_CONTROLL_SECOND_ROW_LBL), textButtonStyle);
         }
         swipe_controll_button.getLabel().setFontScale(0.4f, 0.4f);
-        swipe_controll_button.getLabelCell().padLeft(30f);
+        swipe_controll_button.getLabelCell().padLeft(40f);
         swipe_controll_button.getLabel().setAlignment(Align.left, Align.left);
         swipe_image.setPosition(getX() + 5, getY() + distance_button);
         swipe_controll_button.addActor(swipe_image);
@@ -272,7 +272,7 @@ public class MenuSetting extends Group {
         block_rds_button = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_BLOCK_LBL) + "\n" + GameManager.getStrings().get(Constants.SETTINGS_ADS_LBL), textButtonStyle);
         block_rds_button.getLabel().setFontScale(0.4f, 0.4f);
 
-        block_rds_button.getLabelCell().padLeft(30f);
+        block_rds_button.getLabelCell().padLeft(40f);
         block_rds_button.getLabel().setAlignment(Align.left, Align.left);
         rds_image.setPosition(getX() + 5, getY() + distance_button);
         block_rds_button.addActor(rds_image);
@@ -312,9 +312,10 @@ public class MenuSetting extends Group {
         textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
         restore_button = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_PURCHASE_LBL), textButtonStyle);
+        String restore=  GameManager.getStrings().get(Constants.SETTINGS_PURCHASE_LBL);
        // restore_button = new TextButton("sdasda"+"\n"+"sdadad", textButtonStyle);
-        restore_button.getLabel().setFontScale(0.37f, 0.37f);
-        restore_button.getLabelCell().padLeft(30f);
+        restore_button.getLabel().setFontScale(0.36f, 0.36f);
+        restore_button.getLabelCell().padLeft(40f);
         restore_button.getLabel().setAlignment(Align.left,Align.left);
         restore_image.setPosition(getX() + 5, getY() + distance_button);
         restore_button.addActor(restore_image);
@@ -358,7 +359,7 @@ public class MenuSetting extends Group {
         else
             singInVkBttn = new TextButton(GameManager.getStrings().get(Constants.MS_SIGN_IN_LBL), textButtonStyle);
         singInVkBttn.getLabel().setFontScale(0.4f, 0.4f);
-        singInVkBttn.getLabelCell().padLeft(30f);
+        singInVkBttn.getLabelCell().padLeft(40f);
         singInVkBttn.getLabel().setAlignment(Align.left, Align.left);
         singInVkImage.setPosition(getX() + 5, getY() + distance_button);
         singInVkBttn.addActor(singInVkImage);
@@ -416,7 +417,7 @@ public class MenuSetting extends Group {
 
             singInFbBttn = new TextButton(GameManager.getStrings().get(Constants.MS_SIGN_IN_LBL), textButtonStyle);
             singInFbBttn.getLabel().setFontScale(0.4f, 0.4f);
-            singInFbBttn.getLabelCell().padLeft(30f);
+            singInFbBttn.getLabelCell().padLeft(40f);
             singInFbBttn.getLabel().setAlignment(Align.left, Align.left);
             singInFbImage.setPosition(getX() + 5, getY() + distance_button);
             singInFbBttn.addActor(singInFbImage);
@@ -460,6 +461,7 @@ public class MenuSetting extends Group {
 
             TextButton inviteFriends = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_VK_INVITE_FIRST_LINE) + "\n" + GameManager.getStrings().get(Constants.SETTINGS_VK_INVITE_SECOND_LINE), textButtonStyle);
             inviteFriends.getLabel().setFontScale(0.4f, 0.4f);
+            inviteFriends.getLabel().setAlignment(Align.left,Align.left);
             inviteFriends.getLabelCell().padLeft(10f);
 
             inviteFriends.setPosition(getX() + 5, getY() + distance_button);
@@ -471,19 +473,20 @@ public class MenuSetting extends Group {
             inviteFriends.addListener(new ClickListener() {
                 @Override
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                    AssetsManager.playSound(Constants.SOUND_CLICK);
+                    if (actionResolver.isAvailibleInternet()) {
+                        AssetsManager.playSound(Constants.SOUND_CLICK);
 
-                    sequenceAction.addAction(Actions.delay(0.3f));
-                    sequenceAction.addAction(new Action() {
-                        @Override
-                        public boolean act(float delta) {
-                            actionResolver.showInviteBox();
-                            return true;
-                        }
-                    });
-                    //swipeButtonSequence.addAction(Actions.removeActor());
-                    addAction(sequenceAction);
-
+                        sequenceAction.addAction(Actions.delay(0.3f));
+                        sequenceAction.addAction(new Action() {
+                            @Override
+                            public boolean act(float delta) {
+                                actionResolver.showInviteBox();
+                                return true;
+                            }
+                        });
+                        //swipeButtonSequence.addAction(Actions.removeActor());
+                        addAction(sequenceAction);
+                    }
                     return true;
                 }
             });

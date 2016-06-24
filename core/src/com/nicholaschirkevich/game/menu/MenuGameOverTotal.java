@@ -29,6 +29,7 @@ import com.nicholaschirkevich.game.states.GameStateManager;
 import com.nicholaschirkevich.game.util.AssetsManager;
 import com.nicholaschirkevich.game.util.Constants;
 import com.nicholaschirkevich.game.util.GameManager;
+import com.nicholaschirkevich.game.util.RandomUtil;
 
 /**
  * Created by Nikolas on 10.03.2016.
@@ -50,10 +51,11 @@ public class MenuGameOverTotal extends Group {
     private SequenceAction sequence, sequenceCarShop, sequenceSetting, sequencePrizeButton, vkSequenceButton, sequenceCoinShop;
     private GameStateManager gsm;
     private Stage parentStage;
-    private Group groupView;
     private Label dangerous_count_label, rocket_count_label, destroyed_count_label, spring_bozrd_count_label, god_mode_count_label, total_label, total_count_label;
     private Label achive, achiveCount, bestAchive, bestAchiveCount, distance_label, boosters_label, dangerous_label, rocket_label, destroyed_label, spring_board_label, god_mode_label, distance_count_label;
     private ActionResolver actionResolver;
+
+    private Group groupView;
 
 
     public MenuGameOverTotal(final GameStateManager gsm, ResumeButtonListener resumeButtonListener, ActionResolver actionResolver) {
@@ -159,18 +161,27 @@ public class MenuGameOverTotal extends Group {
         //setUpPlayOnline();
 
         if (GameManager.isNeedFreeCarPrize()) {
-            setFreeForPrize();
-            setUpPrize();
+            if (actionResolver.isIntertitalLoad() && actionResolver.isIntertatlLoaded()) {
+                setGetBonus(Constants.THIRD_POSITION_BTTN_X_VISIBLE, Constants.THIRD_POSITION_BTTN_Y_VISIBLE);
+                setUpPrize(Constants.SECOND_POSITION_BTTN_X_VISIBLE, Constants.SECOND_POSITION_BTTN_Y_VISIBLE);
+                setFreeForPrize(Constants.FREE_FOR_PRIZE_SECOND_LINE_BONUS_X, Constants.SECOND_POSITION_BTTN_Y_VISIBLE - 10);
+                GameManager.setNewFreeCarPrizeDate();
+            } else {
+                setUpPrize(Constants.CENTER_POSITION_BTTN_X_VISIBLE, Constants.CENTER_POSITION_BTTN_Y_VISIBLE);
+                setFreeForPrize(Constants.FREE_FOR_PRIZE_SECOND_LINE_BONUS_X, Constants.CENTER_POSITION_BTTN_Y_VISIBLE - 10);
+                GameManager.setNewFreeCarPrizeDate();
+            }
+        } else {
 
-            GameManager.setNewFreeCarPrizeDate();
-        } else
-        {
-            setUpNextPrize();
+            if (actionResolver.isIntertitalLoad() && actionResolver.isIntertatlLoaded()) {
+                setGetBonus(Constants.THIRD_POSITION_BTTN_X_VISIBLE, Constants.THIRD_POSITION_BTTN_Y_VISIBLE);
+                setUpNextPrize(Constants.SECOND_POSITION_BTTN_X_VISIBLE, Constants.SECOND_POSITION_BTTN_Y_VISIBLE);
+            } else {
+                setUpNextPrize(Constants.CENTER_POSITION_BTTN_X_VISIBLE, Constants.CENTER_POSITION_BTTN_Y_VISIBLE);
+            }
         }
 
-        if (actionResolver.isIntertitalLoad()  && actionResolver.isIntertatlLoaded()) {
-            setGetBonus();
-        }
+
         setCarShop();
         setCoinShop();
         setSettingMenu();
@@ -190,8 +201,8 @@ public class MenuGameOverTotal extends Group {
 
     }
 
-    public void setGetBonus() {
-        float x = Constants.THIRD_POSITION_BTTN_X_VISIBLE, y = Constants.THIRD_POSITION_BTTN_Y_VISIBLE, width = 70, height = 55;
+    public void setGetBonus(float x, float y) {
+        //float x = Constants.THIRD_POSITION_BTTN_X_VISIBLE, y = Constants.THIRD_POSITION_BTTN_Y_VISIBLE, width = 70, height = 55;
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.BTTN_GET_BONUS_PRESSED_ID).getTexture()).getDrawable();
         textButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.BTTN_GET_BONUS_ID)).getDrawable();
@@ -205,11 +216,11 @@ public class MenuGameOverTotal extends Group {
 
         Label coinCountLabel = new Label("+179", AssetsManager.getUiSkin());
 
-        coinCountLabel.setBounds(getX()+95  - coinCountLabel.getWidth() / 2, getY() +10, coinCountLabel.getWidth(), coinCountLabel.getHeight());
+        coinCountLabel.setBounds(getX() + 95 - coinCountLabel.getWidth() / 2, getY() + 10, coinCountLabel.getWidth(), coinCountLabel.getHeight());
         coinCountLabel.setFontScale(0.7f, 0.7f);
 
         Image coinImage = new Image(AssetsManager.getAnimation(Constants.COIN_ASSETS_ID).getKeyFrames()[0]);
-        coinImage.setBounds(getX()+ 115, getY()+15, coinImage.getWidth() - 3, coinImage.getHeight() - 3);
+        coinImage.setBounds(getX() + 115, getY() + 15, coinImage.getWidth() - 3, coinImage.getHeight() - 3);
 
         getBonusBttn.setBounds(x - AssetsManager.getTextureRegion(Constants.BTTN_GET_BONUS_PRESSED_ID).getTexture().getWidth() / 2, y - AssetsManager.getTextureRegion(Constants.BTTN_GET_BONUS_PRESSED_ID).getTexture().getHeight() / 2, AssetsManager.getTextureRegion(Constants.BTTN_GET_BONUS_PRESSED_ID).getTexture().getWidth(), AssetsManager.getTextureRegion(Constants.BTTN_GET_BONUS_PRESSED_ID).getTexture().getHeight());
         getBonusBttn.addListener(new ClickListener() {
@@ -238,8 +249,8 @@ public class MenuGameOverTotal extends Group {
     }
 
 
-    public void setUpNextPrize() {
-        float x = Constants.SECOND_POSITION_BTTN_X_VISIBLE, y = Constants.SECOND_POSITION_BTTN_Y_VISIBLE, width = 70, height = 55;
+    public void setUpNextPrize(float x, float y) {
+        // float x = Constants.SECOND_POSITION_BTTN_X_VISIBLE, y = Constants.SECOND_POSITION_BTTN_Y_VISIBLE, width = 70, height = 55;
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.BTTN_NEXT_PRIZE_PRESSED_ID).getTexture()).getDrawable();
         textButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.BTTN_NEXT_PRIZE_ID)).getDrawable();
@@ -248,20 +259,31 @@ public class MenuGameOverTotal extends Group {
 
         TextButton getNextPrize = new TextButton(GameManager.getStrings().get(Constants.GO_NEXT_PRIZE_LBL) + "\n \n", textButtonStyle);
         getNextPrize.getLabel().setFontScale(0.4f, 0.4f);
-        getNextPrize.getLabelCell().padLeft(35f);
+        getNextPrize.getLabelCell().padLeft(50f);
 
         int coinCount = 300 - GameManager.getCoinCounter();
-        if (coinCount < 0) coinCount = 0;
-        Label coinCountLabel = new Label(String.valueOf(coinCount), AssetsManager.getUiSkin());
+        GameManager.timeToNextFreePrize();
+        //if (coinCount > 0) {
+        if(true){
+            Label coinCountLabel = new Label("", AssetsManager.getUiSkin());
+            if (RandomUtil.getRandomBoolean()) {
+                coinCountLabel.setText("");
+                //coinCountLabel.setText(String.valueOf(coinCount));
+            } else {
+                coinCountLabel.setText(GameManager.timeToNextFreePrize());
+            }
 
-        coinCountLabel.setBounds(getX()+90  - coinCountLabel.getWidth() / 2, getY() +5, coinCountLabel.getWidth(), coinCountLabel.getHeight());
-        coinCountLabel.setFontScale(0.6f, 0.6f);
 
-        Image coinImage = new Image(AssetsManager.getAnimation(Constants.COIN_ASSETS_ID).getKeyFrames()[0]);
-        coinImage.setBounds(getX()+ 115, getY()+10, coinImage.getWidth() - 3, coinImage.getHeight() - 3);
+            coinCountLabel.setBounds(getX() + 90 - coinCountLabel.getWidth() / 2, getY() + 5, coinCountLabel.getWidth(), coinCountLabel.getHeight());
+            coinCountLabel.setFontScale(0.6f, 0.6f);
 
+            Image coinImage = new Image(AssetsManager.getAnimation(Constants.COIN_ASSETS_ID).getKeyFrames()[0]);
+            coinImage.setBounds(getX() + 115, getY() + 10, coinImage.getWidth() - 3, coinImage.getHeight() - 3);
+            getNextPrize.addActor(coinCountLabel);
+            getNextPrize.addActor(coinImage);
+        }
         getNextPrize.setBounds(x - AssetsManager.getTextureRegion(Constants.BTTN_GET_BONUS_PRESSED_ID).getTexture().getWidth() / 2, y - AssetsManager.getTextureRegion(Constants.BTTN_GET_BONUS_PRESSED_ID).getTexture().getHeight() / 2, AssetsManager.getTextureRegion(Constants.BTTN_GET_BONUS_PRESSED_ID).getTexture().getWidth(), AssetsManager.getTextureRegion(Constants.BTTN_GET_BONUS_PRESSED_ID).getTexture().getHeight());
-        if (coinCount == 0)
+        //if (coinCount == 0)
             getNextPrize.addListener(new ClickListener() {
 
                                          @Override
@@ -285,17 +307,15 @@ public class MenuGameOverTotal extends Group {
             );
 
 
-        getNextPrize.addActor(coinCountLabel);
-        getNextPrize.addActor(coinImage);
         addActor(getNextPrize);
 
     }
 
 
-
     public void setUpAchive() {
         achive.setX(Constants.GAME_OVER_TOTAL_ACHIVE_X_VISIBLE);
         achive.setY(Constants.GAME_OVER_TOTAL_ACHIVE_Y_VISIBLE);
+        achive.setAlignment(Align.center, Align.center);
         achive.setText(GameManager.getStrings().get(Constants.GO_SCORE_LBL));
         achive.setColor(Color.WHITE);
         achive.setFontScale(0.5f, 0.5f);
@@ -310,7 +330,7 @@ public class MenuGameOverTotal extends Group {
     }
 
     public void setUpCoinCountLabel() {
-        Label  labelCoinCount = new Label(String.valueOf(GameManager.getCoinCounter()), AssetsManager.getUiSkin());
+        Label labelCoinCount = new Label(String.valueOf(GameManager.getCoinCounter()), AssetsManager.getUiSkin());
         labelCoinCount.setFontScale(0.60f, 0.60f);
         labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
         addActor(labelCoinCount);
@@ -319,7 +339,7 @@ public class MenuGameOverTotal extends Group {
 
     public void setUpAchiveCount() {
         achiveCount.setText(String.valueOf((int) GameManager.getAchives()));
-        achiveCount.setX(Constants.GAME_OVER_TOTAL_ACHIVE_COUNT_X_VISIBLE - achiveCount.getPrefWidth() / 3 - 5);
+        achiveCount.setX(Constants.GAME_OVER_TOTAL_ACHIVE_COUNT_X_VISIBLE - achiveCount.getPrefWidth() / 2);
         achiveCount.setY(Constants.GAME_OVER_TOTAL_ACHIVE_COUNT_Y_VISIBLE);
 
         achiveCount.setFontScale(0.9f, 0.9f);
@@ -327,9 +347,10 @@ public class MenuGameOverTotal extends Group {
     }
 
     public void setUpBestAchive() {
-        bestAchive.setX(Constants.GAME_OVER_BEST_ACHIVE_X_VISIBLE - bestAchive.getPrefWidth() / 2);
+        bestAchive.setX(Constants.GAME_OVER_BEST_ACHIVE_X_VISIBLE);
         bestAchive.setY(Constants.GAME_OVER_BEST_ACHIVE_Y_VISIBLE);
         bestAchive.setText(GameManager.getStrings().get(Constants.GO_TOP_LBL));
+        bestAchive.setAlignment(Align.center, Align.center);
         bestAchive.setFontScale(0.5f, 0.5f);
         bestAchive.setColor(Color.WHITE);
         addActor(bestAchive);
@@ -337,7 +358,7 @@ public class MenuGameOverTotal extends Group {
 
     public void setUpBestAchiveCount() {
         bestAchiveCount.setText(String.valueOf((int) GameManager.getBestAchives()));
-        bestAchiveCount.setX(Constants.GAME_OVER_BEST_ACHIVE_COUNT_X_VISIBLE - bestAchiveCount.getPrefWidth() / 3 - 5);
+        bestAchiveCount.setX(Constants.GAME_OVER_BEST_ACHIVE_COUNT_X_VISIBLE - bestAchiveCount.getPrefWidth() / 2);
         bestAchiveCount.setY(Constants.GAME_OVER_BEST_ACHIVE_COUNT_Y_VISIBLE);
 
         bestAchiveCount.setFontScale(1f, 1f);
@@ -352,7 +373,7 @@ public class MenuGameOverTotal extends Group {
         addActor(imageLogo);
     }
 
-    private void setFreeForPrize() {
+    private void setFreeForPrize(float x, float y) {
 
         Texture saveMeBonus = new Texture("free_for_prize.png");
 
@@ -361,7 +382,7 @@ public class MenuGameOverTotal extends Group {
         imageLogo = new Image(saveMeBonus);
         imageLogo.setAlign(Align.top);
         imageLogo.setRotation(0.5f);
-        imageLogo.setBounds(Constants.FREE_FOR_PRIZE_SECOND_LINE_BONUS_X, Constants.FREE_FOR_PRIZE_SECOND_LINE_BONUS_Y, imageLogo.getWidth(), imageLogo.getHeight());
+        imageLogo.setBounds(x, y, imageLogo.getWidth(), imageLogo.getHeight());
         addActor(imageLogo);
     }
 
@@ -383,9 +404,9 @@ public class MenuGameOverTotal extends Group {
         addActor(iconSpeed);
     }
 
-    private void setUpPrize() {
+    private void setUpPrize(float x, float y) {
 
-        float x = Constants.SECOND_POSITION_BTTN_X_VISIBLE, y = Constants.SECOND_POSITION_BTTN_Y_VISIBLE, width = 70, height = 55;
+        // float x = Constants.SECOND_POSITION_BTTN_X_VISIBLE, y = Constants.SECOND_POSITION_BTTN_Y_VISIBLE, width = 70, height = 55;
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.down = getPrizeDownButtonImage.getDrawable();
         textButtonStyle.up = getPrizeUpButtonImage.getDrawable();
@@ -406,7 +427,7 @@ public class MenuGameOverTotal extends Group {
                                         sequencePrizeButton.addAction(new Action() {
                                             @Override
                                             public boolean act(float delta) {
-                                                gsm.push(new CarGarageState(gsm, actionResolver,true));
+                                                gsm.push(new CarGarageState(gsm, actionResolver, true));
                                                 GameManager.pauseGame = false;
                                                 return true;
                                             }
@@ -530,7 +551,7 @@ public class MenuGameOverTotal extends Group {
                     @Override
                     public boolean act(float delta) {
 
-                        getStage().addActor(new CoinShopState(listener, gsm, actionResolver));
+                        getStage().addActor(new CoinShopState(listener, gsm, actionResolver, groupView));
                         return true;
                     }
                 });
@@ -595,8 +616,8 @@ public class MenuGameOverTotal extends Group {
     private void setUpResume() {
 
 
-        ImageButton resumeImageButton = new ImageButton(new Image(AssetsManager.getTextureRegion(Constants.RESUME_BTTN_ID)).getDrawable(),new Image(AssetsManager.getTextureRegion(Constants.RESUME_BTTN_ID)).getDrawable());
-        resumeImageButton.setBounds(GameRuners.WIDTH / 4-45,GameRuners.HEIGHT / 4-217,resumeImageButton.getWidth(),resumeImageButton.getHeight());
+        ImageButton resumeImageButton = new ImageButton(new Image(AssetsManager.getTextureRegion(Constants.RESUME_BTTN_ID)).getDrawable(), new Image(AssetsManager.getTextureRegion(Constants.RESUME_BTTN_ID)).getDrawable());
+        resumeImageButton.setBounds(GameRuners.WIDTH / 4 - 45, GameRuners.HEIGHT / 4 - 217, resumeImageButton.getWidth(), resumeImageButton.getHeight());
 
         float x = Constants.RESUME_BTTN_X_VISIBLE, y = Constants.RESUME_BTTN_Y_VISIBLE, width = 70, height = 55;
 //        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
@@ -609,7 +630,7 @@ public class MenuGameOverTotal extends Group {
 //        resumeButton.getLabelCell().padLeft(25f);
 
 
-       // resumeButton.setBounds(x - resumeButtonUpImage.getWidth() / 2, y - resumeButtonUpImage.getHeight() / 2, resumeButtonUpImage.getWidth(), resumeButtonUpImage.getHeight());
+        // resumeButton.setBounds(x - resumeButtonUpImage.getWidth() / 2, y - resumeButtonUpImage.getHeight() / 2, resumeButtonUpImage.getWidth(), resumeButtonUpImage.getHeight());
 
         resumeImageButton.addListener(new ClickListener() {
             @Override

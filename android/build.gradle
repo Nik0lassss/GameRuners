@@ -103,6 +103,7 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     compile 'com.google.android.gms:play-services-ads:8.4.0'
     compile project(':vksdk_library-release')
+    compile files('libs/volley.jar')
 }
 // sets up the Android Idea project, using the old Ant based build.
 idea {

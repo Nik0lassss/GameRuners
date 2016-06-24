@@ -126,7 +126,7 @@ public class CarGarageItem extends Group implements UpdateGarageCarItem {
 
     private void setUpIconSpeed() {
         Label speedLabel = new Label(GameManager.getStrings().get(Constants.SC_SPEED_LBL), AssetsManager.getUiSkin());
-        speedLabel.setBounds(getX() + 85, getY() + 48, 40, 10);
+        speedLabel.setBounds(getX() + 95, getY() + 48, 40, 10);
         speedLabel.setFontScale(0.3f, 0.3f);
         addActor(speedLabel);
         // Image iconSpeed = new Image(speed_text);
@@ -167,7 +167,7 @@ public class CarGarageItem extends Group implements UpdateGarageCarItem {
     private void setUpIconWeight() {
         Label weightLabel = new Label(GameManager.getStrings().get(Constants.SC_WEIGHT_LBL), AssetsManager.getUiSkin());
         weightLabel.setFontScale(0.3f,0.3f);
-        weightLabel.setBounds(getX() + 85, getY() + 20, 40, 10);
+        weightLabel.setBounds(getX() + 95, getY() + 20, 40, 10);
         addActor(weightLabel);
 //        Image iconWeight = new Image(weight_text);
 //        iconWeight.setBounds(getX() + 93, getY() + 20, 40, 10);
@@ -176,11 +176,11 @@ public class CarGarageItem extends Group implements UpdateGarageCarItem {
 
     private void setUpCarName(String imageId) {
         Label labelName = new Label(GameManager.getStrings().get(car.getCarNameText()), AssetsManager.getUiSkin());
-        labelName.setFontScale(0.5f, 0.5f);
+        labelName.setFontScale(0.45f, 0.45f);
 //        Texture carNameTexture = AssetsManager.getTextureRegion(imageId).getTexture();
 //        Image carName = new Image(carNameTexture);
 //        carName.setBounds(getX() + 93, getY() + 65, carNameTexture.getWidth(), carNameTexture.getHeight());
-        labelName.setX(getX() + 87);
+        labelName.setX(getX() + 97);
         labelName.setY(getY() + 65);
         addActor(labelName);
     }

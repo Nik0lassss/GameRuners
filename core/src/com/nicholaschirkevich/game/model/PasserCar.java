@@ -272,6 +272,11 @@ public class PasserCar extends com.nicholaschirkevich.game.model.side_objects.Ca
 
     }
 
+    @Override
+    public void turn(boolean left) {
+
+    }
+
     public void dispose() {
 
 

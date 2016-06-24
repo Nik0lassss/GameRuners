@@ -225,6 +225,25 @@ public class MyCar extends com.nicholaschirkevich.game.model.side_objects.Car {
         }
     }
 
+    @Override
+    public void turn(boolean left) {
+        if (!isTurnRun()) {
+            isTurnRun = true;
+            if (isLeft && !left) {
+                setUpMoveToRightAction();
+                addAction(sequenceAction);
+                isLeft = false;
+            } else if(left){
+                setUpMoveToLeftAction();
+                addAction(sequenceAction);
+                isLeft = true;
+            }
+
+            bounds.setPosition(getX(), getY());
+            body.setTransform(getX(), getY(), getRotation());
+        }
+    }
+
 
     public boolean isBlow() {
         return isBlow;

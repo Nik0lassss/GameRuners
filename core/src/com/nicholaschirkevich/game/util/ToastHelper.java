@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Queue;
 import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.action.ViewActionAlfa;
@@ -72,8 +73,8 @@ public class ToastHelper {
     private static void showUpMessage(ToastMessage toastMessage) {
         upLabel.setColor(toastMessage.getColor());
         upLabel.setText(toastMessage.getMessage());
-        upLabel.setPosition(GameRuners.WIDTH / 4, GameRuners.HEIGHT / 4+ 200);
-        upLabel.setX(upLabel.getX() - upLabel.getPrefWidth() / 2);
+        upLabel.setPosition(GameRuners.WIDTH / 4, GameRuners.HEIGHT / 4 + 200);
+        upLabel.setAlignment(Align.center,Align.center);
         sequenceUpLabelAction.addAction(Actions.delay(toastMessage.getLength().getLength()));
         sequenceUpLabelAction.addAction(new ViewActionAlfa(upLabel));
         sequenceUpLabelAction.addAction(new Action() {
@@ -91,8 +92,9 @@ public class ToastHelper {
     private static void showUpSecondMessage(ToastMessage toastMessage) {
         upLabelSecond.setColor(toastMessage.getColorSecondLine());
         upLabelSecond.setText(toastMessage.getMessageSecondLine());
-        upLabelSecond.setPosition(GameRuners.WIDTH / 4, GameRuners.HEIGHT / 4+160);
-        upLabelSecond.setX(upLabelSecond.getX() - upLabelSecond.getPrefWidth() / 2);
+        upLabelSecond.setPosition(GameRuners.WIDTH / 4, GameRuners.HEIGHT / 4 + 160);
+        upLabelSecond.setAlignment(Align.center,Align.center);
+        //upLabelSecond.setX(upLabelSecond.getX() - upLabelSecond.getPrefWidth() / 2);
         sequenceUpLabelSecondAction.addAction(Actions.delay(toastMessage.getLength().getLength()));
         sequenceUpLabelSecondAction.addAction(new ViewActionAlfa(upLabelSecond));
         sequenceUpLabelSecondAction.addAction(new Action() {
@@ -111,7 +113,8 @@ public class ToastHelper {
         centerLabel.setText(toastMessage.getMessage());
         centerLabel.setPosition(GameRuners.WIDTH / 4, GameRuners.HEIGHT / 4);
         centerLabel.setFontScale(0.6f, 0.6f);
-        centerLabel.setX(centerLabel.getX() - centerLabel.getPrefWidth() / 2);
+        centerLabel.setAlignment(Align.center,Align.center);
+        //centerLabel.setX(centerLabel.getX() - centerLabel.getPrefWidth() / 2);
         sequenceCenterLabelAction.addAction(Actions.delay(toastMessage.getLength().getLength()));
         sequenceCenterLabelAction.addAction(new ViewActionAlfa(centerLabel));
         sequenceCenterLabelAction.addAction(new Action() {
@@ -126,8 +129,9 @@ public class ToastHelper {
             public boolean act(float delta) {
                 centerLabel.setText(toastMessage.getMessageSecondLine());
                 centerLabel.setColor(toastMessage.getColorSecondLine());
+                centerLabel.setAlignment(Align.center,Align.center);
                 centerLabel.setPosition(GameRuners.WIDTH / 4, GameRuners.HEIGHT / 4);
-                centerLabel.setX(centerLabel.getX() - centerLabel.getPrefWidth() / 2);
+                centerLabel.setX(centerLabel.getX());
                 return true;
             }
         });

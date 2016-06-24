@@ -18,7 +18,7 @@ import com.nicholaschirkevich.game.util.Constants;
 /**
  * Created by Nikolas on 10.03.2016.
  */
-public class CoinShopItem extends Group implements UpdateGarageCarItem {
+public class CoinShopItem extends Group {
 
     private Texture slot_vehicle, slot_vehicle_left, buy_real_empty_texture;
     private Texture coins;
@@ -26,14 +26,13 @@ public class CoinShopItem extends Group implements UpdateGarageCarItem {
     private Texture delimiterTexture;
     private Image background, background_left, buy_real_empty_image, discount_image;
     private CoinShop coinShop;
-    private UpdateGarageTable updateGarageTable;
     private Integer index;
     private int addHeight =0;
     private float scaleX=0.25f, scaleY = 0.4f;
 
-    public CoinShopItem(CoinShop coinShop, Integer index, UpdateGarageTable updateGarageTable) {
+    public CoinShopItem(CoinShop coinShop, Integer index) {
 
-        this.updateGarageTable = updateGarageTable;
+
         this.index = index;
 
         setUpBackgroung();
@@ -50,7 +49,6 @@ public class CoinShopItem extends Group implements UpdateGarageCarItem {
 
 
         setUpDelimiterSpeedBar();
-        addListener(new CarGarageItemClickListener(this));
 
 
         setBounds(0, 0, slot_vehicle.getWidth(), slot_vehicle.getHeight()+addHeight);
@@ -85,7 +83,7 @@ public class CoinShopItem extends Group implements UpdateGarageCarItem {
 
     private void setUpBackgroung() {
 
-        updateGarageTable.setSelectedItme(index);
+
         slot_vehicle =AssetsManager.getTextureRegion(Constants.SLOT_VEHICLE_SELECTED_ID).getTexture();
         slot_vehicle_left = AssetsManager.getTextureRegion(Constants.SLOT_VEHICLE_ID).getTexture();
         background = new Image(slot_vehicle);
@@ -152,25 +150,9 @@ public class CoinShopItem extends Group implements UpdateGarageCarItem {
         super.act(delta);
     }
 
-    @Override
-    public void onUpdateGarageCarItem(boolean selected) {
-
-        updateGarageCarItem(selected);
 
 
-    }
 
-    public void updateGarageCarItem(boolean selected) {
-        if (selected) {
-            // GameManager.setCurrentCarID(car.getID());
-            background.setDrawable(new SpriteDrawable(new Sprite(AssetsManager.getTextureRegion(Constants.SLOT_VEHICLE_SELECTED_ID))));
-            updateGarageTable.updateTable();
-            updateGarageTable.setSelectedItme(index);
-        } else
-            background.setDrawable(new SpriteDrawable(new Sprite(AssetsManager.getTextureRegion(Constants.SLOT_VEHICLE_ID))));
-
-
-    }
 
 
 }

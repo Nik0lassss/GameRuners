@@ -1967,4 +1967,12 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                 myCar.turn();
             else isAfterPause = false;
     }
+
+    @Override
+    public void turn(boolean left) {
+        if (!isGamePause() && !isJumpCarUpdate)
+            if (!isAfterPause && !isAutoTurn && !isMyCarCollision && !isMyCarCollisionWithBlocks)
+                myCar.turn(left);
+            else isAfterPause = false;
+    }
 }

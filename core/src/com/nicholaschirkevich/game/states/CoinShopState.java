@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -55,10 +56,12 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
     private ResumeButtonListener listenerResume;
     private GameStateManager gsm;
     private ActionResolver actionResolver;
+    private Group parentView;
 
-    public CoinShopState(ResumeButtonListener listenerResume, GameStateManager gsm, ActionResolver actionResolver) {
+    public CoinShopState(ResumeButtonListener listenerResume, GameStateManager gsm, ActionResolver actionResolver,Group parentView) {
 
         this.actionResolver = actionResolver;
+        this.parentView = parentView;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
         cnr_line = AssetsManager.getTextureRegion(Constants.CNR_LINE_ID).getTexture();
@@ -76,7 +79,7 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
         garageNameImage.setBounds(5, GameRuners.HEIGHT / 2 - 40, garageNameTexture.getWidth(), garageNameTexture.getHeight());
 
 
-        setUpGarage();
+        setUpCoinShop();
         setUpBackButton();
 
 //        setUpBackButton();
@@ -149,7 +152,8 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
                 sequenceReturn.addAction(new Action() {
                     @Override
                     public boolean act(float delta) {
-                        getStage().addActor(new MenuTest(listenerResume, gsm, actionResolver));
+                        getStage().addActor(parentView);
+                        //getStage().addActor(new MenuTest(listenerResume, gsm, actionResolver));
                         return true;
                     }
                 });
@@ -167,7 +171,7 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
     }
 
 
-    public void setUpGarage() {
+    public void setUpCoinShop() {
         container = new Table();
         table = new Table();
 
@@ -177,12 +181,12 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
         CoinShop coinShop2 = new CoinShop(2, 2.99f, 1950, GameManager.getStrings().get(Constants.CM_MEDIUM_COINS_PACK_FIRST_LINE) + "\n        " + GameManager.getStrings().get(Constants.CM_MEDIUM_COINS_PACK_SECOND_LINE), 30, Constants.COIN_SHOP_2_ID);
         CoinShop coinShop3 = new CoinShop(3, 4.99f, 3750, GameManager.getStrings().get(Constants.CM_BIG_COINS_PACK_FIRST_LINE) + "\n        " + GameManager.getStrings().get(Constants.CM_BIG_COINS_PACK_SECOND_LINE), 50, Constants.COIN_SHOP_3_ID);
         CoinShop coinShop4 = new CoinShop(4, 9.99f, 10000, GameManager.getStrings().get(Constants.CM_GREAT_COINS_PACK_FIRST_LINE)+"\n        "+GameManager.getStrings().get(Constants.CM_GREAT_COINS_PACK_SECOND_LINE), 100, Constants.COIN_SHOP_4_ID);
-        coinShopItems.add(new CoinShopItem(coinShop, 1, this));
+        coinShopItems.add(new CoinShopItem(coinShop, 1));
         CoinShopAdapter garageAdapter = new CoinShopAdapter(table, coinShopItems);
-        table.add(new CoinShopItem(coinShop, 1, this)).row();
-        table.add(new CoinShopItem(coinShop2, 1, this)).row();
-        table.add(new CoinShopItem(coinShop3, 1, this)).row();
-        table.add(new CoinShopItem(coinShop4, 1, this)).row();
+        table.add(new CoinShopItem(coinShop, 1)).row();
+        table.add(new CoinShopItem(coinShop2, 1)).row();
+        table.add(new CoinShopItem(coinShop3, 1)).row();
+        table.add(new CoinShopItem(coinShop4, 1)).row();
         table.top();
         table.padTop(3f);
         garageAdapter.loadTableData();
@@ -212,7 +216,7 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
     @Override
     public void updateTable() {
         table.remove();
-        setUpGarage();
+        setUpCoinShop();
 
     }
 

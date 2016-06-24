@@ -5,4 +5,5 @@ package com.nicholaschirkevich.game.interfaces;
  */
 public interface CarTurnInterface {
     void turn();
+    void turn( boolean left);
 }

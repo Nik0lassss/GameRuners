@@ -262,6 +262,7 @@ public class AssetsManager {
         texturesMap.put(Constants.WEIGHT_BAR_ID, new TextureRegion(new Texture(Constants.WEIGHT_BAR_RESOURCE)));
         texturesMap.put(Constants.SLOT_VEHICLE_SELECTED_ID, new TextureRegion(new Texture(Constants.SLOT_VEHICLE_SELECTED_RESOURCE)));
         texturesMap.put(Constants.SLOT_VEHICLE_ID, new TextureRegion(new Texture(Constants.SLOT_VEHICLE_RESOURCE)));
+        texturesMap.put(Constants.COIN_ICON_2_ID, new TextureRegion(new Texture(Constants.COIN_ICON_2_RESOURCE)));
 
 
         texturesMap.put(Constants.DISCOUNT_30_ID, new TextureRegion(new Texture(Constants.DISCOUNT_30_RESOURCE)));
@@ -296,6 +297,12 @@ public class AssetsManager {
         texturesMap.put(Constants.BTTN_BLUE_ID, new TextureRegion(new Texture(Constants.BTTN_BLUE_RESOURCE)));
         texturesMap.put(Constants.BTTN_BLUE_PRESSED_ID, new TextureRegion(new Texture(Constants.BTTN_BLUE_PRESSED_RESOURCE)));
 
+
+        texturesMap.put(Constants.RECORN_TAB_BUTTON_SELECTED_ID, new TextureRegion(new Texture(Constants.RECORN_TAB_BUTTON_SELECTED_RESOURCE)));
+        texturesMap.put(Constants.RECORN_TAB_BUTTON_UNSELECTED_ID, new TextureRegion(new Texture(Constants.RECORN_TAB_BUTTON_UNSELECTED_RESOURCE)));
+
+
+
         texturesMap.put(Constants.CONTACT_POINT_ID, new TextureRegion(new Texture(Constants.CONTACT_POINT_RESOURCE)));
         texturesMap.put(Constants.PAUSE_BUTTON_PRESSED_ID, new TextureRegion(new Texture(Constants.PAUSE_BUTTON_PRESSED_RESOURCE)));
         texturesMap.put(Constants.PAUSE_BUTTON_UP_ID, new TextureRegion(new Texture(Constants.PAUSE_BUTTON_UP_RESOURCE)));
@@ -322,6 +329,7 @@ public class AssetsManager {
         texturesMap.put(Constants.BTTN_EXIT_PRESSED_ID, new TextureRegion(new Texture(Constants.BTTN_EXIT_PRESSED_RESOURCE)));
         texturesMap.put(Constants.BTTN_VK_ID, new TextureRegion(new Texture(Constants.BTTN_VK_RESOURCE)));
         texturesMap.put(Constants.BTTN_VK_PRESSED_ID, new TextureRegion(new Texture(Constants.BTTN_VK_PRESSED_RESOURCE)));
+        texturesMap.put(Constants.SLOT_BACKGROUND_RECORD_ID, new TextureRegion(new Texture(Constants.SLOT_BACKGROUND_RECORD_RESOURCE)));
 
 
         particleEffectLeft = new ParticleEffect();

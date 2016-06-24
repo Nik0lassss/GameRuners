@@ -1,5 +1,10 @@
 package com.nicholaschirkevich.game.admob;
 
+import com.nicholaschirkevich.game.entity.LeaderboardEntity;
+import com.nicholaschirkevich.game.listeners.OnGetLidearBoards;
+
+import java.util.ArrayList;
+
 /**
  * Created by Nikolas on 20.05.2016.
  */
@@ -16,5 +21,8 @@ public interface ActionResolver {
     void showInviteBox();
     void buyProduct(String id);
     void goneDefaultImage();
+    void getLidearBoards(OnGetLidearBoards onGetLidearBoards);
+    void getVkImageLidearBoards(OnGetLidearBoards onGetLidearBoards,ArrayList<LeaderboardEntity> leaderboardEntities);
+    void getByteImage(OnGetLidearBoards onGetLidearBoards,String url, int index);
 
 }

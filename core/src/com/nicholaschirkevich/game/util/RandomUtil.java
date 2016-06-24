@@ -18,10 +18,22 @@ public class RandomUtil {
         return new Random().nextBoolean();
     }
 
-    public static ArrayList<Integer> lastValue = new ArrayList<Integer>();
+    private static ArrayList<Integer> lastValue = new ArrayList<Integer>();
+    private static Boolean lastValueBoolean ;
+
+    public static boolean getNoRandomBoolean() {
+        if(lastValueBoolean==null){
+            lastValueBoolean =new Random().nextBoolean();
+        return lastValueBoolean;
+        }
+        else {
+            return !lastValueBoolean;
+        }
+    }
 
     public static void resetLasValue() {
         lastValue = new ArrayList<Integer>();
+        lastValueBoolean = null;
     }
 
     public static BushType getRandomBushType() {

@@ -23,7 +23,7 @@ public class Prize {
     public static void updatePrize(World world, com.badlogic.gdx.graphics.Camera camera, ArrayList<com.nicholaschirkevich.game.model.boosters.Coin> coins, ArrayList<Skull> skulls, ArrayList<Ladle> ladles, ArrayList<Booster> boosters, ArrayList<Springboard> springboards, ArrayList<FlySpringboard> flySpringboards, ArrayList<Dirt> dirts, float dt, float posYLastCar, boolean isLeftLastCar) {
         time += dt;
         if (time > timeToGeneratePrize) {
-           if (RandomUtil.getRandomBoolean()) {
+           if (RandomUtil.getNoRandomBoolean()) {
                 System.out.println("prize");
                int pos = 0;
                for (int i = 0; i < 4; i++) {

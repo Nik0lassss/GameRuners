@@ -21,8 +21,8 @@ public class GestureListnener implements GestureDetector.GestureListener {
     public boolean touchDown(float x, float y, int pointer, int button) {
         touchPosX = x;
         touchPosY = y;
-        System.out.println("touchPosX "+touchPosX);
-        System.out.println("touchPosY "+touchPosY);
+        System.out.println("touchPosX " + touchPosX);
+        System.out.println("touchPosY " + touchPosY);
         if (GameManager.isTouchControl() && !(x < Constants.xTouchBourder && y < Constants.yTouchBourder)) {
             carTurnInterface.turn();
         }
@@ -42,17 +42,20 @@ public class GestureListnener implements GestureDetector.GestureListener {
 
     @Override
     public boolean fling(float velocityX, float velocityY, int button) {
-        if (!GameManager.isTouchControl() && !(touchPosX < Constants.xTouchBourder && touchPosY < Constants.yTouchBourder)) {
-            if (Math.abs(velocityX) > 60) {
-                carTurnInterface.turn();
-            }
-        }
 
-        return true;
+
+        return false;
     }
 
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
+        if (!GameManager.isTouchControl() && !(touchPosX < Constants.xTouchBourder && touchPosY < Constants.yTouchBourder)) {
+            if (Math.abs(deltaX) > 10 && Math.abs(deltaY) < 10) {
+                if (deltaX < 0)
+                    carTurnInterface.turn(true);
+                else if(deltaX>0) carTurnInterface.turn(false);
+            }
+        }
         return false;
     }
 

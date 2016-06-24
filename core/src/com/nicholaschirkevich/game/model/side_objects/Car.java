@@ -77,6 +77,7 @@ public abstract class Car extends Actor {
     public abstract void update(float dt);
 
     public abstract void turn();
+    public abstract void turn(boolean left);
 
     public Vector3 getPosition() {
         return position;
