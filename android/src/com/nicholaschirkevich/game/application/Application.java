@@ -51,6 +51,7 @@ public class Application extends android.app.Application {
             mImageLoader = new ImageLoader(this.mRequestQueue,
                     new LruBitmapCache());
         }
+
         return this.mImageLoader;
     }
 

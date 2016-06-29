@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -48,6 +49,7 @@ public class FriendsInviteActivity extends Activity {
 	private ListView listView;
 	private FriendDialogListAdapter adapter;
 	private VKRequest currentRequest;
+	private Activity thisActivity;
 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	@Override
@@ -58,6 +60,7 @@ public class FriendsInviteActivity extends Activity {
 		currentRequest = VKApi.friends().get(VKParameters.from(VKApiConst.FIELDS, "id,first_name,last_name,photo_100"));
 		final ArrayList<User> users = new ArrayList<>();
 
+		thisActivity = this;
 		currentRequest.executeWithListener(new VKRequest.VKRequestListener() {
 			@Override
 			public void onComplete(VKResponse response) {
@@ -87,7 +90,7 @@ public class FriendsInviteActivity extends Activity {
 
 
 				listView = (ListView) findViewById(R.id.list_friends_dialog_main);
-				adapter = new FriendDialogListAdapter(getApplicationContext(), users);
+				adapter = new FriendDialogListAdapter(thisActivity, users);
 				listView.setAdapter(adapter);
 
 //				pDialog = new ProgressDialog(getApplicationContext());
@@ -142,6 +145,11 @@ public class FriendsInviteActivity extends Activity {
 	public void onDestroy() {
 		super.onDestroy();
 		hidePDialog();
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 
 	private void hidePDialog() {

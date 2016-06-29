@@ -29,6 +29,8 @@ import com.nicholaschirkevich.game.states.CarShopState;
 import com.nicholaschirkevich.game.states.CoinShopState;
 import com.nicholaschirkevich.game.states.GameStateManager;
 import com.nicholaschirkevich.game.states.TestShopState;
+import com.nicholaschirkevich.game.states.TestShopState2;
+import com.nicholaschirkevich.game.states.TestTable;
 import com.nicholaschirkevich.game.util.AssetsManager;
 import com.nicholaschirkevich.game.util.Constants;
 import com.nicholaschirkevich.game.util.GameManager;
@@ -347,7 +349,8 @@ public class MenuTest extends Group {
 //                tabPane.addTab("Друзья ", new Image(coinShomImageUp.getDrawable()));
 //                tabPane.setBounds(GameRuners.WIDTH/4-50,GameRuners.HEIGHT/4,100f,100f);
 
-                addActor(new TestShopState( gsm, actionResolver,groupView));
+                //addActor(new TestShopState( gsm, actionResolver,groupView));
+                addActor(new TestShopState2( gsm, actionResolver,groupView));
 
 
                 return super.touchDown(event, x, y, pointer, button);

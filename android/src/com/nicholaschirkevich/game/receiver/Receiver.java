@@ -122,6 +122,22 @@ public class Receiver {
         mQueque.add(getUpdateOnDateRequest);
     }
 
+    public void sendGetRequestParams( String URL,Response.Listener<String> response,Response.ErrorListener errorListener, final Map<String, String> mp) {
+
+        StringRequest getUpdateOnDateRequest = new StringRequest(
+                Request.Method.GET, URL, response
+                , errorListener) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = mp;
+                return params;
+            }
+        };
+
+        getUpdateOnDateRequest.setRetryPolicy(new DefaultRetryPolicy(30000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        mQueque.add(getUpdateOnDateRequest);
+    }
+
     public void getImage(String url,Response.Listener<Bitmap> listener,Response.ErrorListener errorListener)
     {
         ImageRequest ir = new ImageRequest(url, listener, 0, 0, null, errorListener);

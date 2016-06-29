@@ -26,23 +26,30 @@ import com.nicholaschirkevich.game.api.ServerApi;
 import com.nicholaschirkevich.game.entity.LeaderboardEntity;
 import com.nicholaschirkevich.game.entity.VkUser;
 import com.nicholaschirkevich.game.internet.InternetHelper;
+import com.nicholaschirkevich.game.listeners.OnGetHightscoreList;
 import com.nicholaschirkevich.game.listeners.OnGetLidearBoards;
+import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKScope;
 import com.vk.sdk.VKSdk;
+import com.vk.sdk.VKUIHelper;
 import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKApiConst;
 import com.vk.sdk.api.VKError;
 import com.vk.sdk.api.VKParameters;
 import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
+import com.vk.sdk.api.model.VKApiOwner;
 import com.vk.sdk.api.model.VKApiPhoto;
+import com.vk.sdk.api.model.VKApiUser;
 import com.vk.sdk.api.model.VKApiUserFull;
 import com.vk.sdk.api.model.VKList;
 import com.vk.sdk.api.model.VKPhotoArray;
+import com.vk.sdk.api.model.VKPrivacy;
 import com.vk.sdk.api.photo.VKImageParameters;
 import com.vk.sdk.api.photo.VKUploadImage;
 import com.vk.sdk.dialogs.VKShareDialog;
+import com.vk.sdk.util.VKUtil;
 
 import java.util.ArrayList;
 
@@ -54,7 +61,7 @@ import util.Purchase;
 /**
  * Created by Nikolas on 20.05.2016.
  */
-public class FragmentAdmob extends AndroidFragmentApplication implements ActionResolver {
+public class FragmentAdmob extends AndroidFragmentApplication implements ActionResolver ,OnGetHightscoreList {
 
     private InterstitialAd mInterstitialAd;
     private ImageView defaultImage;
@@ -400,6 +407,13 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     }
 
     @Override
+    public String getMyId() {
+        if (VKAccessToken.currentToken() != null)
+            return VKAccessToken.currentToken().userId;
+        else return null;
+    }
+
+    @Override
     public void buyProduct(String id) {
         mHelper.flagEndAsync();
         mHelper.launchPurchaseFlow(getActivity(), getString(R.string.packagePurchase) + id, 10001,
@@ -447,7 +461,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
                 for (VKApiUserFull userFull : usersArray) {
 
-                    images.add(new VkUser(String.valueOf(userFull.id), userFull.photo_100,userFull.first_name,userFull.last_name));
+                    images.add(new VkUser(String.valueOf(userFull.id), userFull.photo_100, userFull.first_name, userFull.last_name));
 
                 }
                 onGetLidearBoards.onGetVkImageLidearboardsData(images);
@@ -475,14 +489,60 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     }
 
     @Override
-    public void getByteImage(OnGetLidearBoards onGetLidearBoards, String url,int index) {
+    public void getByteImage(OnGetLidearBoards onGetLidearBoards, String url, int index) {
         ServerApi.getImages(onGetLidearBoards, url);
+    }
+
+    @Override
+    public void getHighscoresVkFriends(final OnGetLidearBoards onGetLidearBoards) {
+        VKRequest currentRequest;
+        currentRequest = VKApi.friends().get(VKParameters.from(VKApiConst.FIELDS, "id,first_name,last_name,photo_100"));
+        final ArrayList<VkUser> friends = new ArrayList<>();
+
+        currentRequest.executeWithListener(new VKRequest.VKRequestListener() {
+            @Override
+            public void onComplete(VKResponse response) {
+                super.onComplete(response);
+                Log.d("VkDemoApp", "onComplete " + response);
+
+                VKList<VKApiUserFull> usersArray = (VKList<VKApiUserFull>) response.parsedModel;
+                friends.clear();
+
+                for (VKApiUserFull userFull : usersArray) {
+
+                    friends.add(new VkUser(String.valueOf(userFull.id), userFull.photo_100, userFull.first_name, userFull.last_name));
+
+                }
+                 ServerApi.getHighscoresFriends(onGetLidearBoards, friends);
+            }
+
+            @Override
+            public void attemptFailed(VKRequest request, int attemptNumber, int totalAttempts) {
+                super.attemptFailed(request, attemptNumber, totalAttempts);
+                Log.d("VkDemoApp", "attemptFailed " + request + " " + attemptNumber + " " + totalAttempts);
+            }
+
+            @Override
+            public void onError(VKError error) {
+                super.onError(error);
+                Log.d("VkDemoApp", "onError: " + error);
+            }
+
+            @Override
+            public void onProgress(VKRequest.VKProgressType progressType, long bytesLoaded, long bytesTotal) {
+                super.onProgress(progressType, bytesLoaded, bytesTotal);
+                Log.d("VkDemoApp", "onProgress " + progressType + " " + bytesLoaded + " " + bytesTotal);
+            }
+        });
     }
 
 
     public void getFriends() {
+
         VKRequest request = VKApi.users().get();
+
     }
+
 
     @Override
     public void getVkStatusLogin() {
@@ -596,5 +656,10 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 //                .beginTransaction()
 //                .replace(R.id., new LoginFragment())
 //                .commitAllowingStateLoss();
+    }
+
+    @Override
+    public void onGetHightscoreList(ArrayList<LeaderboardEntity> arrayList) {
+
     }
 }

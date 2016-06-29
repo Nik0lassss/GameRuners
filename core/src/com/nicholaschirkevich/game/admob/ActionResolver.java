@@ -19,10 +19,12 @@ public interface ActionResolver {
     void sendPostOnVk();
     boolean isVkLogin();
     void showInviteBox();
+    String getMyId();
     void buyProduct(String id);
     void goneDefaultImage();
     void getLidearBoards(OnGetLidearBoards onGetLidearBoards);
     void getVkImageLidearBoards(OnGetLidearBoards onGetLidearBoards,ArrayList<LeaderboardEntity> leaderboardEntities);
     void getByteImage(OnGetLidearBoards onGetLidearBoards,String url, int index);
+    void getHighscoresVkFriends(final OnGetLidearBoards onGetLidearBoards);
 
 }

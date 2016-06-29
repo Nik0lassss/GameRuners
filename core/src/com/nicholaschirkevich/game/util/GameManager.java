@@ -13,10 +13,12 @@ import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.entity.Car;
 import com.nicholaschirkevich.game.entity.CarsType;
 import com.nicholaschirkevich.game.entity.GearShift;
+import com.nicholaschirkevich.game.entity.VkUser;
 import com.nicholaschirkevich.game.helper.XmlHelper;
 import com.nicholaschirkevich.game.menu.items.CarGarageItem;
 import com.nicholaschirkevich.game.model.AchiveView;
 import com.nicholaschirkevich.game.model.GearView;
+import com.nicholaschirkevich.game.unput.GestureListnener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,6 +39,31 @@ public class GameManager {
     private static Car currentCar = new Car();
     public static boolean pauseGame = false;
     private static Date lastFreeCarPrize;
+    private static VkUser vkUser;
+
+    public static GestureListnener getGestureListnener() {
+        return gestureListnener;
+    }
+
+    public static void setGestureListnener(GestureListnener gestureListnener) {
+        GameManager.gestureListnener = gestureListnener;
+    }
+
+    private static GestureListnener gestureListnener;
+
+    public static VkUser getVkUser() {
+        return vkUser;
+    }
+
+    public static void setVkUser(VkUser vkUser) {
+        preferences.putString(Constants.PREFERENCES_VK_HIGH_SCORE, vkUser.getHighscore());
+        preferences.putString(Constants.PREFERENCES_VK_USER_ID, vkUser.getId());
+        preferences.putString(Constants.PREFERENCES_VK_IMG_SOURCE, vkUser.getImage_src());
+        preferences.putString(Constants.PREFERENCES_VK_FIRST_NAME, vkUser.getUser_first_name());
+        preferences.putString(Constants.PREFERENCES_VK_LAST_NAME, vkUser.getUser_last_name());
+        preferences.flush();
+        GameManager.vkUser = vkUser;
+    }
 
 
     public static boolean isAfterSaveMe() {
@@ -384,6 +411,13 @@ public class GameManager {
 
         }
 
+        vkUser = new VkUser();
+        vkUser.setHighscore(preferences.getString(Constants.PREFERENCES_VK_HIGH_SCORE));
+        vkUser.setId(preferences.getString(Constants.PREFERENCES_VK_USER_ID));
+        vkUser.setUser_first_name(preferences.getString(Constants.PREFERENCES_VK_FIRST_NAME));
+        vkUser.setUser_last_name(preferences.getString(Constants.PREFERENCES_VK_LAST_NAME));
+        vkUser.setImage_src(preferences.getString(Constants.PREFERENCES_VK_IMG_SOURCE));
+
     }
 
     public static ArrayList<GearShift> getGearShifts() {
@@ -396,13 +430,12 @@ public class GameManager {
         } else return false;
     }
 
-    public static String timeToNextFreePrize()
-    {
-       Long currentTime = new Date().getTime();
+    public static String timeToNextFreePrize() {
+        Long currentTime = new Date().getTime();
 
         lastFreeCarPrize.getTime();
-        Date date = new Date(currentTime-lastFreeCarPrize.getTime());
-       return "";
+        Date date = new Date(currentTime - lastFreeCarPrize.getTime());
+        return "";
     }
 
     public static void setNewFreeCarPrizeDate() {

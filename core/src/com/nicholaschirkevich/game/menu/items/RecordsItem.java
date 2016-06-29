@@ -22,6 +22,7 @@ import com.nicholaschirkevich.game.listeners.OnGetLidearBoards;
 import com.nicholaschirkevich.game.menu.RecordRectangle;
 import com.nicholaschirkevich.game.util.AssetsManager;
 import com.nicholaschirkevich.game.util.Constants;
+import com.nicholaschirkevich.game.util.GameManager;
 
 import java.util.ArrayList;
 
@@ -35,25 +36,36 @@ public class RecordsItem extends Group implements OnGetLidearBoards {
     private VkUser vkUser;
     private ActionResolver actionResolver;
     private Label highscore;
-    private WidgetGroup parent;
-    private ShapeRenderer shapeRenderer;
 
     private Group groupView;
 
-    public RecordsItem(VkUser vkUser, Integer index, ActionResolver actionResolver, WidgetGroup parent) {
-        this.parent = parent;
+    public RecordsItem(VkUser vkUser, Integer index, ActionResolver actionResolver) {
         this.actionResolver = actionResolver;
         this.index = index;
         this.vkUser = vkUser;
         setUpBackground(index);
         setUpNumberLabel();
-        setUpNameLabel();
+        setUpNameLabel(false);
         setUpHighscoreLabel();
-        setUpRectangleImage();
-            actionResolver.getByteImage(this, vkUser.getImage_src(), index);
+        actionResolver.getByteImage(this, vkUser.getImage_src(), index);
         setBounds(0, 0, 220, 60 + addHeight);
         groupView = this;
-        shapeRenderer = new ShapeRenderer();
+
+    }
+
+    public RecordsItem(VkUser vkUser, Integer index, ActionResolver actionResolver, boolean isMy) {
+        this.actionResolver = actionResolver;
+        this.index = index;
+        this.vkUser = vkUser;
+        setUpBackground(index);
+        setUpNumberLabel();
+        setUpNameLabel(true);
+        setUpHighscoreLabel();
+        actionResolver.getByteImage(this, vkUser.getImage_src(), index);
+        setBounds(0, 0, 220, 60 + addHeight);
+        groupView = this;
+
+
     }
 
     public void setUpBackground(int index) {
@@ -68,51 +80,31 @@ public class RecordsItem extends Group implements OnGetLidearBoards {
     }
 
     public void setUpNumberLabel() {
-        Label numberLabel = new Label(String.valueOf(index+1), AssetsManager.getUiSkin());
-        numberLabel.setPosition(getX() + 15, getY() + 25, Align.left);
+        Label numberLabel = new Label(String.valueOf(index + 1), AssetsManager.getUiSkin());
+        numberLabel.setPosition(getX() + 15, getY() + 30, Align.left);
         numberLabel.setFontScale(0.5f, 0.5f);
         addActor(numberLabel);
     }
 
-    public void setUpNameLabel() {
-        Label numberLabel = new Label(vkUser.getUser_first_name()+"\n"+vkUser.getUser_last_name(), AssetsManager.getUiSkin());
-        numberLabel.setPosition(getX() + 100, getY() + 25, Align.left);
+    public void setUpNameLabel(boolean isMy) {
+        Label numberLabel = new Label("", AssetsManager.getUiSkin());
+        if (isMy) {
+            numberLabel.setText(GameManager.getStrings().get(Constants.LEADERBOARD_ME_TEXT));
+            numberLabel.setColor(Color.ORANGE);
+        }
+        else
+           numberLabel.setText(vkUser.getUser_first_name() + "\n" + vkUser.getUser_last_name());
+        numberLabel.setPosition(getX() + 100, getY() + 30, Align.left);
         numberLabel.setFontScale(0.4f, 0.4f);
         addActor(numberLabel);
     }
 
     public void setUpHighscoreLabel() {
         highscore = new Label(vkUser.getHighscore(), AssetsManager.getUiSkin());
-        highscore.setPosition(getX() + 220, getY() + 25, Align.left);
+        highscore.setPosition(getX() + 220, getY() + 30, Align.left);
         highscore.setFontScale(0.5f, 0.5f);
         addActor(highscore);
     }
-    public void setUpRectangleImage()
-    {
-        RecordRectangle recordRectangle = new RecordRectangle(getX()+15,getY()+75,40,40);
-        addActor(recordRectangle);
-    }
-
-
-    @Override
-    public void act(float delta) {
-        super.act(delta);
-    }
-
-
-
-//    @Override
-//    public void draw(Batch batch, float parentAlpha) {
-//        batch.end();
-//        Gdx.graphics.getGL20().glEnable(GL20.GL_BLEND);
-//        Gdx.graphics.getGL20().glLineWidth(4);
-//        shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
-//        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-//        shapeRenderer.setColor(Color.BLACK);
-//        shapeRenderer.rect(getX()+15,getY()+ 150, 30, 70);
-//        shapeRenderer.end();
-//        batch.begin();
-//    }
 
 
     @Override
@@ -133,13 +125,13 @@ public class RecordsItem extends Group implements OnGetLidearBoards {
                 @Override
                 public void run() {
                     Texture tex = new Texture(pmap);
-                    Image  image = new Image(tex);
-                    image.setBounds(50,5, 40,40);
+                    Image image = new Image(tex);
+                    image.setBounds(50, 10, 40, 40);
+                    Image backImage = new Image(AssetsManager.getTextureRegion(Constants.BACK_BLACK_ID));
+                    backImage.setBounds(48, 8, 44, 44);
 
+                    groupView.addActor(backImage);
                     groupView.addActor(image);
-
-                    ((Table) parent).getCells().get(index).setActor(groupView);
-                    parent.invalidate();
 
                 }
             });
@@ -147,5 +139,10 @@ public class RecordsItem extends Group implements OnGetLidearBoards {
             Gdx.app.log("KS", e.toString());
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onGetHighscoresFriends(ArrayList<VkUser> arrayList) {
+
     }
 }

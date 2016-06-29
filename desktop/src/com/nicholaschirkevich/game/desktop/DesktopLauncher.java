@@ -4,6 +4,10 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.admob.ActionResolver;
+import com.nicholaschirkevich.game.entity.LeaderboardEntity;
+import com.nicholaschirkevich.game.listeners.OnGetLidearBoards;
+
+import java.util.ArrayList;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
@@ -65,12 +69,37 @@ public class DesktopLauncher {
 			}
 
 			@Override
+			public String getMyId() {
+				return null;
+			}
+
+			@Override
 			public void buyProduct(String id) {
 
 			}
 
 			@Override
 			public void goneDefaultImage() {
+
+			}
+
+			@Override
+			public void getLidearBoards(OnGetLidearBoards onGetLidearBoards) {
+
+			}
+
+			@Override
+			public void getVkImageLidearBoards(OnGetLidearBoards onGetLidearBoards, ArrayList<LeaderboardEntity> leaderboardEntities) {
+
+			}
+
+			@Override
+			public void getByteImage(OnGetLidearBoards onGetLidearBoards, String url, int index) {
+
+			}
+
+			@Override
+			public void getHighscoresVkFriends(OnGetLidearBoards onGetLidearBoards) {
 
 			}
 		}), config);

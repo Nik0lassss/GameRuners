@@ -12,4 +12,5 @@ public interface OnGetLidearBoards {
     void onGetLidearboardsData(ArrayList<LeaderboardEntity> leaderboardEntities);
     void onGetVkImageLidearboardsData(ArrayList<VkUser> leaderboardEntities);
     void onGetImage(byte[] imageByte);
+    void onGetHighscoresFriends(ArrayList<VkUser> arrayList);
 }

@@ -1,5 +1,6 @@
 package com.nicholaschirkevich.game.states;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,12 +11,10 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.SnapshotArray;
 import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.admob.ActionResolver;
@@ -24,8 +23,12 @@ import com.nicholaschirkevich.game.entity.VkUser;
 import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
 import com.nicholaschirkevich.game.listeners.OnGetLidearBoards;
 import com.nicholaschirkevich.game.menu.RecordRectangle;
+import com.nicholaschirkevich.game.menu.customview.OverscrollListener;
+import com.nicholaschirkevich.game.menu.customview.ScrollPanCustom;
+import com.nicholaschirkevich.game.menu.items.RecordsItem;
 import com.nicholaschirkevich.game.util.AssetsManager;
 import com.nicholaschirkevich.game.util.Constants;
+import com.nicholaschirkevich.game.util.GameManager;
 import com.nicholaschirkevich.game.view_adapters.RecordsLeaderBoardAdapter;
 
 import java.util.ArrayList;
@@ -36,22 +39,29 @@ import java.util.ArrayList;
  */
 public class TestShopState extends Group implements ResumeButtonListener, OnGetLidearBoards {
     private OrthographicCamera camera;
-    private Texture cnr_line, garageNameTexture, backgroung_texture, backButtonTextureDown, backButtonTextureUp;
-    private Image image, garageNameImage, backgroung_image, backButtonImageDown, backButtonImageUp;
-    private ScrollPane scrollPane2;
+    private Texture cnr_line, backgroung_texture, backButtonTextureDown, backButtonTextureUp;
+    private Image image, backgroung_image, backButtonImageDown, backButtonImageUp;
+    private ScrollPanCustom scrollRight;
+    private ScrollPanCustom scrollPaneLeft;
     private TextButton backBttn;
     private SequenceAction sequenceReturn;
-    private Label labelCoinCount;
-    private ImageButton imageButton, resumeImageButton;
-    private Table table, container;
+    private Table tableRight, container, tableLeft;
     private GameStateManager gsm;
     private ActionResolver actionResolver;
     private Group parentView;
+    private TestShopState thisView;
     private ArrayList<LeaderboardEntity> leaderboardEntities = new ArrayList<LeaderboardEntity>();
-    private ArrayList<VkUser> vkUsers = new ArrayList<VkUser>();
+    private Image progressBarImage;
+    private TextButton inviteFriend;
+    private float progressBarDelta = 0f;
+
+    private boolean isLeaderboardsLoad = false, isHighScoreLoad = false;
+    private boolean isLeftTabSelected = false;
+
 
     public TestShopState(GameStateManager gsm, ActionResolver actionResolver, Group parentView) {
 
+        thisView = this;
         this.actionResolver = actionResolver;
         this.parentView = parentView;
         setInvisibleParent(parentView);
@@ -66,21 +76,26 @@ public class TestShopState extends Group implements ResumeButtonListener, OnGetL
         image.setBounds(0, GameRuners.HEIGHT / 2 - 70, GameRuners.WIDTH / 2, 80);
         sequenceReturn = new SequenceAction();
         this.gsm = gsm;
-        garageNameTexture = AssetsManager.getTextureRegion(Constants.COIN_SHOP_NAME_ID).getTexture();
-        garageNameImage = new Image(garageNameTexture);
-        garageNameImage.setBounds(5, GameRuners.HEIGHT / 2 - 40, garageNameTexture.getWidth(), garageNameTexture.getHeight());
 
-
-        actionResolver.getLidearBoards(this);
+//        garageNameTexture = AssetsManager.getTextureRegion(Constants.COIN_SHOP_NAME_ID).getTexture();
+//        garageNameImage = new Image(garageNameTexture);
+//        garageNameImage.setBounds(5, GameRuners.HEIGHT / 2 - 40, garageNameTexture.getWidth(), garageNameTexture.getHeight());
+        //setUpHighscoreFriendsTable(new ArrayList<VkUser>());
+        backgroung_image.setBounds(11, 73, GameRuners.WIDTH / 2 - 22, GameRuners.HEIGHT / 2 - 220);
+        addActor(backgroung_image);
+         actionResolver.getLidearBoards(this);
+        //getHighscoresVkFriends(this);
         addRectagleScroll();
-        setUpCoinShop();
+
         setUpBackButton();
         setUpTabImageButton();
 
 //        setUpBackButton();
 //        setUpStartButton();
         addActor(image);
-        addActor(garageNameImage);
+        setUpProgressBar();
+        // addActor(garageNameImage);
+
 
         //setUpImageCoinCount();
         //setUpCoinCountLabel();
@@ -88,6 +103,21 @@ public class TestShopState extends Group implements ResumeButtonListener, OnGetL
 
     }
 
+
+    private void getHighscoresVkFriends(final OnGetLidearBoards onGetLidearBoards) {
+        if (!isHighScoreLoad) {
+            isHighScoreLoad = true;
+            actionResolver.getHighscoresVkFriends(onGetLidearBoards);
+            System.out.println("  actionResolver.getHighscoresVkFriends(onGetLidearBoards);");
+        }
+    }
+
+    private void getLidearBoards(OnGetLidearBoards onGetLidearBoards) {
+        if (!isLeaderboardsLoad) {
+            isLeaderboardsLoad = true;
+            actionResolver.getLidearBoards(onGetLidearBoards);
+        }
+    }
 
     public void addRectagleScroll() {
         addActor(new RecordRectangle(10, 72, GameRuners.WIDTH / 2 - 20, GameRuners.HEIGHT / 2 - 218));
@@ -107,6 +137,23 @@ public class TestShopState extends Group implements ResumeButtonListener, OnGetL
         }
     }
 
+    void setUpProgressBar() {
+        progressBarImage = new Image(AssetsManager.getTextureRegion(Constants.PROGRESS_CIRCLE_ID));
+        progressBarImage.setScale(0.25f, 0.25f);
+        progressBarImage.setOrigin(progressBarImage.getWidth() / 2, progressBarImage.getHeight() / 2);
+        progressBarImage.setAlign(Align.center);
+        progressBarImage.setPosition(GameRuners.WIDTH / 4 - progressBarImage.getPrefWidth() / 2, GameRuners.HEIGHT / 4 - progressBarImage.getPrefHeight() / 2);
+        addActor(progressBarImage);
+    }
+
+    void showProgressBar() {
+        if (progressBarImage != null) progressBarImage.setVisible(true);
+    }
+
+    void disableProgressBar() {
+        if (progressBarImage != null) progressBarImage.setVisible(false);
+    }
+
     public void setUpTabImageButton() {
 
         final float ySelect = GameRuners.HEIGHT / 2 - 150;
@@ -115,7 +162,7 @@ public class TestShopState extends Group implements ResumeButtonListener, OnGetL
         leftTextButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_SELECTED_ID)).getDrawable();
         leftTextButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_SELECTED_ID)).getDrawable();
         leftTextButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
-        final TextButton leftButtonFriends = new TextButton("Друзья", leftTextButtonStyle);
+        final TextButton leftButtonFriends = new TextButton(GameManager.getStrings().get(Constants.LEADERBOARD_FRIENDS_TEXT), leftTextButtonStyle);
         leftButtonFriends.getLabel().setFontScale(0.5f, 0.5f);
         leftButtonFriends.setBounds(11, ySelect, GameRuners.WIDTH / 4 - 12, 62);
 
@@ -124,35 +171,52 @@ public class TestShopState extends Group implements ResumeButtonListener, OnGetL
         rightTextButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_UNSELECTED_ID)).getDrawable();
         rightTextButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_UNSELECTED_ID)).getDrawable();
         rightTextButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
-        final TextButton rightButtonFriends = new TextButton("Все", rightTextButtonStyle);
+        final TextButton rightButtonFriends = new TextButton(GameManager.getStrings().get(Constants.LEADERBOARD_GLOBAL_TEXT), rightTextButtonStyle);
         rightButtonFriends.getLabel().setFontScale(0.5f, 0.5f);
         rightButtonFriends.setBounds(GameRuners.WIDTH / 4 + 1, yUnSelect, GameRuners.WIDTH / 4 - 12, 57);
         leftButtonFriends.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                setUpCoinShop();
-                leftTextButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_SELECTED_ID)).getDrawable();
-                leftTextButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_SELECTED_ID)).getDrawable();
-                leftButtonFriends.setBounds(11, ySelect, GameRuners.WIDTH / 4 - 12, 62);
-                rightTextButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_UNSELECTED_ID)).getDrawable();
-                rightTextButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_UNSELECTED_ID)).getDrawable();
-                rightButtonFriends.setBounds(GameRuners.WIDTH / 4 + 1, yUnSelect, GameRuners.WIDTH / 4 - 12, 57);
+                if (!isLeftTabSelected) {
+                    if (scrollRight != null) scrollRight.setVisible(false);
 
+                    showProgressBar();
+                    getHighscoresVkFriends(thisView);
+                    //setUpHighscoreFriendsTable(new ArrayList<VkUser>());
+                    leftTextButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_SELECTED_ID)).getDrawable();
+                    leftTextButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_SELECTED_ID)).getDrawable();
+                    leftButtonFriends.setBounds(11, ySelect, GameRuners.WIDTH / 4 - 12, 62);
+                    rightTextButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_UNSELECTED_ID)).getDrawable();
+                    rightTextButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_UNSELECTED_ID)).getDrawable();
+                    rightButtonFriends.setBounds(GameRuners.WIDTH / 4 + 1, yUnSelect, GameRuners.WIDTH / 4 - 12, 57);
+                    isLeftTabSelected = true;
+                }
                 return super.touchDown(event, x, y, pointer, button);
+
             }
         });
 
         rightButtonFriends.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                setUpCoinShop2();
-                rightTextButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_SELECTED_ID)).getDrawable();
-                rightTextButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_SELECTED_ID)).getDrawable();
-                rightButtonFriends.setBounds(GameRuners.WIDTH / 4 + 1, ySelect, GameRuners.WIDTH / 4 - 12, 62);
-                leftTextButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_UNSELECTED_ID)).getDrawable();
-                leftTextButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_UNSELECTED_ID)).getDrawable();
-                leftButtonFriends.setBounds(11, yUnSelect, GameRuners.WIDTH / 4 - 12, 57);
+                if (isLeftTabSelected) {
+                    if (scrollPaneLeft != null & inviteFriend != null) {
+                        scrollPaneLeft.setVisible(false);
+                        inviteFriend.setVisible(false);
+                    }
 
+
+                    showProgressBar();
+                    setUpLeaderboardsTable(new ArrayList<VkUser>());
+                    getLidearBoards(thisView);
+                    rightTextButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_SELECTED_ID)).getDrawable();
+                    rightTextButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_SELECTED_ID)).getDrawable();
+                    rightButtonFriends.setBounds(GameRuners.WIDTH / 4 + 1, ySelect, GameRuners.WIDTH / 4 - 12, 62);
+                    leftTextButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_UNSELECTED_ID)).getDrawable();
+                    leftTextButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_UNSELECTED_ID)).getDrawable();
+                    leftButtonFriends.setBounds(11, yUnSelect, GameRuners.WIDTH / 4 - 12, 57);
+                    isLeftTabSelected = false;
+                }
                 return super.touchDown(event, x, y, pointer, button);
             }
         });
@@ -216,50 +280,98 @@ public class TestShopState extends Group implements ResumeButtonListener, OnGetL
     }
 
 
-    public void setUpCoinShop2() {
+    public void setUpLeaderboardsTable(ArrayList<VkUser> arrayList) {
+        //scrollRight.remove();
         container = new Table();
-        table = new Table();
+        tableRight = new Table();
 
         addActor(container);
 
-        RecordsLeaderBoardAdapter recordAdapter = new RecordsLeaderBoardAdapter(table, vkUsers,actionResolver);
+        RecordsLeaderBoardAdapter recordAdapter = new RecordsLeaderBoardAdapter(tableRight, arrayList, actionResolver);
 
-        table.top().left();
-        table.padTop(3f);
-        recordAdapter.loadTableData();
+        tableRight.top().left();
+        tableRight.padTop(3f);
+        for( int i=0;i<arrayList.size();i++)
+        {
+            tableRight.add(new RecordsItem(arrayList.get(i),i,actionResolver));
+        }
+        //recordAdapter.loadTableData();
 
-        scrollPane2 = new ScrollPane(table);
-        scrollPane2.setBounds(11, 73, GameRuners.WIDTH / 2 - 22, GameRuners.HEIGHT / 2 - 220);
-        scrollPane2.setScrollingDisabled(true, false);
-        scrollPane2.setOverscroll(false, false);
-        scrollPane2.invalidate();
-        backgroung_image.setBounds(11, 73, GameRuners.WIDTH / 2 - 22, GameRuners.HEIGHT / 2 - 220);
-        addActor(backgroung_image);
-        addActor(scrollPane2);
+        if (scrollRight == null) {
+            scrollRight = new ScrollPanCustom(tableRight);
+            scrollRight.setBounds(11, 73, GameRuners.WIDTH / 2 - 22, GameRuners.HEIGHT / 2 - 220);
+            scrollRight.setScrollingDisabled(true, false);
+            scrollRight.setOverscroll(false, true);
+            scrollRight.setForceScroll(true, true);
+            scrollRight.setSmoothScrolling(false);
+            scrollRight.setAmountY(recordAdapter.getMyIndex() * 60 - 95);
+            scrollRight.setOverscrollListener(new OverscrollListener() {
+                @Override
+                public void onOverscroll() {
+                    getLidearBoards(thisView);
+                }
+            });
+            addActor(scrollRight);
+        }
+        else scrollRight.setVisible(true);
+        scrollRight.invalidate();
+        if (scrollPaneLeft != null) {
+
+            scrollPaneLeft.setVisible(false);
+        }
+        if(inviteFriend!=null)
+            inviteFriend.setVisible(false);
+
+
 
 
     }
 
-    public void setUpCoinShop() {
+    public void setUpHighscoreFriendsTable(ArrayList<VkUser> arrayList) {
+        //scrollPaneLeft.remove();
         container = new Table();
-        table = new Table();
+        tableLeft = new Table();
 
         addActor(container);
 
-        // RecordsLeaderBoardAdapter garageAdapter = new RecordsLeaderBoardAdapter(table, leaderboardEntities);
-        table.top().left();
-        table.padTop(3f);
+        RecordsLeaderBoardAdapter vkAdapter = new RecordsLeaderBoardAdapter(tableLeft, arrayList, actionResolver);
+        tableLeft.top().left();
+        tableLeft.padTop(3f);
 
-        //garageAdapter.loadTableData();
+        vkAdapter.loadTableData();
 
-        scrollPane2 = new ScrollPane(table);
-        scrollPane2.setBounds(11, 73, GameRuners.WIDTH / 2 - 22, GameRuners.HEIGHT / 2 - 220);
-        scrollPane2.setScrollingDisabled(true, false);
-        scrollPane2.setOverscroll(false, false);
-        scrollPane2.invalidate();
-        backgroung_image.setBounds(11, 73, GameRuners.WIDTH / 2 - 22, GameRuners.HEIGHT / 2 - 220);
-        addActor(backgroung_image);
-        addActor(scrollPane2);
+        if (scrollPaneLeft == null) {
+            scrollPaneLeft = new ScrollPanCustom(tableLeft);
+            scrollPaneLeft.setBounds(11, 103, GameRuners.WIDTH / 2 - 22, GameRuners.HEIGHT / 2 - 250);
+            scrollPaneLeft.setScrollingDisabled(true, false);
+            scrollPaneLeft.setOverscroll(false, true);
+            addActor(scrollPaneLeft);
+        } else scrollPaneLeft.setVisible(true);
+        scrollPaneLeft.invalidate();
+
+        if (scrollRight != null) scrollRight.setVisible(false);
+
+        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+        textButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.CAR_GARAGE_BTTN_GREEN_UP)).getDrawable();
+        textButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.CAR_GARAGE_BTTN_GREEN_DOWN)).getDrawable();
+        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
+        if (inviteFriend == null) {
+            inviteFriend = new TextButton(GameManager.getStrings().get(Constants.LEADERBOARD_INVITE_TEXT), textButtonStyle);
+            inviteFriend.getLabel().setFontScale(0.5f, 0.5f);
+            inviteFriend.setBounds(30, 80, 260, 55);
+            inviteFriend.addListener(new ClickListener() {
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    if (actionResolver.isAvailibleInternet()) {
+                        AssetsManager.playSound(Constants.SOUND_CLICK);
+                        actionResolver.showInviteBox();
+                        return true;
+                    }
+                    return super.touchDown(event, x, y, pointer, button);
+                }
+            });
+            addActor(inviteFriend);
+        } else inviteFriend.setVisible(true);
 
 
     }
@@ -278,32 +390,56 @@ public class TestShopState extends Group implements ResumeButtonListener, OnGetL
 
     @Override
     public void onGetLidearboardsData(ArrayList<LeaderboardEntity> leaderboard) {
-        leaderboardEntities = leaderboard;
-
-        actionResolver.getVkImageLidearBoards(this, leaderboardEntities);
-
+        if (!isLeftTabSelected) {
+            disableProgressBar();
+            isLeaderboardsLoad = false;
+            leaderboardEntities = leaderboard;
+            actionResolver.getVkImageLidearBoards(this, leaderboardEntities);
+//            scrollRight.setVisible(true);
+        }
     }
 
     @Override
     public void onGetVkImageLidearboardsData(ArrayList<VkUser> vkUserArrayList) {
-        vkUsers = vkUserArrayList;
-        for(VkUser vkUser :vkUserArrayList)
-        {
-            for(LeaderboardEntity leaderboard:leaderboardEntities)
-            {
-                if(vkUser.getId().equals(leaderboard.getVk_id()))
-                {
+        disableProgressBar();
+        isLeaderboardsLoad = false;
+        for (VkUser vkUser : vkUserArrayList) {
+            for (LeaderboardEntity leaderboard : leaderboardEntities) {
+                if (vkUser.getId().equals(leaderboard.getVk_id())) {
                     vkUser.setHighscore(leaderboard.getHighscore());
                 }
             }
         }
 
-        setUpCoinShop2();
+        setUpLeaderboardsTable(vkUserArrayList);
 
     }
 
     @Override
     public void onGetImage(byte[] imageByte) {
 
+    }
+
+    @Override
+    public void onGetHighscoresFriends(ArrayList<VkUser> arrayList) {
+        if (isLeftTabSelected) {
+            disableProgressBar();
+            isHighScoreLoad = false;
+            setUpHighscoreFriendsTable(arrayList);
+            scrollPaneLeft.setVisible(true);
+            inviteFriend.setVisible(true);
+        }
+
+    }
+
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+        progressBarDelta += delta;
+        if (progressBarDelta > 0.1) {
+            progressBarDelta = 0;
+            if (progressBarImage != null)
+                progressBarImage.setRotation(progressBarImage.getRotation() - 20f);
+        }
     }
 }

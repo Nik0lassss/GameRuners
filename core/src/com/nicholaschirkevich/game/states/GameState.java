@@ -119,6 +119,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     ArrayList<Booster> boosters;
     ArrayList<Springboard> springboards;
     MenuSaveMe menuSaveMe;
+    public GestureListnener gestureListnener;
 
 
 //
@@ -307,9 +308,11 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
     public void setUpStage() {
         stage = new Stage(new StretchViewport(GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2));
+        gestureListnener = new GestureListnener(this);
+        GameManager.setGestureListnener(gestureListnener);
         //Gdx.input.setInputProcessor(new GestureDetector(0.0f, 0.0f, 0.0f, 5f, new GestureListnener()));
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
-        inputMultiplexer.addProcessor(new GestureDetector(0.0f, 0.0f, 0.0f, 5f, new GestureListnener(this)));
+        inputMultiplexer.addProcessor(new GestureDetector(0.0f, 0.0f, 0.0f, 5f, gestureListnener));
         inputMultiplexer.addProcessor(stage);
         Gdx.input.setInputProcessor(inputMultiplexer);
         //Gdx.input.setInputProcessor(stage);

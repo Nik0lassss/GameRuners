@@ -17,6 +17,11 @@ public class Constants {
     public static String PREFERENCES_SOUND_SETTING_ID = "SETTING_SOUND_PREFERENCE";
     public static String PREFERENCES_KEY_CARS = "PRefsMyCars";
     public static String PREFERENCES_LAST_CAR_PRIZE_TIME_MILLIS = "PREFERENCES_LAST_CAR_PRIZE_TIME_MILLIS";
+    public static String PREFERENCES_VK_USER_ID = "PREFERENCES_VK_USER_ID";
+    public static String PREFERENCES_VK_FIRST_NAME = "PREFERENCES_VK_FIRST_NAME";
+    public static String PREFERENCES_VK_LAST_NAME = "PREFERENCES_VK_LAST_NAME";
+    public static String PREFERENCES_VK_IMG_SOURCE = "PREFERENCES_VK_IMG_SOURCE";
+    public static String PREFERENCES_VK_HIGH_SCORE = "PREFERENCES_VK_HIGH_SCORE";
 
     public static final float CAR_POS_X_LEFT = 120;
     public static final float CAR_POS_X_RIGHT = 215;
@@ -416,6 +421,9 @@ public class Constants {
     public static final String ICON_RETURN_P_ID = "icon_return_p";
     public static final String ICON_RETURN_P_RESOURCE = "icon_return_p.png";
 
+    public static final String BUTTON_PLAY_WITH_A_FRIEND_ID = "button_play_with_a_friend";
+    public static final String BUTTON_PLAY_WITH_A_FRIEND_RESOURCE = "button_play_with_a_friend.png";
+
     public static final String ICON_ICON_VK_ID = "icon_vk";
     public static final String ICON_ICON_VK_RESOURCE = "icon_vk.png";
 
@@ -470,6 +478,9 @@ public class Constants {
     public static final String COIN_SHOP_NAME_RESOURCE = "coins.png";
     public static final String COIN_SHOP_NAME_RUS_RESOURCE = "coins_rus.png";
 
+    public static final String BACK_BLACK_ID = "black_back";
+    public static final String BACK_BLACK_RESOURCE = "black_back.png";
+
     public static final String COIN_SHOP_STANDART_ID = "coins_1";
     public static final String COIN_SHOP_STANDART_RESOURCE = "coins_1.png";
 
@@ -481,6 +492,9 @@ public class Constants {
 
     public static final String COIN_SHOP_4_ID = "coins_4";
     public static final String COIN_SHOP_4_RESOURCE = "coins_4.png";
+
+    public static final String PROGRESS_CIRCLE_ID = "progress_bar_circle";
+    public static final String PROGRESS_CIRCLE_RESOURCE = "progress_bar_circle.png";
 
     //public static final String MY_CAR_1_IMAGE_PATH = "car_f1_1_1.png";
     public static final String PASSER_CAR_1_IMAGE_PATH = "other_car_1_1.png";
@@ -792,6 +806,10 @@ public class Constants {
     public static final String GO_PRIZE_LBL = "go_prize_lbl";
     public static final String GARAGE_FREE_LBL = "garage_free_lbl";
     public static final String GO_YOUR_LBL = "go_your_lbl";
+    public static final String LEADERBOARD_ME_TEXT = "leaderboard_me_text";
+    public static final String LEADERBOARD_FRIENDS_TEXT = "leaderboard_friends_text";
+    public static final String LEADERBOARD_GLOBAL_TEXT = "leaderboard_global_text";
+    public static final String LEADERBOARD_INVITE_TEXT = "leaderboard_invite_text";
 
 
 

@@ -11,7 +11,16 @@ import com.nicholaschirkevich.game.util.GameManager;
  */
 public class GestureListnener implements GestureDetector.GestureListener {
     private CarTurnInterface carTurnInterface;
+    private float deltaX = 0, deltaY = 0;
     private float touchPosX = 0, touchPosY = 0;
+    public float getDeltaX() {
+        return deltaX;
+    }
+
+    public float getDeltaY() {
+        return deltaY;
+    }
+
 
     public GestureListnener(CarTurnInterface carTurnInterface) {
         this.carTurnInterface = carTurnInterface;
@@ -56,6 +65,8 @@ public class GestureListnener implements GestureDetector.GestureListener {
                 else if(deltaX>0) carTurnInterface.turn(false);
             }
         }
+        this.deltaX = deltaX;
+        this.deltaY = deltaY;
         return false;
     }
 

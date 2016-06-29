@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">SRacer</string>
-    <integer name="com_vk_sdk_AppId">5476220</integer>
+    <integer name="com_vk_sdk_AppId">5214745</integer>
     <string name="photo_id">photo-47594638_689374739</string>
     <string name="VkDialogText">"Choose your vehicle. Hit the gas. Go! #speedyroad "</string>
     <string name="VkDialogLink">https://itunes.apple.com/ru/app/speedy-road-endless-8-bit-race/id1008125487?mt=8</string>
@@ -14,5 +14,6 @@
     <string name="packagePurchase">com.example.</string>
     <string name="server_url">http://s.pixelplex.by:3001/</string>
     <string name="server_url_get_leaderboards">leaderboard</string>
+    <string name="server_url_get_highscores">getHighscores</string>
 
 </resources>

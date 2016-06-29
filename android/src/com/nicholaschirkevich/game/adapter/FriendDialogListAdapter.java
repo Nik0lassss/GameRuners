@@ -1,6 +1,7 @@
 package com.nicholaschirkevich.game.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,12 +102,13 @@ public class FriendDialogListAdapter extends BaseAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                VKRequest vkSendInvite = new VKRequest("apps.sendRequest", VKParameters.from(VKApiConst.USER_ID,user.getID(),"text","Text text","type","request","name","sadasf","key","testkey","separate","false"));
+                VKRequest vkSendInvite = new VKRequest("apps.sendRequest", VKParameters.from(VKApiConst.USER_ID,user.getID(),"text","Приглашаю по тестить","type","invite","name","sadasf","key","testkey","separate","false"));
                 vkSendInvite.executeWithListener(new VKRequest.VKRequestListener() {
                     @Override
                     public void onComplete(VKResponse response) {
-                        Toast.makeText(context,response.parsedModel.toString(),Toast.LENGTH_LONG).show();
+
                         super.onComplete(response);
+                        Toast.makeText(context,response.toString(),Toast.LENGTH_LONG).show();
                     }
 
                     @Override

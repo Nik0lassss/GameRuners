@@ -28,6 +28,9 @@ public class VkUser {
         this.highscore = highscore;
     }
 
+    public VkUser() {
+    }
+
     public String getUser_last_name() {
         return user_last_name;
     }

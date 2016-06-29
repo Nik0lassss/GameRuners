@@ -304,6 +304,7 @@ public class AssetsManager {
 
 
         texturesMap.put(Constants.CONTACT_POINT_ID, new TextureRegion(new Texture(Constants.CONTACT_POINT_RESOURCE)));
+        texturesMap.put(Constants.BACK_BLACK_ID, new TextureRegion(new Texture(Constants.BACK_BLACK_RESOURCE)));
         texturesMap.put(Constants.PAUSE_BUTTON_PRESSED_ID, new TextureRegion(new Texture(Constants.PAUSE_BUTTON_PRESSED_RESOURCE)));
         texturesMap.put(Constants.PAUSE_BUTTON_UP_ID, new TextureRegion(new Texture(Constants.PAUSE_BUTTON_UP_RESOURCE)));
         texturesMap.put(Constants.DANGER_ID, new TextureRegion(new Texture(Constants.DANGER_RESOURCE)));
@@ -330,6 +331,8 @@ public class AssetsManager {
         texturesMap.put(Constants.BTTN_VK_ID, new TextureRegion(new Texture(Constants.BTTN_VK_RESOURCE)));
         texturesMap.put(Constants.BTTN_VK_PRESSED_ID, new TextureRegion(new Texture(Constants.BTTN_VK_PRESSED_RESOURCE)));
         texturesMap.put(Constants.SLOT_BACKGROUND_RECORD_ID, new TextureRegion(new Texture(Constants.SLOT_BACKGROUND_RECORD_RESOURCE)));
+        texturesMap.put(Constants.PROGRESS_CIRCLE_ID, new TextureRegion(new Texture(Constants.PROGRESS_CIRCLE_RESOURCE)));
+        texturesMap.put(Constants.BUTTON_PLAY_WITH_A_FRIEND_ID, new TextureRegion(new Texture(Constants.BUTTON_PLAY_WITH_A_FRIEND_RESOURCE)));
 
 
         particleEffectLeft = new ParticleEffect();
