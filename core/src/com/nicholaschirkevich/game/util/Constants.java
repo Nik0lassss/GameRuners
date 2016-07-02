@@ -496,6 +496,88 @@ public class Constants {
     public static final String PROGRESS_CIRCLE_ID = "progress_bar_circle";
     public static final String PROGRESS_CIRCLE_RESOURCE = "progress_bar_circle.png";
 
+
+
+
+
+    //maps
+
+    //road_1
+    public static final String ROAD_1_BUSH_1_RESOURCE = "road_1_bush_1.png";
+    public static final String ROAD_1_BUSH_1_ID = "road_1_bush_1";
+
+    public static final String ROAD_1_BUSH_2_RESOURCE = "road_1_bush_2.png";
+    public static final String ROAD_1_BUSH_2_ID = "road_1_bush_2";
+
+    public static final String ROAD_1_TILE_RESOURCE = "road_1_tile.png";
+    public static final String ROAD_1_TILE_ID = "road_1_tile";
+
+    public static final String ROAD_1_LIGHTER_L_RESOURCE = "road_1_lighter_l.png";
+    public static final String ROAD_1_LIGHTER_L_ID = "road_1_lighter_l";
+
+    public static final String ROAD_1_LIGHTER_R_RESOURCE = "road_1_lighter_r.png";
+    public static final String ROAD_1_LIGHTER_R_ID = "road_1_lighter_r";
+
+    public static final String ROAD_1_STUMP_RESOURCE = "road_1_stump.png";
+    public static final String ROAD_1_STUMP_ID = "road_1_stump";
+
+    public static final String ROAD_1_TREE_1_RESOURCE = "road_1_tree_1.png";
+    public static final String ROAD_1_TREE_1_ID = "road_1_tree_1";
+
+    //road_2
+
+    public static final String ROAD_2_TILE_RESOURCE = "road_2.png";
+    public static final String ROAD_2_TILE__ID = "road_2";
+
+    public static final String ROAD_2_BOARD_RESOURCE = "road_2_board.png";
+    public static final String ROAD_2_BOARD_ID = "road_2_board";
+
+    public static final String ROAD_2_CACTUS_1_RESOURCE = "road_2_cactus_1.png";
+    public static final String ROAD_2_CACTUS_1_ID = "road_2_cactus_1";
+
+    public static final String ROAD_2_CACTUS_2_RESOURCE = "road_2_cactus_2.png";
+    public static final String ROAD_2_CACTUS_2_ID = "road_2_cactus_2";
+
+    public static final String ROAD_2_MAN_RESOURCE = "road_2_man.png";
+    public static final String ROAD_2_MAN_ID = "road_2_man";
+
+    public static final String ROAD_2_STONE_RESOURCE = "road_2_stone.png";
+    public static final String ROAD_2_STONE_ID = "road_2_stone";
+
+    public static final String ROAD_2_TIRES_RESOURCE = "road_2_tires.png";
+    public static final String ROAD_2_TIRES_ID = "road_2_tires";
+
+    //road_3
+
+
+    public static final String ROAD_3_TILE_RESOURCE = "road_3.png";
+    public static final String ROAD_3_TILE_ID = "road_3";
+
+
+    public static final String ROAD_3_SNOW_1_RESOURCE = "road_3_snow_1.png";
+    public static final String ROAD_3_SNOW_1_ID = "road_3_snow_1";
+
+    public static final String ROAD_3_SNOW_2_RESOURCE = "road_3_snow_2.png";
+    public static final String ROAD_3_SNOW_2_ID = "road_3_snow_2";
+
+
+    public static final String ROAD_3_SNOWMAN_RESOURCE = "road_3_snowman.png";
+    public static final String ROAD_3_SNOWMAN_ID = "road_3_snowman";
+
+    public static final String ROAD_3_TREE_1_RESOURCE = "road_3_tree_1.png";
+    public static final String ROAD_3_TREE_1_ID = "road_3_tree_1";
+
+    public static final String ROAD_3_TREE_2_RESOURCE = "road_3_tree_2.png";
+    public static final String ROAD_3_TREE_2_ID = "road_3_tree_2";
+
+    public static final String ROAD_3_TREE_3_RESOURCE = "road_3_tree_3.png";
+    public static final String ROAD_3_TREE_3_ID = "road_3_tree_3";
+
+
+
+
+
+
     //public static final String MY_CAR_1_IMAGE_PATH = "car_f1_1_1.png";
     public static final String PASSER_CAR_1_IMAGE_PATH = "other_car_1_1.png";
     public static final String PASSER_CAR_2_IMAGE_PATH = "other_car_2_1.png";

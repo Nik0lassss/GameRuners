@@ -38,8 +38,7 @@
         android:id="@+id/bttn_show"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:text="Show"/>
+        android:text="Test"/>
 
     <Button
         android:id="@+id/bttn_by"

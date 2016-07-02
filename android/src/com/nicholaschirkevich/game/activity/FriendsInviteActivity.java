@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.android.volley.Response;
@@ -50,12 +51,20 @@ public class FriendsInviteActivity extends Activity {
 	private FriendDialogListAdapter adapter;
 	private VKRequest currentRequest;
 	private Activity thisActivity;
+	private Button button;
 
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_friend_invite);
+		button = (Button) findViewById(R.id.invite_frined_activity_back_button);
+		button.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				onBackPressed();
+			}
+		});
 
 		currentRequest = VKApi.friends().get(VKParameters.from(VKApiConst.FIELDS, "id,first_name,last_name,photo_100"));
 		final ArrayList<User> users = new ArrayList<>();

@@ -18,6 +18,8 @@ import com.nicholaschirkevich.game.helper.XmlHelper;
 import com.nicholaschirkevich.game.menu.items.CarGarageItem;
 import com.nicholaschirkevich.game.model.AchiveView;
 import com.nicholaschirkevich.game.model.GearView;
+import com.nicholaschirkevich.game.model.side_objects.NewRoad;
+import com.nicholaschirkevich.game.model.side_objects.SideObject;
 import com.nicholaschirkevich.game.unput.GestureListnener;
 
 import java.util.ArrayList;
@@ -36,6 +38,7 @@ public class GameManager {
     private static ArrayList<GearShift> gearShifts = new ArrayList<GearShift>();
     private static ArrayList<CarsType> carsTypes = new ArrayList<CarsType>();
     private static HashMap<String, String> strings = new HashMap<String, String>();
+    private static HashMap<String,NewRoad> roads = new HashMap<String, NewRoad>();
     private static Car currentCar = new Car();
     public static boolean pauseGame = false;
     private static Date lastFreeCarPrize;
@@ -318,8 +321,27 @@ public class GameManager {
         setUpTimeLabetDebug();
         setUpWorldChildLabetDebug();
         setUpStageChildLabetDebug();
+        setUpRoadsHashMap();
     }
 
+    public static void setUpRoadsHashMap()
+    {
+        ArrayList<SideObject> sideObjectsRoad1ArrayList = new ArrayList<SideObject>();
+        sideObjectsRoad1ArrayList.add(new SideObject(AssetsManager.getTextureRegion(Constants.ROAD_1_BUSH_1_ID).getTexture()));
+        sideObjectsRoad1ArrayList.add(new SideObject(AssetsManager.getTextureRegion(Constants.ROAD_1_BUSH_2_ID).getTexture()));
+        sideObjectsRoad1ArrayList.add(new SideObject(AssetsManager.getTextureRegion(Constants.ROAD_1_LIGHTER_L_ID).getTexture()));
+        sideObjectsRoad1ArrayList.add(new SideObject(AssetsManager.getTextureRegion(Constants.ROAD_1_LIGHTER_R_ID).getTexture()));
+        sideObjectsRoad1ArrayList.add(new SideObject(AssetsManager.getTextureRegion(Constants.ROAD_1_TREE_1_ID).getTexture()));
+
+      NewRoad road1 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_1_TILE_ID).getTexture());
+        road1.setSideObjectArrayList(sideObjectsRoad1ArrayList);
+
+
+
+
+
+
+    }
     public static void resetSpeed() {
         gear = 0;
         isCollision = false;

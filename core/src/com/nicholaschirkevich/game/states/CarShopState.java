@@ -106,7 +106,7 @@ public class CarShopState extends State implements ResumeButtonListener, UpdateG
     public void setUpBackButton() {
 
         float width = 43, height = 49;
-        backButton = new BackButton(Constants.GARAGE_BTTN_X_VISIBLE-25, Constants.GARAGE_BTTN_Y - (height / 2)-40, width, height, gsm, actionResolver);
+        backButton = new BackButton(Constants.GARAGE_BTTN_X_VISIBLE, Constants.GARAGE_BTTN_Y - (height / 2), width, height, gsm, actionResolver);
         stage.addActor(backButton);
     }
 

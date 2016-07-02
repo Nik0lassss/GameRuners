@@ -29,7 +29,7 @@ public class DesktopLauncher {
 			}
 
 			@Override
-			public boolean isIntertitalLoad() {
+			public boolean isSaveMeIntertitalLoad() {
 				return false;
 			}
 

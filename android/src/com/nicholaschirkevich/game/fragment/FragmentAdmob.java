@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,32 +27,31 @@ import com.nicholaschirkevich.game.api.ServerApi;
 import com.nicholaschirkevich.game.entity.LeaderboardEntity;
 import com.nicholaschirkevich.game.entity.VkUser;
 import com.nicholaschirkevich.game.internet.InternetHelper;
+import com.nicholaschirkevich.game.listeners.BuyProduct;
 import com.nicholaschirkevich.game.listeners.OnGetHightscoreList;
 import com.nicholaschirkevich.game.listeners.OnGetLidearBoards;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKScope;
 import com.vk.sdk.VKSdk;
-import com.vk.sdk.VKUIHelper;
 import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKApiConst;
 import com.vk.sdk.api.VKError;
 import com.vk.sdk.api.VKParameters;
 import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
-import com.vk.sdk.api.model.VKApiOwner;
 import com.vk.sdk.api.model.VKApiPhoto;
-import com.vk.sdk.api.model.VKApiUser;
 import com.vk.sdk.api.model.VKApiUserFull;
 import com.vk.sdk.api.model.VKList;
 import com.vk.sdk.api.model.VKPhotoArray;
-import com.vk.sdk.api.model.VKPrivacy;
 import com.vk.sdk.api.photo.VKImageParameters;
 import com.vk.sdk.api.photo.VKUploadImage;
 import com.vk.sdk.dialogs.VKShareDialog;
-import com.vk.sdk.util.VKUtil;
+
+import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import util.IabHelper;
 import util.IabResult;
@@ -63,10 +63,11 @@ import util.Purchase;
  */
 public class FragmentAdmob extends AndroidFragmentApplication implements ActionResolver ,OnGetHightscoreList {
 
-    private InterstitialAd mInterstitialAd;
+    private InterstitialAd mInterstitialAdSaveMe,interstitialGetBonus;
     private ImageView defaultImage;
     private RewardedVideoAd mAd;
     private String appId = "ca-app-pub-3929550233974663/5014713038";
+    private String getBonusAdmobId = "ca-app-pub-3929550233974663/1475819439";
     private Button showButton, byButton;
     VKRequest currentRequest;
     private static final String TAG =
@@ -76,6 +77,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     private IabHelper.OnConsumeFinishedListener mConsumeFinishedListener;
     private IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener;
 
+    private  BuyProduct buyProduct;
     IabHelper mHelper;
     GameRuners gameRuners;
     static final String ITEM_SKU = "android.test.purchased";
@@ -85,16 +87,84 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     private String[] vkScope = new String[]{VKScope.WALL, VKScope.PHOTOS, VKScope.NOHTTPS, VKScope.PAGES};
 
 
+    private void showPreviousPurchases() {
+        //Logger.printMessage(TAG, "previous purchases", Logger.DEBUG);
+        if (mHelper.mService == null) {
+            Toast.makeText(getActivity(), "Something Went Wrong. Try later",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+        Bundle ownedItems = null;
+        ;
+        try {
+            ownedItems =mHelper.mService.getPurchases(3, getActivity().getPackageName(), "inapp",
+                    null);
+        } catch (RemoteException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        if (ownedItems == null) {
+            //Logger.printMessage(TAG, "criical error ", Logger.DEBUG);
+            return;
+        }
+        int response = ownedItems.getInt("RESPONSE_CODE");
+        if (response == 0) {
+            ArrayList<String> ownedSkus = ownedItems
+                    .getStringArrayList("INAPP_PURCHASE_ITEM_LIST");
+            ArrayList<String> purchaseDataList = ownedItems
+                    .getStringArrayList("INAPP_PURCHASE_DATA_LIST");
+    /*  ArrayList<String> signatureList = ownedItems
+                .getStringArrayList("INAPP_DATA_SIGNATURE");
+        String continuationToken = ownedItems
+                .getString("INAPP_CONTINUATION_TOKEN");*/
+
+            for (int i = 0; i < purchaseDataList.size(); ++i) {
+                String purchaseData = purchaseDataList.get(i);
+//                Logger.printMessage(TAG, "json  = " + purchaseData,
+//                        Logger.DEBUG);
+                // String signature = signatureList.get(i);
+                String sku = ownedSkus.get(i);
+
+                //addChipsAndMakeItConsumable(purchaseData);
+                // do something with this purchase information
+                // e.g. display the updated list of products owned by user
+            }
+
+            // if continuationToken != null, call getPurchases again
+            // and pass in the token to retrieve more items
+        }
+        //mHelper.consumeAsync();
+
+
+        Purchase purchase;
+        try {
+            purchase = new Purchase("inapp", "{\"packageName\":\"com.nicholaschirkevich.game\",\"orderId\":\"transactionId.android.test.purchased\",\"productId\":\"android.test.purchased\",\"developerPayload\":\"speedy_road_tocken\",\"purchaseTime\":0,\"purchaseState\":0,\"purchaseToken\":\"inapp:com.nicholaschirkevich.game:android.test.purchased\"}", "");
+            mHelper.consumeAsync(purchase, new IabHelper.OnConsumeFinishedListener() {
+
+                @Override
+                public void onConsumeFinished(Purchase purchase, IabResult result) {
+                    Log.d("TAG", "Result: " + result);
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 
         // VKSdk.login(getActivity(), vkScope);
-        mInterstitialAd = new InterstitialAd(getContext());
+        mInterstitialAdSaveMe = new InterstitialAd(getContext());
+        mInterstitialAdSaveMe.setAdUnitId(appId);
+        interstitialGetBonus = new InterstitialAd(getContext());
+        interstitialGetBonus.setAdUnitId(getBonusAdmobId);
 
 
-        mInterstitialAd.setAdUnitId(appId);
         defaultImage = (ImageView) getActivity().findViewById(R.id.default_image);
 
         byButton = (Button) getActivity().findViewById(R.id.bttn_by);
@@ -105,15 +175,22 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                                               Purchase purchase) {
                 if (result.isFailure()) {
 
+                    buyProduct.onErroreBuy();
+                    Toast.makeText(getActivity(),result.getMessage(),Toast.LENGTH_LONG).show();
                     // Handle error
                     return;
                 } else if (purchase.getSku().equals(ITEM_SKU)) {
+                    buyProduct.onBuyProduct();
+                    Toast.makeText(getActivity(),purchase.toString(),Toast.LENGTH_LONG).show();
                     consumeItem();
                     byButton.setEnabled(false);
                 }
 
             }
         };
+
+
+
 
 
         initialBillingServie();
@@ -128,27 +205,29 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         showButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                showPreviousPurchases();
+//                showButton.setEnabled(false);
+//                byButton.setEnabled(true);
+//                String base64EncodedPublicKey =
+//                        getString(R.string.base64EncodedKey);
+//
+//                mHelper = new IabHelper(getContext(), base64EncodedPublicKey);
+//
+//                mHelper.startSetup(new
+//                                           IabHelper.OnIabSetupFinishedListener() {
+//                                               public void onIabSetupFinished(IabResult result) {
+//                                                   if (!result.isSuccess()) {
+//                                                       Toast.makeText(getContext(), getString(R.string.inAppBuillingErrore), Toast.LENGTH_LONG).show();
+//                                                       Log.d(TAG, getString(R.string.inAppBuillingErrore) +
+//                                                               result);
+//                                                   } else {
+//                                                       Toast.makeText(getContext(), getString(R.string.inAppBuillingOk), Toast.LENGTH_LONG).show();
+//                                                       Log.d(TAG, getString(R.string.inAppBuillingOk));
+//                                                   }
+//                                               }
+//                                           });
 
-                showButton.setEnabled(false);
-                byButton.setEnabled(true);
-                String base64EncodedPublicKey =
-                        getString(R.string.base64EncodedKey);
 
-                mHelper = new IabHelper(getContext(), base64EncodedPublicKey);
-
-                mHelper.startSetup(new
-                                           IabHelper.OnIabSetupFinishedListener() {
-                                               public void onIabSetupFinished(IabResult result) {
-                                                   if (!result.isSuccess()) {
-                                                       Toast.makeText(getContext(), getString(R.string.inAppBuillingErrore), Toast.LENGTH_LONG).show();
-                                                       Log.d(TAG, getString(R.string.inAppBuillingErrore) +
-                                                               result);
-                                                   } else {
-                                                       Toast.makeText(getContext(), getString(R.string.inAppBuillingOk), Toast.LENGTH_LONG).show();
-                                                       Log.d(TAG, getString(R.string.inAppBuillingOk));
-                                                   }
-                                               }
-                                           });
                 //showInterstitial();
             }
         });
@@ -161,7 +240,10 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
                         if (result.isSuccess()) {
                             showButton.setEnabled(true);
+                            Toast.makeText(getContext(),"Consume succes"+result.getMessage(),Toast.LENGTH_LONG).show();
                         } else {
+                            mHelper.consumeAsync(purchase,
+                                    mConsumeFinishedListener);
                             // handle error
                         }
                     }
@@ -201,15 +283,56 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     }
 
     public void consumeItem() {
+
         mHelper.queryInventoryAsync(new IabHelper.QueryInventoryFinishedListener() {
 
             @Override
             public void onQueryInventoryFinished(IabResult result, Inventory inv) {
 
+                if (result.isFailure()) {
+                    // Handle failure
+                } else {
+                    Toast.makeText(getActivity(),"ok consume Item",Toast.LENGTH_LONG).show();
+                    mHelper.consumeAsync(inv.getPurchase(ITEM_SKU),
+                            mConsumeFinishedListener);
+                }
             }
         });
     }
 
+
+    private void showGetBonusInterstitial() {
+
+
+        try {
+            runOnUiThread(new Runnable() {
+
+
+                public void run() {
+
+                    mInterstitialAdSaveMe.setAdListener(new AdListener() {
+                        @Override
+                        public void onAdClosed() {
+                            startGame();
+
+                                gameRuners.onAdCloseAfterGetBonus();
+
+                        }
+                    });
+
+                    if (mInterstitialAdSaveMe != null && mInterstitialAdSaveMe.isLoaded()) {
+                        mInterstitialAdSaveMe.show();
+                    } else {
+                        Toast.makeText(getContext(), "Ad did not load", Toast.LENGTH_SHORT).show();
+                        startGame();
+
+                    }
+                }
+            });
+        } catch (Exception e) {
+        }
+
+    }
 
     private void showInterstitial(final boolean isAfterGetBonus) {
 
@@ -220,7 +343,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
                 public void run() {
 
-                    mInterstitialAd.setAdListener(new AdListener() {
+                    mInterstitialAdSaveMe.setAdListener(new AdListener() {
                         @Override
                         public void onAdClosed() {
                             startGame();
@@ -233,8 +356,8 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                         }
                     });
 
-                    if (mInterstitialAd != null && mInterstitialAd.isLoaded()) {
-                        mInterstitialAd.show();
+                    if (mInterstitialAdSaveMe != null && mInterstitialAdSaveMe.isLoaded()) {
+                        mInterstitialAdSaveMe.show();
                     } else {
                         Toast.makeText(getContext(), "Ad did not load", Toast.LENGTH_SHORT).show();
                         startGame();
@@ -254,12 +377,16 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
     private void startGame() {
         // Request a new ad if one isn't already loaded, hide the button, and kick off the timer.
-        if (!mInterstitialAd.isLoading() && !mInterstitialAd.isLoaded()) {
+        if (!mInterstitialAdSaveMe.isLoading() && !mInterstitialAdSaveMe.isLoaded()) {
             //AdRequest adRequest = new AdRequest.Builder().addTestDevice("024E787E6EB1DF2F6E701EE93F986BA4").build();
             AdRequest adRequest = new AdRequest.Builder().build();
-            mInterstitialAd.loadAd(adRequest);
+            mInterstitialAdSaveMe.loadAd(adRequest);
         }
-
+        if (!interstitialGetBonus.isLoading() && !interstitialGetBonus.isLoaded()) {
+            //AdRequest adRequest = new AdRequest.Builder().addTestDevice("024E787E6EB1DF2F6E701EE93F986BA4").build();
+            AdRequest adRequest = new AdRequest.Builder().build();
+            interstitialGetBonus.loadAd(adRequest);
+        }
 
     }
 
@@ -299,13 +426,23 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     }
 
     @Override
+    public void showInterstitaGetBonus() {
+        showGetBonusInterstitial();
+    }
+
+    @Override
     public boolean isAvailibleInternet() {
         return InternetHelper.hasConnection(getContext());
     }
 
     @Override
-    public boolean isIntertitalLoad() {
-        return !mInterstitialAd.isLoading();
+    public boolean isSaveMeIntertitalLoad() {
+        return !mInterstitialAdSaveMe.isLoading();
+    }
+
+    @Override
+    public boolean isGetBonusIntertitalLoad() {
+        return !interstitialGetBonus.isLoading();
     }
 
     @Override
@@ -318,7 +455,26 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
 
                 public void run() {
-                    isLoaded[0] = mInterstitialAd.isLoaded();
+                    isLoaded[0] = mInterstitialAdSaveMe.isLoaded();
+
+                }
+            });
+        } catch (Exception e) {
+        }
+        return isLoaded[0];
+    }
+
+    @Override
+    public boolean isGetBonusIntertatlLoaded() {
+        final boolean[] isLoaded = {false};
+        try {
+
+
+            runOnUiThread(new Runnable() {
+
+
+                public void run() {
+                    isLoaded[0] = interstitialGetBonus.isLoaded();
 
                 }
             });
@@ -414,12 +570,16 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     }
 
     @Override
-    public void buyProduct(String id) {
+    public void buyProduct(String id, BuyProduct buyProduct) {
+        this.buyProduct = buyProduct;
         mHelper.flagEndAsync();
-        mHelper.launchPurchaseFlow(getActivity(), getString(R.string.packagePurchase) + id, 10001,
+        mHelper.launchPurchaseFlow(getActivity(), ITEM_SKU, 10001,
                 mPurchaseFinishedListener, getString(R.string.purchasetocken));
 
+
     }
+
+
 
     @Override
     public void goneDefaultImage() {

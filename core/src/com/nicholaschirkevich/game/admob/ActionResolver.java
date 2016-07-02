@@ -1,6 +1,7 @@
 package com.nicholaschirkevich.game.admob;
 
 import com.nicholaschirkevich.game.entity.LeaderboardEntity;
+import com.nicholaschirkevich.game.listeners.BuyProduct;
 import com.nicholaschirkevich.game.listeners.OnGetLidearBoards;
 
 import java.util.ArrayList;
@@ -10,9 +11,12 @@ import java.util.ArrayList;
  */
 public interface ActionResolver {
     void showOrLoadInterstital(boolean isAfterGetBonus);
+    void showInterstitaGetBonus();
     boolean isAvailibleInternet();
-    boolean isIntertitalLoad();
+    boolean isSaveMeIntertitalLoad();
+    boolean isGetBonusIntertitalLoad();
     boolean isIntertatlLoaded();
+    boolean isGetBonusIntertatlLoaded();
     void showVkLoginActivity();
     void getVkStatusLogin();
     void vkLogout();
@@ -20,7 +24,7 @@ public interface ActionResolver {
     boolean isVkLogin();
     void showInviteBox();
     String getMyId();
-    void buyProduct(String id);
+    void buyProduct(String id,BuyProduct buyProduct);
     void goneDefaultImage();
     void getLidearBoards(OnGetLidearBoards onGetLidearBoards);
     void getVkImageLidearBoards(OnGetLidearBoards onGetLidearBoards,ArrayList<LeaderboardEntity> leaderboardEntities);

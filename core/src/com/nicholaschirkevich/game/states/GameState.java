@@ -122,37 +122,6 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     public GestureListnener gestureListnener;
 
 
-//
-//    SequenceAction sequenceAction = new SequenceAction();
-//    SequenceAction sequenceActionDangerousCount = new SequenceAction();
-//    SequenceAction sequenceActionCountCar = new SequenceAction();
-//
-//
-//    SequenceAction sequenceBonusCarCount = new SequenceAction();
-//    SequenceAction sequenceBonusText = new SequenceAction();
-//
-//    SequenceAction sequenceLadleBonusText = new SequenceAction();
-//    SequenceAction sequenceLAdleBonus = new SequenceAction();
-//
-//    SequenceAction sequenceFlyBonusCount = new SequenceAction();
-//    SequenceAction sequenceFlyeBonus = new SequenceAction();
-
-    //    Label label = new Label("", AssetsManager.getUiSkin());
-//    Label labelDangerousCount = new Label("+50", AssetsManager.getUiSkin());
-//    Label labelCountCar = new Label("", AssetsManager.getUiSkin());
-//    Label labelCars = new Label("", AssetsManager.getUiSkin());
-//
-//    Label labelFlyText = new Label("", AssetsManager.getUiSkin());
-//    Label labelFlyCount = new Label("", AssetsManager.getUiSkin());
-//    Label labelFlyBonus = new Label("", AssetsManager.getUiSkin());
-//
-//    Label boosterBonus = new Label("", AssetsManager.getUiSkin());
-//    Label labelBonusText = new Label("", AssetsManager.getUiSkin());
-//    Label ladleBonus = new Label("", AssetsManager.getUiSkin());
-//
-//    Label skullBonus = new Label("", AssetsManager.getUiSkin());
-//    Label skullBonusText = new Label("", AssetsManager.getUiSkin());
-//    Label skullBonusCountCar = new Label("", AssetsManager.getUiSkin());
     private float skullAchives = 0;
     private float skullCarCount = 1;
     private float timeToCoin = 0;
@@ -442,7 +411,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         GameManager.setDefaultSpeed();
         GameManager.pauseGame = false;
         GameManager.resetTime();
-        gsm.set(new GameState(gsm, false, false, actionResolver));
+        //gsm.set(new GameState(gsm, false, false, actionResolver));
         GameManager.addCoin(179);
         // menuSaveMe.onAdCLose();
     }
@@ -1188,7 +1157,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                 AssetsManager.stopMusic();
                 // stage.addActor(new MenuGameOver(this, gsm));
                 //stage.addActor(new MenuSaveMe(this, gsm,actionResolver));
-                if (actionResolver != null && actionResolver.isAvailibleInternet() && actionResolver.isIntertatlLoaded() && actionResolver.isIntertitalLoad() && !isSavedMe && distacne > 100) {
+                if (actionResolver != null && actionResolver.isAvailibleInternet() && actionResolver.isIntertatlLoaded() && actionResolver.isSaveMeIntertitalLoad() && !isSavedMe && distacne > 100) {
                     {
                         isMyCarCollision = false;
                         stage.addActor(menuSaveMe);
@@ -1217,7 +1186,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
             if (timer > 1) {
                 GameManager.pauseGame = true;
 //                stage.addActor(new MenuSaveMe(this, gsm,actionResolver));
-                if (actionResolver.isAvailibleInternet() && actionResolver.isIntertatlLoaded() && actionResolver.isIntertitalLoad() && !isSavedMe && distacne > 100) {
+                if (actionResolver.isAvailibleInternet() && actionResolver.isIntertatlLoaded() && actionResolver.isSaveMeIntertitalLoad() && !isSavedMe && distacne > 100) {
                     isSavedMe = true;
                     stage.addActor(menuSaveMe);
                     ToastHelper.resetToasts();

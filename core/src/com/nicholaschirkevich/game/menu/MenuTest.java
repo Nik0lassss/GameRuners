@@ -7,9 +7,7 @@ package com.nicholaschirkevich.game.menu;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -18,25 +16,18 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
 import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
 import com.nicholaschirkevich.game.states.CarShopState;
 import com.nicholaschirkevich.game.states.CoinShopState;
 import com.nicholaschirkevich.game.states.GameStateManager;
-import com.nicholaschirkevich.game.states.TestShopState;
-import com.nicholaschirkevich.game.states.TestShopState2;
-import com.nicholaschirkevich.game.states.TestTable;
+import com.nicholaschirkevich.game.states.RecordsMenu;
 import com.nicholaschirkevich.game.util.AssetsManager;
 import com.nicholaschirkevich.game.util.Constants;
 import com.nicholaschirkevich.game.util.GameManager;
-
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 
 /**
  * Created by Nikolas on 10.03.2016.
@@ -350,7 +341,7 @@ public class MenuTest extends Group {
 //                tabPane.setBounds(GameRuners.WIDTH/4-50,GameRuners.HEIGHT/4,100f,100f);
 
                 //addActor(new TestShopState( gsm, actionResolver,groupView));
-                addActor(new TestShopState2( gsm, actionResolver,groupView));
+                addActor(new RecordsMenu( gsm, actionResolver,groupView));
 
 
                 return super.touchDown(event, x, y, pointer, button);

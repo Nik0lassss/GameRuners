@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -35,7 +34,7 @@ import java.util.ArrayList;
 /**
  * Created by Nikolas on 10.03.2016.
  */
-public class TestShopState2 extends Group implements ResumeButtonListener, OnGetLidearBoards {
+public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLidearBoards {
     private OrthographicCamera camera;
     private Texture cnr_line, backgroung_texture, backButtonTextureDown, backButtonTextureUp;
     private Image image, backgroung_image, backButtonImageDown, backButtonImageUp;
@@ -48,7 +47,7 @@ public class TestShopState2 extends Group implements ResumeButtonListener, OnGet
     private GameStateManager gsm;
     private ActionResolver actionResolver;
     private Group parentView;
-    private TestShopState2 thisView;
+    private RecordsMenu thisView;
     private ArrayList<LeaderboardEntity> leaderboardEntities = new ArrayList<LeaderboardEntity>();
     private Image progressBarImage;
 
@@ -109,7 +108,7 @@ public class TestShopState2 extends Group implements ResumeButtonListener, OnGet
 //    private Table leftTable, rightTable, containerTable;
     private ScrollPane pane1;
 
-    public TestShopState2(GameStateManager gsm, ActionResolver actionResolver, Group parentView) {
+    public RecordsMenu(GameStateManager gsm, ActionResolver actionResolver, Group parentView) {
 
 
         mytable.top();

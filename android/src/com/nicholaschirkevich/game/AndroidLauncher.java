@@ -2,7 +2,9 @@ package com.nicholaschirkevich.game;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.widget.Toast;
@@ -36,7 +38,7 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
 		setContentView(R.layout.main_layout);
 		gameFragment= new FragmentAdmob();
 		FragmentTransaction tr = getSupportFragmentManager().beginTransaction();
-		tr.replace(R.id.GameView,gameFragment);
+		tr.replace(R.id.GameView,gameFragment,"FragmentAdmob");
 		tr.commit();
 
 
@@ -45,6 +47,8 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
 		if (!VKSdk.onActivityResult(requestCode, resultCode, data, new VKCallback<VKAccessToken>() {
 			@Override
 			public void onResult(VKAccessToken res) {
@@ -108,6 +112,12 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
 			}
 		})) {
 			super.onActivityResult(requestCode, resultCode, data);
+		}
+		FragmentManager fragmentManager = getSupportFragmentManager();
+		Fragment fragment = fragmentManager.findFragmentByTag("FragmentAdmob");
+		if (fragment != null)
+		{
+			((FragmentAdmob)fragment).onActivityResult(requestCode, resultCode, data);
 		}
 	}
 
