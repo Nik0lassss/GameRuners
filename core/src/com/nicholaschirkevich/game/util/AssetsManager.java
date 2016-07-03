@@ -343,6 +343,16 @@ public class AssetsManager {
         texturesMap.put(Constants.ROAD_1_TILE_ID, new TextureRegion(new Texture(Constants.ROAD_1_TILE_RESOURCE)));
 
 
+        texturesMap.put(Constants.ROAD_2_TILE__ID,new TextureRegion(new Texture(Constants.ROAD_2_TILE_RESOURCE)));
+        texturesMap.put(Constants.ROAD_2_BOARD_ID,new TextureRegion(new Texture(Constants.ROAD_2_BOARD_RESOURCE)));
+        texturesMap.put(Constants.ROAD_2_CACTUS_1_ID,new TextureRegion(new Texture(Constants.ROAD_2_CACTUS_1_RESOURCE)));
+        texturesMap.put(Constants.ROAD_2_CACTUS_2_ID,new TextureRegion(new Texture(Constants.ROAD_2_CACTUS_2_RESOURCE)));
+        texturesMap.put(Constants.ROAD_2_MAN_ID,new TextureRegion(new Texture(Constants.ROAD_2_MAN_RESOURCE)));
+        texturesMap.put(Constants.ROAD_2_STONE_ID,new TextureRegion(new Texture(Constants.ROAD_2_STONE_RESOURCE)));
+        texturesMap.put(Constants.ROAD_2_TIRES_ID,new TextureRegion(new Texture(Constants.ROAD_2_TIRES_RESOURCE)));
+
+
+
         particleEffectLeft = new ParticleEffect();
         particleEffectLeft.load(Gdx.files.internal("booster_particle"), Gdx.files.internal(""));
         particleEffectRight = new ParticleEffect();

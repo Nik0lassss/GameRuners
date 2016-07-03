@@ -5,6 +5,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.entity.LeaderboardEntity;
+import com.nicholaschirkevich.game.listeners.BuyProduct;
 import com.nicholaschirkevich.game.listeners.OnGetLidearBoards;
 
 import java.util.ArrayList;
@@ -24,6 +25,11 @@ public class DesktopLauncher {
 			}
 
 			@Override
+			public void showInterstitaGetBonus() {
+
+			}
+
+			@Override
 			public boolean isAvailibleInternet() {
 				return false;
 			}
@@ -34,7 +40,17 @@ public class DesktopLauncher {
 			}
 
 			@Override
+			public boolean isGetBonusIntertitalLoad() {
+				return false;
+			}
+
+			@Override
 			public boolean isIntertatlLoaded() {
+				return false;
+			}
+
+			@Override
+			public boolean isGetBonusIntertatlLoaded() {
 				return false;
 			}
 
@@ -74,9 +90,11 @@ public class DesktopLauncher {
 			}
 
 			@Override
-			public void buyProduct(String id) {
+			public void buyProduct(String id, BuyProduct buyProduct) {
 
 			}
+
+
 
 			@Override
 			public void goneDefaultImage() {

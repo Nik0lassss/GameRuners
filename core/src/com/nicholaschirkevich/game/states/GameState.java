@@ -69,6 +69,7 @@ import com.nicholaschirkevich.game.model.boosters.Ladle;
 import com.nicholaschirkevich.game.model.boosters.LadleOnCar;
 import com.nicholaschirkevich.game.model.MyCar;
 import com.nicholaschirkevich.game.model.PasserCar;
+import com.nicholaschirkevich.game.model.side_objects.NewRoad;
 import com.nicholaschirkevich.game.model.side_objects.Road;
 import com.nicholaschirkevich.game.model.side_objects.RoadHole;
 import com.nicholaschirkevich.game.model.side_objects.RoadLighter;
@@ -102,7 +103,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
     private GameState gameState;
     MyCar myCar;
-    Road road;
+    //Road road;
+    NewRoad roadNew;
     EffectBooster effectBooster;
     EffectMode effectMode;
     private Label labelCoinCount;
@@ -111,8 +113,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     private Label labelAchives;
     private TrafficLight trafficLight;
     ArrayList<PasserCar> passerCars;
-    ArrayList<Bushs> bushsArrayLeft, bushsArrayRight;
-    ArrayList<RoadLighter> roadLighters;
+   // ArrayList<Bushs> bushsArrayLeft, bushsArrayRight;
+    //ArrayList<RoadLighter> roadLighters;
     ArrayList<Coin> coins;
     ArrayList<Skull> skulls;
     ArrayList<Ladle> ladles;
@@ -222,11 +224,12 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         setUpTrafficLighter();
         carsTypes = GameManager.getCarsTypes();
         setUpMyCar(isNeedTutorial);
-        road = new Road();
+        //road = new Road();
+        roadNew = GameManager.getRoads().get("road1");
         effectBooster = new EffectBooster();
         effectMode = new EffectMode();
         passerCars = new ArrayList<PasserCar>();
-        roadLighters = new ArrayList<RoadLighter>();
+        //roadLighters = new ArrayList<RoadLighter>();
         coins = new ArrayList<Coin>();
         skulls = new ArrayList<Skull>();
         ladles = new ArrayList<Ladle>();
@@ -242,8 +245,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         stage.addActor(afterPauseLabel);
 
         setUpPasserCars();
-        setUpBushs();
-        setUpRoadLighter();
+       // setUpBushs();
+       // setUpRoadLighter();
         setUpThornsLeftOnCar();
         setUpThornsRightOnCar();
         setUpImageCoinCount();
@@ -266,8 +269,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         carFilter = new CarFilter(gsm, this, this, this, this, this, this, this, this);
         world.setContactListener(new CarContactListener(this));
         world.setContactFilter(carFilter);
-        bushsArrayLeft = new ArrayList<Bushs>();
-        bushsArrayRight = new ArrayList<Bushs>();
+//        bushsArrayLeft = new ArrayList<Bushs>();
+//        bushsArrayRight = new ArrayList<Bushs>();
         GameManager.resetSpeed();
         GameManager.resetTime();
         RandomUtil.resetLasValue();
@@ -394,13 +397,13 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     }
 
 
-    public void setUpBushs() {
-        for (int i = (int) camera.viewportHeight + (int) camera.position.y; i > 0; i -= 170) {
-            bushsArrayLeft.add(new Bushs(world, 90, i, 10, false, Constants.ROAD_1_BUSH_1_STATIC_ASSETS_ID));
-            bushsArrayRight.add(new Bushs(world, 90, i, 10, true, Constants.ROAD_1_BUSH_1_STATIC_ASSETS_ID));
-        }
-
-    }
+//    public void setUpBushs() {
+//        for (int i = (int) camera.viewportHeight + (int) camera.position.y; i > 0; i -= 170) {
+//            bushsArrayLeft.add(new Bushs(world, 90, i, 10, false, Constants.ROAD_1_BUSH_1_STATIC_ASSETS_ID));
+//            bushsArrayRight.add(new Bushs(world, 90, i, 10, true, Constants.ROAD_1_BUSH_1_STATIC_ASSETS_ID));
+//        }
+//
+//    }
 
 
     public void onAdClose() {
@@ -604,12 +607,12 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     }
 
 
-    public void setUpRoadLighter() {
-
-        roadLighters.add(new RoadLighter(world, -45, (int) camera.viewportHeight + 200, 10, true, Constants.ROAD_1_LIGHTER_L_STATIC_ASSETS_ID));
-        roadLighters.add(new RoadLighter(world, -45, (int) camera.viewportHeight + 200, 10, false, Constants.ROAD_1_LIGHTER_R_STATIC_ASSETS_ID));
-
-    }
+//    public void setUpRoadLighter() {
+//
+//        roadLighters.add(new RoadLighter(world, -45, (int) camera.viewportHeight + 200, 10, true, Constants.ROAD_1_LIGHTER_L_STATIC_ASSETS_ID));
+//        roadLighters.add(new RoadLighter(world, -45, (int) camera.viewportHeight + 200, 10, false, Constants.ROAD_1_LIGHTER_R_STATIC_ASSETS_ID));
+//
+//    }
 
     public void setUpImageCoinCount() {
         imageButton = new ImageButton(new Image(AssetsManager.getTextureRegion(Constants.COIN_ICON_1_NAME_ID)).getDrawable());
@@ -735,7 +738,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
             labelAchives.setBounds(GameRuners.WIDTH / 2 - 160 - labelAchives.getPrefWidth() / 2, GameRuners.HEIGHT / 2 - 30, labelCoinCount.getWidth(), labelCoinCount.getHeight());
 
             world.step(1f / 60f, 6, 2);
-            road.update(camera, dt);
+            roadNew.update(camera,dt);
+            //road.update(camera, dt);
             effectBooster.update(camera, dt);
             effectBooster.update(camera, dt);
             if (isBost) {
@@ -877,9 +881,9 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
             udateBlows(passerCars, myCar);
             if (!isMyCarCollision && !isMyCarCollisionWithBlocks)
                 PasserCar.updateCars(passerCars, camera, dt, this);
-            updateBushs(bushsArrayLeft, dt, true);
-            updateBushs(bushsArrayRight, dt, false);
-            upateRoadLighters(roadLighters, dt);
+//            updateBushs(bushsArrayLeft, dt, true);
+//            updateBushs(bushsArrayRight, dt, false);
+            //upateRoadLighters(roadLighters, dt);
             updateCoins(coins, dt);
             updatSkulls(skulls, dt);
             updatSpringboards(springboards, dt);
@@ -1425,11 +1429,12 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         sb.setProjectionMatrix(camera.combined);
         sb.begin();
 
+        roadNew.draw(sb);
 
-        sb.draw(road.getRoad1(), road.getPosRoad1().x, road.getPosRoad1().y);
-        sb.draw(road.getRoad2(), road.getPosRoad2().x, road.getPosRoad2().y);
-
-        sb.draw(road.getStartLine().getTexture(), road.getStartLine().getPosition().x, road.getStartLine().getPosition().y);
+//        sb.draw(road.getRoad1(), road.getPosRoad1().x, road.getPosRoad1().y);
+//        sb.draw(road.getRoad2(), road.getPosRoad2().x, road.getPosRoad2().y);
+//
+//        sb.draw(road.getStartLine().getTexture(), road.getStartLine().getPosition().x, road.getStartLine().getPosition().y);
 
 //        sb.draw(effectBooster.getEffect1(),effectBooster.getPosEffectBoost1().x,effectBooster.getPosEffectBoost1().y);
 //        sb.draw(effectBooster.getEffect2(),effectBooster.getPosEffectBoost2().x,effectBooster.getPosEffectBoost2().y);
@@ -1568,18 +1573,20 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
             //sb.draw(thronsOnCarLeft.get(0).getBoostOnCar(), thronsOnCarLeft.get(0).body.getPosition().x - GameManager.getCurrentCar().getBrakeLines().getLeftLineStart() + GameManager.getCurrentCar().getLeftRocketPosition().getX() - thronsOnCarLeft.get(0).getBoostOnCar().getRegionWidth(), thronsOnCarLeft.get(0).body.getPosition().y - myCar.getCarTexture().getRegionHeight() / 2 - GameManager.getCurrentCar().getLeftRocketPosition().getY() - thronsOnCarLeft.get(0).getBoostOnCar().getRegionHeight());
             sb.draw(thronsOnCarRight.get(0).getBoostOnCar(), thronsOnCarRight.get(0).body.getPosition().x + GameManager.getCurrentCar().getRightRocketPosition().getX(), thronsOnCarRight.get(0).body.getPosition().y - myCar.getCarTexture().getRegionHeight() / 2 - GameManager.getCurrentCar().getLeftRocketPosition().getY() - thronsOnCarRight.get(0).getBoostOnCar().getRegionHeight());
         }
-        for (Bushs bushs : bushsArrayLeft) {
-            sb.draw(bushs.getBushTexture(), bushs.getPosition().x, bushs.getPosition().y);
-        }
-        for (Bushs bushs : bushsArrayRight) {
-            sb.draw(bushs.getBushTexture(), bushs.getPosition().x, bushs.getPosition().y);
-        }
+
+        roadNew.drawStaticObject(sb);
+//        for (Bushs bushs : bushsArrayLeft) {
+//            sb.draw(bushs.getBushTexture(), bushs.getPosition().x, bushs.getPosition().y);
+//        }
+//        for (Bushs bushs : bushsArrayRight) {
+//            sb.draw(bushs.getBushTexture(), bushs.getPosition().x, bushs.getPosition().y);
+//        }
         sb.draw(trafficLight.getTexture(), trafficLight.getPosition().x, trafficLight.getPosition().y);
 
-        for (RoadLighter roadLighter : roadLighters) {
-            sb.draw(roadLighter.getRoadLighterTexture(), roadLighter.getPosition().x, roadLighter.getPosition().y);
-
-        }
+//        for (RoadLighter roadLighter : roadLighters) {
+//            sb.draw(roadLighter.getRoadLighterTexture(), roadLighter.getPosition().x, roadLighter.getPosition().y);
+//
+//        }
         sb.draw(textureCollisisonPoint, -10, -10);
 
 

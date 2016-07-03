@@ -4,11 +4,15 @@ import com.nicholaschirkevich.game.entity.Car;
 import com.nicholaschirkevich.game.entity.CarsType;
 import com.nicholaschirkevich.game.enums.BushType;
 import com.nicholaschirkevich.game.enums.OtherCarType;
+import com.nicholaschirkevich.game.enums.SideObjectType;
+import com.nicholaschirkevich.game.model.side_objects.SideObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+
+import javafx.geometry.Side;
 
 /**
  * Created by Nikolas on 02.03.2016.
@@ -38,6 +42,12 @@ public class RandomUtil {
 
     public static BushType getRandomBushType() {
         RandomEnum<BushType> randomEnum = new RandomEnum<BushType>(BushType.class);
+        return randomEnum.random();
+    }
+
+    public static SideObjectType getRandomSideObject()
+    {
+        RandomEnum<SideObjectType> randomEnum = new RandomEnum<SideObjectType>(SideObjectType.class);
         return randomEnum.random();
     }
 

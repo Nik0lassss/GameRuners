@@ -14,6 +14,7 @@ import com.nicholaschirkevich.game.entity.Car;
 import com.nicholaschirkevich.game.entity.CarsType;
 import com.nicholaschirkevich.game.entity.GearShift;
 import com.nicholaschirkevich.game.entity.VkUser;
+import com.nicholaschirkevich.game.enums.SideObjectType;
 import com.nicholaschirkevich.game.helper.XmlHelper;
 import com.nicholaschirkevich.game.menu.items.CarGarageItem;
 import com.nicholaschirkevich.game.model.AchiveView;
@@ -38,7 +39,12 @@ public class GameManager {
     private static ArrayList<GearShift> gearShifts = new ArrayList<GearShift>();
     private static ArrayList<CarsType> carsTypes = new ArrayList<CarsType>();
     private static HashMap<String, String> strings = new HashMap<String, String>();
-    private static HashMap<String,NewRoad> roads = new HashMap<String, NewRoad>();
+
+    public static HashMap<String, NewRoad> getRoads() {
+        return roads;
+    }
+
+    private static HashMap<String, NewRoad> roads = new HashMap<String, NewRoad>();
     private static Car currentCar = new Car();
     public static boolean pauseGame = false;
     private static Date lastFreeCarPrize;
@@ -324,24 +330,51 @@ public class GameManager {
         setUpRoadsHashMap();
     }
 
-    public static void setUpRoadsHashMap()
-    {
-        ArrayList<SideObject> sideObjectsRoad1ArrayList = new ArrayList<SideObject>();
-        sideObjectsRoad1ArrayList.add(new SideObject(AssetsManager.getTextureRegion(Constants.ROAD_1_BUSH_1_ID).getTexture()));
-        sideObjectsRoad1ArrayList.add(new SideObject(AssetsManager.getTextureRegion(Constants.ROAD_1_BUSH_2_ID).getTexture()));
-        sideObjectsRoad1ArrayList.add(new SideObject(AssetsManager.getTextureRegion(Constants.ROAD_1_LIGHTER_L_ID).getTexture()));
-        sideObjectsRoad1ArrayList.add(new SideObject(AssetsManager.getTextureRegion(Constants.ROAD_1_LIGHTER_R_ID).getTexture()));
-        sideObjectsRoad1ArrayList.add(new SideObject(AssetsManager.getTextureRegion(Constants.ROAD_1_TREE_1_ID).getTexture()));
+    public static void setUpRoadsHashMap() {
+        ArrayList<SideObjectType> sideObjectsRoad1ArrayListType = new ArrayList<SideObjectType>();
+        sideObjectsRoad1ArrayListType.add(SideObjectType.ROAD_1_BUSH_1_ID);
+        sideObjectsRoad1ArrayListType.add(SideObjectType.ROAD_1_BUSH_2_ID);
 
-      NewRoad road1 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_1_TILE_ID).getTexture());
-        road1.setSideObjectArrayList(sideObjectsRoad1ArrayList);
+        sideObjectsRoad1ArrayListType.add(SideObjectType.ROAD_1_TREE_1_ID);
+
+        ArrayList<SideObjectType> staticSideRightObjectsArrayList = new ArrayList<SideObjectType>();
+        SideObjectType sideObjectLighterLType =SideObjectType.ROAD_1_LIGHTER_L_ID;
+        sideObjectLighterLType.setDistance(300);
+        sideObjectLighterLType.setIsStaticObject(true);
+        sideObjectLighterLType.setIsLeft(true);
+        staticSideRightObjectsArrayList.add(sideObjectLighterLType);
+
+        ArrayList<SideObjectType> staticSideLeftObjectsArrayList = new ArrayList<SideObjectType>();
+        SideObjectType sideObjectLighterRType =SideObjectType.ROAD_1_LIGHTER_R_ID;
+        sideObjectLighterRType.setIsStaticObject(true);
+        sideObjectLighterRType.setDistance(300);
+        sideObjectLighterRType.setIsLeft(false);
+        staticSideLeftObjectsArrayList.add(sideObjectLighterRType);
+
+        NewRoad road1 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_1_TILE_ID).getTexture(), sideObjectsRoad1ArrayListType,staticSideRightObjectsArrayList,staticSideLeftObjectsArrayList);
+        roads.put("road1", road1);
+
+        ArrayList<SideObjectType> sideObjectsRoad2ArrayListType = new ArrayList<SideObjectType>();
+        sideObjectsRoad2ArrayListType.add(SideObjectType.ROAD_2_BOARD_ID);
+        sideObjectsRoad2ArrayListType.add(SideObjectType.ROAD_2_CACTUS_1_ID);
+        sideObjectsRoad2ArrayListType.add(SideObjectType.ROAD_2_CACTUS_2_ID);
+        sideObjectsRoad2ArrayListType.add(SideObjectType.ROAD_2_MAN_ID);
+        sideObjectsRoad2ArrayListType.add(SideObjectType.ROAD_2_STONE_ID);
+        sideObjectsRoad2ArrayListType.add(SideObjectType.ROAD_2_TIRES_ID);
+
+        ArrayList<SideObjectType> staticSide2RightObjectsArrayList = new ArrayList<SideObjectType>();
 
 
+        ArrayList<SideObjectType> staticSide2LeftObjectsArrayList = new ArrayList<SideObjectType>();
 
 
+        NewRoad road2 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_2_TILE__ID).getTexture(), sideObjectsRoad2ArrayListType,staticSide2RightObjectsArrayList,staticSide2LeftObjectsArrayList);
+        roads.put("road2", road2);
+        //road1.setSideObjectTypeArrayList(sideObjectsRoad1ArrayListType);
 
 
     }
+
     public static void resetSpeed() {
         gear = 0;
         isCollision = false;
