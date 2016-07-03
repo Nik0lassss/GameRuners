@@ -15,6 +15,7 @@ import com.nicholaschirkevich.game.entity.CarsType;
 import com.nicholaschirkevich.game.entity.GearShift;
 import com.nicholaschirkevich.game.entity.VkUser;
 import com.nicholaschirkevich.game.enums.SideObjectType;
+import com.nicholaschirkevich.game.enums.TraffictLighterEnum;
 import com.nicholaschirkevich.game.helper.XmlHelper;
 import com.nicholaschirkevich.game.menu.items.CarGarageItem;
 import com.nicholaschirkevich.game.model.AchiveView;
@@ -351,7 +352,7 @@ public class GameManager {
         sideObjectLighterRType.setIsLeft(false);
         staticSideLeftObjectsArrayList.add(sideObjectLighterRType);
 
-        NewRoad road1 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_1_TILE_ID).getTexture(), sideObjectsRoad1ArrayListType,staticSideRightObjectsArrayList,staticSideLeftObjectsArrayList);
+        NewRoad road1 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_1_TILE_ID).getTexture(), sideObjectsRoad1ArrayListType,staticSideRightObjectsArrayList,staticSideLeftObjectsArrayList, TraffictLighterEnum.TRAFFICT_LIGHTER_COUNTYSIDE);
         roads.put("road1", road1);
 
         ArrayList<SideObjectType> sideObjectsRoad2ArrayListType = new ArrayList<SideObjectType>();
@@ -368,8 +369,24 @@ public class GameManager {
         ArrayList<SideObjectType> staticSide2LeftObjectsArrayList = new ArrayList<SideObjectType>();
 
 
-        NewRoad road2 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_2_TILE__ID).getTexture(), sideObjectsRoad2ArrayListType,staticSide2RightObjectsArrayList,staticSide2LeftObjectsArrayList);
+        NewRoad road2 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_2_TILE__ID).getTexture(), sideObjectsRoad2ArrayListType,staticSide2RightObjectsArrayList,staticSide2LeftObjectsArrayList,TraffictLighterEnum.TRAFFICT_LIGHTER_BEACH);
         roads.put("road2", road2);
+        ArrayList<SideObjectType> sideObjectsRoad3ArrayListType = new ArrayList<SideObjectType>();
+        sideObjectsRoad3ArrayListType.add(SideObjectType.ROAD_3_SNOW_1_ID);
+        sideObjectsRoad3ArrayListType.add(SideObjectType.ROAD_3_SNOW_2_ID);
+        sideObjectsRoad3ArrayListType.add(SideObjectType.ROAD_3_SNOWMAN_ID);
+        sideObjectsRoad3ArrayListType.add(SideObjectType.ROAD_3_TREE_1_ID);
+        sideObjectsRoad3ArrayListType.add(SideObjectType.ROAD_3_TREE_2_ID);
+        sideObjectsRoad3ArrayListType.add(SideObjectType.ROAD_3_TREE_3_ID);
+
+        ArrayList<SideObjectType> staticSide3RightObjectsArrayList = new ArrayList<SideObjectType>();
+
+
+        ArrayList<SideObjectType> staticSide3LeftObjectsArrayList = new ArrayList<SideObjectType>();
+
+
+        NewRoad road3 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_3_TILE_ID).getTexture(), sideObjectsRoad3ArrayListType,staticSide3RightObjectsArrayList,staticSide3LeftObjectsArrayList,TraffictLighterEnum.TRAFFICT_LIGHTER_SNOWLAND);
+        roads.put("road3", road3);
         //road1.setSideObjectTypeArrayList(sideObjectsRoad1ArrayListType);
 
 

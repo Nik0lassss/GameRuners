@@ -350,6 +350,24 @@ public class AssetsManager {
         texturesMap.put(Constants.ROAD_2_MAN_ID,new TextureRegion(new Texture(Constants.ROAD_2_MAN_RESOURCE)));
         texturesMap.put(Constants.ROAD_2_STONE_ID,new TextureRegion(new Texture(Constants.ROAD_2_STONE_RESOURCE)));
         texturesMap.put(Constants.ROAD_2_TIRES_ID,new TextureRegion(new Texture(Constants.ROAD_2_TIRES_RESOURCE)));
+        texturesMap.put(Constants.ROAD_2_START_BANNER_ID,new TextureRegion(new Texture(Constants.ROAD_2_START_BANNER_RESOURCE)));
+        texturesMap.put(Constants.ROAD_2_START_LINE_ID,new TextureRegion(new Texture(Constants.ROAD_2_START_LINE_RESOURCE)));
+
+
+        texturesMap.put(Constants.ROAD_3_TILE_ID,new TextureRegion(new Texture(Constants.ROAD_3_TILE_RESOURCE)));
+        texturesMap.put(Constants.ROAD_3_SNOW_1_ID,new TextureRegion(new Texture(Constants.ROAD_3_SNOW_1_RESOURCE)));
+        texturesMap.put(Constants.ROAD_3_SNOW_2_ID,new TextureRegion(new Texture(Constants.ROAD_3_SNOW_2_RESOURCE)));
+        texturesMap.put(Constants.ROAD_3_SNOWMAN_ID,new TextureRegion(new Texture(Constants.ROAD_3_SNOWMAN_RESOURCE)));
+        texturesMap.put(Constants.ROAD_3_TREE_1_ID,new TextureRegion(new Texture(Constants.ROAD_3_TREE_1_RESOURCE)));
+        texturesMap.put(Constants.ROAD_3_TREE_2_ID,new TextureRegion(new Texture(Constants.ROAD_3_TREE_2_RESOURCE)));
+        texturesMap.put(Constants.ROAD_3_TREE_3_ID,new TextureRegion(new Texture(Constants.ROAD_3_TREE_3_RESOURCE)));
+        texturesMap.put(Constants.ROAD_3_START_LIGHTS_1_GREEN_ID,new TextureRegion(new Texture(Constants.ROAD_3_START_LIGHTS_1_GREEN_RESOURCE)));
+        texturesMap.put(Constants.ROAD_3_START_LIGHTS_2GREEN_GREEN_ID,new TextureRegion(new Texture(Constants.ROAD_3_START_LIGHTS_2GREEN_GREEN_RESOURCE)));
+        texturesMap.put(Constants.ROAD_3_START_LIGHTS_3GREEN_GREEN_ID,new TextureRegion(new Texture(Constants.ROAD_3_START_LIGHTS_3GREEN_RESOURCE)));
+        texturesMap.put(Constants.ROAD_3_START_LIGHTS_RED_GREEN_ID,new TextureRegion(new Texture(Constants.ROAD_3_START_LIGHTS_RED_RESOURCE)));
+        texturesMap.put(Constants.ROAD_3_START_LINE_ID,new TextureRegion(new Texture(Constants.ROAD_3_START_LINE_RESOURCE)));
+
+
 
 
 

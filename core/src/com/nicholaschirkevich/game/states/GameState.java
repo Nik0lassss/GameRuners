@@ -111,7 +111,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     private Label testCoinCount;
     private ImageButton imageButton;
     private Label labelAchives;
-    private TrafficLight trafficLight;
+
     ArrayList<PasserCar> passerCars;
    // ArrayList<Bushs> bushsArrayLeft, bushsArrayRight;
     //ArrayList<RoadLighter> roadLighters;
@@ -221,11 +221,12 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         GameManager.initial(world, stage);
         GameManager.resetSpeed();
         setUpCamera();
-        setUpTrafficLighter();
+        //setUpTrafficLighter();
         carsTypes = GameManager.getCarsTypes();
         setUpMyCar(isNeedTutorial);
         //road = new Road();
-        roadNew = GameManager.getRoads().get("road1");
+        roadNew = GameManager.getRoads().get("road3");
+        roadNew.setOnTrafficLightListener(this);
         effectBooster = new EffectBooster();
         effectMode = new EffectMode();
         passerCars = new ArrayList<PasserCar>();
@@ -296,10 +297,10 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         camera.update();
     }
 
-    public void setUpTrafficLighter() {
-        trafficLight = new TrafficLight(41, 350);
-        trafficLight.setOnTrafficLightListener(this);
-    }
+//    public void setUpTrafficLighter() {
+//        trafficLight = new TrafficLight(41, 350);
+//        trafficLight.setOnTrafficLightListener(this);
+//    }
 
 
     public void setUpCoins() {
@@ -694,7 +695,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     @Override
     public void update(float dt) {
         handleInput();
-        if (isStartTrafficLighter && isGameStart == false) trafficLight.update(dt);
+        if (isStartTrafficLighter && isGameStart == false) roadNew.updateTrafficLighter(dt);
         GameManager.setAchives(achives);
         GameManager.setDistance(distacne);
         ToastHelper.onAct(dt);
@@ -1125,7 +1126,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
             Prize.updatePrize(world, camera, coins, skulls, ladles, boosters, springboards, flySpringBoards, dirts, dt, PasserCar.getPosYLastCar(passerCars), PasserCar.getIsLeftLastCar(passerCars));
 
-            trafficLight.getPosition().set(41, trafficLight.getPosition().y + (-GameManager.getCurrentSpeed()) * dt);
+            roadNew.getTrafficLight().getPosition().set(41,  roadNew.getTrafficLight().getPosition().y + (-GameManager.getCurrentSpeed()) * dt);
 
             if (camera.position.y > 370) {
                 camera.position.add(0, (myCar.body.getPosition().y - 440) * dt, 0);
@@ -1581,7 +1582,6 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 //        for (Bushs bushs : bushsArrayRight) {
 //            sb.draw(bushs.getBushTexture(), bushs.getPosition().x, bushs.getPosition().y);
 //        }
-        sb.draw(trafficLight.getTexture(), trafficLight.getPosition().x, trafficLight.getPosition().y);
 
 //        for (RoadLighter roadLighter : roadLighters) {
 //            sb.draw(roadLighter.getRoadLighterTexture(), roadLighter.getPosition().x, roadLighter.getPosition().y);

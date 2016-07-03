@@ -349,6 +349,10 @@ public class Constants {
     public static final String BOOSTER_ID = "booster";
     public static final String BOOSTER_RESOURCE = "booster.png";
 
+    public static final String ROAD_1_START_LIGHTER = "road_1_traffic_lighter";
+    public static final String ROAD_2_START_LIGHTER = "road_2_traffic_lighter";
+    public static final String ROAD_3_START_LIGHTER = "road_3_traffic_lighter";
+
     public static final String START_LIGHT_1_ID = "start_lights_1green";
     public static final String START_LIGHT_1_RESOURCE = "start_lights_1green.png";
 
@@ -544,8 +548,17 @@ public class Constants {
     public static final String ROAD_2_STONE_RESOURCE = "road_2_stone.png";
     public static final String ROAD_2_STONE_ID = "road_2_stone";
 
-    public static final String ROAD_2_TIRES_RESOURCE = "road_2_tires.png";
     public static final String ROAD_2_TIRES_ID = "road_2_tires";
+    public static final String ROAD_2_TIRES_RESOURCE = "road_2_tires.png";
+
+
+
+
+    public static final String ROAD_2_START_BANNER_RESOURCE = "road_2_start_banner.png";
+    public static final String ROAD_2_START_BANNER_ID = "road_2_start_banner";
+
+    public static final String ROAD_2_START_LINE_RESOURCE = "road_2_start_line.png";
+    public static final String ROAD_2_START_LINE_ID = "road_2_start_line";
 
     //road_3
 
@@ -572,6 +585,24 @@ public class Constants {
 
     public static final String ROAD_3_TREE_3_RESOURCE = "road_3_tree_3.png";
     public static final String ROAD_3_TREE_3_ID = "road_3_tree_3";
+
+    public static final String ROAD_3_START_LIGHTS_1_GREEN_RESOURCE = "road_3_start_lights_1green.png";
+    public static final String ROAD_3_START_LIGHTS_1_GREEN_ID = "road_3_start_lights_1green";
+
+    public static final String ROAD_3_START_LIGHTS_2GREEN_GREEN_RESOURCE = "road_3_start_lights_2green.png";
+    public static final String ROAD_3_START_LIGHTS_2GREEN_GREEN_ID = "road_3_start_lights_2green";
+
+    public static final String ROAD_3_START_LIGHTS_3GREEN_RESOURCE = "road_3_start_lights_3green.png";
+    public static final String ROAD_3_START_LIGHTS_3GREEN_GREEN_ID = "road_3_start_lights_3green";
+
+    public static final String ROAD_3_START_LIGHTS_RED_RESOURCE = "road_3_start_lights_red.png";
+    public static final String ROAD_3_START_LIGHTS_RED_GREEN_ID = "road_3_start_lights_red";
+
+    public static final String ROAD_3_START_LINE_RESOURCE = "road_3_start_line.png";
+    public static final String ROAD_3_START_LINE_ID = "road_3_start_line";
+
+
+
 
 
 

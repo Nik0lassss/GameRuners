@@ -4,7 +4,10 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.nicholaschirkevich.game.enums.SideObjectType;
+import com.nicholaschirkevich.game.enums.TraffictLighterEnum;
+import com.nicholaschirkevich.game.interfaces.OnTrafficLightListener;
 import com.nicholaschirkevich.game.util.GameManager;
 import com.nicholaschirkevich.game.util.RandomUtil;
 
@@ -24,11 +27,25 @@ public class NewRoad {
     private ArrayList<SideObject> staticLeftSideObjectArrayList = new ArrayList<SideObject>();
     private Texture roadTexture;
     private Vector2 posRoad1, posRoad2;
-
+    private TrafficLight trafficLight;
     private static int posX = -15;
+    private Vector3 posStartLine;
 
 
-    public NewRoad(Texture roadTexture, ArrayList<SideObjectType> sideObjectTypeArrayList, ArrayList<SideObjectType> staticSideRightObjectTypeArrayList, ArrayList<SideObjectType> staticSideLeftObjectTypeArrayList) {
+
+    public void setOnTrafficLightListener(OnTrafficLightListener onTrafficLightListener) {
+        trafficLight.setOnTrafficLightListener(onTrafficLightListener);
+    }
+
+    private OnTrafficLightListener onTrafficLightListener;
+
+    public TrafficLight getTrafficLight() {
+        return trafficLight;
+    }
+
+
+
+    public NewRoad(Texture roadTexture, ArrayList<SideObjectType> sideObjectTypeArrayList, ArrayList<SideObjectType> staticSideRightObjectTypeArrayList, ArrayList<SideObjectType> staticSideLeftObjectTypeArrayList,TraffictLighterEnum traffictLighterEnum) {
 
         this.roadTexture = roadTexture;
         posRoad1 = new Vector2(posX, -300);
@@ -36,6 +53,8 @@ public class NewRoad {
         this.sideObjectTypeArrayList.addAll(sideObjectTypeArrayList);
         this.staticSideRightObjectTypeArrayList = staticSideRightObjectTypeArrayList;
         this.staticSideLeftObjectTypeArrayList = staticSideLeftObjectTypeArrayList;
+        trafficLight = new TrafficLight(41, 350, traffictLighterEnum);
+        posStartLine = trafficLight.getTraffictLighterEnum().getPosition().cpy();
 
     }
 
@@ -59,6 +78,7 @@ public class NewRoad {
     public void draw(SpriteBatch sb) {
         sb.draw(roadTexture, posRoad1.x, posRoad1.y);
         sb.draw(roadTexture, posRoad2.x, posRoad2.y);
+        sb.draw(trafficLight.getTraffictLighterEnum().getStart_line(), posStartLine.x, posStartLine.y);
 
 
     }
@@ -73,6 +93,8 @@ public class NewRoad {
         for (SideObject sideObject : staticLeftSideObjectArrayList) {
             sideObject.draw(sb);
         }
+        sb.draw(trafficLight.getTexture(), trafficLight.getPosition().x, trafficLight.getPosition().y);
+
     }
 
     public void update(Camera camera, float dt) {
@@ -157,7 +179,16 @@ public class NewRoad {
             sideObjectArrayList.get(i).update(camera, dt);
         }
 
+        posStartLine.add(0, (-GameManager.getCurrentSpeed()) * dt, 0);
 
+        ///////////teaffict lighter
+
+
+    }
+
+    public void updateTrafficLighter(float dt)
+    {
+        trafficLight.update(dt);
     }
 
     public Texture getRoadTexture() {
