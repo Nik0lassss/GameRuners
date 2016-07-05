@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.enums.SideObjectType;
 import com.nicholaschirkevich.game.enums.TraffictLighterEnum;
 import com.nicholaschirkevich.game.interfaces.OnTrafficLightListener;
@@ -19,8 +20,10 @@ import java.util.ArrayList;
 public class NewRoad {
 
     private String id;
-    private ArrayList<SideObjectType> sideObjectTypeArrayList = new ArrayList<SideObjectType>();
-    private ArrayList<SideObject> sideObjectArrayList = new ArrayList<SideObject>();
+    private ArrayList<SideObjectType> sideObjectRightTypeArrayList = new ArrayList<SideObjectType>();
+    private ArrayList<SideObjectType> sideObjectLeftTypeArrayList = new ArrayList<SideObjectType>();
+    private ArrayList<SideObject> sideObjectRightArrayList = new ArrayList<SideObject>();
+    private ArrayList<SideObject> sideObjectLeftArrayList = new ArrayList<SideObject>();
     private ArrayList<SideObjectType> staticSideRightObjectTypeArrayList = new ArrayList<SideObjectType>();
     private ArrayList<SideObjectType> staticSideLeftObjectTypeArrayList = new ArrayList<SideObjectType>();
     private ArrayList<SideObject> staticRightSideObjectArrayList = new ArrayList<SideObject>();
@@ -29,8 +32,7 @@ public class NewRoad {
     private Vector2 posRoad1, posRoad2;
     private TrafficLight trafficLight;
     private static int posX = -15;
-    private Vector3 posStartLine;
-
+    private Vector3 posStartLine, trafficLighterPosition;
 
 
     public void setOnTrafficLightListener(OnTrafficLightListener onTrafficLightListener) {
@@ -44,17 +46,18 @@ public class NewRoad {
     }
 
 
-
-    public NewRoad(Texture roadTexture, ArrayList<SideObjectType> sideObjectTypeArrayList, ArrayList<SideObjectType> staticSideRightObjectTypeArrayList, ArrayList<SideObjectType> staticSideLeftObjectTypeArrayList,TraffictLighterEnum traffictLighterEnum) {
+    public NewRoad(Texture roadTexture, ArrayList<SideObjectType> sideObjectRightTypeArrayList,ArrayList<SideObjectType> sideObjectLeftTypeArrayList, ArrayList<SideObjectType> staticSideRightObjectTypeArrayList, ArrayList<SideObjectType> staticSideLeftObjectTypeArrayList, TraffictLighterEnum traffictLighterEnum) {
 
         this.roadTexture = roadTexture;
         posRoad1 = new Vector2(posX, -300);
         posRoad2 = new Vector2(posX, roadTexture.getHeight() - 300);
-        this.sideObjectTypeArrayList.addAll(sideObjectTypeArrayList);
+        this.sideObjectRightTypeArrayList.addAll(sideObjectRightTypeArrayList);
+        this.sideObjectLeftTypeArrayList.addAll(sideObjectLeftTypeArrayList);
         this.staticSideRightObjectTypeArrayList = staticSideRightObjectTypeArrayList;
         this.staticSideLeftObjectTypeArrayList = staticSideLeftObjectTypeArrayList;
         trafficLight = new TrafficLight(41, 350, traffictLighterEnum);
-        posStartLine = trafficLight.getTraffictLighterEnum().getPosition().cpy();
+        posStartLine = trafficLight.getTraffictLighterEnum().getPositionStartLine().cpy();
+        trafficLighterPosition = trafficLight.getTraffictLighterEnum().getPosition().cpy();
 
     }
 
@@ -67,12 +70,12 @@ public class NewRoad {
         this.id = id;
     }
 
-    public ArrayList<SideObject> getSideObjectArrayList() {
-        return sideObjectArrayList;
+    public ArrayList<SideObject> getSideObjectRightArrayList() {
+        return sideObjectRightArrayList;
     }
 
-    public void setSideObjectArrayList(ArrayList<SideObject> sideObjectArrayList) {
-        this.sideObjectArrayList = sideObjectArrayList;
+    public void setSideObjectRightArrayList(ArrayList<SideObject> sideObjectRightArrayList) {
+        this.sideObjectRightArrayList = sideObjectRightArrayList;
     }
 
     public void draw(SpriteBatch sb) {
@@ -84,16 +87,35 @@ public class NewRoad {
     }
 
     public void drawStaticObject(SpriteBatch sb) {
-        for (SideObject sideObject : sideObjectArrayList) {
-            sideObject.draw(sb);
+
+
+        for(int i = staticRightSideObjectArrayList.size()-1;i>=0;i--)
+        {
+            staticRightSideObjectArrayList.get(i).draw(sb);
         }
-        for (SideObject sideObject : staticRightSideObjectArrayList) {
-            sideObject.draw(sb);
+
+        for(int i = staticLeftSideObjectArrayList.size()-1;i>=0;i--)
+        {
+            staticLeftSideObjectArrayList.get(i).draw(sb);
         }
-        for (SideObject sideObject : staticLeftSideObjectArrayList) {
-            sideObject.draw(sb);
+        for(int i = sideObjectRightArrayList.size()-1;i>=0;i--)
+        {
+            sideObjectRightArrayList.get(i).draw(sb);
         }
-        sb.draw(trafficLight.getTexture(), trafficLight.getPosition().x, trafficLight.getPosition().y);
+        for(int i = sideObjectLeftArrayList.size()-1;i>=0;i--)
+        {
+            sideObjectLeftArrayList.get(i).draw(sb);
+        }
+//        for (SideObject sideObject : sideObjectRightArrayList) {
+//            sideObject.draw(sb);
+//        }
+//        for (SideObject sideObject : staticRightSideObjectArrayList) {
+//            sideObject.draw(sb);
+//        }
+//        for (SideObject sideObject : staticLeftSideObjectArrayList) {
+//            sideObject.draw(sb);
+//        }
+        sb.draw(trafficLight.getTexture(), trafficLighterPosition.x, trafficLighterPosition.y);
 
     }
 
@@ -123,22 +145,30 @@ public class NewRoad {
 
             }
         } else {
+            ArrayList<SideObject> sideleftobjects = new ArrayList<SideObject>();
+            for (int i = staticLeftSideObjectArrayList.size() - 1; i >= 0; i--) {
+                if (!sideleftobjects.contains(staticLeftSideObjectArrayList.get(i))) {
+                    sideleftobjects.add(staticLeftSideObjectArrayList.get(i));
+                }
+            }
+            for (SideObject sideObjectLastLeft : sideleftobjects) {
+                //SideObject sideObjectLast = staticLeftSideObjectArrayList.get(staticLeftSideObjectArrayList.size() - 1);
+                if (camera.viewportHeight - sideObjectLastLeft.getPosition().y > sideObjectLastLeft.getDistance()) {
+                    SideObject sideObjectLeft = new SideObject(sideObjectLastLeft.getType(), sideObjectLastLeft.isLeft());
+                    sideObjectLeft.setIsLeft(true);
+                    sideObjectLeft.setDistance(sideObjectLastLeft.getDistance());
 
-            SideObject sideObjectLast = staticLeftSideObjectArrayList.get(staticLeftSideObjectArrayList.size() - 1);
-            if (camera.viewportHeight - sideObjectLast.getPosition().y > sideObjectLast.getDistance()) {
-                SideObject sideObjectLeft = new SideObject(sideObjectLast.getType(), sideObjectLast.isLeft());
-                sideObjectLeft.setIsLeft(true);
-                sideObjectLeft.setDistance(sideObjectLast.getDistance());
-                staticLeftSideObjectArrayList.add(sideObjectLeft);
+                    staticLeftSideObjectArrayList.add(sideObjectLeft);
+                }
             }
             for (int i = 0; i < staticLeftSideObjectArrayList.size(); i++) {
-                if (staticLeftSideObjectArrayList.get(i).getPosition().y < -20) {
+                if (staticLeftSideObjectArrayList.get(i).getPosition().y < -2000) {
                     staticLeftSideObjectArrayList.remove(i);
                 }
                 staticLeftSideObjectArrayList.get(i).update(camera, dt);
             }
-        }
 
+        }
         if (staticRightSideObjectArrayList.isEmpty()) {
             for (SideObjectType sideObject : staticSideRightObjectTypeArrayList) {
 
@@ -151,43 +181,72 @@ public class NewRoad {
             }
         } else {
 
-            SideObject sideObjectLast = staticRightSideObjectArrayList.get(staticRightSideObjectArrayList.size() - 1);
-            if (camera.viewportHeight - sideObjectLast.getPosition().y > sideObjectLast.getDistance()) {
-                SideObject sideObjectLeft = new SideObject(sideObjectLast.getType(), sideObjectLast.isLeft());
-                sideObjectLeft.setIsLeft(true);
-                sideObjectLeft.setDistance(sideObjectLast.getDistance());
-                staticRightSideObjectArrayList.add(sideObjectLeft);
+            ArrayList<SideObject> siderightobjects = new ArrayList<SideObject>();
+            for (int i = staticRightSideObjectArrayList.size() - 1; i >= 0; i--) {
+                if (!siderightobjects.contains(staticRightSideObjectArrayList.get(i))) {
+                    siderightobjects.add(staticRightSideObjectArrayList.get(i));
+                }
+            }
+
+            for (SideObject sideObject : siderightobjects) {
+                if (camera.viewportHeight - sideObject.getPosition().y > sideObject.getDistance()) {
+                    SideObject sideObjectLeft = new SideObject(sideObject.getType(), sideObject.isLeft());
+                    sideObjectLeft.setIsLeft(true);
+                    sideObjectLeft.setDistance(sideObject.getDistance());
+                    staticRightSideObjectArrayList.add(sideObjectLeft);
+                }
             }
             for (int i = 0; i < staticRightSideObjectArrayList.size(); i++) {
-                if (staticRightSideObjectArrayList.get(i).getPosition().y < -20) {
+                if (staticRightSideObjectArrayList.get(i).getPosition().y < -2000) {
                     staticRightSideObjectArrayList.remove(i);
                 }
                 staticRightSideObjectArrayList.get(i).update(camera, dt);
             }
         }
 
-        if (sideObjectArrayList.isEmpty()) {
-            sideObjectArrayList.add(new SideObject(sideObjectTypeArrayList.get(RandomUtil.getRand(0, sideObjectTypeArrayList.size() - 1))));
-        } else if (camera.viewportHeight - sideObjectArrayList.get(sideObjectArrayList.size() - 1).getPosition().y > 10) {
-            sideObjectArrayList.add(new SideObject(sideObjectTypeArrayList.get(RandomUtil.getRand(0, sideObjectTypeArrayList.size() - 1))));
-        }
-        for (int i = 0; i < sideObjectArrayList.size(); i++) {
 
-            if (sideObjectArrayList.get(i).getPosition().y < -20) {
-                sideObjectArrayList.remove(i);
-            }
-            sideObjectArrayList.get(i).update(camera, dt);
+        if (sideObjectLeftArrayList.isEmpty()) {
+            //SideObject sideObject = new SideObject(sideObjectLeftTypeArrayList.get(RandomUtil.getRand(0, sideObjectLeftTypeArrayList.size() - 1)),true);
+            sideObjectLeftArrayList.add(new SideObject(sideObjectLeftTypeArrayList.get(RandomUtil.getRand(0, sideObjectLeftTypeArrayList.size() - 1)),true));
+        } else if (GameRuners.HEIGHT - sideObjectLeftArrayList.get(sideObjectLeftArrayList.size() - 1).getPosition().y +sideObjectLeftArrayList.get(sideObjectLeftArrayList.size() - 1).getHeight()> 20) {
+         // SideObject sideObject = new SideObject(sideObjectLeftTypeArrayList.get(RandomUtil.getRand(0, sideObjectLeftTypeArrayList.size() - 1)),true);
+            sideObjectLeftArrayList.add(new SideObject(sideObjectLeftTypeArrayList.get(RandomUtil.getRand(0, sideObjectLeftTypeArrayList.size() - 1)),sideObjectLeftArrayList.get(sideObjectLeftArrayList.size() - 1).getPosition().y+sideObjectLeftArrayList.get(sideObjectLeftArrayList.size() - 1).getHeight()));
         }
+        for (int i = 0; i < sideObjectLeftArrayList.size(); i++) {
+
+            if (sideObjectLeftArrayList.get(i).getPosition().y < -200) {
+                sideObjectLeftArrayList.remove(i);
+            }
+            sideObjectLeftArrayList.get(i).update(camera, dt);
+        }
+
+
+        if (sideObjectRightArrayList.isEmpty()) {
+            //SideObject sideObject = new SideObject(sideObjectLeftTypeArrayList.get(RandomUtil.getRand(0, sideObjectLeftTypeArrayList.size() - 1)),true);
+            sideObjectRightArrayList.add(new SideObject(sideObjectRightTypeArrayList.get(RandomUtil.getRand(0, sideObjectRightTypeArrayList.size() - 1)),true));
+        } else if (GameRuners.HEIGHT - sideObjectRightArrayList.get(sideObjectRightArrayList.size() - 1).getPosition().y +sideObjectRightArrayList.get(sideObjectRightArrayList.size() - 1).getHeight()> 20) {
+            // SideObject sideObject = new SideObject(sideObjectLeftTypeArrayList.get(RandomUtil.getRand(0, sideObjectLeftTypeArrayList.size() - 1)),true);
+            sideObjectRightArrayList.add(new SideObject(sideObjectRightTypeArrayList.get(RandomUtil.getRand(0, sideObjectRightTypeArrayList.size() - 1)),sideObjectRightArrayList.get(sideObjectRightArrayList.size() - 1).getPosition().y+sideObjectRightArrayList.get(sideObjectRightArrayList.size() - 1).getHeight()));
+        }
+        for (int i = 0; i < sideObjectRightArrayList.size(); i++) {
+
+            if (sideObjectRightArrayList.get(i).getPosition().y < -200) {
+                sideObjectRightArrayList.remove(i);
+            }
+            sideObjectRightArrayList.get(i).update(camera, dt);
+        }
+
+//
 
         posStartLine.add(0, (-GameManager.getCurrentSpeed()) * dt, 0);
+        trafficLighterPosition.add(0, (-GameManager.getCurrentSpeed()) * dt, 0);
 
         ///////////teaffict lighter
 
 
     }
 
-    public void updateTrafficLighter(float dt)
-    {
+    public void updateTrafficLighter(float dt) {
         trafficLight.update(dt);
     }
 
@@ -225,11 +284,6 @@ public class NewRoad {
         NewRoad.posX = posX;
     }
 
-    public ArrayList<SideObjectType> getSideObjectTypeArrayList() {
-        return sideObjectTypeArrayList;
-    }
 
-    public void setSideObjectTypeArrayList(ArrayList<SideObjectType> sideObjectTypeArrayList) {
-        this.sideObjectTypeArrayList = sideObjectTypeArrayList;
-    }
+
 }

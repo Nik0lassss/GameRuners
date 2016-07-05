@@ -352,6 +352,8 @@ public class Constants {
     public static final String ROAD_1_START_LIGHTER = "road_1_traffic_lighter";
     public static final String ROAD_2_START_LIGHTER = "road_2_traffic_lighter";
     public static final String ROAD_3_START_LIGHTER = "road_3_traffic_lighter";
+    public static final String ROAD_5_START_LIGHTER = "road_5_traffic_lighter";
+    public static final String ROAD_7_START_LIGHTER = "road_7_traffic_lighter";
 
     public static final String START_LIGHT_1_ID = "start_lights_1green";
     public static final String START_LIGHT_1_RESOURCE = "start_lights_1green.png";
@@ -600,6 +602,68 @@ public class Constants {
 
     public static final String ROAD_3_START_LINE_RESOURCE = "road_3_start_line.png";
     public static final String ROAD_3_START_LINE_ID = "road_3_start_line";
+
+    //road5
+
+
+
+    public static final String ROAD_5_TILE_RESOURCE = "road_5.png";
+    public static final String ROAD_5_TILE_ID = "road_5";
+
+    public static final String ROAD_5_LIFEBUOY_RESOURCE = "road_5_crab.png";
+    public static final String ROAD_5_LIFEBUOY_ID = "road_5_crab";
+
+    public static final String ROAD_5_PALM_RESOURCE = "road_5_palm.png";
+    public static final String ROAD_5_PALM_ID = "road_5_palm";
+
+    public static final String ROAD_5_SHELL_RESOURCE = "road_5_shell.png";
+    public static final String ROAD_5_SHELL_ID = "road_5_shell";
+
+    public static final String ROAD_5_START_BANNER_RESOURCE = "road_5_start_banner.png";
+    public static final String ROAD_5_START_BANNER_ID = "road_5_start_banner";
+
+    public static final String ROAD_5_START_LINE_RESOURCE = "road_5_start_line.png";
+    public static final String ROAD_5_START_LINE_ID = "road_5_start_line";
+
+
+    //roads7
+
+
+    public static final String ROAD_7_TILE_RESOURCE = "road_7.png";
+    public static final String ROAD_7_TILE_ID = "road_7";
+
+    public static final String ROAD_7_BANNER_LEFT_RESOURCE = "road_7_banner_left.png";
+    public static final String ROAD_7_BANNER_LEFT_ID = "road_7_banner_left";
+
+    public static final String ROAD_7_BANNER_RIGHT_RESOURCE = "road_7_banner_right.png";
+    public static final String ROAD_7_BANNER_RIGHT_ID = "road_7_banner_right";
+
+    public static final String ROAD_7_BENCH_LEFT_RESOURCE = "road_7_bench_left.png";
+    public static final String ROAD_7_BENCH_LEFT_ID = "road_7_bench_left";
+
+    public static final String ROAD_7_BENCH_RIGHT_RESOURCE = "road_7_bench_right.png";
+    public static final String ROAD_7_BENCH_RIGHT_ID = "road_7_bench_right";
+
+
+    public static final String ROAD_7_HOUSE_LEFT_RESOURCE = "road_7_house_left.png";
+    public static final String ROAD_7_HOUSE_LEFT_ID = "road_7_house_left";
+
+
+    public static final String ROAD_7_HOUSE_RIGHT_RESOURCE = "road_7_house_right.png";
+    public static final String ROAD_7_HOUSE_RIGHT_ID = "road_7_house_right";
+
+    public static final String ROAD_7_LAMP_LEFT_RESOURCE = "road_7_lamp_left.png";
+    public static final String ROAD_7_LAMP_LEFT_ID = "road_7_lamp_left";
+
+    public static final String ROAD_7_LAMP_RIGHT_RESOURCE = "road_7_lamp_right.png";
+    public static final String ROAD_7_LAMP_RIGHT_ID = "road_7_lamp_right";
+
+    public static final String ROAD_7_LANTERNS_RESOURCE = "road_7_lanterns.png";
+    public static final String ROAD_7_LANTERNS_ID = "road_7_lanterns";
+
+    public static final String ROAD_7_START_GATE_RESOURCE = "road_7_start_gate.png";
+    public static final String ROAD_7_START_GATE_ID = "road_7_start_gate";
+
 
 
 

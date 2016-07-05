@@ -367,6 +367,26 @@ public class AssetsManager {
         texturesMap.put(Constants.ROAD_3_START_LIGHTS_RED_GREEN_ID,new TextureRegion(new Texture(Constants.ROAD_3_START_LIGHTS_RED_RESOURCE)));
         texturesMap.put(Constants.ROAD_3_START_LINE_ID,new TextureRegion(new Texture(Constants.ROAD_3_START_LINE_RESOURCE)));
 
+        texturesMap.put(Constants.ROAD_5_TILE_ID,new TextureRegion(new Texture(Constants.ROAD_5_TILE_RESOURCE)));
+        texturesMap.put(Constants.ROAD_5_LIFEBUOY_ID,new TextureRegion(new Texture(Constants.ROAD_5_LIFEBUOY_RESOURCE)));
+        texturesMap.put(Constants.ROAD_5_PALM_ID,new TextureRegion(new Texture(Constants.ROAD_5_PALM_RESOURCE)));
+        texturesMap.put(Constants.ROAD_5_SHELL_ID,new TextureRegion(new Texture(Constants.ROAD_5_SHELL_RESOURCE)));
+        texturesMap.put(Constants.ROAD_5_START_BANNER_ID,new TextureRegion(new Texture(Constants.ROAD_5_START_BANNER_RESOURCE)));
+        texturesMap.put(Constants.ROAD_5_START_LINE_ID,new TextureRegion(new Texture(Constants.ROAD_5_START_LINE_RESOURCE)));
+
+
+        texturesMap.put(Constants.ROAD_7_TILE_ID,new TextureRegion(new Texture(Constants.ROAD_7_TILE_RESOURCE)));
+        texturesMap.put(Constants.ROAD_7_BANNER_LEFT_ID,new TextureRegion(new Texture(Constants.ROAD_7_BANNER_LEFT_RESOURCE)));
+        texturesMap.put(Constants.ROAD_7_BANNER_RIGHT_ID,new TextureRegion(new Texture(Constants.ROAD_7_BANNER_RIGHT_RESOURCE)));
+        texturesMap.put(Constants.ROAD_7_BENCH_LEFT_ID,new TextureRegion(new Texture(Constants.ROAD_7_BENCH_LEFT_RESOURCE)));
+        texturesMap.put(Constants.ROAD_7_BENCH_RIGHT_ID,new TextureRegion(new Texture(Constants.ROAD_7_BENCH_RIGHT_RESOURCE)));
+        texturesMap.put(Constants.ROAD_7_HOUSE_LEFT_ID,new TextureRegion(new Texture(Constants.ROAD_7_HOUSE_LEFT_RESOURCE)));
+        texturesMap.put(Constants.ROAD_7_HOUSE_RIGHT_ID,new TextureRegion(new Texture(Constants.ROAD_7_HOUSE_RIGHT_RESOURCE)));
+        texturesMap.put(Constants.ROAD_7_LAMP_LEFT_ID,new TextureRegion(new Texture(Constants.ROAD_7_LAMP_LEFT_RESOURCE)));
+        texturesMap.put(Constants.ROAD_7_LAMP_RIGHT_ID,new TextureRegion(new Texture(Constants.ROAD_7_LAMP_RIGHT_RESOURCE)));
+        texturesMap.put(Constants.ROAD_7_LANTERNS_ID,new TextureRegion(new Texture(Constants.ROAD_7_LANTERNS_RESOURCE)));
+        texturesMap.put(Constants.ROAD_7_START_GATE_ID,new TextureRegion(new Texture(Constants.ROAD_7_START_GATE_RESOURCE)));
+
 
 
 

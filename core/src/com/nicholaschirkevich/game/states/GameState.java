@@ -225,7 +225,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         carsTypes = GameManager.getCarsTypes();
         setUpMyCar(isNeedTutorial);
         //road = new Road();
-        roadNew = GameManager.getRoads().get("road3");
+        roadNew = GameManager.getRoads().get("road7");
         roadNew.setOnTrafficLightListener(this);
         effectBooster = new EffectBooster();
         effectMode = new EffectMode();

@@ -2,6 +2,10 @@ package com.nicholaschirkevich.game.enums;
 
 import com.badlogic.gdx.math.Vector3;
 import com.nicholaschirkevich.game.util.Constants;
+import com.nicholaschirkevich.game.util.RandomUtil;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by Nikolas on 03.07.2016.
@@ -26,13 +30,54 @@ public enum SideObjectType {
     ROAD_3_SNOWMAN_ID(Constants.ROAD_3_SNOWMAN_ID, 10, 10, new Vector3(20, 800, 0), new Vector3(20, 800, 0)),
     ROAD_3_TREE_1_ID(Constants.ROAD_3_TREE_1_ID, 10, 10, new Vector3(20, 800, 0), new Vector3(20, 800, 0)),
     ROAD_3_TREE_2_ID(Constants.ROAD_3_TREE_2_ID, 10, 10, new Vector3(20, 800, 0), new Vector3(20, 800, 0)),
-    ROAD_3_TREE_3_ID(Constants.ROAD_3_TREE_3_ID, 10, 10, new Vector3(20, 800, 0), new Vector3(20, 800, 0)),;
+    ROAD_3_TREE_3_ID(Constants.ROAD_3_TREE_3_ID, 10, 10, new Vector3(20, 800, 0), new Vector3(20, 800, 0)),
+    ROAD_5_LIFEBUOY_ID(Constants.ROAD_5_LIFEBUOY_ID, 10, 10, new Vector3(20, 800, 0), new Vector3(20, 800, 0)),
+    ROAD_5_PALM_ID(Constants.ROAD_5_PALM_ID, 10, 10, new Vector3(20, 800, 0), new Vector3(20, 800, 0)),
+    ROAD_5_SHELL_ID(Constants.ROAD_5_SHELL_ID, 10, 10, new Vector3(20, 800, 0), new Vector3(20, 800, 0)),
+
+
+    ROAD_7_BANNER_LEFT_ID(Constants.ROAD_7_BANNER_LEFT_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0)),
+    ROAD_7_BANNER_RIGHT_ID(Constants.ROAD_7_BANNER_RIGHT_ID, 10, 10, new Vector3(270, 1200, 0), new Vector3(270, 1200, 0)),
+    ROAD_7_BENCH_LEFT_ID(Constants.ROAD_7_BENCH_LEFT_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 800, 0)),
+    ROAD_7_BENCH_RIGHT_ID(Constants.ROAD_7_BENCH_RIGHT_ID, 10, 10, new Vector3(270, 1200, 0), new Vector3(270, 1200, 0)),
+    ROAD_7_HOUSE_LEFT_ID(Constants.ROAD_7_HOUSE_LEFT_ID, 10, 10, new Vector3(-160, 1200, 0), new Vector3(-160, 1200, 0)),
+    ROAD_7_HOUSE_RIGHT_ID(Constants.ROAD_7_HOUSE_RIGHT_ID, 10, 10, new Vector3(280, 1200, 0), new Vector3(280, 1200, 0)),
+    ROAD_7_LANTERNS_ID(Constants.ROAD_7_LANTERNS_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0)),
+    ROAD_7_LAMP_LEFT_ID(Constants.ROAD_7_LAMP_LEFT_ID, 0,0, new Vector3(40, 1200, 0), new Vector3(40, 1200, 0)),
+    ROAD_7_LAMP_RIGHT_ID(Constants.ROAD_7_LAMP_RIGHT_ID, 0, 0, new Vector3(240, 1200, 0), new Vector3(240, 1200, 0)),
+    ROAD_7_BANNER_LEFT_FOR_APPEND_1_ID(Constants.ROAD_7_BANNER_LEFT_ID, 0, 0,-20,20),
+    ROAD_7_BENCH_BANNER_LEFT(Constants.ROAD_7_BENCH_LEFT_ID,5,5, new Vector3(30, 1200, 0), new Vector3(20, 1200, 0),new ArrayList<SideObjectType>(Arrays.asList(SideObjectType.ROAD_7_BANNER_LEFT_FOR_APPEND_1_ID))),
+    ROAD_7_BANNER_RIGHT_FOR_APPEND_1_ID(Constants.ROAD_7_BANNER_LEFT_ID, 0, 0,-20,20),
+    ROAD_7_BENCH_BANNER_RIGHT(Constants.ROAD_7_BENCH_LEFT_ID,5,5, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),new ArrayList<SideObjectType>(Arrays.asList(SideObjectType.ROAD_7_BANNER_LEFT_FOR_APPEND_1_ID)));
+
+
 
     private String key;
     private int deltaX, deltaY;
     private Vector3 posLeft, posRight;
     private boolean isStaticObject;
     private int distance;
+
+    public float getAppendX() {
+        return appendX;
+    }
+
+    public void setAppendX(float appendX) {
+        this.appendX = appendX;
+    }
+
+    public float getAppendY() {
+        return appendY;
+    }
+
+    public void setAppendY(float appendY) {
+        this.appendY = appendY;
+    }
+
+    private float appendX,appendY;
+
+
+    private ArrayList<SideObjectType> appendSideTypeObject = new ArrayList<SideObjectType>();
 
     public boolean isLeft() {
         return isLeft;
@@ -59,16 +104,35 @@ public enum SideObjectType {
     public void setIsStaticObject(boolean isStaticObject) {
         this.isStaticObject = isStaticObject;
     }
+    SideObjectType(String key, int deltaX, int deltaY,float appendX, float appendY) {
+        this.key = key;
+        this.deltaX = deltaX;
+        this.deltaY = deltaY;
+        this.appendX = appendX;
+        this.appendY = appendY;
 
+    }
 
     SideObjectType(String key, int deltaX, int deltaY, Vector3 posLeft, Vector3 posRight) {
         this.key = key;
         this.deltaX = deltaX;
         this.deltaY = deltaY;
-        this.posLeft = posLeft;
-        this.posRight = posRight;
+        this.posLeft = new Vector3(posLeft.x+RandomUtil.getRand(0,deltaX),posLeft.y+RandomUtil.getRand(0,deltaY),0);
+        this.posRight = new Vector3(posRight.x+RandomUtil.getRand(0,deltaX),posRight.y+RandomUtil.getRand(0,deltaY),0);
     }
-
+    SideObjectType(String key, int deltaX, int deltaY, Vector3 posLeft, Vector3 posRight,ArrayList<SideObjectType> appendSideTypeObjectArray) {
+        this.key = key;
+        this.deltaX = deltaX;
+        this.deltaY = deltaY;
+        this.appendX = appendX;
+        this.appendY = appendY;
+        this.posLeft = new Vector3(posLeft.x+RandomUtil.getRand(0,deltaX),posLeft.y+RandomUtil.getRand(0,deltaY),0);
+        this.posRight = new Vector3(posRight.x+RandomUtil.getRand(0,deltaX),posRight.y+RandomUtil.getRand(0,deltaY),0);
+        this.appendSideTypeObject = appendSideTypeObjectArray;
+    }
+    public void appendObject(SideObjectType object) {
+        appendSideTypeObject.add(object);
+    }
 
     public String getKey() {
         return key;
@@ -88,5 +152,17 @@ public enum SideObjectType {
 
     public Vector3 getPosRight() {
         return posRight;
+    }
+
+    public ArrayList<SideObjectType> getAppendSideTypeObject() {
+        return appendSideTypeObject;
+    }
+
+    public void setPosLeft(Vector3 posLeft) {
+        this.posLeft = posLeft;
+    }
+
+    public void setPosRight(Vector3 posRight) {
+        this.posRight = posRight;
     }
 }
