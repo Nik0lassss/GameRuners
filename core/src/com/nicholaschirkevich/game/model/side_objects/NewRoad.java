@@ -88,12 +88,32 @@ public class NewRoad {
         leftShape.setAsBox(20, GameRuners.HEIGHT / 2);
 
 
+
+
         FixtureDef leftFixtureDef = new FixtureDef();
         leftFixtureDef.shape = leftShape;
         leftFixtureDef.filter.categoryBits = Constants.ROAD_SIDE_LEFT;
         leftFixtureDef.filter.maskBits = Constants.WORLD_ENTITY;
         leftFixtureDef.density = 0;
         leftSideBody.createFixture(leftFixtureDef);
+
+        BodyDef bodyDefSideRight = new BodyDef();
+        bodyDefSideRight.type = BodyDef.BodyType.DynamicBody;
+        bodyDefSideRight.position.set(280, GameRuners.HEIGHT / 2);
+
+        Body rightSideBody = world.createBody(bodyDefSideRight);
+        PolygonShape rightShape = new PolygonShape();
+        rightShape.setAsBox(20, GameRuners.HEIGHT / 2);
+
+
+
+
+        FixtureDef rightFixtureDef = new FixtureDef();
+        rightFixtureDef.shape = rightShape;
+        rightFixtureDef.filter.categoryBits = Constants.ROAD_SIDE_LEFT;
+        rightFixtureDef.filter.maskBits = Constants.WORLD_ENTITY;
+        rightFixtureDef.density = 0;
+        rightSideBody.createFixture(rightFixtureDef);
     }
 
     public void initialRoad() {
@@ -164,6 +184,7 @@ public class NewRoad {
     }
 
     public void update(Camera camera, float dt) {
+
 
 
         if (camera.position.y - (camera.viewportHeight / 2) > posRoad1.y + roadTexture.getHeight()) {

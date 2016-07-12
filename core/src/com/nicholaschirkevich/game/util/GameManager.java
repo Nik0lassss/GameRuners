@@ -331,12 +331,14 @@ public class GameManager {
         sideObjectsLeftRoad1ArrayListType.add(SideObjectType.ROAD_1_BUSH_2_ID_LEFT);
 
         sideObjectsLeftRoad1ArrayListType.add(SideObjectType.ROAD_1_TREE_1_ID_LEFT);
+        sideObjectsLeftRoad1ArrayListType.add(SideObjectType.ROAD_1_STUMP_ID_LEFT);
 
         ArrayList<SideObjectType> sideObjectsRightRoad1ArrayListType = new ArrayList<SideObjectType>();
         sideObjectsRightRoad1ArrayListType.add(SideObjectType.ROAD_1_BUSH_1_ID_RIGHT);
         sideObjectsRightRoad1ArrayListType.add(SideObjectType.ROAD_1_BUSH_2_ID_RIGHT);
 
         sideObjectsRightRoad1ArrayListType.add(SideObjectType.ROAD_1_TREE_1_ID_RIGHT);
+        sideObjectsRightRoad1ArrayListType.add(SideObjectType.ROAD_1_STUMP_ID_RIGHT);
 
         ArrayList<SideObjectType> staticSideRightObjectsArrayList = new ArrayList<SideObjectType>();
         SideObjectType sideObjectLighterLType =SideObjectType.ROAD_1_LIGHTER_L_ID;
