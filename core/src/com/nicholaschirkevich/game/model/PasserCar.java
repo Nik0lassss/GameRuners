@@ -125,7 +125,7 @@ public class PasserCar extends com.nicholaschirkevich.game.model.side_objects.Ca
         fixtureDef.restitution = 0f;
 
         fixtureDef.filter.categoryBits = Constants.WORLD_ENTITY;
-        fixtureDef.filter.maskBits = Constants.MY_CAR_FILTER_ENTITY;
+        fixtureDef.filter.maskBits = Constants.MY_CAR_FILTER_ENTITY | Constants.ROAD_SIDE_LEFT;
         PasserCarDataType passerCarDataType = new PasserCarDataType();
         passerCarDataType.setBounds(bounds);
         body.setUserData(passerCarDataType);
@@ -355,6 +355,7 @@ public class PasserCar extends com.nicholaschirkevich.game.model.side_objects.Ca
                 generateHoleAfterLadle.addAchives();
                 break;
             }
+
             if (passerCars.size() != 0) passerCars.get(i).update(dt);
         }
 

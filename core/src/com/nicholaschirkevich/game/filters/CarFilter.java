@@ -170,8 +170,34 @@ public class CarFilter implements ContactFilter {
 
         }
 
+        if((filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterB.categoryBits == Constants.ROAD_SIDE_LEFT) ||
+                (filterB.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterA.categoryBits == Constants.ROAD_SIDE_LEFT))
+        {
+            //onSetCollisionCarsInterface.onSideCollision();
+
+        }
+        if((filterA.categoryBits == Constants.PASSER_CAR_FILTER_ENTITY && filterB.categoryBits == Constants.ROAD_SIDE_LEFT) ||
+                (filterB.categoryBits == Constants.PASSER_CAR_FILTER_ENTITY && filterA.categoryBits == Constants.ROAD_SIDE_LEFT))
+        {
+            PasserCarDataType passerCarDataType = null;
+            if(BodyUtils.bodyIsPasserCar(fixtureA.getBody()))
+            {
+                passerCarDataType = (PasserCarDataType) fixtureA.getBody().getUserData();
+            }
+            else if (BodyUtils.bodyIsPasserCar(fixtureB.getBody()))
+            {
+                passerCarDataType = (PasserCarDataType) fixtureB.getBody().getUserData();
+            }
+
+
+            passerCarDataType.setIsSideObjectContact(true);
+            System.out.println("  passerCarDataType.setIsCollisionWhithPasser(true);");
+            onSetCollisionCarsInterface.onPasserSideCollision();
+
+        }
+
         if ((filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterB.categoryBits == Constants.PASSER_CAR_FILTER_ENTITY) ||
-                (filterB.categoryBits == Constants.PASSER_CAR_FILTER_ENTITY && filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY)) {
+                (filterB.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterA.categoryBits == Constants.PASSER_CAR_FILTER_ENTITY)) {
 
             PasserCarDataType passerCarDataType = new PasserCarDataType();
             MyCarDataType myCarDataType = new MyCarDataType();
@@ -213,6 +239,7 @@ public class CarFilter implements ContactFilter {
 
                 return true;
             }
+
 
 //
 

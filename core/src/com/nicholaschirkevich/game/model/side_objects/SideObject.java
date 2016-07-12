@@ -3,6 +3,7 @@ package com.nicholaschirkevich.game.model.side_objects;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.nicholaschirkevich.game.enums.SideObjectType;
 import com.nicholaschirkevich.game.util.AssetsManager;
@@ -31,6 +32,13 @@ public class SideObject {
     private int height, width;
 
 
+    public Rectangle getShape() {
+        return shape;
+    }
+
+    private Rectangle shape;
+
+
     private Vector3 position;
 
 
@@ -52,42 +60,54 @@ public class SideObject {
         }
         height = sideObjectTexture.getHeight();
 
+
     }
 
     public SideObject(SideObjectType sideObjectType, boolean isLeft) {
         this.sideObjectTexture = AssetsManager.getTextureRegion(sideObjectType.getKey()).getTexture();
         this.type = sideObjectType;
         height = sideObjectTexture.getHeight();
-//        position = isLeft!=true?sideObjectType.getPosRight().cpy():sideObjectType.getPosLeft().cpy();
-        position = sideObjectType.getPosLeft().cpy();
+        width = sideObjectTexture.getWidth();
+        position = isLeft != true ? sideObjectType.getPosRight().cpy() : sideObjectType.getPosLeft().cpy();
+        position.x += RandomUtil.getNoRandomBoolean()==true?(RandomUtil.getRand(0,sideObjectType.getDeltaX())):(-RandomUtil.getRand(0,sideObjectType.getDeltaX()));
+         shape = new Rectangle(position.x, position.y, width, height);
+        //position = sideObjectType.getPosLeft().cpy();
     }
 
-    public SideObject(SideObjectType sideObjectType, float posY) {
+    public SideObject(SideObjectType sideObjectType, boolean isLeft, float posY) {
         this.sideObjectTexture = AssetsManager.getTextureRegion(sideObjectType.getKey()).getTexture();
         this.type = sideObjectType;
         height = sideObjectTexture.getHeight();
+        width = sideObjectTexture.getWidth();
 //        position = isLeft!=true?sideObjectType.getPosRight().cpy():sideObjectType.getPosLeft().cpy();
         position = sideObjectType.getPosLeft().cpy();
         position.x += RandomUtil.getRand(0, sideObjectType.getDeltaX());
-        position.y += RandomUtil.getRand(0, sideObjectType.getDeltaY());
         position.y = posY;
+
+
         for (SideObjectType sideObjectType1 : sideObjectType.getAppendSideTypeObject()) {
             Vector3 posLeft = getType().getPosLeft().cpy();
             Vector3 posRight = getType().getPosRight().cpy();
             sideObjectType1.setPosLeft(posLeft.add(sideObjectType1.getAppendX(), sideObjectType1.getAppendY(), 0));
             sideObjectType1.setPosRight(posRight.add(sideObjectType1.getAppendX(), sideObjectType1.getAppendY(), 0));
-            SideObject sideObject = new SideObject(sideObjectType1);
-            if (sideObjectType1.getAppendX() > 0) {
-                height = (int) sideObjectType1.getAppendX() + sideObject.height;
+            SideObject sideObject = new SideObject(sideObjectType1, sideObjectType1.isLeft());
+            if (sideObjectType1.getAppendY() > 0) {
+                height = (int) sideObjectType1.getAppendY() + sideObject.height;
             }
             if (height < sideObject.getHeight()) height = sideObject.getHeight();
 
+            if (sideObjectType1.getAppendX() > 0) {
+                width = (int) sideObjectType1.getAppendX() + sideObject.width;
+            }
+            if (width < sideObject.getWidth()) width = sideObject.getWidth();
             Vector3 positionChildObject = position.cpy();
             positionChildObject.add(sideObjectType1.getAppendX(), sideObjectType1.getAppendY(), 0);
             sideObject.setPosition(positionChildObject);
-            appendSideObjectArrayList.add(sideObject);
+
+             appendSideObjectArrayList.add(sideObject);
 
         }
+        shape = new Rectangle(position.x, position.y, width, height);
     }
 
 
@@ -110,6 +130,7 @@ public class SideObject {
 
     public void update(Camera camera, float dt) {
         position.add(0, (-GameManager.getCurrentSpeed()) * dt, 0);
+        shape.setPosition(position.x, position.y);
         for (int i = this.appendSideObjectArrayList.size() - 1; i >= 0; --i) {
             ((SideObject) this.appendSideObjectArrayList.get(i)).update(camera, dt);
         }

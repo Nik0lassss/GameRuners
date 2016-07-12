@@ -333,13 +333,15 @@ public class AssetsManager {
         texturesMap.put(Constants.SLOT_BACKGROUND_RECORD_ID, new TextureRegion(new Texture(Constants.SLOT_BACKGROUND_RECORD_RESOURCE)));
         texturesMap.put(Constants.PROGRESS_CIRCLE_ID, new TextureRegion(new Texture(Constants.PROGRESS_CIRCLE_RESOURCE)));
         texturesMap.put(Constants.BUTTON_PLAY_WITH_A_FRIEND_ID, new TextureRegion(new Texture(Constants.BUTTON_PLAY_WITH_A_FRIEND_RESOURCE)));
-        texturesMap.put(Constants.ROAD_1_BUSH_1_ID, new TextureRegion(new Texture(Constants.ROAD_1_BUSH_1_RESOURCE)));
-        texturesMap.put(Constants.ROAD_1_BUSH_2_ID, new TextureRegion(new Texture(Constants.ROAD_1_BUSH_2_RESOURCE)));
-        texturesMap.put(Constants.ROAD_1_LIGHTER_L_ID, new TextureRegion(new Texture(Constants.ROAD_1_LIGHTER_L_RESOURCE)));
+        texturesMap.put(Constants.ROAD_1_BUSH_1_LEFT_ID, new TextureRegion(new Texture(Constants.ROAD_1_BUSH_1_LEFT_RESOURCE)));
+        texturesMap.put(Constants.ROAD_1_BUSH_2_RIGHT_ID, new TextureRegion(new Texture(Constants.ROAD_1_BUSH_2_RIGHT_RESOURCE)));
         texturesMap.put(Constants.ROAD_1_LIGHTER_L_ID, new TextureRegion(new Texture(Constants.ROAD_1_LIGHTER_L_RESOURCE)));
         texturesMap.put(Constants.ROAD_1_LIGHTER_R_ID, new TextureRegion(new Texture(Constants.ROAD_1_LIGHTER_R_RESOURCE)));
-        texturesMap.put(Constants.ROAD_1_LIGHTER_R_ID, new TextureRegion(new Texture(Constants.ROAD_1_LIGHTER_R_RESOURCE)));
-        texturesMap.put(Constants.ROAD_1_TREE_1_ID, new TextureRegion(new Texture(Constants.ROAD_1_TREE_1_RESOURCE)));
+        texturesMap.put(Constants.ROAD_1_STUMP_LEFT_ID, new TextureRegion(new Texture(Constants.ROAD_1_STUMP_LEFT_RESOURCE)));
+        texturesMap.put(Constants.ROAD_1_STUMP_RIGHT_ID, new TextureRegion(new Texture(Constants.ROAD_1_STUMP_RIGHT_RESOURCE)));
+
+        texturesMap.put(Constants.ROAD_1_TREE_1_LEFT_ID, new TextureRegion(new Texture(Constants.ROAD_1_TREE_1_LEFT_RESOURCE)));
+        texturesMap.put(Constants.ROAD_1_TREE_1_RIGHT_ID, new TextureRegion(new Texture(Constants.ROAD_1_TREE_1_RIGHT_RESOURCE)));
         texturesMap.put(Constants.ROAD_1_TILE_ID, new TextureRegion(new Texture(Constants.ROAD_1_TILE_RESOURCE)));
 
 

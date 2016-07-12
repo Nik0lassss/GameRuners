@@ -17,6 +17,16 @@ public class PasserCarDataType extends UserData {
     protected boolean isContact = false;
     protected boolean isDangerEvolution = false;
     protected boolean flyCarContact = false;
+
+    public boolean isSideObjectContact() {
+        return isSideObjectContact;
+    }
+
+    public void setIsSideObjectContact(boolean isSideObjectContact) {
+        this.isSideObjectContact = isSideObjectContact;
+    }
+
+    protected boolean isSideObjectContact = false;
     protected Float x = 0f;
     protected Float y = 0f;
     protected Rectangle bounds;

@@ -1,1 +1,1 @@
-include 'desktop', 'android', 'core', ':vksdk_library-release'
+include 'desktop', 'android', 'core', ':vksdk_library-release', ':BaseGameUtils'

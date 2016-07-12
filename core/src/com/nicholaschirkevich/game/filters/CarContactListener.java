@@ -27,6 +27,7 @@ public class CarContactListener implements ContactListener {
 
     @Override
     public void beginContact(Contact contact) {
+
         WorldManifold worldManifold = null;
         worldManifold = contact.getWorldManifold();
         PasserCarDataType passerCarDataType = null;

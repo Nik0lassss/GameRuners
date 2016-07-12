@@ -326,11 +326,17 @@ public class GameManager {
     }
 
     public static void setUpRoadsHashMap() {
-        ArrayList<SideObjectType> sideObjectsRoad1ArrayListType = new ArrayList<SideObjectType>();
-        sideObjectsRoad1ArrayListType.add(SideObjectType.ROAD_1_BUSH_1_ID);
-        sideObjectsRoad1ArrayListType.add(SideObjectType.ROAD_1_BUSH_2_ID);
+        ArrayList<SideObjectType> sideObjectsLeftRoad1ArrayListType = new ArrayList<SideObjectType>();
+        sideObjectsLeftRoad1ArrayListType.add(SideObjectType.ROAD_1_BUSH_1_ID_LEFT);
+        sideObjectsLeftRoad1ArrayListType.add(SideObjectType.ROAD_1_BUSH_2_ID_LEFT);
 
-        sideObjectsRoad1ArrayListType.add(SideObjectType.ROAD_1_TREE_1_ID);
+        sideObjectsLeftRoad1ArrayListType.add(SideObjectType.ROAD_1_TREE_1_ID_LEFT);
+
+        ArrayList<SideObjectType> sideObjectsRightRoad1ArrayListType = new ArrayList<SideObjectType>();
+        sideObjectsRightRoad1ArrayListType.add(SideObjectType.ROAD_1_BUSH_1_ID_RIGHT);
+        sideObjectsRightRoad1ArrayListType.add(SideObjectType.ROAD_1_BUSH_2_ID_RIGHT);
+
+        sideObjectsRightRoad1ArrayListType.add(SideObjectType.ROAD_1_TREE_1_ID_RIGHT);
 
         ArrayList<SideObjectType> staticSideRightObjectsArrayList = new ArrayList<SideObjectType>();
         SideObjectType sideObjectLighterLType =SideObjectType.ROAD_1_LIGHTER_L_ID;
@@ -346,7 +352,7 @@ public class GameManager {
         sideObjectLighterRType.setIsLeft(false);
         staticSideLeftObjectsArrayList.add(sideObjectLighterRType);
 
-        NewRoad road1 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_1_TILE_ID).getTexture(), sideObjectsRoad1ArrayListType,sideObjectsRoad1ArrayListType,staticSideRightObjectsArrayList,staticSideLeftObjectsArrayList, TraffictLighterEnum.TRAFFICT_LIGHTER_COUNTYSIDE);
+        NewRoad road1 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_1_TILE_ID).getTexture(), sideObjectsRightRoad1ArrayListType,sideObjectsLeftRoad1ArrayListType,staticSideRightObjectsArrayList,staticSideLeftObjectsArrayList, TraffictLighterEnum.TRAFFICT_LIGHTER_COUNTYSIDE);
         roads.put("road1", road1);
 
         ArrayList<SideObjectType> sideObjectsRoad2ArrayListType = new ArrayList<SideObjectType>();
@@ -363,17 +369,26 @@ public class GameManager {
         ArrayList<SideObjectType> staticSide2LeftObjectsArrayList = new ArrayList<SideObjectType>();
 
 
-        NewRoad road2 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_2_TILE__ID).getTexture(), sideObjectsRoad2ArrayListType,sideObjectsRoad1ArrayListType,staticSide2RightObjectsArrayList,staticSide2LeftObjectsArrayList,TraffictLighterEnum.TRAFFICT_LIGHTER_MEXICO);
+        NewRoad road2 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_2_TILE__ID).getTexture(), sideObjectsRoad2ArrayListType,sideObjectsRoad2ArrayListType,staticSide2RightObjectsArrayList,staticSide2LeftObjectsArrayList,TraffictLighterEnum.TRAFFICT_LIGHTER_MEXICO);
         roads.put("road2", road2);
 
 
-        ArrayList<SideObjectType> sideObjectsRoad3ArrayListType = new ArrayList<SideObjectType>();
-        sideObjectsRoad3ArrayListType.add(SideObjectType.ROAD_3_SNOW_1_ID);
-        sideObjectsRoad3ArrayListType.add(SideObjectType.ROAD_3_SNOW_2_ID);
-        sideObjectsRoad3ArrayListType.add(SideObjectType.ROAD_3_SNOWMAN_ID);
-        sideObjectsRoad3ArrayListType.add(SideObjectType.ROAD_3_TREE_1_ID);
-        sideObjectsRoad3ArrayListType.add(SideObjectType.ROAD_3_TREE_2_ID);
-        sideObjectsRoad3ArrayListType.add(SideObjectType.ROAD_3_TREE_3_ID);
+        ArrayList<SideObjectType> sideObjectsRightRoad3ArrayListType = new ArrayList<SideObjectType>();
+        sideObjectsRightRoad3ArrayListType.add(SideObjectType.ROAD_3_SNOW_1_ID_RIGHT);
+        sideObjectsRightRoad3ArrayListType.add(SideObjectType.ROAD_3_SNOW_2_ID_RIGHT);
+        sideObjectsRightRoad3ArrayListType.add(SideObjectType.ROAD_3_SNOWMAN_ID_RIGHT);
+        sideObjectsRightRoad3ArrayListType.add(SideObjectType.ROAD_3_TREE_1_ID_RIGHT);
+        sideObjectsRightRoad3ArrayListType.add(SideObjectType.ROAD_3_TREE_2_ID_RIGHT);
+        sideObjectsRightRoad3ArrayListType.add(SideObjectType.ROAD_3_TREE_3_ID_RIGHT);
+
+
+        ArrayList<SideObjectType> sideObjectsLeftRoad3ArrayListType = new ArrayList<SideObjectType>();
+        sideObjectsLeftRoad3ArrayListType.add(SideObjectType.ROAD_3_SNOW_1_ID_LEFT);
+        sideObjectsLeftRoad3ArrayListType.add(SideObjectType.ROAD_3_SNOW_2_ID_LEFT);
+        sideObjectsLeftRoad3ArrayListType.add(SideObjectType.ROAD_3_SNOWMAN_ID_LEFT);
+        sideObjectsLeftRoad3ArrayListType.add(SideObjectType.ROAD_3_TREE_1_ID_LEFT);
+        sideObjectsLeftRoad3ArrayListType.add(SideObjectType.ROAD_3_TREE_2_ID_LEFT);
+        sideObjectsLeftRoad3ArrayListType.add(SideObjectType.ROAD_3_TREE_3_ID_LEFT);
 
         ArrayList<SideObjectType> staticSide3RightObjectsArrayList = new ArrayList<SideObjectType>();
 
@@ -381,59 +396,55 @@ public class GameManager {
         ArrayList<SideObjectType> staticSide3LeftObjectsArrayList = new ArrayList<SideObjectType>();
 
 
-        NewRoad road3 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_3_TILE_ID).getTexture(), sideObjectsRoad3ArrayListType,sideObjectsRoad1ArrayListType,staticSide3RightObjectsArrayList,staticSide3LeftObjectsArrayList,TraffictLighterEnum.TRAFFICT_LIGHTER_SNOWLAND);
+        NewRoad road3 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_3_TILE_ID).getTexture(), sideObjectsRightRoad3ArrayListType,sideObjectsLeftRoad3ArrayListType,staticSide3RightObjectsArrayList,staticSide3LeftObjectsArrayList,TraffictLighterEnum.TRAFFICT_LIGHTER_SNOWLAND);
         roads.put("road3", road3);
 
 
         ArrayList<SideObjectType> sideObjectsRoad5ArrayListType = new ArrayList<SideObjectType>();
-        sideObjectsRoad5ArrayListType.add(SideObjectType.ROAD_5_LIFEBUOY_ID);
-        sideObjectsRoad5ArrayListType.add(SideObjectType.ROAD_5_PALM_ID);
-        sideObjectsRoad5ArrayListType.add(SideObjectType.ROAD_5_SHELL_ID);
+        sideObjectsRoad5ArrayListType.add(SideObjectType.ROAD_5_LIFEBUOY_ID_RIGHT);
+        sideObjectsRoad5ArrayListType.add(SideObjectType.ROAD_5_PALM_ID_RIGHT);
+        sideObjectsRoad5ArrayListType.add(SideObjectType.ROAD_5_SHELL_ID_RIGHT);
 
         ArrayList<SideObjectType> staticSide5RightObjectsArrayList = new ArrayList<SideObjectType>();
 
 
         ArrayList<SideObjectType> staticSide5LeftObjectsArrayList = new ArrayList<SideObjectType>();
 
-
-        NewRoad road5 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_5_TILE_ID).getTexture(), sideObjectsRoad5ArrayListType,sideObjectsRoad1ArrayListType,staticSide5RightObjectsArrayList,staticSide5LeftObjectsArrayList,TraffictLighterEnum.TRAFFICT_LIGHTER_BEACH);
+        NewRoad road5 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_5_TILE_ID).getTexture(), sideObjectsRoad5ArrayListType,sideObjectsRoad5ArrayListType,staticSide5RightObjectsArrayList,staticSide5LeftObjectsArrayList,TraffictLighterEnum.TRAFFICT_LIGHTER_BEACH);
         roads.put("road5", road5);
 
         ArrayList<SideObjectType> sideObjectsRightRoad7ArrayListType = new ArrayList<SideObjectType>();
-        sideObjectsRightRoad7ArrayListType.add(SideObjectType.ROAD_7_BENCH_BANNER_RIGHT);
-//        sideObjectsRightRoad7ArrayListType.add(SideObjectType.ROAD_7_BANNER_RIGHT_ID);
+       sideObjectsRightRoad7ArrayListType.add(SideObjectType.ROAD_7_BENCH_BANNER_RIGHT);
+       sideObjectsRightRoad7ArrayListType.add(SideObjectType.ROAD_7_BANNER_RIGHT_ID);
         sideObjectsRightRoad7ArrayListType.add(SideObjectType.ROAD_7_HOUSE_RIGHT_ID);
         sideObjectsRightRoad7ArrayListType.add(SideObjectType.ROAD_7_BENCH_RIGHT_ID);
 
         ArrayList<SideObjectType> sideObjectsLeftRoad7ArrayListType = new ArrayList<SideObjectType>();
-      //  sideObjectsLeftRoad7ArrayListType.add(SideObjectType.ROAD_7_BANNER_LEFT_ID);
+        SideObjectType sideOnjectTypeRoad7LanterHouse = SideObjectType.ROAD_7_LANTERNS_HOUSE_LEFT_AND_RIGHT;
+        sideOnjectTypeRoad7LanterHouse.setMovible(false);
+       sideObjectsLeftRoad7ArrayListType.add(sideOnjectTypeRoad7LanterHouse);
+        sideObjectsLeftRoad7ArrayListType.add(SideObjectType.ROAD_7_BANNER_LEFT_ID);
         sideObjectsLeftRoad7ArrayListType.add(SideObjectType.ROAD_7_HOUSE_LEFT_ID);
         sideObjectsLeftRoad7ArrayListType.add(SideObjectType.ROAD_7_BENCH_LEFT_ID);
        sideObjectsLeftRoad7ArrayListType.add(SideObjectType.ROAD_7_BENCH_BANNER_LEFT);
-        //sideObjectsRoad7ArrayListType.add(SideObjectType.ROAD_7_LANTERNS_ID);
-
+//
         ArrayList<SideObjectType> staticSide7RightObjectsArrayList = new ArrayList<SideObjectType>();
 
-//        SideObjectType sideObject7right =  SideObjectType.ROAD_7_LAMP_RIGHT_ID;
-//        sideObject7right.setIsLeft(false);
-//        sideObject7right.setDistance(1000);
-//        staticSide7RightObjectsArrayList.add(sideObject7right);
-//        SideObjectType sideObjectRight7House = SideObjectType.ROAD_7_HOUSE_RIGHT_ID;
-//        sideObjectRight7House.setIsLeft(false);
-//        sideObjectRight7House.setDistance(2000);
-//        staticSide7RightObjectsArrayList.add(sideObjectRight7House);
+        SideObjectType sideObject7right =  SideObjectType.ROAD_7_LAMP_RIGHT_ID;
+        sideObject7right.setIsLeft(false);
+        sideObject7right.setDistance(1000);
+        staticSide7RightObjectsArrayList.add(sideObject7right);
+
+
 
 
 
         ArrayList<SideObjectType> staticSide7LeftObjectsArrayList = new ArrayList<SideObjectType>();
-//        SideObjectType sideObject7left =  SideObjectType.ROAD_7_LAMP_LEFT_ID;
-//        sideObject7left.setIsLeft(true);
-//        sideObject7left.setDistance(1000);
-        //staticSide7LeftObjectsArrayList.add(sideObject7left);
-        SideObjectType sideObjectLeft7House = SideObjectType.ROAD_7_HOUSE_LEFT_ID;
-//        sideObjectLeft7House.setIsLeft(true);
-//        sideObjectLeft7House.setDistance(2000);
-//        staticSide7LeftObjectsArrayList.add(sideObjectLeft7House);
+        SideObjectType sideObject7left =  SideObjectType.ROAD_7_LAMP_LEFT_ID;
+        sideObject7left.setIsLeft(true);
+        sideObject7left.setDistance(1000);
+        staticSide7LeftObjectsArrayList.add(sideObject7left);
+
 
         NewRoad road7 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_7_TILE_ID).getTexture(), sideObjectsRightRoad7ArrayListType,sideObjectsLeftRoad7ArrayListType,staticSide7RightObjectsArrayList,staticSide7LeftObjectsArrayList,TraffictLighterEnum.TRAFFICT_LIGHTER_CHINATOWN);
         roads.put("road7", road7);

@@ -7,4 +7,6 @@ public interface OnSetCollisionCars {
     void onCollision();
     void onFlyCollision();
     void onBlockCollision();
+    void onPasserSideCollision();
+    void onMySideCollision();
 }

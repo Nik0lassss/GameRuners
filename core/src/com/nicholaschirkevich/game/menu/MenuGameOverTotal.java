@@ -552,6 +552,9 @@ public class MenuGameOverTotal extends Group {
                     public boolean act(float delta) {
 
                         getStage().addActor(new CoinShopState(listener, gsm, actionResolver, groupView));
+
+//                        gsm.push(new CarShopState(gsm, actionResolver));
+                        GameManager.pauseGame = false;
                         return true;
                     }
                 });

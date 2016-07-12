@@ -14,11 +14,19 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.drive.Drive;
+import com.google.android.gms.games.Games;
+
+import com.google.example.games.basegameutils.GameHelper;
 import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.R;
 import com.nicholaschirkevich.game.activity.FriendsInviteActivity;
@@ -61,14 +69,16 @@ import util.Purchase;
 /**
  * Created by Nikolas on 20.05.2016.
  */
-public class FragmentAdmob extends AndroidFragmentApplication implements ActionResolver ,OnGetHightscoreList {
+public class FragmentAdmob extends AndroidFragmentApplication implements ActionResolver, OnGetHightscoreList {
 
-    private InterstitialAd mInterstitialAdSaveMe,interstitialGetBonus;
+    private InterstitialAd mInterstitialAdSaveMe, interstitialGetBonus;
     private ImageView defaultImage;
     private RewardedVideoAd mAd;
     private String appId = "ca-app-pub-3929550233974663/5014713038";
     private String getBonusAdmobId = "ca-app-pub-3929550233974663/1475819439";
     private Button showButton, byButton;
+    private GameHelper gameHelper;
+    private final static int requestCode = 1;
     VKRequest currentRequest;
     private static final String TAG =
             "test_tag";
@@ -77,11 +87,12 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     private IabHelper.OnConsumeFinishedListener mConsumeFinishedListener;
     private IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener;
 
-    private  BuyProduct buyProduct;
+    private BuyProduct buyProduct;
     IabHelper mHelper;
     GameRuners gameRuners;
     static final String ITEM_SKU = "android.test.purchased";
     static final String ITEM_SKU_SP = "com.example.sp000";
+
     //static final String ITEM_SKU = "com.example.sp";
 
     private String[] vkScope = new String[]{VKScope.WALL, VKScope.PHOTOS, VKScope.NOHTTPS, VKScope.PAGES};
@@ -97,7 +108,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         Bundle ownedItems = null;
         ;
         try {
-            ownedItems =mHelper.mService.getPurchases(3, getActivity().getPackageName(), "inapp",
+            ownedItems = mHelper.mService.getPurchases(3, getActivity().getPackageName(), "inapp",
                     null);
         } catch (RemoteException e) {
             // TODO Auto-generated catch block
@@ -152,12 +163,26 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     }
 
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        gameHelper = new GameHelper(getActivity(), GameHelper.CLIENT_GAMES);
+        gameHelper.enableDebugLog(true);
+        GameHelper.GameHelperListener gameHelperListener = new GameHelper.GameHelperListener() {
+            @Override
+            public void onSignInFailed() {
+                System.out.println("Sing in faild");
+            }
 
+            @Override
+            public void onSignInSucceeded() {
+                System.out.println("Sing in success");
+            }
+        };
+        gameHelper.setup(gameHelperListener);
+
+//        Games.Leaderboards.submitScore(mGoogleApiClient, getString(R.string.leaderboard_id), 20);
         // VKSdk.login(getActivity(), vkScope);
         mInterstitialAdSaveMe = new InterstitialAd(getContext());
         mInterstitialAdSaveMe.setAdUnitId(appId);
@@ -176,12 +201,12 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                 if (result.isFailure()) {
 
                     buyProduct.onErroreBuy();
-                    Toast.makeText(getActivity(),result.getMessage(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), result.getMessage(), Toast.LENGTH_LONG).show();
                     // Handle error
                     return;
                 } else if (purchase.getSku().equals(ITEM_SKU)) {
                     buyProduct.onBuyProduct();
-                    Toast.makeText(getActivity(),purchase.toString(),Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), purchase.toString(), Toast.LENGTH_LONG).show();
                     consumeItem();
                     byButton.setEnabled(false);
                 }
@@ -190,13 +215,11 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         };
 
 
-
-
-
         initialBillingServie();
         byButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 //                mHelper.launchPurchaseFlow(getActivity(), ITEM_SKU_SP, 10001,
 //                        mPurchaseFinishedListener, getString(R.string.purchasetocken));
             }
@@ -205,7 +228,8 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         showButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPreviousPurchases();
+              gameHelper.beginUserInitiatedSignIn();
+             //   showPreviousPurchases();
 //                showButton.setEnabled(false);
 //                byButton.setEnabled(true);
 //                String base64EncodedPublicKey =
@@ -240,7 +264,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
                         if (result.isSuccess()) {
                             showButton.setEnabled(true);
-                            Toast.makeText(getContext(),"Consume succes"+result.getMessage(),Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), "Consume succes" + result.getMessage(), Toast.LENGTH_LONG).show();
                         } else {
                             mHelper.consumeAsync(purchase,
                                     mConsumeFinishedListener);
@@ -273,12 +297,30 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
     }
 
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        gameHelper.onStart(getActivity());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        gameHelper.onStop();
+    }
+
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode,
                                  Intent data) {
         if (!mHelper.handleActivityResult(requestCode,
                 resultCode, data)) {
             super.onActivityResult(requestCode, resultCode, data);
+        }
+        else {
+            gameHelper.onActivityResult(requestCode, resultCode, data);
         }
     }
 
@@ -292,7 +334,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                 if (result.isFailure()) {
                     // Handle failure
                 } else {
-                    Toast.makeText(getActivity(),"ok consume Item",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "ok consume Item", Toast.LENGTH_LONG).show();
                     mHelper.consumeAsync(inv.getPurchase(ITEM_SKU),
                             mConsumeFinishedListener);
                 }
@@ -315,7 +357,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                         public void onAdClosed() {
                             startGame();
 
-                                gameRuners.onAdCloseAfterGetBonus();
+                            gameRuners.onAdCloseAfterGetBonus();
 
                         }
                     });
@@ -580,7 +622,6 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     }
 
 
-
     @Override
     public void goneDefaultImage() {
         runOnUiThread(new Runnable() {
@@ -673,7 +714,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                     friends.add(new VkUser(String.valueOf(userFull.id), userFull.photo_100, userFull.first_name, userFull.last_name));
 
                 }
-                 ServerApi.getHighscoresFriends(onGetLidearBoards, friends);
+                ServerApi.getHighscoresFriends(onGetLidearBoards, friends);
             }
 
             @Override
@@ -822,4 +863,6 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     public void onGetHightscoreList(ArrayList<LeaderboardEntity> arrayList) {
 
     }
+
+
 }

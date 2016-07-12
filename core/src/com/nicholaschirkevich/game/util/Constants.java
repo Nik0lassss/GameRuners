@@ -509,11 +509,17 @@ public class Constants {
     //maps
 
     //road_1
-    public static final String ROAD_1_BUSH_1_RESOURCE = "road_1_bush_1.png";
-    public static final String ROAD_1_BUSH_1_ID = "road_1_bush_1";
+    public static final String ROAD_1_BUSH_1_LEFT_RESOURCE = "road_1_bush_1.png";
+    public static final String ROAD_1_BUSH_1_LEFT_ID = "road_1_bush_1";
 
-    public static final String ROAD_1_BUSH_2_RESOURCE = "road_1_bush_2.png";
-    public static final String ROAD_1_BUSH_2_ID = "road_1_bush_2";
+    public static final String ROAD_1_BUSH_1_RIGHT_RESOURCE = "road_1_bush_1.png";
+    public static final String ROAD_1_BUSH_1_RIGHT_ID = "road_1_bush_1";
+
+    public static final String ROAD_1_BUSH_2_LEFT_RESOURCE = "road_1_bush_2.png";
+    public static final String ROAD_1_BUSH_2_LEFT_ID = "road_1_bush_2";
+
+    public static final String ROAD_1_BUSH_2_RIGHT_RESOURCE = "road_1_bush_2.png";
+    public static final String ROAD_1_BUSH_2_RIGHT_ID = "road_1_bush_2";
 
     public static final String ROAD_1_TILE_RESOURCE = "road_1_tile.png";
     public static final String ROAD_1_TILE_ID = "road_1_tile";
@@ -524,11 +530,16 @@ public class Constants {
     public static final String ROAD_1_LIGHTER_R_RESOURCE = "road_1_lighter_r.png";
     public static final String ROAD_1_LIGHTER_R_ID = "road_1_lighter_r";
 
-    public static final String ROAD_1_STUMP_RESOURCE = "road_1_stump.png";
-    public static final String ROAD_1_STUMP_ID = "road_1_stump";
+    public static final String ROAD_1_STUMP_LEFT_RESOURCE = "road_1_stump.png";
+    public static final String ROAD_1_STUMP_LEFT_ID = "road_1_stump";
 
-    public static final String ROAD_1_TREE_1_RESOURCE = "road_1_tree_1.png";
-    public static final String ROAD_1_TREE_1_ID = "road_1_tree_1";
+    public static final String ROAD_1_STUMP_RIGHT_RESOURCE = "road_1_stump.png";
+    public static final String ROAD_1_STUMP_RIGHT_ID = "road_1_stump";
+
+    public static final String ROAD_1_TREE_1_LEFT_RESOURCE = "road_1_tree_1.png";
+    public static final String ROAD_1_TREE_1_LEFT_ID = "road_1_tree_1";
+    public static final String ROAD_1_TREE_1_RIGHT_RESOURCE = "road_1_tree_1.png";
+    public static final String ROAD_1_TREE_1_RIGHT_ID = "road_1_tree_1";
 
     //road_2
 
@@ -1094,6 +1105,9 @@ public class Constants {
     public static final short PASSER_CAR_FILTER_ENTITY = 0x1 << 1; // 0010 or 0x2 in hex
     public static final short PHYSICS_ENTITY = 0x1;    // 0001
     public static final short WORLD_ENTITY = 0x1 << 1;
+    public static final short ROAD_SIDE_LEFT = 0x15;
+    public static final short ROAD_SIDE_RIGHT = 0x16;
+
 //Cars animation atlas path
 
 

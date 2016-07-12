@@ -113,7 +113,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     private Label labelAchives;
 
     ArrayList<PasserCar> passerCars;
-   // ArrayList<Bushs> bushsArrayLeft, bushsArrayRight;
+    // ArrayList<Bushs> bushsArrayLeft, bushsArrayRight;
     //ArrayList<RoadLighter> roadLighters;
     ArrayList<Coin> coins;
     ArrayList<Skull> skulls;
@@ -189,6 +189,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     private float dirTime = 0;
     private boolean isMyCarCollision = false;
     private boolean isMyCarCollisionWithBlocks = false;
+    private boolean isMySideCollision = false;
+    private boolean isPasserSideCollision = false;
     private int carsCountTurn = 0;
 
 
@@ -221,11 +223,13 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         GameManager.initial(world, stage);
         GameManager.resetSpeed();
         setUpCamera();
+        GameManager.setStopGeneratePasserCars(false);
         //setUpTrafficLighter();
         carsTypes = GameManager.getCarsTypes();
         setUpMyCar(isNeedTutorial);
         //road = new Road();
-        roadNew = GameManager.getRoads().get("road7");
+        roadNew = GameManager.getRoads().get("road1");
+        roadNew.setWorld(world);
         roadNew.setOnTrafficLightListener(this);
         effectBooster = new EffectBooster();
         effectMode = new EffectMode();
@@ -246,8 +250,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         stage.addActor(afterPauseLabel);
 
         setUpPasserCars();
-       // setUpBushs();
-       // setUpRoadLighter();
+        // setUpBushs();
+        // setUpRoadLighter();
         setUpThornsLeftOnCar();
         setUpThornsRightOnCar();
         setUpImageCoinCount();
@@ -739,7 +743,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
             labelAchives.setBounds(GameRuners.WIDTH / 2 - 160 - labelAchives.getPrefWidth() / 2, GameRuners.HEIGHT / 2 - 30, labelCoinCount.getWidth(), labelCoinCount.getHeight());
 
             world.step(1f / 60f, 6, 2);
-            roadNew.update(camera,dt);
+            roadNew.update(camera, dt);
             //road.update(camera, dt);
             effectBooster.update(camera, dt);
             effectBooster.update(camera, dt);
@@ -882,6 +886,20 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
             udateBlows(passerCars, myCar);
             if (!isMyCarCollision && !isMyCarCollisionWithBlocks)
                 PasserCar.updateCars(passerCars, camera, dt, this);
+            if(isPasserSideCollision)
+            {
+                for (int i = 0; i < passerCars.size(); i++) {
+
+                    if ((((PasserCarDataType) passerCars.get(i).body.getUserData()).isSideObjectContact())) {
+                        roadHoles.add(new RoadHole(passerCars.get(i).body.getPosition().x, passerCars.get(i).body.getPosition().y));
+                        world.destroyBody(passerCars.get(i).body);
+                        passerCars.get(i).remove();
+                        passerCars.remove(i);
+
+                        break;
+                    }
+                }
+            }
 //            updateBushs(bushsArrayLeft, dt, true);
 //            updateBushs(bushsArrayRight, dt, false);
             //upateRoadLighters(roadLighters, dt);
@@ -1091,33 +1109,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                 achives += 100;
                 AssetsManager.playSound(Constants.SOUND_BONUS);
                 ToastHelper.showUpMessage(GameManager.getStrings().get(Constants.MPGO_BONUS_COINS_TEXT), "+100", Color.ORANGE, Color.WHITE, ToastLength.TOAST_LONG);
-//                ladleBonus.addAction(sequenceLAdleBonus);
-//                //boosterBonus.setColor(0.3f, 0.3f, 1f, 1f);
-//                ladleBonus.setColor(Color.ORANGE);
-//                ladleBonus.setFontScale(0.7f, 0.7f);
-//                //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
 //
-//                ladleBonus.setPosition(GameRuners.WIDTH / 4 - ladleBonus.getPrefWidth() / 2, GameRuners.HEIGHT / 4 + 220);
-//                ladleBonus.setText(GameManager.getStrings().get(Constants.MPGO_BONUS_COINS_TEXT));
-//                stage.addActor(ladleBonus);
-//
-//                sequenceLadleBonusText.reset();
-//                sequenceLadleBonusText.addAction(Actions.delay(2f));
-//                sequenceLadleBonusText.addAction(new Action() {
-//                    @Override
-//                    public boolean act(float delta) {
-//                        labelBonusText.setText("");
-//                        return true;
-//                    }
-//                });
-//                labelBonusText.addAction(sequenceLadleBonusText);
-//                //boosterBonus.setColor(0.3f, 0.3f, 1f, 1f);
-//                labelBonusText.setFontScale(0.7f, 0.7f);
-//                //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
-//
-//                labelBonusText.setPosition(GameRuners.WIDTH / 4 - 35, GameRuners.HEIGHT / 4 + 180);
-//                labelBonusText.setText("+100");
-//                stage.addActor(labelBonusText);
 
                 ladleOnCar.remove();
                 world.destroyBody(ladleOnCar.body);
@@ -1126,7 +1118,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
             Prize.updatePrize(world, camera, coins, skulls, ladles, boosters, springboards, flySpringBoards, dirts, dt, PasserCar.getPosYLastCar(passerCars), PasserCar.getIsLeftLastCar(passerCars));
 
-            roadNew.getTrafficLight().getPosition().set(41,  roadNew.getTrafficLight().getPosition().y + (-GameManager.getCurrentSpeed()) * dt);
+            roadNew.getTrafficLight().getPosition().set(41, roadNew.getTrafficLight().getPosition().y + (-GameManager.getCurrentSpeed()) * dt);
 
             if (camera.position.y > 370) {
                 camera.position.add(0, (myCar.body.getPosition().y - 440) * dt, 0);
@@ -1165,6 +1157,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                 if (actionResolver != null && actionResolver.isAvailibleInternet() && actionResolver.isIntertatlLoaded() && actionResolver.isSaveMeIntertitalLoad() && !isSavedMe && distacne > 100) {
                     {
                         isMyCarCollision = false;
+                        isMyCarCollisionWithBlocks = false;
                         stage.addActor(menuSaveMe);
                         isSavedMe = true;
                         ToastHelper.resetToasts();
@@ -1516,7 +1509,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
             } else isZoomOut = false;
             sb.draw(myCar.getMyCarAnimation().getKeyFrame(myCar.getStateTime(), true), myCar.body.getPosition().x, myCar.body.getPosition().y - myCar.getCarTexture().getRegionHeight() / 2, myCar.getOriginX() + myCar.getCarTexture().getRegionWidth() / 2 + 5, myCar.getOriginY() + myCar.getCarTexture().getRegionHeight() / 2 + 5, myCar.getCarTexture().getRegionWidth(), myCar.getCarTexture().getRegionHeight(), zoomMyCarX, zoomMyCarY, (float) Math.toDegrees(myCar.body.getAngle()));
 
-        } else if (!isMyCarCollisionWithBlocks)
+        } else if (!isMyCarCollisionWithBlocks && !isMySideCollision)
             sb.draw(myCar.getMyCarAnimation().getKeyFrame(myCar.getStateTime(), true), myCar.body.getPosition().x, myCar.body.getPosition().y - myCar.getCarTexture().getRegionHeight() / 2, myCar.getOriginX() + myCar.getCarTexture().getRegionWidth() / 2 + 5, myCar.getOriginY() + myCar.getCarTexture().getRegionHeight() / 2 + 5, myCar.getCarTexture().getRegionWidth(), myCar.getCarTexture().getRegionHeight(), 1, 1, (float) Math.toDegrees(myCar.body.getAngle()));
         //sb.draw(myCar.getMyCarAnimation().getKeyFrame(myCar.getStateTime(), true), myCar.body.getPosition().x, myCar.body.getPosition().y);
         sb.setColor(sb.getColor().r, sb.getColor().g, sb.getColor().b, 1);
@@ -1645,12 +1638,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
     @Override
     public void onSaveMe() {
-//        for (int i = 0; i < passerCars.size() ; i++) {
-//            //if (((PasserCarDataType) passerCars.get(i).body.getUserData()).isContact()) {
-//                passerCars.get(i).remove();
-//                world.destroyBody(passerCars.get(i).body);
-//                passerCars.remove(i);
-//            //}
+        //}
 //        }
         playTimeAnimation = 0;
 
@@ -1758,23 +1746,10 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     public void addAchives() {
 
         ToastHelper.showUpMessage(GameManager.getStrings().get(Constants.GAME_CARS_COUNT_LBL), String.valueOf((int) skullCarCount), Color.RED, Color.WHITE, ToastLength.TOAST_LONG);
-//        skullBonusText.setColor(Color.RED);
-//        skullBonusText.setFontScale(0.7f, 0.7f);
-//        //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
-//        skullBonusText.setText(GameManager.getStrings().get(Constants.GAME_CARS_COUNT_LBL));
-//        skullBonusText.setPosition(GameRuners.WIDTH / 4 - skullBonusText.getPrefWidth() / 2, GameRuners.HEIGHT / 4 + 220);
 //
-//        stage.addActor(skullBonusText);
-//
-//        skullBonusCountCar.setColor(Color.WHITE);
-//        skullBonusCountCar.setFontScale(0.7f, 0.7f);
-//        //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
-//
-//        skullBonusCountCar.setPosition(GameRuners.WIDTH / 4 - 10, GameRuners.HEIGHT / 4 + 180);
         skullCarCount++;
         GameManager.addGodModeCount();
-//        skullBonusCountCar.setText(String.valueOf((int) skullCarCount));
-//        stage.addActor(skullBonusCountCar);
+
         AssetsManager.playSound(Constants.SOUND_BONUS);
         skullAchives += 100;
     }
@@ -1784,33 +1759,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         if (isUpdateGodeMode) {
 
             ToastHelper.showUpMessage(GameManager.getStrings().get(Constants.GAME_CARS_COUNT_LBL), String.valueOf((int) skullCarCount), Color.RED, Color.WHITE, ToastLength.TOAST_LONG);
-//            labelCountCar.setText("");
-//            labelCars.setText("");
-//            labelFlyText.setText("");
-//            labelFlyCount.setText("");
-//            labelFlyBonus.setText("");
-//            boosterBonus.setText("");
-//            labelBonusText.setText("");
-//            ladleBonus.setText("");
-//
-//
-//            skullBonusText.setColor(Color.RED);
-//            skullBonusText.setFontScale(0.7f, 0.7f);
-            //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
 
-//            skullBonusText.setPosition(GameRuners.WIDTH / 4 - skullBonusText.getPrefWidth() / 2, GameRuners.HEIGHT / 4 + 220);
-//            skullBonusText.setText(GameManager.getStrings().get(Constants.GAME_CARS_COUNT_LBL));
-//            stage.addActor(skullBonusText);
-//
-//            skullBonusCountCar.setColor(Color.WHITE);
-//            skullBonusCountCar.setFontScale(0.7f, 0.7f);
-            //labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY() - 5, labelCoinCount.getWidth(), labelCoinCount.getHeight());
-
-            //   skullBonusCountCar.setPosition(GameRuners.WIDTH / 4 - 10, GameRuners.HEIGHT / 4 + 180);
             skullCarCount++;
-//            GameManager.addGodModeCount();
-//            skullBonusCountCar.setText(String.valueOf((int) skullCarCount));
-//            stage.addActor(skullBonusCountCar);
 
             skullAchives += 100;
         }
@@ -1871,7 +1821,6 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                 myCar.body.setLinearVelocity(-800, GameManager.getCurrentSpeed() + 56);
             else if (!myCar.isLeft())
                 myCar.body.setLinearVelocity(800, GameManager.getCurrentSpeed() + 56);
-            //else myCar.body.setLinearVelocity(0, GameManager.getCurrentSpeed() + 56);
 
         }
     }
@@ -1880,54 +1829,58 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     public void onFlyCollision() {
 
         ToastHelper.showUpMessage(GameManager.getStrings().get(Constants.GAME_CARS_COUNT_LBL), String.valueOf((int) contactFlyCars++), Color.RED, Color.WHITE, ToastLength.TOAST_LONG);
-//        labelCountCar.setText("");
-//        labelCars.setText("");
-//        boosterBonus.setText("");
-//        labelBonusText.setText("");
-//        ladleBonus.setText("");
-//        skullBonus.setText("");
-//        skullBonusText.setText("");
-//        skullBonusCountCar.setText("");
 
         achivesFly += 100;
-//        labelFlyText.setColor(Color.RED);
-//        labelFlyText.setFontScale(0.7f, 0.7f);
-//        labelFlyText.setText(GameManager.getStrings().get(Constants.GAME_CARS_COUNT_LBL));
-//        labelFlyText.setPosition(GameRuners.WIDTH / 4 - labelFlyText.getPrefWidth() / 2, GameRuners.HEIGHT / 4 + 220);
-//
-//        stage.addActor(labelFlyText);
-//
-//        labelFlyCount.setColor(Color.WHITE);
-//        labelFlyCount.setFontScale(0.7f, 0.7f);
-//        labelFlyCount.setPosition(GameRuners.WIDTH / 4 - 5, GameRuners.HEIGHT / 4 + 180);
-//        labelFlyCount.setText(String.valueOf((int) contactFlyCars++));
+
         GameManager.addSpringBoardCount();
-        //stage.addActor(labelFlyCount);
 
 
     }
 
     @Override
     public void onBlockCollision() {
-        Array<Action> actions = myCar.getActions();
-        for (Action action : actions) {
-            myCar.removeAction(action);
-        }
+        if (!isMyCarCollisionWithBlocks) {
+            Array<Action> actions = myCar.getActions();
+            for (Action action : actions) {
+                myCar.removeAction(action);
+            }
 
-        for (PasserCar passerCar : passerCars) {
-            if (((PasserCarDataType) passerCar.body.getUserData()).isContact()) {
-                if (passerCar.getIsLeft() && myCar.isTurnRun())
-                    passerCar.body.setLinearVelocity(0, GameManager.getCurrentSpeed() * 3);
-                else if (!passerCar.getIsLeft() && myCar.isTurnRun()) {
-                    passerCar.body.setLinearVelocity(0, GameManager.getCurrentSpeed() * 3);
+            for (PasserCar passerCar : passerCars) {
+                if (((PasserCarDataType) passerCar.body.getUserData()).isContact()) {
+                    if (passerCar.getIsLeft() && myCar.isTurnRun())
+                        passerCar.body.setLinearVelocity(0, GameManager.getCurrentSpeed() * 3);
+                    else if (!passerCar.getIsLeft() && myCar.isTurnRun()) {
+                        passerCar.body.setLinearVelocity(0, GameManager.getCurrentSpeed() * 3);
+                    }
                 }
             }
+            isMyCarCollisionWithBlocks = true;
+            roadHoles.add(new RoadHole(myCar.body.getPosition().x, myCar.body.getPosition().y));
+
         }
-        isMyCarCollisionWithBlocks = true;
-        roadHoles.add(new RoadHole(myCar.body.getPosition().x, myCar.body.getPosition().y));
-
-
     }
+
+    @Override
+    public void onPasserSideCollision() {
+        if(!isPasserSideCollision)
+        {
+            isPasserSideCollision = true;
+        }
+    }
+
+    @Override
+    public void onMySideCollision() {
+        if (!isMySideCollision) {
+            Array<Action> actions = myCar.getActions();
+            for (Action action : actions) {
+                myCar.removeAction(action);
+            }
+            roadHoles.add(new RoadHole(myCar.body.getPosition().x, myCar.body.getPosition().y));
+            isMySideCollision = true;
+        }
+    }
+
+
 
     @Override
     public void resumeFromPause() {
