@@ -5,8 +5,8 @@ repeat: none
 Police_car_1
   rotate: false
   xy: 0, 0
-  size: 66, 84
-  orig: 66, 84
+  size: 60, 74
+  orig: 60, 74
   offset: 0, 0
   index: -1
 Police_car_2

@@ -13,21 +13,31 @@ import java.util.Arrays;
 public enum SideObjectType {
     ROAD_1_BUSH_1_ID_LEFT(Constants.ROAD_1_BUSH_1_LEFT_ID, 20, 20, new Vector3(-10, 1200, 0), new Vector3(-10, 1200, 0),160),
     ROAD_1_BUSH_2_ID_LEFT(Constants.ROAD_1_BUSH_2_LEFT_ID, 20, 20, new Vector3(-10, 1200, 0), new Vector3(-10, 1200, 0),160),
-    ROAD_1_BUSH_1_ID_RIGHT(Constants.ROAD_1_BUSH_1_RIGHT_ID, 20, 20, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),160),
-    ROAD_1_BUSH_2_ID_RIGHT(Constants.ROAD_1_BUSH_2_RIGHT_ID, 20, 20, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),160),
+    ROAD_1_BUSH_1_ID_RIGHT(Constants.ROAD_1_BUSH_1_RIGHT_ID, 20, 20, new Vector3(270, 1200, 0), new Vector3(270, 1200, 0),160),
+    ROAD_1_BUSH_2_ID_RIGHT(Constants.ROAD_1_BUSH_2_RIGHT_ID, 20, 20, new Vector3(270, 1200, 0), new Vector3(270, 1200, 0),160),
     ROAD_1_TILE_ID(Constants.ROAD_1_TILE_ID, 10, 10, new Vector3(20, 800, 0), new Vector3(20, 800, 0),160),
     ROAD_1_LIGHTER_L_ID(Constants.ROAD_1_LIGHTER_L_ID, 0, 0, new Vector3(-30, 1200, 0), new Vector3(-30, 1200, 0),160),
     ROAD_1_LIGHTER_R_ID(Constants.ROAD_1_LIGHTER_R_ID, 0, 0, new Vector3(210, 1200, 0), new Vector3(210, 1200, 0),160),
     ROAD_1_STUMP_ID_LEFT(Constants.ROAD_1_STUMP_LEFT_ID, 20, 20, new Vector3(-10, 1200, 0), new Vector3(-10, 1200, 0),160),
-    ROAD_1_STUMP_ID_RIGHT(Constants.ROAD_1_STUMP_RIGHT_ID, 20, 20, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),160),
+    ROAD_1_STUMP_ID_RIGHT(Constants.ROAD_1_STUMP_RIGHT_ID, 20, 20, new Vector3(270, 1200, 0), new Vector3(270, 1200, 0),160),
     ROAD_1_TREE_1_ID_LEFT(Constants.ROAD_1_TREE_1_LEFT_ID, 20, 20, new Vector3(-10, 1200, 0), new Vector3(-10, 1200, 0),160),
-    ROAD_1_TREE_1_ID_RIGHT(Constants.ROAD_1_TREE_1_RIGHT_ID, 20, 20, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),160),
-    ROAD_2_BOARD_ID(Constants.ROAD_2_BOARD_ID, 10, 10, new Vector3(20, 800, 0), new Vector3(20, 800, 0),60),
-    ROAD_2_CACTUS_1_ID(Constants.ROAD_2_CACTUS_1_ID, 10, 10, new Vector3(20, 800, 0), new Vector3(20, 800, 0),60),
-    ROAD_2_CACTUS_2_ID(Constants.ROAD_2_CACTUS_2_ID, 10, 10, new Vector3(20, 800, 0), new Vector3(20, 800, 0),60),
-    ROAD_2_MAN_ID(Constants.ROAD_2_MAN_ID, 10, 10, new Vector3(20, 800, 0), new Vector3(20, 800, 0),60),
-    ROAD_2_STONE_ID(Constants.ROAD_2_STONE_ID, 10, 10, new Vector3(20, 800, 0), new Vector3(20, 800, 0),60),
-    ROAD_2_TIRES_ID(Constants.ROAD_2_TIRES_ID, 10, 10, new Vector3(20, 800, 0), new Vector3(20, 800, 0),60),
+    ROAD_1_TREE_1_ID_RIGHT(Constants.ROAD_1_TREE_1_RIGHT_ID, 20, 20, new Vector3(270, 1200, 0), new Vector3(270, 1200, 0),160),
+
+
+    ROAD_2_BOARD_LEFT_ID(Constants.ROAD_2_BOARD_LEFT_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),60),
+    ROAD_2_BOARD_RIGHT_ID(Constants.ROAD_2_BOARD_RIGHT_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),60),
+    ROAD_2_CACTUS_LEFT_1_ID(Constants.ROAD_2_CACTUS_LEFT_1_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),60),
+    ROAD_2_CACTUS_RIGHT_1_ID(Constants.ROAD_2_CACTUS_RIGHT_1_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),60),
+    ROAD_2_CACTUS_LEFT_2_ID(Constants.ROAD_2_CACTUS_LEFT_2_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),60),
+    ROAD_2_CACTUS_RIGHT_2_ID(Constants.ROAD_2_CACTUS_RIGHT_2_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),60),
+    ROAD_2_MAN_LEFT_ID(Constants.ROAD_2_MAN_LEFT_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),60),
+    ROAD_2_MAN_RIGHT_ID(Constants.ROAD_2_MAN_RIGHT_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),60),
+    ROAD_2_STONE_LEFT_ID(Constants.ROAD_2_STONE_LEFT_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),60),
+    ROAD_2_STONE_RIGHT_ID(Constants.ROAD_2_STONE_RIGHT_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),60),
+    ROAD_2_TIRES_LEFT_ID(Constants.ROAD_2_TIRES_LEFT_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),60),
+    ROAD_2_TIRES_RIGHT_ID(Constants.ROAD_2_TIRES_RIGHT_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),60),
+
+
     ROAD_3_TILE_ID(Constants.ROAD_3_TILE_ID, 10, 10, new Vector3(20, 1200, 0), new Vector3(20, 1200, 0),60),
     ROAD_3_SNOW_1_ID_LEFT(Constants.ROAD_3_SNOW_1_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),160),
     ROAD_3_SNOW_2_ID_LEFT(Constants.ROAD_3_SNOW_2_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),160),
@@ -35,18 +45,37 @@ public enum SideObjectType {
     ROAD_3_TREE_1_ID_LEFT(Constants.ROAD_3_TREE_1_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),160),
     ROAD_3_TREE_2_ID_LEFT(Constants.ROAD_3_TREE_2_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),160),
     ROAD_3_TREE_3_ID_LEFT(Constants.ROAD_3_TREE_3_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),160),
-    ROAD_5_LIFEBUOY_ID_LEFT(Constants.ROAD_5_LIFEBUOY_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),160),
-    ROAD_5_PALM_ID_LEFT(Constants.ROAD_5_PALM_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),160),
-    ROAD_5_SHELL_ID_LEFT(Constants.ROAD_5_SHELL_ID, 10, 10, new Vector3(0, 800, 0), new Vector3(0, 1200, 0),160),
+
     ROAD_3_SNOW_1_ID_RIGHT(Constants.ROAD_3_SNOW_1_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),160),
     ROAD_3_SNOW_2_ID_RIGHT(Constants.ROAD_3_SNOW_2_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),160),
     ROAD_3_SNOWMAN_ID_RIGHT(Constants.ROAD_3_SNOWMAN_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),160),
     ROAD_3_TREE_1_ID_RIGHT(Constants.ROAD_3_TREE_1_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),160),
     ROAD_3_TREE_2_ID_RIGHT(Constants.ROAD_3_TREE_2_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),160),
     ROAD_3_TREE_3_ID_RIGHT(Constants.ROAD_3_TREE_3_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),160),
-    ROAD_5_LIFEBUOY_ID_RIGHT(Constants.ROAD_5_LIFEBUOY_ID, 10, 10, new Vector3(20, 800, 0), new Vector3(20, 800, 0),160),
-    ROAD_5_PALM_ID_RIGHT(Constants.ROAD_5_PALM_ID, 10, 10, new Vector3(20, 800, 0), new Vector3(20, 800, 0),160),
-    ROAD_5_SHELL_ID_RIGHT(Constants.ROAD_5_SHELL_ID, 10, 10, new Vector3(20, 800, 0), new Vector3(20, 800, 0),160),
+
+    ROAD_5_LIFEBUOY_ID_LEFT(Constants.ROAD_5_LIFEBUOY_LEFT_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),160),
+    ROAD_5_PALM_ID_LEFT(Constants.ROAD_5_PALM_LEFT_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),160),
+    ROAD_5_SHELL_ID_LEFT(Constants.ROAD_5_SHELL_LEFT_ID, 10, 10, new Vector3(0, 800, 0), new Vector3(0, 1200, 0),160),
+    ROAD_5_LIFEBUOY_ID_RIGHT(Constants.ROAD_5_LIFEBUOY_RIGHT_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),160),
+    ROAD_5_PALM_ID_RIGHT(Constants.ROAD_5_PALM_RIGHT_ID, 5, 5, new Vector3(240, 1200, 0), new Vector3(240, 1200, 0),160),
+    ROAD_5_SHELL_ID_RIGHT(Constants.ROAD_5_SHELL_RIGHT_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),160),
+
+
+
+
+    ROAD_6_ROCK_1_LEFT_ID(Constants.ROAD_6_ROCK_1_LEFT_ID, 10, 10, new Vector3(-150, 1200, 0), new Vector3(-150, 1200, 0),160),
+    ROAD_6_ROCK_1_RIGHT_ID(Constants.ROAD_6_ROCK_1_RIGHT_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),160),
+    ROAD_6_ROCK_2_LEFT_ID(Constants.ROAD_6_ROCK_2_LEFT_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),160),
+    ROAD_6_ROCK_2_RIGHT_ID(Constants.ROAD_6_ROCK_2_RIGHT_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),160),
+    ROAD_6_TREE_1_LEFT_ID(Constants.ROAD_6_TREE_1_LEFT_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),160),
+    ROAD_6_TREE_1_RIGHT_ID(Constants.ROAD_6_TREE_1_RIGHT_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),160),
+    ROAD_6_TREE_2_LEFT_ID(Constants.ROAD_6_TREE_2_LEFT_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),160),
+    ROAD_6_TREE_2_RIGHT_ID(Constants.ROAD_6_TREE_2_RIGHT_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),160),
+    ROAD_6_TREE_3_LEFT_ID(Constants.ROAD_6_TREE_3_LEFT_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),160),
+    ROAD_6_TREE_3_RIGHT_ID(Constants.ROAD_6_TREE_3_RIGHT_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),160),
+
+
+
 
 
     ROAD_7_BANNER_LEFT_ID(Constants.ROAD_7_BANNER_LEFT_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),60),

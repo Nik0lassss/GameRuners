@@ -25,7 +25,7 @@ FBI_jeep_3
   index: -1
 FBI_jeep_4
   rotate: false
-  xy: 180, 0
+  xy: 186, 0
   size: 62, 82
   orig: 62, 82
   offset: 0, 0
