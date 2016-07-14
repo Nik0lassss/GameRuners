@@ -647,6 +647,7 @@ public class GameManager {
             bestAchives = achives;
             preferences.putInteger(Constants.PREFERENCES_KEY_ACHIVES_COUNT_ID, (int) bestAchives);
             preferences.flush();
+
         }
     }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">SRacer</string>
+    <string name="app_name">Speedy Road</string>
     <integer name="com_vk_sdk_AppId">5214745</integer>
     <string name="photo_id">photo-47594638_689374739</string>
     <string name="VkDialogText">"Choose your vehicle. Hit the gas. Go! #speedyroad "</string>
@@ -15,5 +15,8 @@
     <string name="server_url">http://s.pixelplex.by:3001/</string>
     <string name="server_url_get_leaderboards">leaderboard</string>
     <string name="server_url_get_highscores">getHighscores</string>
+    <string name="preferenceskey">preferenceskey</string>
+    <string name="admobestatus">admobestatus</string>
+
 
 </resources>

@@ -17,6 +17,9 @@ public interface ActionResolver {
     boolean isGetBonusIntertitalLoad();
     boolean isIntertatlLoaded();
     boolean isGetBonusIntertatlLoaded();
+
+    boolean getAdmobStatus();
+    void setAdmobStatus(boolean statusAdMob);
     void showVkLoginActivity();
     void getVkStatusLogin();
     void vkLogout();
@@ -30,5 +33,13 @@ public interface ActionResolver {
     void getVkImageLidearBoards(OnGetLidearBoards onGetLidearBoards,ArrayList<LeaderboardEntity> leaderboardEntities);
     void getByteImage(OnGetLidearBoards onGetLidearBoards,String url, int index);
     void getHighscoresVkFriends(final OnGetLidearBoards onGetLidearBoards);
+
+
+    void submitScore(int highScore);
+    void signIn();
+    void signOut();
+    void showScore();
+    boolean isSignedIn();
+
 
 }

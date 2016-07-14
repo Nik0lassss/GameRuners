@@ -96,7 +96,7 @@ public class MenuTest extends Group {
         setCarShop();
         setCoinShop();
         setSettingMenu();
-        //setLeaderBoard();
+        setLeaderBoard();
         setLeadersBoard();
         //setUpIcon();
         //setUpIconSpeed();
@@ -267,7 +267,7 @@ public class MenuTest extends Group {
                     @Override
                     public boolean act(float delta) {
 
-                        getStage().addActor(new CoinShopState(listener, gsm, actionResolver,groupView));
+                        getStage().addActor(new CoinShopState(listener, gsm, actionResolver, groupView));
                         return true;
                     }
                 });
@@ -297,7 +297,7 @@ public class MenuTest extends Group {
                 sequenceSetting.addAction(new Action() {
                     @Override
                     public boolean act(float delta) {
-                        getStage().addActor(new MenuSetting(listener, gsm, actionResolver,groupView));
+                        getStage().addActor(new MenuSetting(listener, gsm, actionResolver, groupView));
                         return true;
                     }
                 });
@@ -316,6 +316,14 @@ public class MenuTest extends Group {
 
         leaderBoard = new ImageButton(leaderBoardImageUp.getDrawable(), leaderBoardImageDown.getDrawable());
         leaderBoard.setBounds(x - leaderBoardImageDown.getWidth() / 2, y - leaderBoardImageDown.getHeight() / 2, leaderBoardImageDown.getWidth(), leaderBoardImageDown.getHeight());
+        leaderBoard.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                super.touchDown(event, x, y, pointer, button);
+                actionResolver.showScore();
+                return true;
+            }
+        });
         addActor(leaderBoard);
 
     }
@@ -326,7 +334,7 @@ public class MenuTest extends Group {
 
         leaderBoards = new ImageButton(leaderBoardsImageUp.getDrawable(), leaderBoardsImageDown.getDrawable());
         leaderBoards.setBounds(x - leaderBoardsImageDown.getWidth() / 2, y - leaderBoardsImageDown.getHeight() / 2, leaderBoardsImageDown.getWidth(), leaderBoardsImageDown.getHeight());
-        leaderBoards.addListener(new ClickListener(){
+        leaderBoards.addListener(new ClickListener() {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -341,7 +349,7 @@ public class MenuTest extends Group {
 //                tabPane.setBounds(GameRuners.WIDTH/4-50,GameRuners.HEIGHT/4,100f,100f);
 
                 //addActor(new TestShopState( gsm, actionResolver,groupView));
-                addActor(new RecordsMenu( gsm, actionResolver,groupView));
+                addActor(new RecordsMenu(gsm, actionResolver, groupView));
 
 
                 return super.touchDown(event, x, y, pointer, button);

@@ -159,7 +159,7 @@ public class AssetsManager {
                         car.getNormalTextures().getTextureSources()));
                 carsTextureAtlasList.add(carAtlas);
                 texturesMap.put(car.getID(), new TextureRegion(new Texture(Gdx.files.internal(car.getNormalTextures().getTextureName(0) + "_without_shadow.png"))));
-                texturesMap.put(car.getCarNameImage(), new TextureRegion(new Texture(Gdx.files.internal(car.getCarNameImage() + ".png"))));
+//                texturesMap.put(car.getCarNameImage(), new TextureRegion(new Texture(Gdx.files.internal(car.getCarNameImage() + ".png"))));
             }
         }
     }
@@ -255,7 +255,7 @@ public class AssetsManager {
         texturesMap.put(Constants.BTTN_GET_BONUS_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BTTN_GET_BONUS_RESOURCE))));
         texturesMap.put(Constants.BTTN_GET_BONUS_PRESSED_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BTTN_GET_BONUS_PRESSED_RESOURCE))));
 
-        texturesMap.put(Constants.SPEED_TEXT_ID, new TextureRegion(new Texture(Constants.SPEED_TEXT_RESOURCE)));
+    //    texturesMap.put(Constants.SPEED_TEXT_ID, new TextureRegion(new Texture(Constants.SPEED_TEXT_RESOURCE)));
         texturesMap.put(Constants.SPEED_BAR_ID, new TextureRegion(new Texture(Constants.SPEED_BAR_RESOURCE)));
         texturesMap.put(Constants.DELIMITER_ID, new TextureRegion(new Texture(Constants.DELIMITER_RESOURCE)));
         texturesMap.put(Constants.WEIGHT_TEXT_ID, new TextureRegion(new Texture(Constants.WEIGHT_TEXT_RESOURCE)));
@@ -435,36 +435,36 @@ public class AssetsManager {
 //        texturesMap.put(Constants.ROAD_1_TREE_1_ID,
 //                new TextureRegion(new Texture(Gdx.files.internal(Constants.ROAD_1_TREE_1_IMAGE_PATH))));
 
-        texturesMap.put(Constants.GEAR_1_ID,
-                new TextureRegion(new Texture(Gdx.files.internal(Constants.GEAR_1_IMAGE_PATH))));
-
-        texturesMap.put(Constants.GEAR_2_ID,
-                new TextureRegion(new Texture(Gdx.files.internal(Constants.GEAR_2_IMAGE_PATH))));
-
-        texturesMap.put(Constants.GEAR_3_ID,
-                new TextureRegion(new Texture(Gdx.files.internal(Constants.GEAR_3_IMAGE_PATH))));
-
-        texturesMap.put(Constants.GEAR_4_ID,
-                new TextureRegion(new Texture(Gdx.files.internal(Constants.GEAR_4_IMAGE_PATH))));
-
-        texturesMap.put(Constants.GEAR_5_ID,
-                new TextureRegion(new Texture(Gdx.files.internal(Constants.GEAR_5_IMAGE_PATH))));
-
-        texturesMap.put(Constants.GEAR_6_ID,
-                new TextureRegion(new Texture(Gdx.files.internal(Constants.GEAR_6_IMAGE_PATH))));
+//        texturesMap.put(Constants.GEAR_1_ID,
+//                new TextureRegion(new Texture(Gdx.files.internal(Constants.GEAR_1_IMAGE_PATH))));
+//
+//        texturesMap.put(Constants.GEAR_2_ID,
+//                new TextureRegion(new Texture(Gdx.files.internal(Constants.GEAR_2_IMAGE_PATH))));
+//
+//        texturesMap.put(Constants.GEAR_3_ID,
+//                new TextureRegion(new Texture(Gdx.files.internal(Constants.GEAR_3_IMAGE_PATH))));
+//
+//        texturesMap.put(Constants.GEAR_4_ID,
+//                new TextureRegion(new Texture(Gdx.files.internal(Constants.GEAR_4_IMAGE_PATH))));
+//
+//        texturesMap.put(Constants.GEAR_5_ID,
+//                new TextureRegion(new Texture(Gdx.files.internal(Constants.GEAR_5_IMAGE_PATH))));
+//
+//        texturesMap.put(Constants.GEAR_6_ID,
+//                new TextureRegion(new Texture(Gdx.files.internal(Constants.GEAR_6_IMAGE_PATH))));
 //
 //        texturesMap.put(Constants.X1_id,
 //                new TextureRegion(new Texture(Gdx.files.internal(Constants.X1_IMAGE_PATH))));
-        texturesMap.put(Constants.X2_id,
-                new TextureRegion(new Texture(Gdx.files.internal(Constants.X2_IMAGE_PATH))));
-        texturesMap.put(Constants.X3_id,
-                new TextureRegion(new Texture(Gdx.files.internal(Constants.X3_IMAGE_PATH))));
-        texturesMap.put(Constants.X4_id,
-                new TextureRegion(new Texture(Gdx.files.internal(Constants.X4_IMAGE_PATH))));
-        texturesMap.put(Constants.X5_id,
-                new TextureRegion(new Texture(Gdx.files.internal(Constants.X5_IMAGE_PATH))));
-        texturesMap.put(Constants.X6_id,
-                new TextureRegion(new Texture(Gdx.files.internal(Constants.X6_IMAGE_PATH))));
+//        texturesMap.put(Constants.X2_id,
+//                new TextureRegion(new Texture(Gdx.files.internal(Constants.X2_IMAGE_PATH))));
+//        texturesMap.put(Constants.X3_id,
+//                new TextureRegion(new Texture(Gdx.files.internal(Constants.X3_IMAGE_PATH))));
+//        texturesMap.put(Constants.X4_id,
+//                new TextureRegion(new Texture(Gdx.files.internal(Constants.X4_IMAGE_PATH))));
+//        texturesMap.put(Constants.X5_id,
+//                new TextureRegion(new Texture(Gdx.files.internal(Constants.X5_IMAGE_PATH))));
+//        texturesMap.put(Constants.X6_id,
+//                new TextureRegion(new Texture(Gdx.files.internal(Constants.X6_IMAGE_PATH))));
 
         carTextureAtlas = new TextureAtlas(Constants.CAR_ATLAS_PATH);
 

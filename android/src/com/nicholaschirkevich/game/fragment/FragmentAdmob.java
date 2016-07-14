@@ -1,6 +1,8 @@
 package com.nicholaschirkevich.game.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -71,6 +74,7 @@ import util.Purchase;
  */
 public class FragmentAdmob extends AndroidFragmentApplication implements ActionResolver, OnGetHightscoreList {
 
+    private SharedPreferences sPref;
     private InterstitialAd mInterstitialAdSaveMe, interstitialGetBonus;
     private ImageView defaultImage;
     private RewardedVideoAd mAd;
@@ -78,6 +82,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     private String getBonusAdmobId = "ca-app-pub-3929550233974663/1475819439";
     private Button showButton, byButton;
     private GameHelper gameHelper;
+    private boolean isAdmobOn = true;
     private final static int requestCode = 1;
     VKRequest currentRequest;
     private static final String TAG =
@@ -162,14 +167,27 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         }
     }
 
+    private void initialSPreferences() {
+        sPref = this.getActivity().getSharedPreferences(getString(R.string.preferenceskey), Context.MODE_PRIVATE);
+        isAdmobOn = sPref.getBoolean(getString(R.string.admobestatus), true);
+    }
+
+    private void setAdMobStatus(boolean statusOn) {
+        if (sPref != null) {
+            sPref.edit().putBoolean(getString(R.string.admobestatus), statusOn).commit();
+            isAdmobOn = statusOn;
+
+        }
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        initialSPreferences();
         gameHelper = new GameHelper(getActivity(), GameHelper.CLIENT_GAMES);
         gameHelper.enableDebugLog(true);
-        GameHelper.GameHelperListener gameHelperListener = new GameHelper.GameHelperListener() {
+        final GameHelper.GameHelperListener gameHelperListener = new GameHelper.GameHelperListener() {
             @Override
             public void onSignInFailed() {
                 System.out.println("Sing in faild");
@@ -193,7 +211,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         defaultImage = (ImageView) getActivity().findViewById(R.id.default_image);
 
         byButton = (Button) getActivity().findViewById(R.id.bttn_by);
-        byButton.setEnabled(false);
+        //byButton.setEnabled(false);
         mPurchaseFinishedListener
                 = new IabHelper.OnIabPurchaseFinishedListener() {
             public void onIabPurchaseFinished(IabResult result,
@@ -208,7 +226,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                     buyProduct.onBuyProduct();
                     Toast.makeText(getActivity(), purchase.toString(), Toast.LENGTH_LONG).show();
                     consumeItem();
-                    byButton.setEnabled(false);
+                    //byButton.setEnabled(false);
                 }
 
             }
@@ -219,7 +237,10 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         byButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (gameHelper.isSignedIn() == true) {
+                    Games.Leaderboards.submitScore(gameHelper.getApiClient(),
+                            getString(R.string.leaderboard_leaderboard), 100);
+                }
 //                mHelper.launchPurchaseFlow(getActivity(), ITEM_SKU_SP, 10001,
 //                        mPurchaseFinishedListener, getString(R.string.purchasetocken));
             }
@@ -228,8 +249,17 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         showButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              gameHelper.beginUserInitiatedSignIn();
-             //   showPreviousPurchases();
+
+                gameHelper.beginUserInitiatedSignIn();
+                if (gameHelper.isSignedIn()) {
+                    startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient(),
+                            getString(R.string.leaderboard_leaderboard)), requestCode);
+                } else {
+                    gameHelper.beginUserInitiatedSignIn();
+                }
+
+
+                //   showPreviousPurchases();
 //                showButton.setEnabled(false);
 //                byButton.setEnabled(true);
 //                String base64EncodedPublicKey =
@@ -311,17 +341,15 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     }
 
 
-
     @Override
     public void onActivityResult(int requestCode, int resultCode,
                                  Intent data) {
         if (!mHelper.handleActivityResult(requestCode,
                 resultCode, data)) {
+            gameHelper.onActivityResult(requestCode, resultCode, data);
             super.onActivityResult(requestCode, resultCode, data);
         }
-        else {
-            gameHelper.onActivityResult(requestCode, resultCode, data);
-        }
+
     }
 
     public void consumeItem() {
@@ -418,18 +446,19 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     }
 
     private void startGame() {
-        // Request a new ad if one isn't already loaded, hide the button, and kick off the timer.
-        if (!mInterstitialAdSaveMe.isLoading() && !mInterstitialAdSaveMe.isLoaded()) {
-            //AdRequest adRequest = new AdRequest.Builder().addTestDevice("024E787E6EB1DF2F6E701EE93F986BA4").build();
-            AdRequest adRequest = new AdRequest.Builder().build();
-            mInterstitialAdSaveMe.loadAd(adRequest);
+        if (isAdmobOn) {
+            // Request a new ad if one isn't already loaded, hide the button, and kick off the timer.
+            if (!mInterstitialAdSaveMe.isLoading() && !mInterstitialAdSaveMe.isLoaded()) {
+                //AdRequest adRequest = new AdRequest.Builder().addTestDevice("024E787E6EB1DF2F6E701EE93F986BA4").build();
+                AdRequest adRequest = new AdRequest.Builder().build();
+                mInterstitialAdSaveMe.loadAd(adRequest);
+            }
+            if (!interstitialGetBonus.isLoading() && !interstitialGetBonus.isLoaded()) {
+                //AdRequest adRequest = new AdRequest.Builder().addTestDevice("024E787E6EB1DF2F6E701EE93F986BA4").build();
+                AdRequest adRequest = new AdRequest.Builder().build();
+                interstitialGetBonus.loadAd(adRequest);
+            }
         }
-        if (!interstitialGetBonus.isLoading() && !interstitialGetBonus.isLoaded()) {
-            //AdRequest adRequest = new AdRequest.Builder().addTestDevice("024E787E6EB1DF2F6E701EE93F986BA4").build();
-            AdRequest adRequest = new AdRequest.Builder().build();
-            interstitialGetBonus.loadAd(adRequest);
-        }
-
     }
 
     private void initialBillingServie() {
@@ -525,7 +554,16 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         return isLoaded[0];
     }
 
-    ;
+    @Override
+    public boolean getAdmobStatus() {
+        return isAdmobOn;
+    }
+
+    @Override
+    public void setAdmobStatus(boolean statusAdMob) {
+        setAdMobStatus(statusAdMob);
+    }
+
 
     @Override
     public void showVkLoginActivity() {
@@ -735,6 +773,70 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                 Log.d("VkDemoApp", "onProgress " + progressType + " " + bytesLoaded + " " + bytesTotal);
             }
         });
+    }
+
+    @Override
+    public void submitScore(int highScore) {
+        if (isSignedIn() == true) {
+            Games.Leaderboards.submitScore(gameHelper.getApiClient(),
+                    getString(R.string.leaderboard_leaderboard), highScore);
+        }
+    }
+
+    @Override
+    public void signIn() {
+        try
+        {
+            runOnUiThread(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    gameHelper.beginUserInitiatedSignIn();
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            Gdx.app.log("MainActivity", "Log in failed: " + e.getMessage() + ".");
+        }
+    }
+
+    @Override
+    public void signOut() {
+        try
+        {
+            runOnUiThread(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    gameHelper.signOut();
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            Gdx.app.log("MainActivity", "Log out failed: " + e.getMessage() + ".");
+        }
+    }
+
+    @Override
+    public void showScore() {
+        if (isSignedIn() == true)
+        {
+            startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient(),
+                    getString(R.string.leaderboard_leaderboard)), requestCode);
+        }
+        else
+        {
+            signIn();
+        }
+    }
+
+    @Override
+    public boolean isSignedIn() {
+        return gameHelper.isSignedIn();
     }
 
 

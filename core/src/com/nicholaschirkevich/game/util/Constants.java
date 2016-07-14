@@ -1012,6 +1012,7 @@ public class Constants {
     public static final String SETTINGS_SWIPE_CONTROLL_FIRST_ROW_LBL = "settings_swipe_controll_first_row_lbl";
     public static final String SETTINGS_SWIPE_CONTROLL_SECOND_ROW_LBL = "settings_swipe_controll_second_row_lbl";
     public static final String SETTINGS_BLOCK_LBL = "settings_block_lbl";
+    public static final String SETTINGS_ENABLE_BLOCK_LBL = "settings_enable_block_lbl";
     public static final String SETTINGS_ADS_LBL = "settings_ads_lbl";
     public static final String SETTINGS_PURCHASE_LBL = "settings_purchase_lbl";
     public static final String MS_SIGN_IN_LBL = "ms_sign_in_lbl";

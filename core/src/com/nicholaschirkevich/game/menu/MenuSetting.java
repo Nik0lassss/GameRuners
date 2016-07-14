@@ -268,8 +268,12 @@ public class MenuSetting extends Group {
         textButtonStyle.up = soundButtonUpImage.getDrawable();
         textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
+        if (actionResolver.getAdmobStatus())
+            block_rds_button = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_BLOCK_LBL) + "\n" + GameManager.getStrings().get(Constants.SETTINGS_ADS_LBL), textButtonStyle);
+       else {
+            block_rds_button = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_ENABLE_BLOCK_LBL) + "\n" + GameManager.getStrings().get(Constants.SETTINGS_ADS_LBL), textButtonStyle);
 
-        block_rds_button = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_BLOCK_LBL) + "\n" + GameManager.getStrings().get(Constants.SETTINGS_ADS_LBL), textButtonStyle);
+        }
         block_rds_button.getLabel().setFontScale(0.4f, 0.4f);
 
         block_rds_button.getLabelCell().padLeft(40f);
@@ -288,6 +292,17 @@ public class MenuSetting extends Group {
                 swipeButtonSequence.addAction(new Action() {
                     @Override
                     public boolean act(float delta) {
+                        if(actionResolver.getAdmobStatus())
+                        {
+                            block_rds_button.setText(GameManager.getStrings().get(Constants.SETTINGS_ENABLE_BLOCK_LBL) + "\n" + GameManager.getStrings().get(Constants.SETTINGS_ADS_LBL));
+                            actionResolver.setAdmobStatus(false);
+                        }else
+                        {
+                            block_rds_button.setText(GameManager.getStrings().get(Constants.SETTINGS_BLOCK_LBL) + "\n" + GameManager.getStrings().get(Constants.SETTINGS_ADS_LBL));
+                            actionResolver.setAdmobStatus(true);
+                        }
+
+
                         //listener.resumeButtonOnResume();
                         return true;
                     }
@@ -312,11 +327,11 @@ public class MenuSetting extends Group {
         textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
         restore_button = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_PURCHASE_LBL), textButtonStyle);
-        String restore=  GameManager.getStrings().get(Constants.SETTINGS_PURCHASE_LBL);
-       // restore_button = new TextButton("sdasda"+"\n"+"sdadad", textButtonStyle);
+        String restore = GameManager.getStrings().get(Constants.SETTINGS_PURCHASE_LBL);
+        // restore_button = new TextButton("sdasda"+"\n"+"sdadad", textButtonStyle);
         restore_button.getLabel().setFontScale(0.36f, 0.36f);
         restore_button.getLabelCell().padLeft(40f);
-        restore_button.getLabel().setAlignment(Align.left,Align.left);
+        restore_button.getLabel().setAlignment(Align.left, Align.left);
         restore_image.setPosition(getX() + 5, getY() + distance_button);
         restore_button.addActor(restore_image);
 
@@ -461,7 +476,7 @@ public class MenuSetting extends Group {
 
             TextButton inviteFriends = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_VK_INVITE_FIRST_LINE) + "\n" + GameManager.getStrings().get(Constants.SETTINGS_VK_INVITE_SECOND_LINE), textButtonStyle);
             inviteFriends.getLabel().setFontScale(0.4f, 0.4f);
-            inviteFriends.getLabel().setAlignment(Align.left,Align.left);
+            inviteFriends.getLabel().setAlignment(Align.left, Align.left);
             inviteFriends.getLabelCell().padLeft(10f);
 
             inviteFriends.setPosition(getX() + 5, getY() + distance_button);

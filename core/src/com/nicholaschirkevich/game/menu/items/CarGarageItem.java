@@ -24,7 +24,6 @@ import com.nicholaschirkevich.game.util.GameManager;
 public class CarGarageItem extends Group implements UpdateGarageCarItem, BuyProduct {
     Texture slot_vehicle;
     Texture car_texture;
-    Texture speed_text;
     Texture speed_bar;
     Texture weight_text;
     Texture weight_bar;
@@ -48,7 +47,7 @@ public class CarGarageItem extends Group implements UpdateGarageCarItem, BuyProd
         this.updateGarageTable = updateGarageTable;
         this.index = index;
         car_texture = AssetsManager.getTextureRegion(car.getID()).getTexture();
-        speed_text = AssetsManager.getTextureRegion(Constants.SPEED_TEXT_ID).getTexture();
+
         speed_bar = AssetsManager.getTextureRegion(Constants.SPEED_BAR_ID).getTexture();
         delimiterTexture = AssetsManager.getTextureRegion(Constants.DELIMITER_ID).getTexture();
         weight_text = AssetsManager.getTextureRegion(Constants.WEIGHT_TEXT_ID).getTexture();

@@ -78,6 +78,16 @@
         </ru>
     </string>
     <string>
+        <id>settings_enable_block_lbl
+        </id>
+        <type>Label
+        </type>
+        <en>Enable
+        </en>
+        <ru>Включить
+        </ru>
+    </string>
+    <string>
         <id>settings_ads_lbl
         </id>
         <type>Label
