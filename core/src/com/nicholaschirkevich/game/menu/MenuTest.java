@@ -16,11 +16,13 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
+import com.nicholaschirkevich.game.interfaces.UpdateCoinCountInterface;
 import com.nicholaschirkevich.game.states.CarShopState;
 import com.nicholaschirkevich.game.states.CoinShopState;
 import com.nicholaschirkevich.game.states.GameStateManager;
@@ -32,7 +34,7 @@ import com.nicholaschirkevich.game.util.GameManager;
 /**
  * Created by Nikolas on 10.03.2016.
  */
-public class MenuTest extends Group {
+public class MenuTest extends Group implements UpdateCoinCountInterface {
     Texture slot_vehicle;
     Texture speed_text;
     TextButton resumeButton, playOnline, prizeButton;
@@ -45,6 +47,8 @@ public class MenuTest extends Group {
     GameStateManager gsm;
     Group groupView;
     private ActionResolver actionResolver;
+    private ImageButton imageButton;
+    private Label labelCoinCount;
     BitmapFont font = new BitmapFont(Gdx.files.internal("SRFont.fnt"), Gdx.files.internal("SRFont.png"), false);
 
     public MenuTest(ResumeButtonListener listener, GameStateManager gsm, ActionResolver actionResolver) {
@@ -98,6 +102,9 @@ public class MenuTest extends Group {
         setSettingMenu();
         setLeaderBoard();
         setLeadersBoard();
+
+        setUpImageCoinCount();
+        setUpCoinCountLabel();
         //setUpIcon();
         //setUpIconSpeed();
         //setUpIconWeight();
@@ -222,6 +229,32 @@ public class MenuTest extends Group {
 
     }
 
+
+    public void setUpImageCoinCount() {
+        imageButton = new ImageButton(new Image(AssetsManager.getTextureRegion(Constants.COIN_ICON_1_NAME_ID)).getDrawable());
+        //imageButton.setBounds(labelCoinCount.getX() + 50, labelCoinCount.getY() - 2, imageButton.getWidth(), imageButton.getHeight());
+        imageButton.setBounds(GameRuners.WIDTH / 2 - 25, GameRuners.HEIGHT / 2 - 30, imageButton.getWidth(), imageButton.getHeight());
+        addActor(imageButton);
+    }
+
+    public void setUpCoinCountLabel() {
+        labelCoinCount = new Label(String.valueOf(GameManager.getCoinCounter()), AssetsManager.getUiSkin());
+        labelCoinCount.setFontScale(0.60f, 0.60f);
+        labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
+        //labelCoinCount.setBounds(imageButton.getX() - 45, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
+
+        labelCoinCount.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                super.touchDown(event, x, y, pointer, button);
+                getStage().addActor(new CoinShopState(gsm, actionResolver, groupView));
+                groupView.remove();
+                return true;
+            }
+        });
+        addActor(labelCoinCount);
+    }
+
     private void setCarShop() {
 
         float x = Constants.CAR_SHOP_BTTN_X_VISIBLE, y = Constants.CAR_SHOP_BTTN_Y_VISIBLE, width = 70, height = 55;
@@ -267,7 +300,7 @@ public class MenuTest extends Group {
                     @Override
                     public boolean act(float delta) {
 
-                        getStage().addActor(new CoinShopState(listener, gsm, actionResolver, groupView));
+                        getStage().addActor(new CoinShopState( gsm, actionResolver, groupView));
                         return true;
                     }
                 });
@@ -349,10 +382,11 @@ public class MenuTest extends Group {
 //                tabPane.setBounds(GameRuners.WIDTH/4-50,GameRuners.HEIGHT/4,100f,100f);
 
                 //addActor(new TestShopState( gsm, actionResolver,groupView));
+                super.touchDown(event, x, y, pointer, button);
                 addActor(new RecordsMenu(gsm, actionResolver, groupView));
 
 
-                return super.touchDown(event, x, y, pointer, button);
+                return true;
             }
         });
 
@@ -408,4 +442,12 @@ public class MenuTest extends Group {
     }
 
 
+    @Override
+    public void updateCoinCountView() {
+        labelCoinCount.setText(String.valueOf(GameManager.getCoinCounter()));
+        labelCoinCount.invalidate();
+
+        labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() -5, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
+
+    }
 }

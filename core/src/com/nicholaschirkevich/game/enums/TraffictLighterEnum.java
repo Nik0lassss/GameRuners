@@ -17,7 +17,8 @@ public enum TraffictLighterEnum {
     TRAFFICT_LIGHTER_SNOWLAND(new ArrayList<Texture>(Arrays.asList(AssetsManager.getTextureRegion(Constants.ROAD_3_START_LIGHTS_RED_GREEN_ID).getTexture(),AssetsManager.getTextureRegion(Constants.ROAD_3_START_LIGHTS_1_GREEN_ID).getTexture(),AssetsManager.getTextureRegion(Constants.ROAD_3_START_LIGHTS_2GREEN_GREEN_ID).getTexture(),AssetsManager.getTextureRegion(Constants.ROAD_3_START_LIGHTS_3GREEN_GREEN_ID).getTexture())), AssetsManager.getTextureRegion(Constants.ROAD_3_START_LINE_ID).getTexture(),new Vector3(40, 350,0),new Vector3(67, 350,0), Constants.ROAD_3_START_LIGHTER),
     TRAFFICT_LIGHTER_BEACH(new ArrayList<Texture>(Arrays.asList(AssetsManager.getTextureRegion(Constants.ROAD_5_START_BANNER_ID).getTexture())), AssetsManager.getTextureRegion(Constants.ROAD_5_START_LINE_ID).getTexture(),new Vector3(40, 350,0),new Vector3(67, 350,0), Constants.ROAD_5_START_LIGHTER),
     TRAFFICT_LIGHTER_CHINATOWN(new ArrayList<Texture>(Arrays.asList(AssetsManager.getTextureRegion(Constants.ROAD_7_START_GATE_ID).getTexture())), AssetsManager.getTextureRegion(Constants.START_LINE_ID).getTexture(),new Vector3(37, 350,0),new Vector3(67, 350,0), Constants.ROAD_7_START_LIGHTER),
-    TRAFFICT_LIGHTER_CANYON(new ArrayList<Texture>(Arrays.asList(AssetsManager.getTextureRegion(Constants.ROAD_6_START_LINE_ID).getTexture())), AssetsManager.getTextureRegion(Constants.START_LINE_ID).getTexture(),new Vector3(37, 350,0),new Vector3(67, 350,0), Constants.ROAD_6_START_LIGHTER),;
+    TRAFFICT_LIGHTER_CANYON(null, AssetsManager.getTextureRegion(Constants.ROAD_6_START_LINE_ID).getTexture(),new Vector3(37, 350,0),new Vector3(50, 350,0), Constants.ROAD_6_START_LIGHTER),
+    TRAFFICT_LIGHTER_CITY(new ArrayList<Texture>(Arrays.asList(AssetsManager.getTextureRegion(Constants.ROAD_4_LIGHTS_RED_ID).getTexture(),AssetsManager.getTextureRegion(Constants.ROAD_4_LIGHTS_YELLOW_ID).getTexture(),AssetsManager.getTextureRegion(Constants.ROAD_4_LIGHTS_GREEN_ID).getTexture())), AssetsManager.getTextureRegion(Constants.ROAD_4_START_LINE_ID).getTexture(),new Vector3(-10, 350,0),new Vector3(50, 350,0), Constants.ROAD_4_START_LIGHTER),;
     private ArrayList<Texture> textures;
     private  Vector3 position;
 
@@ -45,12 +46,14 @@ public enum TraffictLighterEnum {
     }
 
     public Texture getTexture(int state) {
-        if (textures.size() - 1 < state) {
-            if (!textures.isEmpty())
-                return textures.get(textures.size() - 1);
-        } else if (!textures.isEmpty()) {
-            return textures.get(state);
-        }
+        if(textures==null) return null;
+
+            if (textures.size() - 1 < state) {
+                if (!textures.isEmpty())
+                    return textures.get(textures.size() - 1);
+            } else if (!textures.isEmpty()) {
+                return textures.get(state);
+            }
         return null;
     }
 

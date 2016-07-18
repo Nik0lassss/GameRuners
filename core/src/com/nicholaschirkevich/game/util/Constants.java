@@ -351,7 +351,8 @@ public class Constants {
 
     public static final String ROAD_1_START_LIGHTER = "road_1_traffic_lighter";
     public static final String ROAD_2_START_LIGHTER = "road_2_traffic_lighter";
-    public static final String ROAD_3_START_LIGHTER = "road_3_traffic_lighter";
+    public static final String ROAD_4_START_LIGHTER = "road_3_traffic_lighter";
+    public static final String ROAD_3_START_LIGHTER = "road_4_traffic_lighter";
     public static final String ROAD_5_START_LIGHTER = "road_5_traffic_lighter";
     public static final String ROAD_6_START_LIGHTER = "road_6_traffic_lighter";
     public static final String ROAD_7_START_LIGHTER = "road_7_traffic_lighter";
@@ -525,6 +526,9 @@ public class Constants {
     public static final String ROAD_1_TILE_RESOURCE = "road_1_tile.png";
     public static final String ROAD_1_TILE_ID = "road_1_tile";
 
+    public static final String ROAD_1_TILE_BACK_RESOURCE = "road_1_tile_back.png";
+    public static final String ROAD_1_TILE_BACK_ID = "road_1_tile_back";
+
     public static final String ROAD_1_LIGHTER_L_RESOURCE = "road_1_lighter_l.png";
     public static final String ROAD_1_LIGHTER_L_ID = "road_1_lighter_l";
 
@@ -544,8 +548,11 @@ public class Constants {
 
     //road_2
 
-    public static final String ROAD_2_TILE_RESOURCE = "road_2.png";
-    public static final String ROAD_2_TILE__ID = "road_2";
+    public static final String ROAD_2_TILE_RESOURCE = "road_2_tile.png";
+    public static final String ROAD_2_TILE__ID = "road_2_tile";
+
+    public static final String ROAD_2_TILE_BACK_RESOURCE = "road_2_tile_back.png";
+    public static final String ROAD_2_TILE_BACK_ID = "road_2_tile_back";
 
     public static final String ROAD_2_BOARD_RIGHT_RESOURCE = "road_2_board.png";
     public static final String ROAD_2_BOARD_RIGHT_ID = "road_2_board";
@@ -594,8 +601,12 @@ public class Constants {
     //road_3
 
 
-    public static final String ROAD_3_TILE_RESOURCE = "road_3.png";
-    public static final String ROAD_3_TILE_ID = "road_3";
+
+    public static final String ROAD_3_TILE_RESOURCE = "road_3_tile.png";
+    public static final String ROAD_3_TILE_ID = "road_3_tile";
+
+    public static final String ROAD_3_TILE_BACK_RESOURCE = "road_3_tile_back.png";
+    public static final String ROAD_3_TILE_BACK_ID = "road_3_tile_back";
 
 
     public static final String ROAD_3_SNOW_1_RESOURCE = "road_3_snow_1.png";
@@ -632,12 +643,92 @@ public class Constants {
     public static final String ROAD_3_START_LINE_RESOURCE = "road_3_start_line.png";
     public static final String ROAD_3_START_LINE_ID = "road_3_start_line";
 
+    //road4
+    public static final String ROAD_4_START_LINE_RESOURCE = "road_4_start_line.png";
+    public static final String ROAD_4_START_LINE_ID = "road_4_start_line";
+
+
+    public static final String ROAD_4_BIGBOARD_DARK_LEFT_RESOURCE = "road_4_bigboard_dark.png";
+    public static final String ROAD_4_BIGBOARD_DARK_LEFT_ID = "road_4_bigboard_dark";
+
+    public static final String ROAD_4_BIGBOARD_DARK_RIGHT_RESOURCE = "road_4_bigboard_dark.png";
+    public static final String ROAD_4_BIGBOARD_DARK_RIGHT_ID = "road_4_bigboard_dark";
+
+
+    public static final String ROAD_4_BILLBOARD_LEFT_RESOURCE = "road_4_billboard.png";
+    public static final String ROAD_4_BILLBOARD_LEFT_ID = "road_4_billboard";
+
+    public static final String ROAD_4_BILLBOARD_DARK_LEFT_RESOURCE = "road_4_billboard_dark.png";
+    public static final String ROAD_4_BILLBOARD_DARK_LEFT_ID = "road_4_billboard_dark";
+
+    public static final String ROAD_4_BILLBOARD_DARK_RIGHT_RESOURCE = "road_4_billboard_dark.png";
+    public static final String ROAD_4_BILLBOARD_DARK_RIGHT_ID = "road_4_billboard_dark";
+
+    public static final String ROAD_4_BILLBOARD_RIGHT_RESOURCE = "road_4_billboard.png";
+    public static final String ROAD_4_BILLBOARD_RIGHT_ID = "road_4_billboard";
+
+
+    public static final String ROAD_4_BUILDING_1_RIGHT_RESOURCE = "road_4_building_1.png";
+    public static final String ROAD_4_BUILDING_1_RIGHT_ID = "road_4_building_1";
+
+    public static final String ROAD_4_BUILDING_1_LEFT_RESOURCE = "road_4_building_1.png";
+    public static final String ROAD_4_BUILDING_1_LEFT_ID = "road_4_building_1";
+
+    public static final String ROAD_4_BUILDING_2_LEFT_RESOURCE = "road_4_building_2.png";
+    public static final String ROAD_4_BUILDING_2_LEFT_ID = "road_4_building_2";
+
+    public static final String ROAD_4_BUILDING_2_RIGHT_RESOURCE = "road_4_building_2.png";
+    public static final String ROAD_4_BUILDING_2_RIGHT_ID = "road_4_building_2";
+
+
+    public static final String ROAD_4_FLOWERS_LEFT_RESOURCE = "road_4_flowers.png";
+    public static final String ROAD_4_FLOWERS_LEFT_ID = "road_4_flowers";
+
+    public static final String ROAD_4_FLOWERS_RIGHT_RESOURCE = "road_4_flowers.png";
+    public static final String ROAD_4_FLOWERS_RIGHT_ID = "road_4_flowers";
+
+    public static final String ROAD_4_LIGHTER_L_RESOURCE = "road_4_lighter_l.png";
+    public static final String ROAD_4_LIGHTER_L_ID = "road_4_lighter_l";
+
+    public static final String ROAD_4_LIGHTER_R_RESOURCE = "road_4_lighter_r.png";
+    public static final String ROAD_4_LIGHTER_R_ID = "road_4_lighter_r";
+
+    public static final String ROAD_4_LIGHTS_GREEN_RESOURCE = "road_4_lights_green.png";
+    public static final String ROAD_4_LIGHTS_GREEN_ID = "road_4_lights_green";
+
+    public static final String ROAD_4_LIGHTS_RED_RESOURCE = "road_4_lights_red.png";
+    public static final String ROAD_4_LIGHTS_RED_ID = "road_4_lights_red";
+
+    public static final String ROAD_4_LIGHTS_YELLOW_RESOURCE = "road_4_lights_yellow.png";
+    public static final String ROAD_4_LIGHTS_YELLOW_ID = "road_4_lights_yellow";
+
+    public static final String ROAD_4_PHONE_LEFT_RESOURCE = "road_4_phone.png";
+    public static final String ROAD_4_PHONE_LEFT_ID = "road_4_phone";
+
+    public static final String ROAD_4_PHONE_RIGHT_RESOURCE = "road_4_phone.png";
+    public static final String ROAD_4_PHONE_RIGHT_ID = "road_4_phone";
+
+    public static final String ROAD_4_TILE_RESOURCE = "road_4_tile.png";
+    public static final String ROAD_4_TILE_ID = "road_4_tile";
+
+    public static final String ROAD_4_TILE_BACK_RESOURCE = "road_4_tile_back.png";
+    public static final String ROAD_4_TILE_BACK_ID = "road_4_tile_back";
+
+    public static final String ROAD_4_TILE_CROSSROAD_RESOURCE = "road_4_tile_crossroad.png";
+    public static final String ROAD_4_TILE_CROSSROAD_ID = "road_4_tile_crossroad";
+
     //road5
 
 
 
-    public static final String ROAD_5_TILE_RESOURCE = "road_5.png";
-    public static final String ROAD_5_TILE_ID = "road_5";
+    public static final String ROAD_5_TILE_RESOURCE = "road_5_tile.png";
+    public static final String ROAD_5_TILE_ID = "road_5_tile";
+
+    public static final String ROAD_5_TILE_BACK_RESOURCE = "road_5_tile_back.png";
+    public static final String ROAD_5_TILE_BACK_ID = "road_5_tile_back";
+
+//    public static final String ROAD_5_TILE_RESOURCE = "road_5.png";
+//    public static final String ROAD_5_TILE_ID = "road_5";
 
     public static final String ROAD_5_LIFEBUOY_LEFT_RESOURCE = "road_5_crab.png";
     public static final String ROAD_5_LIFEBUOY_LEFT_ID = "road_5_crab";
@@ -670,8 +761,11 @@ public class Constants {
     public static final String ROAD_6_START_LINE_ID = "road_6_start_line";
 
 
-    public static final String ROAD_6_TILE_RESOURCE = "road_6.png";
-    public static final String ROAD_6_TILE_ID = "road_6";
+    public static final String ROAD_6_TILE_RESOURCE = "road_6_tile.png";
+    public static final String ROAD_6_TILE_ID = "road_6_tile";
+
+    public static final String ROAD_6_TILE_BACK_RESOURCE = "road_6_back_tile.png";
+    public static final String ROAD_6_TILE_BACK_ID = "road_6_back_tile";
 
     public static final String ROAD_6_ROCK_1_LEFT_RESOURCE = "road_6_rock_1.png";
     public static final String ROAD_6_ROCK_1_LEFT_ID = "road_6_rock_1";
@@ -709,8 +803,11 @@ public class Constants {
 
 
 
-    public static final String ROAD_7_TILE_RESOURCE = "road_7.png";
-    public static final String ROAD_7_TILE_ID = "road_7";
+    public static final String ROAD_7_TILE_RESOURCE = "road_7_tile.png";
+    public static final String ROAD_7_TILE_ID = "road_7_tile";
+
+    public static final String ROAD_7_TILE_BACK_RESOURCE = "road_7_tile_back.png";
+    public static final String ROAD_7_TILE_BACK_ID = "road_7_tile_back";
 
     public static final String ROAD_7_BANNER_LEFT_RESOURCE = "road_7_banner_left.png";
     public static final String ROAD_7_BANNER_LEFT_ID = "road_7_banner_left";
@@ -946,7 +1043,7 @@ public class Constants {
     public static final float GAME_OVER_ACHIVE_X_VISIBLE = GameRuners.WIDTH / 4f;
     public static final float GAME_OVER_ACHIVE_Y_VISIBLE = GameRuners.HEIGHT / 2.5f + 85;
 
-    public static final float GAME_OVER_ACHIVE_SECOND_LINE_X_VISIBLE = GameRuners.WIDTH / 4f;
+    public static final float GAME_OVER_ACHIVE_SECOND_LINE_X_VISIBLE = GameRuners.WIDTH / 4f+4;
     public static final float GAME_OVER_ACHIVE_SECOND_LINE_Y_VISIBLE = GameRuners.HEIGHT / 2.5f + 40;
 
 
@@ -961,7 +1058,7 @@ public class Constants {
     public static final float GAME_OVER_ACHIVE_COUNT_X_VISIBLE = GameRuners.WIDTH / 4f;
     public static final float GAME_OVER_ACHIVE_COUNT_Y_VISIBLE = GameRuners.HEIGHT / 3f + 85;
 
-    public static final float GAME_OVER_TOTAL_ACHIVE_COUNT_X_VISIBLE = GameRuners.WIDTH / 4f;
+    public static final float GAME_OVER_TOTAL_ACHIVE_COUNT_X_VISIBLE = GameRuners.WIDTH / 4f+2;
     public static final float GAME_OVER_TOTAL_ACHIVE_COUNT_Y_VISIBLE = GameRuners.HEIGHT / 3f-4;
 
     public static final float GAME_OVER_BEST_ACHIVE_X_VISIBLE = GameRuners.WIDTH /4f;

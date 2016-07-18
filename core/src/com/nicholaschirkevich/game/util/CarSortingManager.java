@@ -28,7 +28,7 @@ public class CarSortingManager {
         add("EC2");
         add("EC1");
         add("EC3");
-        add("");
+        add("SP170");
         add("CC350");
         add("SP280");
         add("SP080");

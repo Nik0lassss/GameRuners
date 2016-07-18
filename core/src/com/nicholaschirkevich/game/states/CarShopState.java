@@ -20,6 +20,7 @@ import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.entity.CarsType;
 import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
+import com.nicholaschirkevich.game.interfaces.UpdateCoinCountInterface;
 import com.nicholaschirkevich.game.interfaces.UpdateGarageTable;
 import com.nicholaschirkevich.game.menu.BackButton;
 import com.nicholaschirkevich.game.menu.StartGameGarageButton;
@@ -35,7 +36,7 @@ import java.util.ArrayList;
 /**
  * Created by Nikolas on 10.03.2016.
  */
-public class CarShopState extends State implements ResumeButtonListener, UpdateGarageTable {
+public class CarShopState extends State implements ResumeButtonListener, UpdateGarageTable ,UpdateCoinCountInterface {
     OrthographicCamera camera;
 
     Stage stage;
@@ -47,10 +48,15 @@ public class CarShopState extends State implements ResumeButtonListener, UpdateG
     Table table, container;
     private ActionResolver actionResolver;
     private   ImageButton imageButton;
+    private  Label labelCoinCount;
+    private State thisState;
+
 
 
     public CarShopState(GameStateManager gsm, ActionResolver actionResolver) {
         super(gsm);
+
+        this.thisState = this;
         this.actionResolver = actionResolver;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
@@ -82,9 +88,20 @@ public class CarShopState extends State implements ResumeButtonListener, UpdateG
     }
 
     public void setUpCoinCountLabel() {
-        Label labelCoinCount = new Label(String.valueOf(GameManager.getCoinCounter()), AssetsManager.getUiSkin());
+        labelCoinCount = new Label(String.valueOf(GameManager.getCoinCounter()), AssetsManager.getUiSkin());
         labelCoinCount.setFontScale(0.60f, 0.60f);
-        labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() -5, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
+        labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
+        labelCoinCount.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                super.touchDown(event, x, y, pointer, button);
+                CoinShopState coinShopState = new CoinShopState(gsm, actionResolver, null);
+                coinShopState.setParentState(thisState);
+                stage.addActor(coinShopState);
+
+                return true;
+            }
+        });
         stage.addActor(labelCoinCount);
     }
     public void setUpResumeImageButton()
@@ -121,7 +138,7 @@ public class CarShopState extends State implements ResumeButtonListener, UpdateG
         table = new Table();
         stage.addActor(container);
         ArrayList<CarsType> carsTypes = GameManager.getCarsTypes();
-        GarageAdapter garageAdapter = new GarageAdapter(table, CarSortingManager.sortCars(carsTypes), actionResolver);
+        GarageAdapter garageAdapter = new GarageAdapter(table, CarSortingManager.sortCars(carsTypes), actionResolver,this);
         table.top();
         table.padTop(20f);
         garageAdapter.loadTableData();
@@ -195,6 +212,16 @@ public class CarShopState extends State implements ResumeButtonListener, UpdateG
 
     @Override
     public void setSelectedItme(int index) {
+
+    }
+
+    @Override
+    public void updateCoinCountView() {
+
+        labelCoinCount.setText(String.valueOf(GameManager.getCoinCounter()));
+        labelCoinCount.invalidate();
+
+        labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() -5, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
 
     }
 }

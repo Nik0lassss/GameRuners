@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.entity.Car;
+import com.nicholaschirkevich.game.interfaces.UpdateCoinCountInterface;
 import com.nicholaschirkevich.game.interfaces.UpdateGarageTable;
 import com.nicholaschirkevich.game.listeners.BuyProduct;
 import com.nicholaschirkevich.game.listeners.CarGarageItemClickListener;
@@ -38,11 +39,13 @@ public class CarGarageItem extends Group implements UpdateGarageCarItem, BuyProd
     Label countLabel;
     ActionResolver actionResolver;
     boolean isSelected = false;
+    private UpdateCoinCountInterface updateCoinCountInterface;
 
 
-    public CarGarageItem(Car car, Integer index, UpdateGarageTable updateGarageTable, Skin skin, ActionResolver actionResolver) {
+    public CarGarageItem(Car car, Integer index, UpdateGarageTable updateGarageTable, Skin skin, ActionResolver actionResolver, UpdateCoinCountInterface updateCoinCountInterface) {
 
 
+        this.updateCoinCountInterface = updateCoinCountInterface;
         this.actionResolver = actionResolver;
         this.updateGarageTable = updateGarageTable;
         this.index = index;
@@ -253,6 +256,7 @@ public class CarGarageItem extends Group implements UpdateGarageCarItem, BuyProd
             }
         }
 
+        updateCoinCountInterface.updateCoinCountView();
     }
 
 

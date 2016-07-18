@@ -53,9 +53,36 @@ public enum SideObjectType {
     ROAD_3_TREE_2_ID_RIGHT(Constants.ROAD_3_TREE_2_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),160),
     ROAD_3_TREE_3_ID_RIGHT(Constants.ROAD_3_TREE_3_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),160),
 
+
+
+
+    ROAD_4_BIGBOARD_DARK_LEFT_ID(Constants.ROAD_4_BIGBOARD_DARK_LEFT_ID, 10, 10, new Vector3(-40, 1200, 0), new Vector3(-40, 1200, 0),60),
+    ROAD_4_BIGBOARD_DARK_RIGHT_ID(Constants.ROAD_4_BIGBOARD_DARK_RIGHT_ID, 10, 10, new Vector3(240, 1200, 0), new Vector3(240, 1200, 0),60),
+    ROAD_4_BILLBOARD_LEFT_ID(Constants.ROAD_4_BILLBOARD_LEFT_ID, 10, 10, new Vector3(-50, 1200, 0), new Vector3(-50, 1200, 0),60),
+    ROAD_4_BILLBOARD_DARK_LEFT_ID(Constants.ROAD_4_BILLBOARD_DARK_LEFT_ID, 10, 10, new Vector3(-40, 1200, 0), new Vector3(-40, 1200, 0),60),
+    ROAD_4_BILLBOARD_DARK_RIGHT_ID(Constants.ROAD_4_BILLBOARD_DARK_RIGHT_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),60),
+    ROAD_4_BILLBOARD_RIGHT_ID(Constants.ROAD_4_BILLBOARD_RIGHT_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),60),
+    ROAD_4_BUILDING_1_RIGHT_ID(Constants.ROAD_4_BUILDING_1_RIGHT_ID, 10, 10, new Vector3(240, 1200, 0), new Vector3(260, 1200, 0),60),
+    ROAD_4_BUILDING_1_LEFT_ID(Constants.ROAD_4_BUILDING_1_LEFT_ID, 10, 10, new Vector3(-170, 1200, 0), new Vector3(-170, 1200, 0),60),
+    ROAD_4_BUILDING_2_LEFT_ID(Constants.ROAD_4_BUILDING_2_LEFT_ID, 10, 10, new Vector3(-170, 1200, 0), new Vector3(-170, 1200, 0),60),
+    ROAD_4_BUILDING_2_RIGHT_ID(Constants.ROAD_4_BUILDING_2_RIGHT_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),60),
+    ROAD_4_FLOWERS_LEFT_ID(Constants.ROAD_4_FLOWERS_LEFT_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),60),
+    ROAD_4_FLOWERS_RIGHT_ID(Constants.ROAD_4_FLOWERS_RIGHT_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),60),
+    ROAD_4_PHONE_LEFT_ID(Constants.ROAD_4_PHONE_LEFT_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),60),
+    ROAD_4_PHONE_RIGHT_ID(Constants.ROAD_4_PHONE_RIGHT_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),60),
+
+
+
+
+
+
+
+
+
+
     ROAD_5_LIFEBUOY_ID_LEFT(Constants.ROAD_5_LIFEBUOY_LEFT_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),160),
     ROAD_5_PALM_ID_LEFT(Constants.ROAD_5_PALM_LEFT_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),160),
-    ROAD_5_SHELL_ID_LEFT(Constants.ROAD_5_SHELL_LEFT_ID, 10, 10, new Vector3(0, 800, 0), new Vector3(0, 1200, 0),160),
+    ROAD_5_SHELL_ID_LEFT(Constants.ROAD_5_SHELL_LEFT_ID, 10, 10, new Vector3(15, 800, 0), new Vector3(15, 1200, 0),160),
     ROAD_5_LIFEBUOY_ID_RIGHT(Constants.ROAD_5_LIFEBUOY_RIGHT_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),160),
     ROAD_5_PALM_ID_RIGHT(Constants.ROAD_5_PALM_RIGHT_ID, 5, 5, new Vector3(240, 1200, 0), new Vector3(240, 1200, 0),160),
     ROAD_5_SHELL_ID_RIGHT(Constants.ROAD_5_SHELL_RIGHT_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),160),
@@ -63,16 +90,16 @@ public enum SideObjectType {
 
 
 
-    ROAD_6_ROCK_1_LEFT_ID(Constants.ROAD_6_ROCK_1_LEFT_ID, 10, 10, new Vector3(-150, 1200, 0), new Vector3(-150, 1200, 0),160),
-    ROAD_6_ROCK_1_RIGHT_ID(Constants.ROAD_6_ROCK_1_RIGHT_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),160),
-    ROAD_6_ROCK_2_LEFT_ID(Constants.ROAD_6_ROCK_2_LEFT_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),160),
-    ROAD_6_ROCK_2_RIGHT_ID(Constants.ROAD_6_ROCK_2_RIGHT_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),160),
-    ROAD_6_TREE_1_LEFT_ID(Constants.ROAD_6_TREE_1_LEFT_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),160),
-    ROAD_6_TREE_1_RIGHT_ID(Constants.ROAD_6_TREE_1_RIGHT_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),160),
-    ROAD_6_TREE_2_LEFT_ID(Constants.ROAD_6_TREE_2_LEFT_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),160),
-    ROAD_6_TREE_2_RIGHT_ID(Constants.ROAD_6_TREE_2_RIGHT_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),160),
-    ROAD_6_TREE_3_LEFT_ID(Constants.ROAD_6_TREE_3_LEFT_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),160),
-    ROAD_6_TREE_3_RIGHT_ID(Constants.ROAD_6_TREE_3_RIGHT_ID, 10, 10, new Vector3(260, 1200, 0), new Vector3(260, 1200, 0),160),
+    ROAD_6_ROCK_1_LEFT_ID(Constants.ROAD_6_ROCK_1_LEFT_ID, 10, 10, new Vector3(-90, 1200, 0), new Vector3(-90, 1200, 0),80),
+    ROAD_6_ROCK_1_RIGHT_ID(Constants.ROAD_6_ROCK_1_RIGHT_ID, 10, 10, new Vector3(275, 1200, 0), new Vector3(275, 1200, 0),80),
+    ROAD_6_ROCK_2_LEFT_ID(Constants.ROAD_6_ROCK_2_LEFT_ID, 10, 10, new Vector3(-30, 1200, 0), new Vector3(-30, 1200, 0),80),
+    ROAD_6_ROCK_2_RIGHT_ID(Constants.ROAD_6_ROCK_2_RIGHT_ID, 10, 10, new Vector3(275, 1200, 0), new Vector3(275, 1200, 0),80),
+    ROAD_6_TREE_1_LEFT_ID(Constants.ROAD_6_TREE_1_LEFT_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),80),
+    ROAD_6_TREE_1_RIGHT_ID(Constants.ROAD_6_TREE_1_RIGHT_ID, 10, 10, new Vector3(275, 1200, 0), new Vector3(275, 1200, 0),80),
+    ROAD_6_TREE_2_LEFT_ID(Constants.ROAD_6_TREE_2_LEFT_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),80),
+    ROAD_6_TREE_2_RIGHT_ID(Constants.ROAD_6_TREE_2_RIGHT_ID, 10, 10, new Vector3(275, 1200, 0), new Vector3(275, 1200, 0),80),
+    ROAD_6_TREE_3_LEFT_ID(Constants.ROAD_6_TREE_3_LEFT_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),80),
+    ROAD_6_TREE_3_RIGHT_ID(Constants.ROAD_6_TREE_3_RIGHT_ID, 10, 10, new Vector3(265, 1200, 0), new Vector3(265, 1200, 0),80),
 
 
 
@@ -106,6 +133,15 @@ public enum SideObjectType {
 
     private float distance  = 50;
 
+    public boolean isFlipX() {
+        return isFlipX;
+    }
+
+    public void setIsFlipX(boolean isFlipX) {
+        this.isFlipX = isFlipX;
+    }
+
+    private boolean isFlipX = false;
     public boolean isMovible() {
         return movible;
     }
@@ -118,6 +154,7 @@ public enum SideObjectType {
     }
 
     private boolean movible = true;
+
 
 
 

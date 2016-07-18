@@ -343,9 +343,11 @@ public class AssetsManager {
         texturesMap.put(Constants.ROAD_1_TREE_1_LEFT_ID, new TextureRegion(new Texture(Constants.ROAD_1_TREE_1_LEFT_RESOURCE)));
         texturesMap.put(Constants.ROAD_1_TREE_1_RIGHT_ID, new TextureRegion(new Texture(Constants.ROAD_1_TREE_1_RIGHT_RESOURCE)));
         texturesMap.put(Constants.ROAD_1_TILE_ID, new TextureRegion(new Texture(Constants.ROAD_1_TILE_RESOURCE)));
+        texturesMap.put(Constants.ROAD_1_TILE_BACK_ID, new TextureRegion(new Texture(Constants.ROAD_1_TILE_BACK_RESOURCE)));
 
 
         texturesMap.put(Constants.ROAD_2_TILE__ID,new TextureRegion(new Texture(Constants.ROAD_2_TILE_RESOURCE)));
+        texturesMap.put(Constants.ROAD_2_TILE_BACK_ID,new TextureRegion(new Texture(Constants.ROAD_2_TILE_BACK_RESOURCE)));
         texturesMap.put(Constants.ROAD_2_BOARD_RIGHT_ID,new TextureRegion(new Texture(Constants.ROAD_2_BOARD_RIGHT_RESOURCE)));
         texturesMap.put(Constants.ROAD_2_BOARD_LEFT_ID,new TextureRegion(new Texture(Constants.ROAD_2_BOARD_LEFT_RESOURCE)));
         texturesMap.put(Constants.ROAD_2_CACTUS_LEFT_1_ID,new TextureRegion(new Texture(Constants.ROAD_2_CACTUS_LEFT_1_RESOURCE)));
@@ -363,6 +365,7 @@ public class AssetsManager {
 
 
         texturesMap.put(Constants.ROAD_3_TILE_ID,new TextureRegion(new Texture(Constants.ROAD_3_TILE_RESOURCE)));
+        texturesMap.put(Constants.ROAD_3_TILE_BACK_ID,new TextureRegion(new Texture(Constants.ROAD_3_TILE_BACK_RESOURCE)));
         texturesMap.put(Constants.ROAD_3_SNOW_1_ID,new TextureRegion(new Texture(Constants.ROAD_3_SNOW_1_RESOURCE)));
         texturesMap.put(Constants.ROAD_3_SNOW_2_ID,new TextureRegion(new Texture(Constants.ROAD_3_SNOW_2_RESOURCE)));
         texturesMap.put(Constants.ROAD_3_SNOWMAN_ID,new TextureRegion(new Texture(Constants.ROAD_3_SNOWMAN_RESOURCE)));
@@ -375,7 +378,44 @@ public class AssetsManager {
         texturesMap.put(Constants.ROAD_3_START_LIGHTS_RED_GREEN_ID,new TextureRegion(new Texture(Constants.ROAD_3_START_LIGHTS_RED_RESOURCE)));
         texturesMap.put(Constants.ROAD_3_START_LINE_ID,new TextureRegion(new Texture(Constants.ROAD_3_START_LINE_RESOURCE)));
 
+
+
+        texturesMap.put(Constants.ROAD_4_START_LINE_ID,new TextureRegion(new Texture(Constants.ROAD_4_START_LINE_RESOURCE)));
+        texturesMap.put(Constants.ROAD_4_BIGBOARD_DARK_LEFT_ID,new TextureRegion(new Texture(Constants.ROAD_4_BIGBOARD_DARK_LEFT_RESOURCE)));
+        texturesMap.put(Constants.ROAD_4_BIGBOARD_DARK_RIGHT_ID,new TextureRegion(new Texture(Constants.ROAD_4_BIGBOARD_DARK_RIGHT_RESOURCE)));
+        texturesMap.put(Constants.ROAD_4_BILLBOARD_LEFT_ID,new TextureRegion(new Texture(Constants.ROAD_4_BILLBOARD_LEFT_RESOURCE)));
+        texturesMap.put(Constants.ROAD_4_BILLBOARD_DARK_LEFT_ID,new TextureRegion(new Texture(Constants.ROAD_4_BILLBOARD_DARK_LEFT_RESOURCE)));
+        texturesMap.put(Constants.ROAD_4_BILLBOARD_DARK_RIGHT_ID,new TextureRegion(new Texture(Constants.ROAD_4_BILLBOARD_DARK_RIGHT_RESOURCE)));
+        texturesMap.put(Constants.ROAD_4_BILLBOARD_RIGHT_ID,new TextureRegion(new Texture(Constants.ROAD_4_BILLBOARD_RIGHT_RESOURCE)));
+        texturesMap.put(Constants.ROAD_4_BUILDING_1_RIGHT_ID,new TextureRegion(new Texture(Constants.ROAD_4_BUILDING_1_RIGHT_RESOURCE)));
+        texturesMap.put(Constants.ROAD_4_BUILDING_1_LEFT_ID,new TextureRegion(new Texture(Constants.ROAD_4_BUILDING_1_LEFT_RESOURCE)));
+        texturesMap.put(Constants.ROAD_4_BUILDING_2_LEFT_ID,new TextureRegion(new Texture(Constants.ROAD_4_BUILDING_2_LEFT_RESOURCE)));
+        texturesMap.put(Constants.ROAD_4_BUILDING_2_RIGHT_ID,new TextureRegion(new Texture(Constants.ROAD_4_BUILDING_2_RIGHT_RESOURCE)));
+        texturesMap.put(Constants.ROAD_4_FLOWERS_LEFT_ID,new TextureRegion(new Texture(Constants.ROAD_4_FLOWERS_LEFT_RESOURCE)));
+        texturesMap.put(Constants.ROAD_4_FLOWERS_RIGHT_ID,new TextureRegion(new Texture(Constants.ROAD_4_FLOWERS_RIGHT_RESOURCE)));
+        texturesMap.put(Constants.ROAD_4_LIGHTER_L_ID,new TextureRegion(new Texture(Constants.ROAD_4_LIGHTER_L_RESOURCE)));
+        texturesMap.put(Constants.ROAD_4_LIGHTER_R_ID,new TextureRegion(new Texture(Constants.ROAD_4_LIGHTER_R_RESOURCE)));
+        texturesMap.put(Constants.ROAD_4_LIGHTS_GREEN_ID,new TextureRegion(new Texture(Constants.ROAD_4_LIGHTS_GREEN_RESOURCE)));
+        texturesMap.put(Constants.ROAD_4_LIGHTS_RED_ID,new TextureRegion(new Texture(Constants.ROAD_4_LIGHTS_RED_RESOURCE)));
+        texturesMap.put(Constants.ROAD_4_LIGHTS_YELLOW_ID,new TextureRegion(new Texture(Constants.ROAD_4_LIGHTS_YELLOW_RESOURCE)));
+        texturesMap.put(Constants.ROAD_4_PHONE_LEFT_ID,new TextureRegion(new Texture(Constants.ROAD_4_PHONE_LEFT_RESOURCE)));
+        texturesMap.put(Constants.ROAD_4_PHONE_RIGHT_ID,new TextureRegion(new Texture(Constants.ROAD_4_PHONE_RIGHT_RESOURCE)));
+        texturesMap.put(Constants.ROAD_4_TILE_ID,new TextureRegion(new Texture(Constants.ROAD_4_TILE_RESOURCE)));
+        texturesMap.put(Constants.ROAD_4_TILE_BACK_ID,new TextureRegion(new Texture(Constants.ROAD_4_TILE_BACK_RESOURCE)));
+        texturesMap.put(Constants.ROAD_4_TILE_CROSSROAD_ID,new TextureRegion(new Texture(Constants.ROAD_4_TILE_CROSSROAD_RESOURCE)));
+
+
+
+
+
+
+
+
+
+
+
         texturesMap.put(Constants.ROAD_5_TILE_ID,new TextureRegion(new Texture(Constants.ROAD_5_TILE_RESOURCE)));
+        texturesMap.put(Constants.ROAD_5_TILE_BACK_ID,new TextureRegion(new Texture(Constants.ROAD_5_TILE_BACK_RESOURCE)));
         texturesMap.put(Constants.ROAD_5_LIFEBUOY_LEFT_ID,new TextureRegion(new Texture(Constants.ROAD_5_LIFEBUOY_LEFT_RESOURCE)));
         texturesMap.put(Constants.ROAD_5_LIFEBUOY_RIGHT_ID,new TextureRegion(new Texture(Constants.ROAD_5_LIFEBUOY_RIGHT_RESOURCE)));
         texturesMap.put(Constants.ROAD_5_PALM_LEFT_ID,new TextureRegion(new Texture(Constants.ROAD_5_PALM_LEFT_RESOURCE)));
@@ -388,6 +428,7 @@ public class AssetsManager {
 
         texturesMap.put(Constants.ROAD_6_START_LINE_ID,new TextureRegion(new Texture(Constants.ROAD_6_START_LINE_RESOURCE)));
         texturesMap.put(Constants.ROAD_6_TILE_ID,new TextureRegion(new Texture(Constants.ROAD_6_TILE_RESOURCE)));
+        texturesMap.put(Constants.ROAD_6_TILE_BACK_ID,new TextureRegion(new Texture(Constants.ROAD_6_TILE_BACK_RESOURCE)));
         texturesMap.put(Constants.ROAD_6_ROCK_1_LEFT_ID,new TextureRegion(new Texture(Constants.ROAD_6_ROCK_1_LEFT_RESOURCE)));
         texturesMap.put(Constants.ROAD_6_ROCK_1_RIGHT_ID,new TextureRegion(new Texture(Constants.ROAD_6_ROCK_1_RIGHT_RESOURCE)));
         texturesMap.put(Constants.ROAD_6_ROCK_2_LEFT_ID,new TextureRegion(new Texture(Constants.ROAD_6_ROCK_2_LEFT_RESOURCE)));
@@ -401,6 +442,7 @@ public class AssetsManager {
 
 
         texturesMap.put(Constants.ROAD_7_TILE_ID,new TextureRegion(new Texture(Constants.ROAD_7_TILE_RESOURCE)));
+        texturesMap.put(Constants.ROAD_7_TILE_BACK_ID,new TextureRegion(new Texture(Constants.ROAD_7_TILE_BACK_RESOURCE)));
         texturesMap.put(Constants.ROAD_7_BANNER_LEFT_ID,new TextureRegion(new Texture(Constants.ROAD_7_BANNER_LEFT_RESOURCE)));
         texturesMap.put(Constants.ROAD_7_BANNER_RIGHT_ID,new TextureRegion(new Texture(Constants.ROAD_7_BANNER_RIGHT_RESOURCE)));
         texturesMap.put(Constants.ROAD_7_BENCH_LEFT_ID,new TextureRegion(new Texture(Constants.ROAD_7_BENCH_LEFT_RESOURCE)));

@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -24,6 +25,7 @@ import com.nicholaschirkevich.game.entity.Car;
 import com.nicholaschirkevich.game.menu.BackButton;
 import com.nicholaschirkevich.game.menu.StartGameGarageButton;
 import com.nicholaschirkevich.game.model.side_objects.Bushs;
+import com.nicholaschirkevich.game.model.side_objects.NewRoad;
 import com.nicholaschirkevich.game.model.side_objects.Road;
 import com.nicholaschirkevich.game.util.AssetsManager;
 import com.nicholaschirkevich.game.util.Constants;
@@ -59,7 +61,8 @@ public class CarGarageState extends State {
     private float posX = 85, posY = 460;
     private int heightTexture = prizeCarTexture.getHeight();
     private int fullHeight = prizeCarTexture.getHeight();
-    Road road;
+    NewRoad road;
+    //Road road;
     private ActionResolver actionResolver;
     private TextButton getPrizeButton;
     private boolean isPlayAnimation = false;
@@ -82,11 +85,12 @@ public class CarGarageState extends State {
         garage = new Image(garageTexture);
         garage.setScale(0.4f, 0.4f);
         garage.setBounds(20, 320, garage.getPrefWidth(), garage.getPrefHeight());
-        road = new Road();
-        for (int i = (int) camera.viewportHeight + (int) camera.position.y; i > 0; i -= 70) {
-            bushsArrayLeft.add(new Bushs(90, i, 10, false, Constants.ROAD_1_BUSH_1_STATIC_ASSETS_ID));
-            bushsArrayRight.add(new Bushs(90, i, 10, true, Constants.ROAD_1_BUSH_1_STATIC_ASSETS_ID));
-        }
+        road=GameManager.getRoads().get(GameManager.getCurrentCar().getMapType());
+        //road = new Road();
+//        for (int i = (int) camera.viewportHeight + (int) camera.position.y; i > 0; i -= 70) {
+//            bushsArrayLeft.add(new Bushs(90, i, 10, false, Constants.ROAD_1_BUSH_1_STATIC_ASSETS_ID));
+//            bushsArrayRight.add(new Bushs(90, i, 10, true, Constants.ROAD_1_BUSH_1_STATIC_ASSETS_ID));
+//        }
         resumeButtonUpImage = new Image(AssetsManager.getTextureRegion(Constants.MAIN_MENU_PLAY_BTTN_UP_ID));
         resumeButtonDownImage = new Image(AssetsManager.getTextureRegion(Constants.MAIN_MENU_PLAY_BTTN_PRESSERD_ID));
         getPrizeButtonImageUp = new Image(AssetsManager.getTextureRegion(Constants.CAR_GARAGE_BTTN_GREEN_UP));
@@ -107,6 +111,7 @@ public class CarGarageState extends State {
 //        garageNameTexture = new Texture("title_vehicles.png");
 //        garageNameImage = new Image(garageNameTexture);
 //        garageNameImage.setBounds(20, GameRuners.HEIGHT / 2 - 40, garageNameTexture.getWidth(), garageNameTexture.getHeight());
+        road.initialRoadForGarage(new Rectangle(garage.getX(),garage.getY(),garage.getWidth(),garage.getHeight()));
 
         setUpGetPrize();
         //setUpGarage();
@@ -267,8 +272,10 @@ public class CarGarageState extends State {
 
         sb.begin();
 
-        sb.draw(road.getRoad1(), road.getPosRoad1().x, road.getPosRoad1().y);
-        sb.draw(road.getRoad2(), road.getPosRoad2().x, road.getPosRoad2().y);
+        road.draw(sb);
+        road.drawSideObject(sb);
+//        sb.draw(road.getRoad1(), road.getPosRoad1().x, road.getPosRoad1().y);
+//        sb.draw(road.getRoad2(), road.getPosRoad2().x, road.getPosRoad2().y);
         for (Bushs bushs : bushsArrayRight) {
             sb.draw(bushs.getBushTexture(), bushs.getPosition().x, bushs.getPosition().y);
         }

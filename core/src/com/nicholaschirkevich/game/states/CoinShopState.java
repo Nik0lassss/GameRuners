@@ -20,12 +20,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.entity.CarsType;
 import com.nicholaschirkevich.game.entity.CoinShop;
 import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
+import com.nicholaschirkevich.game.interfaces.UpdateCoinCountInterface;
 import com.nicholaschirkevich.game.interfaces.UpdateGarageTable;
 import com.nicholaschirkevich.game.menu.BackButton;
 import com.nicholaschirkevich.game.menu.MenuTest;
@@ -43,7 +45,7 @@ import java.util.ArrayList;
 /**
  * Created by Nikolas on 10.03.2016.
  */
-public class CoinShopState extends Group implements ResumeButtonListener, UpdateGarageTable {
+public class CoinShopState extends Group implements ResumeButtonListener, UpdateGarageTable ,UpdateCoinCountInterface {
    private OrthographicCamera camera;
     private Texture cnr_line, garageNameTexture, backgroung_texture, backButtonTextureDown, backButtonTextureUp;
     private Image image, garageNameImage, backgroung_image, backButtonImageDown, backButtonImageUp;
@@ -53,13 +55,17 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
     private Label labelCoinCount;
     private ImageButton imageButton, resumeImageButton;
     private Table table, container;
-    private ResumeButtonListener listenerResume;
     private GameStateManager gsm;
     private ActionResolver actionResolver;
-    private Group parentView;
+    private Actor parentView;
 
-    public CoinShopState(ResumeButtonListener listenerResume, GameStateManager gsm, ActionResolver actionResolver,Group parentView) {
 
+    private State parentState;
+
+    private  UpdateCoinCountInterface updateCoinCountInterface;
+    public CoinShopState(GameStateManager gsm, ActionResolver actionResolver,Actor parentView) {
+
+        this.updateCoinCountInterface = updateCoinCountInterface;
         this.actionResolver = actionResolver;
         this.parentView = parentView;
         camera = new OrthographicCamera();
@@ -72,7 +78,6 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
         image = new Image(cnr_line);
         image.setBounds(0, GameRuners.HEIGHT / 2 - 70, GameRuners.WIDTH / 2, 80);
         sequenceReturn = new SequenceAction();
-        this.listenerResume = listenerResume;
         this.gsm = gsm;
         garageNameTexture = AssetsManager.getTextureRegion(Constants.COIN_SHOP_NAME_ID).getTexture();
         garageNameImage = new Image(garageNameTexture);
@@ -96,7 +101,7 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
     {
         resumeImageButton = new ImageButton(new Image(AssetsManager.getTextureRegion(Constants.RESUME_BTTN_ID)).getDrawable(),new Image(AssetsManager.getTextureRegion(Constants.RESUME_BTTN_ID)).getDrawable());
         resumeImageButton.setBounds(GameRuners.WIDTH / 4-40,GameRuners.HEIGHT / 4-282,resumeImageButton.getWidth(),resumeImageButton.getHeight());
-        resumeImageButton.addListener(new ClickListener(){
+        resumeImageButton.addListener(new ClickListener() {
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -115,10 +120,20 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
         addActor(imageButton);
     }
 
+    public State getParentState() {
+        return parentState;
+    }
+
+    public void setParentState(State parentState) {
+        this.parentState = parentState;
+    }
+
+
     public void setUpCoinCountLabel() {
         labelCoinCount = new Label(String.valueOf(GameManager.getCoinCounter()), AssetsManager.getUiSkin());
         labelCoinCount.setFontScale(0.60f, 0.60f);
-        labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() -5, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
+        labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
+        //labelCoinCount.setBounds(imageButton.getX() - 45, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
         addActor(labelCoinCount);
     }
 
@@ -152,7 +167,14 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
                 sequenceReturn.addAction(new Action() {
                     @Override
                     public boolean act(float delta) {
-                        getStage().addActor(parentView);
+                       if(parentView!=null) {
+                           ((UpdateCoinCountInterface)parentView).updateCoinCountView();
+                           getStage().addActor(parentView);
+                       }
+
+                        else{
+                           ((UpdateCoinCountInterface)parentState).updateCoinCountView();
+                           remove();}
                         //getStage().addActor(new MenuTest(listenerResume, gsm, actionResolver));
                         return true;
                     }
@@ -181,12 +203,12 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
         CoinShop coinShop2 = new CoinShop(2, 2.99f, 1950, GameManager.getStrings().get(Constants.CM_MEDIUM_COINS_PACK_FIRST_LINE) + "\n        " + GameManager.getStrings().get(Constants.CM_MEDIUM_COINS_PACK_SECOND_LINE), 30, Constants.COIN_SHOP_2_ID);
         CoinShop coinShop3 = new CoinShop(3, 4.99f, 3750, GameManager.getStrings().get(Constants.CM_BIG_COINS_PACK_FIRST_LINE) + "\n        " + GameManager.getStrings().get(Constants.CM_BIG_COINS_PACK_SECOND_LINE), 50, Constants.COIN_SHOP_3_ID);
         CoinShop coinShop4 = new CoinShop(4, 9.99f, 10000, GameManager.getStrings().get(Constants.CM_GREAT_COINS_PACK_FIRST_LINE)+"\n        "+GameManager.getStrings().get(Constants.CM_GREAT_COINS_PACK_SECOND_LINE), 100, Constants.COIN_SHOP_4_ID);
-        coinShopItems.add(new CoinShopItem(coinShop, 1));
+        coinShopItems.add(new CoinShopItem(coinShop, 1,actionResolver,this));
         CoinShopAdapter garageAdapter = new CoinShopAdapter(table, coinShopItems);
-        table.add(new CoinShopItem(coinShop, 1)).row();
-        table.add(new CoinShopItem(coinShop2, 1)).row();
-        table.add(new CoinShopItem(coinShop3, 1)).row();
-        table.add(new CoinShopItem(coinShop4, 1)).row();
+        table.add(new CoinShopItem(coinShop, 1,actionResolver,this)).row();
+        table.add(new CoinShopItem(coinShop2, 1,actionResolver,this)).row();
+        table.add(new CoinShopItem(coinShop3, 1,actionResolver,this)).row();
+        table.add(new CoinShopItem(coinShop4, 1,actionResolver,this)).row();
         table.top();
         table.padTop(3f);
         garageAdapter.loadTableData();
@@ -223,5 +245,15 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
     @Override
     public void setSelectedItme(int index) {
 
+    }
+
+    @Override
+    public void updateCoinCountView() {
+        labelCoinCount.setText(String.valueOf(GameManager.getCoinCounter()));
+        labelCoinCount.invalidate();
+
+        labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() -5, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
+
+//        labelCoinCount.notify();
     }
 }

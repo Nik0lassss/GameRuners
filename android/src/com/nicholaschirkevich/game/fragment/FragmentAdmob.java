@@ -219,7 +219,8 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                 if (result.isFailure()) {
 
                     buyProduct.onErroreBuy();
-                    Toast.makeText(getActivity(), result.getMessage(), Toast.LENGTH_LONG).show();
+
+//                    Toast.makeText(getActivity(), result.getMessage(), Toast.LENGTH_LONG).show();
                     // Handle error
                     return;
                 } else if (purchase.getSku().equals(ITEM_SKU)) {
@@ -237,12 +238,12 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         byButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (gameHelper.isSignedIn() == true) {
-                    Games.Leaderboards.submitScore(gameHelper.getApiClient(),
-                            getString(R.string.leaderboard_leaderboard), 100);
-                }
-//                mHelper.launchPurchaseFlow(getActivity(), ITEM_SKU_SP, 10001,
-//                        mPurchaseFinishedListener, getString(R.string.purchasetocken));
+//                if (gameHelper.isSignedIn() == true) {
+//                    Games.Leaderboards.submitScore(gameHelper.getApiClient(),
+//                            getString(R.string.leaderboard_leaderboard), 100);
+//                }
+                mHelper.launchPurchaseFlow(getActivity(), ITEM_SKU_SP, 10001,
+                        mPurchaseFinishedListener, getString(R.string.purchasetocken));
             }
         });
         showButton = (Button) getActivity().findViewById(R.id.bttn_show);
@@ -250,16 +251,16 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
             @Override
             public void onClick(View v) {
 
-                gameHelper.beginUserInitiatedSignIn();
-                if (gameHelper.isSignedIn()) {
-                    startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient(),
-                            getString(R.string.leaderboard_leaderboard)), requestCode);
-                } else {
-                    gameHelper.beginUserInitiatedSignIn();
-                }
+//                gameHelper.beginUserInitiatedSignIn();
+//                if (gameHelper.isSignedIn()) {
+//                    startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient(),
+//                            getString(R.string.leaderboard_leaderboard)), requestCode);
+//                } else {
+//                    gameHelper.beginUserInitiatedSignIn();
+//                }
 
 
-                //   showPreviousPurchases();
+                  showPreviousPurchases();
 //                showButton.setEnabled(false);
 //                byButton.setEnabled(true);
 //                String base64EncodedPublicKey =

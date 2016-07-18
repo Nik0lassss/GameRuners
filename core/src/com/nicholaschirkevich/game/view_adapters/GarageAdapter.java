@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.entity.Car;
 import com.nicholaschirkevich.game.entity.CarsType;
+import com.nicholaschirkevich.game.interfaces.UpdateCoinCountInterface;
 import com.nicholaschirkevich.game.interfaces.UpdateGarageTable;
 import com.nicholaschirkevich.game.menu.items.CarGarageItem;
 import com.nicholaschirkevich.game.util.AssetsManager;
@@ -20,12 +21,13 @@ public class GarageAdapter implements UpdateGarageTable {
     private int selectedItmeIndex;
     private ArrayList<CarGarageItem> carGarageItems = new ArrayList<CarGarageItem>();
     private ActionResolver actionResolver;
+    private UpdateCoinCountInterface updateCoinCountInterface;
 
-
-    public GarageAdapter(Table table, ArrayList<Car> cars, ActionResolver actionResolver) {
+    public GarageAdapter(Table table, ArrayList<Car> cars, ActionResolver actionResolver,UpdateCoinCountInterface updateCoinCountInterface) {
         this.actionResolver = actionResolver;
         this.table = table;
         this.cars = cars;
+        this.updateCoinCountInterface = updateCoinCountInterface;
     }
 
 
@@ -33,7 +35,7 @@ public class GarageAdapter implements UpdateGarageTable {
         int index = 0;
             for (int z = 0; z < cars.size(); z++) {
                 Car car = cars.get(z);
-                CarGarageItem carGarageItem = new CarGarageItem(car, index, this, AssetsManager.getUiSkin(), actionResolver);
+                CarGarageItem carGarageItem = new CarGarageItem(car, index, this, AssetsManager.getUiSkin(), actionResolver,updateCoinCountInterface);
                 carGarageItems.add(carGarageItem);
                 // CarGarageItem item = new CarGarageItem(car);
                 //item.addListener(new CarGarageItemClickListener(car.getID(),this));

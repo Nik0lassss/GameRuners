@@ -64,6 +64,7 @@ public class SideObject {
     }
 
     public SideObject(SideObjectType sideObjectType, boolean isLeft) {
+
         this.sideObjectTexture = AssetsManager.getTextureRegion(sideObjectType.getKey()).getTexture();
         this.type = sideObjectType;
         height = sideObjectTexture.getHeight();
@@ -77,6 +78,7 @@ public class SideObject {
     public SideObject(SideObjectType sideObjectType, boolean isLeft, float posY) {
         this.sideObjectTexture = AssetsManager.getTextureRegion(sideObjectType.getKey()).getTexture();
         this.type = sideObjectType;
+
         height = sideObjectTexture.getHeight();
         width = sideObjectTexture.getWidth();
 //        position = isLeft!=true?sideObjectType.getPosRight().cpy():sideObjectType.getPosLeft().cpy();
@@ -139,7 +141,8 @@ public class SideObject {
 
     public void draw(SpriteBatch sb) {
         sideObjectTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        sb.draw(sideObjectTexture, position.x, position.y);
+        sb.draw(sideObjectTexture, position.x, position.y,sideObjectTexture.getWidth(),sideObjectTexture.getHeight(),0,0,sideObjectTexture.getWidth(),sideObjectTexture.getHeight(),type.isFlipX(),false);
+
         for (int i = appendSideObjectArrayList.size() - 1; i >= 0; i--) {
             appendSideObjectArrayList.get(i).draw(sb);
         }

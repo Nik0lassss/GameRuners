@@ -24,6 +24,8 @@ import com.badlogic.gdx.utils.Align;
 import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
+import com.nicholaschirkevich.game.interfaces.UpdateCoinCountInterface;
+import com.nicholaschirkevich.game.states.CoinShopState;
 import com.nicholaschirkevich.game.states.GameStateManager;
 import com.nicholaschirkevich.game.util.AssetsManager;
 import com.nicholaschirkevich.game.util.Constants;
@@ -32,7 +34,8 @@ import com.nicholaschirkevich.game.util.GameManager;
 /**
  * Created by Nikolas on 10.03.2016.
  */
-public class MenuSetting extends Group {
+public class MenuSetting extends Group implements UpdateCoinCountInterface {
+    private Group thisGroupView;
     private Texture slot_vehicle;
     private Texture speed_bar;
     private TextButton soundButton, swipe_controll_button, block_rds_button, restore_button, singInVkBttn, singInFbBttn, backBttn;
@@ -40,7 +43,7 @@ public class MenuSetting extends Group {
     private Image soundButtonUpImage, soundButtonDownImage, playOnlineDownImage, playOnlineUpImage, getPrizeUpButtonImage, getPrizeDownButtonImage, carShopImageUp, carShopImageDown, coinShomImageUp, coinShopImageDown, settingMenuImageUp, settingMenuImageDown, leaderBoardImageUp, leaderBoardImageDown, leaderBoardsImageUp, leaderBoardsImageDown;
     private Texture sound_on, sound_off;
     private Image sound_on_image, sound_off_image, backButtonImageUp, backButtonImageDown;
-    private Image swipe_image, rds_image, restore_image, singInVkImage, singInFbImage;
+    private Image swipe_image, rds_image, restore_image, singInVkImage, inviteFriendsVk, singInFbImage;
     private Texture swipe_texture, rds_texture, restore_texture, singInVk, singInFb, backButtonTextureUp, backButtonTextureDown;
     private Texture soundButtonUp, soundButtonDown, playOnlineDownImageTexture, playOnlineUpImageTexture, getPrizeUpButtonImageTexture, getPrizeDownButtonImageTexture, carShopTextureUp, carShopTextureDown, coinShopTextureUp, coinShopTextureDown, settingMenuTextureUp, settingMenuTextureDown, leaderBoardTextureUp, leaderBoardTextureDown, leaderBoardsTextureUp, leaderBoardsTextureDown;
     private Image imageLogo;
@@ -58,6 +61,7 @@ public class MenuSetting extends Group {
 
     public MenuSetting(ResumeButtonListener listenerResume, GameStateManager gsm, ActionResolver actionResolver, Group parentView) {
 
+        this.thisGroupView = this;
         this.parentView = parentView;
         this.listenerResume = listenerResume;
         this.actionResolver = actionResolver;
@@ -91,6 +95,7 @@ public class MenuSetting extends Group {
 
         singInFbImage = new Image(singInFb);
         singInVkImage = new Image(singInVk);
+        inviteFriendsVk = new Image(singInVk);
 
         backButtonTextureDown = AssetsManager.getTextureRegion(Constants.BACK_BUTTON_PRESSED_ID).getTexture();
         backButtonTextureUp = AssetsManager.getTextureRegion(Constants.BACK_BUTTON_ID).getTexture();
@@ -108,7 +113,7 @@ public class MenuSetting extends Group {
         setUpBlockRds();
         setUpRestore();
         setUpSingInVk();
-        setUpSingInFb();
+       // setUpSingInFb();
         setUpBackButton();
         setUpImageCoinCount();
         setUpCoinCountLabel();
@@ -127,6 +132,15 @@ public class MenuSetting extends Group {
         labelCoinCount = new Label(String.valueOf(GameManager.getCoinCounter()), AssetsManager.getUiSkin());
         labelCoinCount.setFontScale(0.60f, 0.60f);
         labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
+        labelCoinCount.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                super.touchDown(event, x, y, pointer, button);
+                getStage().addActor(new CoinShopState(gsm, actionResolver, thisGroupView));
+                thisGroupView.remove();
+                return true;
+            }
+        });
         addActor(labelCoinCount);
     }
 
@@ -396,12 +410,12 @@ public class MenuSetting extends Group {
 
                             if (actionResolver.isAvailibleInternet()) {
                                 singInVkBttn.setText(GameManager.getStrings().get(Constants.MS_SIGN_IN_LBL));
-                                setUpSingInFb();
+                                //setUpSingInFb();
                             }
                         } else {
                             if (actionResolver.isAvailibleInternet()) {
                                 actionResolver.showVkLoginActivity();
-                                singInFbBttn.remove();
+                                //singInFbBttn.remove();
                                 singInVkBttn.setText(GameManager.getStrings().get(Constants.SETTINGS_VK_LOGOUT_LBL));
                             }
                         }
@@ -477,7 +491,7 @@ public class MenuSetting extends Group {
             TextButton inviteFriends = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_VK_INVITE_FIRST_LINE) + "\n" + GameManager.getStrings().get(Constants.SETTINGS_VK_INVITE_SECOND_LINE), textButtonStyle);
             inviteFriends.getLabel().setFontScale(0.4f, 0.4f);
             inviteFriends.getLabel().setAlignment(Align.left, Align.left);
-            inviteFriends.getLabelCell().padLeft(10f);
+            inviteFriends.getLabelCell().padLeft(40f);
 
             inviteFriends.setPosition(getX() + 5, getY() + distance_button);
 //            inviteFriends.addActor(singInFbImage);
@@ -505,8 +519,10 @@ public class MenuSetting extends Group {
                     return true;
                 }
             });
-
+            inviteFriendsVk.setPosition(getX() + 5, getY() + distance_button);
+            inviteFriends.addActor(inviteFriendsVk);
             addActor(inviteFriends);
+
         }
     }
 
@@ -567,4 +583,12 @@ public class MenuSetting extends Group {
     }
 
 
+    @Override
+    public void updateCoinCountView() {
+        labelCoinCount.setText(String.valueOf(GameManager.getCoinCounter()));
+        labelCoinCount.invalidate();
+
+        labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() -5, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
+
+    }
 }
