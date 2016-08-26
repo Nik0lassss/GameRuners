@@ -25,6 +25,7 @@ import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
 import com.nicholaschirkevich.game.interfaces.UpdateCoinCountInterface;
+import com.nicholaschirkevich.game.listeners.OnLoginListenerInterface;
 import com.nicholaschirkevich.game.states.CoinShopState;
 import com.nicholaschirkevich.game.states.GameStateManager;
 import com.nicholaschirkevich.game.util.AssetsManager;
@@ -34,7 +35,7 @@ import com.nicholaschirkevich.game.util.GameManager;
 /**
  * Created by Nikolas on 10.03.2016.
  */
-public class MenuSetting extends Group implements UpdateCoinCountInterface {
+public class MenuSetting extends Group implements UpdateCoinCountInterface, OnLoginListenerInterface {
     private Group thisGroupView;
     private Texture slot_vehicle;
     private Texture speed_bar;
@@ -58,6 +59,7 @@ public class MenuSetting extends Group implements UpdateCoinCountInterface {
     private int distance_button = 15;
     private ImageButton imageButton, resumeImageButton;
     private Label labelCoinCount;
+    TextButton inviteFriends;
 
     public MenuSetting(ResumeButtonListener listenerResume, GameStateManager gsm, ActionResolver actionResolver, Group parentView) {
 
@@ -113,7 +115,7 @@ public class MenuSetting extends Group implements UpdateCoinCountInterface {
         setUpBlockRds();
         setUpRestore();
         setUpSingInVk();
-       // setUpSingInFb();
+        setUpSingInFb();
         setUpBackButton();
         setUpImageCoinCount();
         setUpCoinCountLabel();
@@ -284,7 +286,7 @@ public class MenuSetting extends Group implements UpdateCoinCountInterface {
 
         if (actionResolver.getAdmobStatus())
             block_rds_button = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_BLOCK_LBL) + "\n" + GameManager.getStrings().get(Constants.SETTINGS_ADS_LBL), textButtonStyle);
-       else {
+        else {
             block_rds_button = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_ENABLE_BLOCK_LBL) + "\n" + GameManager.getStrings().get(Constants.SETTINGS_ADS_LBL), textButtonStyle);
 
         }
@@ -306,12 +308,10 @@ public class MenuSetting extends Group implements UpdateCoinCountInterface {
                 swipeButtonSequence.addAction(new Action() {
                     @Override
                     public boolean act(float delta) {
-                        if(actionResolver.getAdmobStatus())
-                        {
+                        if (actionResolver.getAdmobStatus()) {
                             block_rds_button.setText(GameManager.getStrings().get(Constants.SETTINGS_ENABLE_BLOCK_LBL) + "\n" + GameManager.getStrings().get(Constants.SETTINGS_ADS_LBL));
                             actionResolver.setAdmobStatus(false);
-                        }else
-                        {
+                        } else {
                             block_rds_button.setText(GameManager.getStrings().get(Constants.SETTINGS_BLOCK_LBL) + "\n" + GameManager.getStrings().get(Constants.SETTINGS_ADS_LBL));
                             actionResolver.setAdmobStatus(true);
                         }
@@ -377,61 +377,62 @@ public class MenuSetting extends Group implements UpdateCoinCountInterface {
 
 
     private void setUpSingInVk() {
+        if (!actionResolver.isFacebookLogin()) {
+            float x = Constants.SING_IN_VK_BTTN_X_VISIBLE, y = Constants.SING_IN_VK_Y_VISIBLE, width = 70, height = 55;
+            TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+            textButtonStyle.down = soundButtonDownImage.getDrawable();
+            textButtonStyle.up = soundButtonUpImage.getDrawable();
+            textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
+            if (actionResolver.isVkLogin())
+                singInVkBttn = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_VK_LOGOUT_LBL), textButtonStyle);
+            else
+                singInVkBttn = new TextButton(GameManager.getStrings().get(Constants.MS_SIGN_IN_LBL), textButtonStyle);
+            singInVkBttn.getLabel().setFontScale(0.4f, 0.4f);
+            singInVkBttn.getLabelCell().padLeft(40f);
+            singInVkBttn.getLabel().setAlignment(Align.left, Align.left);
+            singInVkImage.setPosition(getX() + 5, getY() + distance_button);
+            singInVkBttn.addActor(singInVkImage);
 
-        float x = Constants.SING_IN_VK_BTTN_X_VISIBLE, y = Constants.SING_IN_VK_Y_VISIBLE, width = 70, height = 55;
-        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.down = soundButtonDownImage.getDrawable();
-        textButtonStyle.up = soundButtonUpImage.getDrawable();
-        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
-        if (actionResolver.isVkLogin())
-            singInVkBttn = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_VK_LOGOUT_LBL), textButtonStyle);
-        else
-            singInVkBttn = new TextButton(GameManager.getStrings().get(Constants.MS_SIGN_IN_LBL), textButtonStyle);
-        singInVkBttn.getLabel().setFontScale(0.4f, 0.4f);
-        singInVkBttn.getLabelCell().padLeft(40f);
-        singInVkBttn.getLabel().setAlignment(Align.left, Align.left);
-        singInVkImage.setPosition(getX() + 5, getY() + distance_button);
-        singInVkBttn.addActor(singInVkImage);
 
+            singInVkBttn.setBounds(x, y - singInVkBttn.getHeight() / 2, buttonWidth, buttonHeight);
 
-        singInVkBttn.setBounds(x, y - singInVkBttn.getHeight() / 2, buttonWidth, buttonHeight);
+            singInVkBttn.addListener(new ClickListener() {
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    AssetsManager.playSound(Constants.SOUND_CLICK);
+                    swipeButtonSequence.addAction(Actions.delay(0.3f));
+                    swipeButtonSequence.addAction(new Action() {
+                        @Override
+                        public boolean act(float delta) {
+                            if (actionResolver.isVkLogin()) {
 
-        singInVkBttn.addListener(new ClickListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                AssetsManager.playSound(Constants.SOUND_CLICK);
-                swipeButtonSequence.addAction(Actions.delay(0.3f));
-                swipeButtonSequence.addAction(new Action() {
-                    @Override
-                    public boolean act(float delta) {
-                        if (actionResolver.isVkLogin()) {
+                                if (actionResolver.isAvailibleInternet()) actionResolver.vkLogout();
 
-                            if (actionResolver.isAvailibleInternet()) actionResolver.vkLogout();
-
-                            if (actionResolver.isAvailibleInternet()) {
-                                singInVkBttn.setText(GameManager.getStrings().get(Constants.MS_SIGN_IN_LBL));
-                                //setUpSingInFb();
+                                if (actionResolver.isAvailibleInternet()) {
+                                    singInVkBttn.setText(GameManager.getStrings().get(Constants.MS_SIGN_IN_LBL));
+                                    //setUpSingInFb();
+                                }
+                            } else {
+                                if (actionResolver.isAvailibleInternet()) {
+                                    actionResolver.showVkLoginActivity();
+                                    //singInFbBttn.remove();
+                                    singInVkBttn.setText(GameManager.getStrings().get(Constants.SETTINGS_VK_LOGOUT_LBL));
+                                }
                             }
-                        } else {
-                            if (actionResolver.isAvailibleInternet()) {
-                                actionResolver.showVkLoginActivity();
-                                //singInFbBttn.remove();
-                                singInVkBttn.setText(GameManager.getStrings().get(Constants.SETTINGS_VK_LOGOUT_LBL));
-                            }
+
+                            //listener.resumeButtonOnResume();
+                            return true;
                         }
+                    });
+                    //swipeButtonSequence.addAction(Actions.removeActor());
+                    addAction(swipeButtonSequence);
 
-                        //listener.resumeButtonOnResume();
-                        return true;
-                    }
-                });
-                //swipeButtonSequence.addAction(Actions.removeActor());
-                addAction(swipeButtonSequence);
+                    return true;
+                }
+            });
 
-                return true;
-            }
-        });
-
-        addActor(singInVkBttn);
+            addActor(singInVkBttn);
+        }
 
     }
 
@@ -444,15 +445,28 @@ public class MenuSetting extends Group implements UpdateCoinCountInterface {
             textButtonStyle.up = soundButtonUpImage.getDrawable();
             textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
 
-            singInFbBttn = new TextButton(GameManager.getStrings().get(Constants.MS_SIGN_IN_LBL), textButtonStyle);
+            if (!actionResolver.isFacebookLogin()) {
+                singInFbBttn = new TextButton(GameManager.getStrings().get(Constants.MS_SIGN_IN_LBL), textButtonStyle);
+            } else {
+                singInFbBttn = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_VK_LOGOUT_LBL), textButtonStyle);
+            }
             singInFbBttn.getLabel().setFontScale(0.4f, 0.4f);
             singInFbBttn.getLabelCell().padLeft(40f);
             singInFbBttn.getLabel().setAlignment(Align.left, Align.left);
-            singInFbImage.setPosition(getX() + 5, getY() + distance_button);
-            singInFbBttn.addActor(singInFbImage);
 
+            Image singInFbImageSingout = new Image(singInFb);
+            singInFbImageSingout.setPosition(getX() + 5, getY() + distance_button);
+            singInFbBttn.addActor(singInFbImageSingout);
+//            singInVkImage.setPosition(getX() + 5, getY() + distance_button);
+//            singInFbBttn.addActor(singInVkImage);
 
-            singInFbBttn.setBounds(x, y - singInFbBttn.getHeight() / 2, buttonWidth, buttonHeight);
+            if (!actionResolver.isFacebookLogin()) {
+                singInFbBttn.setBounds(x, y - singInFbBttn.getHeight() / 2, buttonWidth, buttonHeight);
+            }
+            else {
+                float x1 = Constants.SING_IN_VK_BTTN_X_VISIBLE, y1 = Constants.SING_IN_VK_Y_VISIBLE;
+                singInFbBttn.setBounds(x1, y1 - singInFbBttn.getHeight() / 2, buttonWidth, buttonHeight);
+            }
 
             singInFbBttn.addListener(new ClickListener() {
                 @Override
@@ -463,6 +477,18 @@ public class MenuSetting extends Group implements UpdateCoinCountInterface {
                     swipeButtonSequence.addAction(new Action() {
                         @Override
                         public boolean act(float delta) {
+                            if (!actionResolver.isFacebookLogin()) {
+                                actionResolver.singInFb((OnLoginListenerInterface) thisGroupView);
+
+                            } else {
+
+                                actionResolver.singOutFb((OnLoginListenerInterface) thisGroupView);
+                                singInFbBttn.setText(GameManager.getStrings().get(Constants.MS_SIGN_IN_LBL));
+                                inviteFriends.remove();
+                                setUpSingInVk();
+                                singInFbBttn.setX(Constants.SING_IN_FB_BTTN_X_VISIBLE);
+                                singInFbBttn.setY(Constants.SING_IN_FB_Y_VISIBLE-singInFbBttn.getHeight() / 2);
+                            }
                             //listener.resumeButtonOnResume();
                             return true;
                         }
@@ -488,7 +514,7 @@ public class MenuSetting extends Group implements UpdateCoinCountInterface {
             textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
             final SequenceAction sequenceAction = new SequenceAction();
 
-            TextButton inviteFriends = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_VK_INVITE_FIRST_LINE) + "\n" + GameManager.getStrings().get(Constants.SETTINGS_VK_INVITE_SECOND_LINE), textButtonStyle);
+            inviteFriends= new TextButton(GameManager.getStrings().get(Constants.SETTINGS_VK_INVITE_FIRST_LINE) + "\n" + GameManager.getStrings().get(Constants.SETTINGS_VK_INVITE_SECOND_LINE), textButtonStyle);
             inviteFriends.getLabel().setFontScale(0.4f, 0.4f);
             inviteFriends.getLabel().setAlignment(Align.left, Align.left);
             inviteFriends.getLabelCell().padLeft(40f);
@@ -521,6 +547,50 @@ public class MenuSetting extends Group implements UpdateCoinCountInterface {
             });
             inviteFriendsVk.setPosition(getX() + 5, getY() + distance_button);
             inviteFriends.addActor(inviteFriendsVk);
+            addActor(inviteFriends);
+
+        }
+        if (actionResolver.isFacebookLogin()) {
+            float x = Constants.SING_IN_FB_BTTN_X_VISIBLE, y = Constants.SING_IN_FB_Y_VISIBLE, width = 70, height = 55;
+            TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+            textButtonStyle.down = soundButtonDownImage.getDrawable();
+            textButtonStyle.up = soundButtonUpImage.getDrawable();
+            textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
+            final SequenceAction sequenceAction = new SequenceAction();
+
+            inviteFriends = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_VK_INVITE_FIRST_LINE) + "\n" + GameManager.getStrings().get(Constants.SETTINGS_VK_INVITE_SECOND_LINE), textButtonStyle);
+            inviteFriends.getLabel().setFontScale(0.4f, 0.4f);
+            inviteFriends.getLabel().setAlignment(Align.left, Align.left);
+            inviteFriends.getLabelCell().padLeft(40f);
+
+            inviteFriends.setPosition(getX() + 5, getY() + distance_button);
+//            inviteFriends.addActor(singInFbImage);
+
+
+            inviteFriends.setBounds(x, y - inviteFriends.getHeight() / 2, buttonWidth, buttonHeight);
+
+            inviteFriends.addListener(new ClickListener() {
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    if (actionResolver.isAvailibleInternet()) {
+                        AssetsManager.playSound(Constants.SOUND_CLICK);
+
+                        sequenceAction.addAction(Actions.delay(0.3f));
+                        sequenceAction.addAction(new Action() {
+                            @Override
+                            public boolean act(float delta) {
+                                actionResolver.showInviteFacebook();
+                                return true;
+                            }
+                        });
+                        //swipeButtonSequence.addAction(Actions.removeActor());
+                        addAction(sequenceAction);
+                    }
+                    return true;
+                }
+            });
+            singInFbImage.setPosition(getX() + 5, getY() + distance_button);
+            inviteFriends.addActor(singInFbImage);
             addActor(inviteFriends);
 
         }
@@ -588,7 +658,22 @@ public class MenuSetting extends Group implements UpdateCoinCountInterface {
         labelCoinCount.setText(String.valueOf(GameManager.getCoinCounter()));
         labelCoinCount.invalidate();
 
-        labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() -5, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
+        labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
+
+    }
+
+    @Override
+    public void onLoginFb() {
+        singInVkBttn.remove();
+        singInFbBttn.setText(GameManager.getStrings().get(Constants.SETTINGS_VK_LOGOUT_LBL));
+        float x = Constants.SING_IN_VK_BTTN_X_VISIBLE, y = Constants.SING_IN_VK_Y_VISIBLE;
+        singInFbBttn.setX(x);
+        singInFbBttn.setY(y - singInFbBttn.getHeight() / 2);
+        setUpInviteFriends();
+    }
+
+    @Override
+    public void onLoginVk() {
 
     }
 }

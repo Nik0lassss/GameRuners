@@ -24,6 +24,7 @@ import com.nicholaschirkevich.game.entity.VkUser;
 import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
 import com.nicholaschirkevich.game.listeners.OnGetLidearBoards;
 import com.nicholaschirkevich.game.menu.RecordRectangle;
+import com.nicholaschirkevich.game.menu.customview.ScrollPanCustom;
 import com.nicholaschirkevich.game.util.AssetsManager;
 import com.nicholaschirkevich.game.util.Constants;
 import com.nicholaschirkevich.game.util.GameManager;
@@ -39,9 +40,7 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
     private OrthographicCamera camera;
     private Texture cnr_line, backgroung_texture, backButtonTextureDown, backButtonTextureUp;
     private Image image, backgroung_image, backButtonImageDown, backButtonImageUp;
-    //    private ScrollPane scrollRight;
-//    private ScrollPane scrollPaneLeft;
-//    private ScrollPane counteinerScrollPane;
+
     private TextButton backBttn;
     private SequenceAction sequenceReturn;
     private Label menuName;
@@ -58,9 +57,20 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
     private boolean isLeaderboardsLoad = false, isHighScoreLoad = false;
     private boolean isLeftTabSelected = false;
 
+
+    private TextButton.TextButtonStyle leftTextButtonStyle;
+    private TextButton leftButtonFriends;
+    private TextButton.TextButtonStyle rightTextButtonStyle;
+    final float ySelect = GameRuners.HEIGHT / 2 - 150;
+    final float yUnSelect = ySelect + 5;
+    private TextButton rightButtonFriends;
+    private boolean updateScrollLeaderboards = false;
+
+    private RecordsLeaderBoardAdapter recordAdapter;
+
     class HighScoreItem extends Group {
         private TextButton inviteFriend;
-        ScrollPane pane1;
+        ScrollPanCustom pane1;
 
         public void setUpInviteButton() {
             TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
@@ -75,7 +85,12 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     if (actionResolver.isAvailibleInternet()) {
                         AssetsManager.playSound(Constants.SOUND_CLICK);
+                        if(actionResolver.isVkLogin()){
                         actionResolver.showInviteBox();
+                        }else if (actionResolver.isFacebookLogin()){
+                        actionResolver.showInviteFacebook();
+                        }
+
                         return true;
                     }
                     return super.touchDown(event, x, y, pointer, button);
@@ -84,7 +99,7 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
             addActor(inviteFriend);
         }
 
-        public void setUpPane(ScrollPane scrollPane) {
+        public void setUpPane(ScrollPanCustom scrollPane) {
             this.pane1 = scrollPane;
             this.addActor(pane1);
             pane1.setWidth(300);
@@ -98,7 +113,7 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
     }
 
 
-    ScrollPane pane2;
+    ScrollPanCustom pane2;
     ScrollPane pane;
 
     final Table table1 = new Table();
@@ -106,35 +121,35 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
     final Table mytable = new Table();
 
 
-    //    private ScrollPane paneLeftScrollPane, paneRightScrollPane, containerPane;
-//    private Table leftTable, rightTable, containerTable;
-    private ScrollPane pane1;
+    private ScrollPanCustom pane1;
 
     public RecordsMenu(GameStateManager gsm, ActionResolver actionResolver, Group parentView) {
 
 
+        menuName = new Label(GameManager.getStrings().get(Constants.LB_HEADER_TEXT), AssetsManager.getUiSkin());
+        menuName.setBounds(60, GameRuners.HEIGHT / 2 - 35, menuName.getWidth(), menuName.getHeight());
+        menuName.setColor(255f / 255f, 128f / 255f, 0f / 255f, 1f);
+
+        Image imageTitle = new Image(AssetsManager.getTextureRegion(Constants.TITLE_LEADERBOARD_RUS_ID));
+        imageTitle.setBounds(10, GameRuners.HEIGHT / 2 - 35, imageTitle.getWidth(), imageTitle.getHeight());
+
         mytable.top();
         table2.top();
         table1.top();
-        pane1 = new ScrollPane(table1);
+        pane1 = new ScrollPanCustom(table1);
 
-        pane2 = new ScrollPane(table2);
+        pane2 = new ScrollPanCustom(table2);
         HighScoreItem highScoreItem = new HighScoreItem();
         highScoreItem.setUpPane(pane1);
         pane2.setScrollingDisabled(true, false);
 
-//        table1.add(new Image(new Texture("cnr_line.png"))).row();
-//        table2.add(new Image(new Texture("cnr_line.png"))).row();
-//        table1.add(new Image(new Texture("123.jpg"))).row();
-//        table1.add(new Image(new Texture("123.jpg"))).row();
 
         pane1.setScrollingDisabled(true, false);
 
-        // mytable.debug();
+
         mytable.add(highScoreItem).size(GameRuners.WIDTH / 2 - 22, GameRuners.HEIGHT / 2 - 210).top();
         mytable.add(pane2).size(GameRuners.WIDTH / 2 - 22, GameRuners.HEIGHT / 2 - 210);
-//        mytable.add(new Image(new Texture("badlogic.jpg")));
-//        mytable.add(new Image(new Texture("badlogic.jpg")));
+
 
         pane = new ScrollPane(mytable) {
             float lastScrollY = 0;
@@ -144,14 +159,40 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
                 super.act(delta);
 
 
-                //System.out.println(Gdx.input.getDeltaX());
-                if (Math.abs(GameManager.getGestureListnener().getDeltaX()) > 20 && Math.abs(GameManager.getGestureListnener().getDeltaY()) < 5) {
+
+                if (GameManager.getGestureListnener().getDeltaX() < -20 && Math.abs(GameManager.getGestureListnener().getDeltaY()) < 5) {
                     pane.setScrollX(-GameManager.getGestureListnener().getDeltaX() * 20);
                     pane1.cancel();
                     pane1.fling(0, 0, 0);
                     pane2.cancel();
                     pane2.fling(0, 0, 0);
+
+                    rightTextButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_SELECTED_ID)).getDrawable();
+                    rightTextButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_SELECTED_ID)).getDrawable();
+                    rightButtonFriends.setBounds(GameRuners.WIDTH / 4 + 1, ySelect, GameRuners.WIDTH / 4 - 12, 62);
+                    leftTextButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_UNSELECTED_ID)).getDrawable();
+                    leftTextButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_UNSELECTED_ID)).getDrawable();
+                    leftButtonFriends.setBounds(11, yUnSelect, GameRuners.WIDTH / 4 - 12, 57);
+                    isLeftTabSelected = false;
                 }
+
+                if (GameManager.getGestureListnener().getDeltaX() > 20 && Math.abs(GameManager.getGestureListnener().getDeltaY()) < 5) {
+                    pane.setScrollX(-GameManager.getGestureListnener().getDeltaX() * 20);
+                    pane1.cancel();
+                    pane1.fling(0, 0, 0);
+                    pane2.cancel();
+                    pane2.fling(0, 0, 0);
+
+                    leftTextButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_SELECTED_ID)).getDrawable();
+                    leftTextButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_SELECTED_ID)).getDrawable();
+                    leftButtonFriends.setBounds(11, ySelect, GameRuners.WIDTH / 4 - 12, 62);
+                    rightTextButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_UNSELECTED_ID)).getDrawable();
+                    rightTextButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_UNSELECTED_ID)).getDrawable();
+                    rightButtonFriends.setBounds(GameRuners.WIDTH / 4 + 1, yUnSelect, GameRuners.WIDTH / 4 - 12, 57);
+                    isLeftTabSelected = true;
+
+                }
+
 
             }
         };
@@ -193,32 +234,29 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
         addActor(backgroung_image);
 
         getLidearBoards(thisView);
-        getHighscoresVkFriends(this);
+        if(actionResolver.isVkLogin()){
+            getHighscoresVkFriends(this);
+        }
+        else if(actionResolver.isFacebookLogin())
+        {
+            getHighscoresFacebookFriends(this);
+        }
+//        getHighscoresVkFriends(this);
 
 
         setUpBackButton();
+
         setUpTabImageButton();
 
 
         addActor(image);
         addActor(pane);
         addRectagleScroll();
-//        containerPane.setCancelTouchFocus(false);
-//        containerTable.top();
-//        if (false) {
-//            // This sizes the pane to the size of it's contents.
-//            containerPane.pack();
-//            // Then the height is hardcoded, leaving the pane the width of it's contents.
-//            containerPane.setHeight(Gdx.graphics.getHeight());
-//        } else {
-//            // This shows a hardcoded size.
-//            containerPane.setSize(300f, 320f);
-//
-//        }
-//        addActor(containerPane);
+
         setUpProgressBar();
 
-
+        addActor(imageTitle);
+        addActor(menuName);
     }
 
 
@@ -234,6 +272,14 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
         if (!isLeaderboardsLoad) {
             isLeaderboardsLoad = true;
             actionResolver.getLidearBoards(onGetLidearBoards);
+        }
+    }
+
+    private void getHighscoresFacebookFriends(final OnGetLidearBoards onGetLidearBoards) {
+        if (!isHighScoreLoad) {
+            isHighScoreLoad = true;
+            actionResolver.getHighScoreFacebookFriends(onGetLidearBoards);
+            System.out.println("  actionResolver.getHighscoresVkFriends(onGetLidearBoards);");
         }
     }
 
@@ -275,24 +321,23 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
 
     public void setUpTabImageButton() {
 
-        final float ySelect = GameRuners.HEIGHT / 2 - 150;
-        final float yUnSelect = ySelect + 5;
-        final TextButton.TextButtonStyle leftTextButtonStyle = new TextButton.TextButtonStyle();
+        leftTextButtonStyle = new TextButton.TextButtonStyle();
         leftTextButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_SELECTED_ID)).getDrawable();
         leftTextButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_SELECTED_ID)).getDrawable();
         leftTextButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
-        final TextButton leftButtonFriends = new TextButton(GameManager.getStrings().get(Constants.LEADERBOARD_FRIENDS_TEXT), leftTextButtonStyle);
+        leftButtonFriends = new TextButton(GameManager.getStrings().get(Constants.LEADERBOARD_FRIENDS_TEXT), leftTextButtonStyle);
         leftButtonFriends.getLabel().setFontScale(0.5f, 0.5f);
         leftButtonFriends.setBounds(11, ySelect, GameRuners.WIDTH / 4 - 12, 62);
 
 
-        final TextButton.TextButtonStyle rightTextButtonStyle = new TextButton.TextButtonStyle();
+        rightTextButtonStyle = new TextButton.TextButtonStyle();
         rightTextButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_UNSELECTED_ID)).getDrawable();
         rightTextButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_UNSELECTED_ID)).getDrawable();
         rightTextButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
-        final TextButton rightButtonFriends = new TextButton(GameManager.getStrings().get(Constants.LEADERBOARD_GLOBAL_TEXT), rightTextButtonStyle);
+        rightButtonFriends = new TextButton(GameManager.getStrings().get(Constants.LEADERBOARD_GLOBAL_TEXT), rightTextButtonStyle);
         rightButtonFriends.getLabel().setFontScale(0.5f, 0.5f);
         rightButtonFriends.setBounds(GameRuners.WIDTH / 4 + 1, yUnSelect, GameRuners.WIDTH / 4 - 12, 57);
+
         leftButtonFriends.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -301,9 +346,7 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
                 pane1.fling(0, 0, 0);
                 pane2.cancel();
                 pane2.fling(0, 0, 0);
-                //showProgressBar();
-                //getHighscoresVkFriends(thisView);
-                //setUpHighscoreFriendsTable(new ArrayList<VkUser>());
+
                 leftTextButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_SELECTED_ID)).getDrawable();
                 leftTextButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_SELECTED_ID)).getDrawable();
                 leftButtonFriends.setBounds(11, ySelect, GameRuners.WIDTH / 4 - 12, 62);
@@ -325,9 +368,7 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
                 pane1.fling(0, 0, 0);
                 pane2.cancel();
                 pane2.fling(0, 0, 0);
-                //showProgressBar();
-                //setUpLeaderboardsTable(new ArrayList<VkUser>());
-                //getLidearBoards(thisView);
+
                 rightTextButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_SELECTED_ID)).getDrawable();
                 rightTextButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_SELECTED_ID)).getDrawable();
                 rightButtonFriends.setBounds(GameRuners.WIDTH / 4 + 1, ySelect, GameRuners.WIDTH / 4 - 12, 62);
@@ -381,7 +422,6 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
                         setVisibleParent(parentView);
                         getStage().addActor(parentView);
 
-                        //getStage().addActor(new MenuTest(listenerResume, gsm, actionResolver));
                         return true;
                     }
                 });
@@ -402,13 +442,14 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
     public void setUpLeaderboardsTable(final ArrayList<VkUser> arrayList) {
 
 
-        //             RecordsLeaderBoardAdapter recordAdapter = new RecordsLeaderBoardAdapter(table1, arrayList, actionResolver);
-//                recordAdapter.loadTableData();
         Gdx.app.postRunnable(new Runnable() {
             @Override
             public void run() {
-                RecordsLeaderBoardAdapter recordAdapter = new RecordsLeaderBoardAdapter(table2, arrayList, actionResolver);
+                recordAdapter = new RecordsLeaderBoardAdapter(table2, arrayList, actionResolver);
                 recordAdapter.loadTableData();
+                pane2.setAmountY(recordAdapter.getMyIndex() * 60 - 145);
+
+
             }
         });
 
@@ -424,17 +465,6 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
                 recordAdapter.loadTableData();
             }
         });
-//
-//                RecordsLeaderBoardAdapter recordAdapter = new RecordsLeaderBoardAdapter(table1, arrayList, actionResolver);
-//                recordAdapter.loadTableData();
-
-
-        //leftTable.clear();
-
-//        leftTable = leftDataTable;
-//        leftDataTable.add(new Image(AssetsManager.getTextureRegion(Constants.CNR_LINE_ID)));
-//        leftDataTable.add(new Image(AssetsManager.getTextureRegion(Constants.CNR_LINE_ID)));
-        //     paneLeftScrollPane.setWidget(leftTable);
 
     }
 
@@ -458,6 +488,8 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
         leaderboardEntities = leaderboard;
         actionResolver.getVkImageLidearBoards(this, leaderboardEntities);
 
+        updateScrollLeaderboards = true;
+
 
     }
 
@@ -473,7 +505,9 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
             }
         }
 
+
         setUpLeaderboardsTable(vkUserArrayList);
+
 
     }
 
@@ -488,29 +522,32 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
         disableProgressBar();
         isHighScoreLoad = false;
         setUpHighscoreFriendsTable(arrayList);
-        //Gdx.app.postRunnable(new Runnable() {
-//                @Override
-//                public void run() {
-//                    for(int i =0;i<100;i++)
-//                        table1.add(new Image(AssetsManager.getTextureRegion(Constants.CNR_LINE_ID).getTexture())).row();
-//                }
-//            });
 
-//            leftTable.add(new Image(AssetsManager.getTextureRegion(Constants.CNR_LINE_ID).getTexture())).row();
-//            leftTable.add(new Image(AssetsManager.getTextureRegion(Constants.CNR_LINE_ID).getTexture())).row();
-//            leftTable.add(new Image(AssetsManager.getTextureRegion(Constants.CNR_LINE_ID).getTexture())).row();
-//            leftTable.add(new Image(AssetsManager.getTextureRegion(Constants.CNR_LINE_ID).getTexture())).row();
-//            leftTable.add(new Image(AssetsManager.getTextureRegion(Constants.CNR_LINE_ID).getTexture())).row();
-//            leftTable.add(new Image(AssetsManager.getTextureRegion(Constants.CNR_LINE_ID).getTexture())).row();
-//            leftTable.add(new Image(AssetsManager.getTextureRegion(Constants.CNR_LINE_ID).getTexture())).row();
-//            rightTable.add(new Image(AssetsManager.getTextureRegion(Constants.CNR_LINE_ID).getTexture())).row();
-//            rightTable.add(new Image(AssetsManager.getTextureRegion(Constants.CNR_LINE_ID).getTexture())).row();
 
 
     }
 
     @Override
+    public void onGetFacebookHighscoresFriends(ArrayList<VkUser> arrayList) {
+
+    }
+
+    @Override
+    public void onGetLeaderboardErrore(String errore) {
+
+    }
+
+    @Override
+    public void onGetVkLeaderboardErrore(String errore) {
+
+    }
+
+
+
+    @Override
     public void act(float delta) {
+
+
         super.act(delta);
         progressBarDelta += delta;
         if (progressBarDelta > 0.1) {
@@ -518,6 +555,8 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
             if (progressBarImage != null)
                 progressBarImage.setRotation(progressBarImage.getRotation() - 20f);
         }
+
+
 
     }
 }

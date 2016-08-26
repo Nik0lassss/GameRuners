@@ -433,6 +433,22 @@ public class TestShopState extends Group implements ResumeButtonListener, OnGetL
     }
 
     @Override
+    public void onGetFacebookHighscoresFriends(ArrayList<VkUser> arrayList) {
+
+    }
+
+    @Override
+    public void onGetLeaderboardErrore(String errore) {
+
+    }
+
+    @Override
+    public void onGetVkLeaderboardErrore(String errore) {
+
+    }
+
+
+    @Override
     public void act(float delta) {
         super.act(delta);
         progressBarDelta += delta;

@@ -7,6 +7,7 @@ package com.nicholaschirkevich.game.menu;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -18,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.SnapshotArray;
 import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
@@ -27,6 +29,7 @@ import com.nicholaschirkevich.game.states.CarShopState;
 import com.nicholaschirkevich.game.states.CoinShopState;
 import com.nicholaschirkevich.game.states.GameState;
 import com.nicholaschirkevich.game.states.GameStateManager;
+import com.nicholaschirkevich.game.states.LeaderboardMenu;
 import com.nicholaschirkevich.game.states.RecordsMenu;
 import com.nicholaschirkevich.game.util.AssetsManager;
 import com.nicholaschirkevich.game.util.Constants;
@@ -39,6 +42,9 @@ import com.nicholaschirkevich.game.util.RandomUtil;
 public class MenuGameOverTotal extends Group implements UpdateCoinCountInterface {
     private Texture slot_vehicle;
     private Texture speed_text;
+
+    private Texture backButtonTextureDown, backButtonTextureUp;
+    private Image  backButtonImageDown, backButtonImageUp;
 
     private TextButton resumeButton, playOnline, prizeButton, vkBttn;
     private ImageButton carShop, coinShop, settingMenu, leaderBoard, leaderBoards;
@@ -57,6 +63,8 @@ public class MenuGameOverTotal extends Group implements UpdateCoinCountInterface
     private Label achive, achiveCount, bestAchive, bestAchiveCount, distance_label, boosters_label, dangerous_label, rocket_label, destroyed_label, spring_board_label, god_mode_label, distance_count_label;
     private ActionResolver actionResolver;
     private Label labelCoinCount;
+    private TextButton backBttn;
+    private SequenceAction sequenceReturn;
 
     private Group groupView;
 
@@ -65,6 +73,7 @@ public class MenuGameOverTotal extends Group implements UpdateCoinCountInterface
 
         this.actionResolver = actionResolver;
         this.listener = resumeButtonListener;
+        sequenceReturn = new SequenceAction();
         dangerous_count_label = new Label(String.valueOf(GameManager.getDangerousCount()), AssetsManager.getUiSkin());
         rocket_count_label = new Label(String.valueOf(GameManager.getRocketCount()), AssetsManager.getUiSkin());
         destroyed_count_label = new Label(String.valueOf(GameManager.getDestroyedCount()), AssetsManager.getUiSkin());
@@ -93,7 +102,6 @@ public class MenuGameOverTotal extends Group implements UpdateCoinCountInterface
         dangerousImage = new Image(dangerousTexture);
         rocketTexture = new Texture("rockets.png");
         rocketImage = new Image(rocketTexture);
-
 
 
         destroyedTexture = new Texture("destruction.png");
@@ -160,8 +168,8 @@ public class MenuGameOverTotal extends Group implements UpdateCoinCountInterface
         this.gsm = gsm;
         GameManager.setBestAchives();
         setUpBackgroung();
-        setUpResume();
-        setUpImageLogo();
+        //setUpResume();
+        //setUpImageLogo();
         //setUpPlayOnline();
 
         if (GameManager.isNeedFreeCarPrize()) {
@@ -194,24 +202,119 @@ public class MenuGameOverTotal extends Group implements UpdateCoinCountInterface
         }
 
 
-        setCarShop();
-        setCoinShop();
-        setSettingMenu();
+//        setCarShop();
+//        setCoinShop();
+//        setSettingMenu();
 
 
-        setLeaderBoard();
-        setLeadersBoard();
+//        setLeaderBoard();
+//        setLeadersBoard();
         setUpAchive();
-        setUpBestAchive();
-        setUpBestAchiveCount();
-        setUpImageCoinCount();
-        setUpCoinCountLabel();
-
-
-        setUpAchiveCount();
+//        setUpBestAchive();
+//        setUpBestAchiveCount();
+//        setUpImageCoinCount();
+//        setUpCoinCountLabel();
+        setUpLeaderBoard();
+        setUpBackButton();
+       setUpAchiveCount();
+        setUpPlayButton();
         setBounds(0, 0, GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2);
 
     }
+
+
+    public void setUpPlayButton()
+    {
+        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+        textButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.BUTTON_PLAY_WITH_A_FRIEND_ID)).getDrawable();
+        textButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.BUTTON_PLAY_WITH_A_FRIEND_ID)).getDrawable();
+        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
+       TextButton inviteFriend = new TextButton(GameManager.getStrings().get(Constants.MP_PLAY_BTN), textButtonStyle);
+        inviteFriend.getLabel().setFontScale(0.5f, 0.5f);
+        inviteFriend.setBounds(70, 5, 185, 47);
+        inviteFriend.addListener(new ClickListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                sequence.addAction(Actions.delay(0.3f));
+
+                sequence.addAction(new Action() {
+                    @Override
+                    public boolean act(float delta) {
+                        AssetsManager.playSound(Constants.SOUND_CLICK);
+                        GameManager.setDefaultSpeed();
+                        GameManager.pauseGame = false;
+                        GameManager.resetTime();
+                        gsm.set(new GameState(gsm, false, true, actionResolver));
+
+                        return true;
+
+                    }
+                });
+                sequence.addAction(Actions.removeActor());
+                addAction(sequence);
+
+                return true;
+            }
+        });
+        addActor(inviteFriend);
+    }
+
+
+    public void setVisibleParent(Group group) {
+        SnapshotArray<Actor> actors = group.getChildren();
+        for (Actor actor : actors) {
+            actor.setVisible(true);
+        }
+    }
+
+
+    private void setUpBackButton() {
+        backButtonTextureDown = AssetsManager.getTextureRegion(Constants.BACK_BUTTON_PRESSED_ID).getTexture();
+        backButtonTextureUp = AssetsManager.getTextureRegion(Constants.BACK_BUTTON_ID).getTexture();
+
+        backButtonImageDown = new Image(backButtonTextureDown);
+        backButtonImageUp = new Image(backButtonTextureUp);
+
+
+        float x = Constants.BACK_BTTN_X_VISIBLE, y = Constants.BACK_BTTN_Y_VISIBLE - 35, width = 70, height = 55;
+        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+        textButtonStyle.down = backButtonImageDown.getDrawable();
+        textButtonStyle.up = backButtonImageUp.getDrawable();
+        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
+
+        backBttn = new TextButton("", textButtonStyle);
+        backBttn.getLabel().setFontScale(0.4f, 0.4f);
+        backBttn.getLabelCell().padLeft(25f);
+
+
+        backBttn.setBounds(x - backBttn.getWidth() / 2, y - backBttn.getHeight() / 2, backBttn.getWidth(), backBttn.getHeight());
+
+        backBttn.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+
+                sequenceReturn.addAction(Actions.delay(0.1f));
+                sequenceReturn.addAction(new Action() {
+                    @Override
+                    public boolean act(float delta) {
+                        gsm.pop();
+                        gsm.push(new GameState(gsm,false,false,actionResolver));
+                        return true;
+                    }
+                });
+                sequenceReturn.addAction(Actions.removeActor());
+
+
+                addAction(sequenceReturn);
+
+                return true;
+            }
+        });
+
+        addActor(backBttn);
+
+    }
+
 
     public void setGetBonus(float x, float y) {
         //float x = Constants.THIRD_POSITION_BTTN_X_VISIBLE, y = Constants.THIRD_POSITION_BTTN_Y_VISIBLE, width = 70, height = 55;
@@ -221,9 +324,9 @@ public class MenuGameOverTotal extends Group implements UpdateCoinCountInterface
         textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
         final SequenceAction getBonusSequence = new SequenceAction();
 
-        TextButton getBonusBttn = new TextButton(GameManager.getStrings().get(Constants.GO_BONUS_LBL) + "\n \n", textButtonStyle);
+        final TextButton getBonusBttn = new TextButton(GameManager.getStrings().get(Constants.GO_BONUS_LBL) + "\n \n", textButtonStyle);
         getBonusBttn.getLabel().setFontScale(0.4f, 0.4f);
-        getBonusBttn.getLabelCell().padLeft(45f);
+        getBonusBttn.getLabelCell().padLeft(60f);
         getBonusBttn.getLabel().setAlignment(Align.left);
 
         Label coinCountLabel = new Label("+179", AssetsManager.getUiSkin());
@@ -245,6 +348,7 @@ public class MenuGameOverTotal extends Group implements UpdateCoinCountInterface
                                              @Override
                                              public boolean act(float delta) {
                                                  actionResolver.showInterstitaGetBonus();
+                                                 getBonusBttn.remove();
                                                  return true;
                                              }
                                          });
@@ -286,16 +390,14 @@ public class MenuGameOverTotal extends Group implements UpdateCoinCountInterface
 //            }
 
             coinCountLabel.setText(String.valueOf(coinCount));
-            coinCountLabel.setBounds(getX() + 60 - coinCountLabel.getWidth() / 2, getY()+20, coinCountLabel.getWidth(), coinCountLabel.getHeight());
+            coinCountLabel.setBounds(getX() + 60 - coinCountLabel.getWidth() / 2, getY() + 20, coinCountLabel.getWidth(), coinCountLabel.getHeight());
             coinCountLabel.setFontScale(0.6f, 0.6f);
 
             Image coinImage = new Image(AssetsManager.getAnimation(Constants.COIN_ASSETS_ID).getKeyFrames()[0]);
             coinImage.setBounds(getX() + 115, getY() + 10, coinImage.getWidth() - 3, coinImage.getHeight() - 3);
             getNextPrize.addActor(coinCountLabel);
             getNextPrize.addActor(coinImage);
-        }
-        else
-        {
+        } else {
             Label coinCountLabel = new Label("0", AssetsManager.getUiSkin());
             coinCountLabel.setBounds(getX() + 90 - coinCountLabel.getWidth() / 2, getY() + 5, coinCountLabel.getWidth(), coinCountLabel.getHeight());
             coinCountLabel.setFontScale(0.6f, 0.6f);
@@ -308,7 +410,7 @@ public class MenuGameOverTotal extends Group implements UpdateCoinCountInterface
 
 
         getNextPrize.setBounds(x - AssetsManager.getTextureRegion(Constants.BTTN_GET_BONUS_PRESSED_ID).getTexture().getWidth() / 2, y - AssetsManager.getTextureRegion(Constants.BTTN_GET_BONUS_PRESSED_ID).getTexture().getHeight() / 2, AssetsManager.getTextureRegion(Constants.BTTN_GET_BONUS_PRESSED_ID).getTexture().getWidth(), AssetsManager.getTextureRegion(Constants.BTTN_GET_BONUS_PRESSED_ID).getTexture().getHeight());
-        if (coinCount <= 0)
+//        if (coinCount <= 0)
         getNextPrize.addListener(new ClickListener() {
 
                                      @Override
@@ -337,14 +439,13 @@ public class MenuGameOverTotal extends Group implements UpdateCoinCountInterface
     }
 
 
-
     public void setUpAchive() {
         achive.setX(Constants.GAME_OVER_TOTAL_ACHIVE_X_VISIBLE);
         achive.setY(Constants.GAME_OVER_TOTAL_ACHIVE_Y_VISIBLE);
         achive.setAlignment(Align.center, Align.center);
         achive.setText(GameManager.getStrings().get(Constants.GO_SCORE_LBL));
-        achive.setColor(Color.WHITE);
-        achive.setFontScale(0.5f, 0.5f);
+        achive.setColor(Color.ORANGE);
+        achive.setFontScale(1.5f, 1.5f);
         addActor(achive);
     }
 
@@ -371,6 +472,11 @@ public class MenuGameOverTotal extends Group implements UpdateCoinCountInterface
         addActor(labelCoinCount);
     }
 
+
+    public void setUpLeaderBoard() {
+        LeaderboardMenu leaderboardMenu = new LeaderboardMenu(gsm, actionResolver);
+        addActor(leaderboardMenu);
+    }
 
     public void setUpAchiveCount() {
         achiveCount.setText(String.valueOf((int) GameManager.getAchives()));
@@ -587,7 +693,7 @@ public class MenuGameOverTotal extends Group implements UpdateCoinCountInterface
                     @Override
                     public boolean act(float delta) {
 
-                        getStage().addActor(new CoinShopState( gsm, actionResolver, groupView));
+                        getStage().addActor(new CoinShopState(gsm, actionResolver, groupView));
                         Actions.removeActor(groupView);
 //                        gsm.push(new CarShopState(gsm, actionResolver));
                         GameManager.pauseGame = false;
@@ -730,7 +836,7 @@ public class MenuGameOverTotal extends Group implements UpdateCoinCountInterface
         labelCoinCount.setText(String.valueOf(GameManager.getCoinCounter()));
         labelCoinCount.invalidate();
 
-        labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() -5, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
+        labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
 
     }
 }

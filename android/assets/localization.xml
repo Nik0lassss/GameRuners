@@ -427,7 +427,7 @@
     <string><id> friends_vk_ok	</id><type>Label</type><en>	Ok</en><ru>Ok</ru> </string>
     <string><id>settings_vk_invite_first_line</id><type>	Label</type><en>	Invite</en><ru>	Пригласить</ru> </string>
     <string><id>settings_vk_invite_second_line</id><type>	Label</type><en>	friends	</en><ru>друга</ru> </string>
-    <string><id>friends_vk_error_load_friend</id><type>	Label</type><en>	We can't loaded your friends list</en><ru>	Мы не смогли загрузить список друзей</ru> </string>
+    <string><id>friends_vk_error_load_friend</id><type>	Label</type><en>	We can't loaded your friends list</en><ru>	Мы не смогли загрузить \n         список друзей</ru> </string>
     <string><id>screenshot_my_lbl</id><type></type><en>		My</en><ru>	Мой</ru> </string>
     <string><id>screenshot_result_lbl</id><type></type><en>		results</en><ru>	результат</ru> </string>
     <string><id>screenshot_share_text</id><type>	</type><en>	Choose your vehicle. Hit the gas. Go! #speedyroad https://itunes.apple.com/ru/app/speedy-road-endless-8-bit-race/id1008125487?mt=8</en><ru>	Выбери машину, жми на газ! Вперёд! #speedyroad https://itunes.apple.com/ru/app/speedy-road-endless-8-bit-race/id1008125487?mt=8</ru> </string>
@@ -464,7 +464,7 @@
     <string><id>mp_lose_label	</id><type>text</type><en>	You lose</en><ru>	Проигрыш</ru> </string>
     <string><id>leaderboard_me_text	</id><type>text</type><en>	Me</en><ru>	Я</ru> </string>
     <string><id>leaderboard_login_vk_text</id><type>	text</type><en>	Sign in VK</en><ru>	Войти в VK</ru> </string>
-    <string><id>leaderboard_load_error_text	</id><type>text</type><en>	We can't load leaderboard now</en><ru>	Рекорды игроков сейчас недоступны</ru> </string>
+    <string><id>leaderboard_load_error_text	</id><type>text</type><en>	We can't load leaderboard \n now</en><ru>	Рекорды игроков \n сейчас недоступны</ru> </string>
     <string><id>leaderboard_friends_text</id><type>	text</type><en>	Friends</en><ru>	Друзья</ru> </string>
     <string><id>leaderboard_global_text</id><type>	text</type><en>	Global</en><ru>	Все</ru> </string>
     <string><id>leaderboard_login_facebook_text</id><type>	text	</type><en>Sign in Facebook</en><ru>	Войти в Facebook</ru> </string>

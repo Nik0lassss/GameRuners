@@ -76,7 +76,7 @@ public class PasserCar extends com.nicholaschirkevich.game.model.side_objects.Ca
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         fixtureDef.density = 0.0001f;
-        fixtureDef.restitution = 0f;
+        fixtureDef.restitution = 1f;
 
 
         fixtureDef.filter.categoryBits = Constants.WORLD_ENTITY;
@@ -122,7 +122,7 @@ public class PasserCar extends com.nicholaschirkevich.game.model.side_objects.Ca
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         fixtureDef.density = 0.0001f;
-        fixtureDef.restitution = 0f;
+        fixtureDef.restitution = 1f;
 
         fixtureDef.filter.categoryBits = Constants.WORLD_ENTITY;
         fixtureDef.filter.maskBits = Constants.MY_CAR_FILTER_ENTITY | Constants.ROAD_SIDE_LEFT;
@@ -154,10 +154,11 @@ public class PasserCar extends com.nicholaschirkevich.game.model.side_objects.Ca
 
         if (passerCarDataType.getCollisionPasserCarType().equals(passerCarDataType.getCollisionPasserCarType().SIDE_COLLISION)) {
             sideCollisionTime += dt;
-            if (!isLeft && position.x > 240) {
+            System.out.println("pos x" + position.x);
+            if (!isLeft && position.x > 200) {
                 passerCarDataType.setIsAfterHoleCollision(true);
             }
-            if (isLeft && position.x < 10) {
+            if (isLeft && position.x < 40) {
                 passerCarDataType.setIsAfterHoleCollision(true);
             }
 
@@ -169,10 +170,15 @@ public class PasserCar extends com.nicholaschirkevich.game.model.side_objects.Ca
                 position.add((880) * dt, -10 * dt, 0);
             }
 
-
-            bounds.setPosition(position.x, position.y);
-            body.setTransform(position.x, position.y, angeltCrashLadle);
-            System.out.println(sideCollisionTime);
+            if (((PasserCarDataType) body.getUserData()).isContact()) {
+                bounds.setPosition(body.getPosition().x, body.getPosition().y);
+                position.x = body.getPosition().x;
+                position.y = body.getPosition().y;
+            } else {
+                bounds.setPosition(position.x, position.y);
+                body.setTransform(position.x, position.y, angeltCrashLadle);
+                System.out.println(sideCollisionTime);
+            }
         }
 
 
@@ -182,7 +188,7 @@ public class PasserCar extends com.nicholaschirkevich.game.model.side_objects.Ca
 
             if (!passerCarDataType.isBefore()) {
                 passerCarDataType.setCollisionPasserCarType(CollisionPasserCarType.SIDE_COLLISION);
-
+                System.out.println("Side collision");
             } else {
                 passerCarDataType.setCollisionPasserCarType(CollisionPasserCarType.COUNTER_COLLISION);
                 position.set(position.x, position.y, 0);
@@ -390,6 +396,7 @@ public class PasserCar extends com.nicholaschirkevich.game.model.side_objects.Ca
                 generateHoleAfterLadle.onCollisionWithPasserCar();
                 break;
             }
+
             if ((((PasserCarDataType) passerCars.get(i).body.getUserData()).getCollisionPasserCarType().equals(CollisionPasserCarType.SIDE_COLLISION)) && ((PasserCarDataType) passerCars.get(i).body.getUserData()).isAfterHoleCollision()) {
                 passerCars.get(i).generateHoleAfterLadleInterface.generateHoleAfterLadle(passerCars.get(i).body.getPosition().x, passerCars.get(i).body.getPosition().y);
                 world.destroyBody(passerCars.get(i).body);

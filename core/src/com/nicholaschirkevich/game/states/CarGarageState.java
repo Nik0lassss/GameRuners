@@ -15,6 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
@@ -48,6 +50,8 @@ public class CarGarageState extends State {
     Image image;
     SequenceAction sequence;
     TextButton resumeButton;
+    private   ImageButton imageButton;
+    private  Label labelCoinCount;
     Image resumeButtonUpImage, resumeButtonDownImage, getPrizeButtonImageUp, getPrizeButtonImageDown;
 
     private Animation garageAnimation;
@@ -57,6 +61,7 @@ public class CarGarageState extends State {
     Image garage, myCar;
     StartGameGarageButton startGameGarageButton;
 
+    private State thisState;
     private float platTime = 0;
     private float posX = 85, posY = 460;
     private int heightTexture = prizeCarTexture.getHeight();
@@ -76,6 +81,7 @@ public class CarGarageState extends State {
         bushsArrayRight = new ArrayList<Bushs>();
         this.isFree = isFree;
 
+        thisState = this;
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
@@ -85,7 +91,7 @@ public class CarGarageState extends State {
         garage = new Image(garageTexture);
         garage.setScale(0.4f, 0.4f);
         garage.setBounds(20, 320, garage.getPrefWidth(), garage.getPrefHeight());
-        road=GameManager.getRoads().get(GameManager.getCurrentCar().getMapType());
+        road = GameManager.getRoads().get(GameManager.getCurrentCar().getMapType());
         //road = new Road();
 //        for (int i = (int) camera.viewportHeight + (int) camera.position.y; i > 0; i -= 70) {
 //            bushsArrayLeft.add(new Bushs(90, i, 10, false, Constants.ROAD_1_BUSH_1_STATIC_ASSETS_ID));
@@ -111,13 +117,14 @@ public class CarGarageState extends State {
 //        garageNameTexture = new Texture("title_vehicles.png");
 //        garageNameImage = new Image(garageNameTexture);
 //        garageNameImage.setBounds(20, GameRuners.HEIGHT / 2 - 40, garageNameTexture.getWidth(), garageNameTexture.getHeight());
-        road.initialRoadForGarage(new Rectangle(garage.getX(),garage.getY(),garage.getWidth(),garage.getHeight()));
+        road.initialRoadForGarage(new Rectangle(garage.getX(), garage.getY(), garage.getWidth(), garage.getHeight()));
 
         setUpGetPrize();
         //setUpGarage();
         setUpBackButton();
         setUpStartButton();
-
+//        setUpImageCoinCount();
+//        setUpCoinCountLabel();
         stage.addActor(garage);
         //stage.addActor(myCar);
         //stage.addActor(image);
@@ -151,6 +158,31 @@ public class CarGarageState extends State {
     }
 
 
+    public void setUpImageCoinCount() {
+        imageButton = new ImageButton(new Image(AssetsManager.getTextureRegion(Constants.COIN_ICON_1_NAME_ID)).getDrawable());
+        //imageButton.setBounds(labelCoinCount.getX() + 50, labelCoinCount.getY() - 2, imageButton.getWidth(), imageButton.getHeight());
+        imageButton.setBounds(GameRuners.WIDTH / 2 - 25, GameRuners.HEIGHT / 2 - 30, imageButton.getWidth(), imageButton.getHeight());
+        stage.addActor(imageButton);
+    }
+
+    public void setUpCoinCountLabel() {
+        labelCoinCount = new Label(String.valueOf(GameManager.getCoinCounter()), AssetsManager.getUiSkin());
+        labelCoinCount.setFontScale(0.60f, 0.60f);
+        labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
+        labelCoinCount.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                super.touchDown(event, x, y, pointer, button);
+                CoinShopState coinShopState = new CoinShopState(gsm, actionResolver, null);
+                coinShopState.setParentState(thisState);
+                stage.addActor(coinShopState);
+
+                return true;
+            }
+        });
+        stage.addActor(labelCoinCount);
+    }
+
     public void setUpGetPrize() {
         float x = Constants.GET_PRIZE_BTTN_X_VISIBLE, y = Constants.GET_PRIZE_Y_VISIBLE;
         final Image coinImage = new Image(AssetsManager.getAnimation(Constants.COIN_ASSETS_ID).getKeyFrames()[0]);
@@ -173,19 +205,21 @@ public class CarGarageState extends State {
         }
 
         getPrizeButton.setBounds(x, y, 120, 55);
-        getPrizeButton.addListener(new ClickListener() {
+        int coinCount = 300 - GameManager.getCoinCounter();
+        if (coinCount <= 0 || isFree)
+            getPrizeButton.addListener(new ClickListener() {
 
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                AssetsManager.playSound(Constants.SOUND_CLICK);
-                isPlayAnimation = true;
-                GameManager.addCar(prizeCar);
-                getPrizeButton.remove();
-                coinImage.remove();
-                if (!isFree) GameManager.setCountCoint(GameManager.getCoinCounter() - 300);
-                return super.touchDown(event, x, y, pointer, button);
-            }
-        });
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    AssetsManager.playSound(Constants.SOUND_CLICK);
+                    isPlayAnimation = true;
+                    GameManager.addCar(prizeCar);
+                    getPrizeButton.remove();
+                    coinImage.remove();
+                    if (!isFree) GameManager.setCountCoint(GameManager.getCoinCounter() - 300);
+                    return super.touchDown(event, x, y, pointer, button);
+                }
+            });
         stage.addActor(getPrizeButton);
         if (!isFree) stage.addActor(coinImage);
     }

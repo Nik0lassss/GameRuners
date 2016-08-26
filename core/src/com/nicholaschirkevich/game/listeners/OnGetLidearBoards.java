@@ -13,4 +13,7 @@ public interface OnGetLidearBoards {
     void onGetVkImageLidearboardsData(ArrayList<VkUser> leaderboardEntities);
     void onGetImage(byte[] imageByte);
     void onGetHighscoresFriends(ArrayList<VkUser> arrayList);
+    void onGetFacebookHighscoresFriends(ArrayList<VkUser> arrayList);
+    void onGetLeaderboardErrore(String errore);
+    void onGetVkLeaderboardErrore(String errore);
 }

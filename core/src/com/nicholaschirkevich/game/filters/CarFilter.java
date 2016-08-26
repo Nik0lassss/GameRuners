@@ -20,6 +20,7 @@ import com.nicholaschirkevich.game.model.boosters.ThronsOnCarRight;
 import com.nicholaschirkevich.game.states.GameState;
 import com.nicholaschirkevich.game.states.GameStateManager;
 import com.nicholaschirkevich.game.states.State;
+import com.nicholaschirkevich.game.states.TutorialState;
 import com.nicholaschirkevich.game.userdata.BoosterDataType;
 import com.nicholaschirkevich.game.userdata.CoinDataType;
 import com.nicholaschirkevich.game.userdata.LadleOnRoadDataType;
@@ -227,10 +228,11 @@ public class CarFilter implements ContactFilter {
                 return false;
             } else {
                 if (myCarDataType != null && passerCarDataType != null && !myCarDataType.isAfterPause()) {
-                    onSetCollisionCarsInterface.onCollision();
+
                     Gdx.input.vibrate(500);
                     passerCarDataType.setIsContact(true);
                     myCarDataType.setIsContact(true);
+                    onSetCollisionCarsInterface.onCollision();
                     System.out.println("-------------------------------------------------------------------------");
                 }
 

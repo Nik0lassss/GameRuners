@@ -19,14 +19,25 @@ import android.widget.Toast;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.share.model.AppInviteContent;
+import com.facebook.share.widget.AppInviteDialog;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.drive.Drive;
+
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.games.Games;
 
 import com.google.example.games.basegameutils.GameHelper;
@@ -35,12 +46,14 @@ import com.nicholaschirkevich.game.R;
 import com.nicholaschirkevich.game.activity.FriendsInviteActivity;
 import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.api.ServerApi;
+import com.nicholaschirkevich.game.application.Application;
 import com.nicholaschirkevich.game.entity.LeaderboardEntity;
 import com.nicholaschirkevich.game.entity.VkUser;
 import com.nicholaschirkevich.game.internet.InternetHelper;
 import com.nicholaschirkevich.game.listeners.BuyProduct;
 import com.nicholaschirkevich.game.listeners.OnGetHightscoreList;
 import com.nicholaschirkevich.game.listeners.OnGetLidearBoards;
+import com.nicholaschirkevich.game.listeners.OnLoginListenerInterface;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKScope;
@@ -59,9 +72,12 @@ import com.vk.sdk.api.photo.VKImageParameters;
 import com.vk.sdk.api.photo.VKUploadImage;
 import com.vk.sdk.dialogs.VKShareDialog;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 import util.IabHelper;
@@ -73,6 +89,8 @@ import util.Purchase;
  * Created by Nikolas on 20.05.2016.
  */
 public class FragmentAdmob extends AndroidFragmentApplication implements ActionResolver, OnGetHightscoreList {
+
+    private Tracker tracker;
 
     private SharedPreferences sPref;
     private InterstitialAd mInterstitialAdSaveMe, interstitialGetBonus;
@@ -91,6 +109,9 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
     private IabHelper.OnConsumeFinishedListener mConsumeFinishedListener;
     private IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener;
+
+
+    private CallbackManager mCallbackManager;
 
     private BuyProduct buyProduct;
     IabHelper mHelper;
@@ -206,11 +227,17 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         mInterstitialAdSaveMe.setAdUnitId(appId);
         interstitialGetBonus = new InterstitialAd(getContext());
         interstitialGetBonus.setAdUnitId(getBonusAdmobId);
-
+        mCallbackManager = CallbackManager.Factory.create();
 
         defaultImage = (ImageView) getActivity().findViewById(R.id.default_image);
 
         byButton = (Button) getActivity().findViewById(R.id.bttn_by);
+
+
+
+        Application application = (Application) getActivity().getApplication();
+        tracker = application.tracker();
+
         //byButton.setEnabled(false);
         mPurchaseFinishedListener
                 = new IabHelper.OnIabPurchaseFinishedListener() {
@@ -238,13 +265,74 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         byButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                tracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Action")
+                        .setAction("Share")
+                        .build());
+//                String appLinkUrl, previewImageUrl;
+//
+//                appLinkUrl = "https://www.mydomain.com/myapplink";
+//                previewImageUrl = "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQl7_l5BbIq8deoXQALDTwQNQFfGKesNeV_XKLnucVKkzBN7SUS86d9GhJV";
+//
+//                if (AppInviteDialog.canShow()) {
+//                    AppInviteContent content = new AppInviteContent.Builder()
+//                            .setApplinkUrl(appLinkUrl)
+//                            .setPreviewImageUrl(previewImageUrl)
+//                            .build();
+//                    AppInviteDialog.show(getActivity(), content);
+//                }
 //                if (gameHelper.isSignedIn() == true) {
 //                    Games.Leaderboards.submitScore(gameHelper.getApiClient(),
 //                            getString(R.string.leaderboard_leaderboard), 100);
 //                }
-                mHelper.launchPurchaseFlow(getActivity(), ITEM_SKU_SP, 10001,
-                        mPurchaseFinishedListener, getString(R.string.purchasetocken));
-            }
+
+
+//                mHelper.launchPurchaseFlow(getActivity(), ITEM_SKU_SP, 10001,
+//                        mPurchaseFinishedListener, getString(R.string.purchasetocken));
+//                Bundle parameters = new Bundle();
+//                parameters.putString("fields", "id,first_name,last_name,link,picture");
+//                final ArrayList<VkUser> users = new ArrayList<VkUser>();
+//
+//                new GraphRequest(
+//                        AccessToken.getCurrentAccessToken(),
+//                        "/me/friends",
+//                        parameters,
+//                        HttpMethod.GET,
+//                        new GraphRequest.Callback() {
+//                            public void onCompleted(GraphResponse response) {
+//
+//
+//                                JSONObject jsonObject = response.getJSONObject();
+//                                StringBuilder sb = new StringBuilder();
+//                                try {
+//                                    JSONArray usersJson = jsonObject.getJSONArray("data");
+//                                    for (int i = 0; i < usersJson.length(); i++) {
+//                                        JSONObject userJson = (JSONObject) usersJson.get(i);
+//                                        String id = userJson.getString("id");
+//                                        String first_name = userJson.getString("first_name");
+//                                        String last_name = userJson.getString("last_name");
+//                                        JSONObject picture = userJson.getJSONObject("picture");
+//                                        JSONObject dataPicture = picture.getJSONObject("data");
+//                                        String urlPicture = dataPicture.getString("url");
+//                                        users.add(new VkUser(id,first_name,last_name,urlPicture,""));
+//                                    }
+//                                } catch (JSONException e) {
+//                                    e.printStackTrace();
+//                                }
+//                                VkUser vkUser = new VkUser();
+//                                vkUser.setId("");
+
+//                                try {
+//                                    ((JSONObject)jsonObject.get(0)).get("picture");
+//                                } catch (JSONException e) {
+//                                    e.printStackTrace();
+//                                }
+            /* handle the result */
+                            }
+//                        }
+//                ).executeAsync();
+           // }
         });
         showButton = (Button) getActivity().findViewById(R.id.bttn_show);
         showButton.setOnClickListener(new View.OnClickListener() {
@@ -260,7 +348,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 //                }
 
 
-                  showPreviousPurchases();
+                showPreviousPurchases();
 //                showButton.setEnabled(false);
 //                byButton.setEnabled(true);
 //                String base64EncodedPublicKey =
@@ -345,6 +433,10 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     @Override
     public void onActivityResult(int requestCode, int resultCode,
                                  Intent data) {
+        if (mCallbackManager.onActivityResult(requestCode, resultCode, data)) {
+            return;
+        }
+
         if (!mHelper.handleActivityResult(requestCode,
                 resultCode, data)) {
             gameHelper.onActivityResult(requestCode, resultCode, data);
@@ -777,6 +869,59 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     }
 
     @Override
+    public void getHighScoreFacebookFriends(final OnGetLidearBoards onGetLidearBoards) {
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id,first_name,last_name,link,picture");
+        final ArrayList<VkUser> users = new ArrayList<>();
+        new GraphRequest(
+                AccessToken.getCurrentAccessToken(),
+                "/me/friends",
+                parameters,
+                HttpMethod.GET,
+                new GraphRequest.Callback() {
+                    public void onCompleted(GraphResponse response) {
+
+
+                        JSONObject jsonObject = response.getJSONObject();
+                        StringBuilder sb = new StringBuilder();
+                        try {
+                            JSONArray usersJson = jsonObject.getJSONArray("data");
+                            for (int i = 0; i < usersJson.length(); i++) {
+                                JSONObject userJson = (JSONObject) usersJson.get(i);
+                                String id = userJson.getString("id");
+                                String first_name = userJson.getString("first_name");
+                                String last_name = userJson.getString("last_name");
+                                JSONObject picture = userJson.getJSONObject("picture");
+                                JSONObject dataPicture = picture.getJSONObject("data");
+                                String urlPicture = dataPicture.getString("url");
+                                users.add(new VkUser(id,urlPicture,first_name,last_name,""));
+                            }
+                           ServerApi.getHighscoresFacebookFriends(onGetLidearBoards, users);
+                            //onGetLidearBoards.onGetFacebookHighscoresFriends(users);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        VkUser vkUser = new VkUser();
+                        vkUser.setId("");
+
+                    }
+                }
+        ).executeAsync();
+    }
+
+    @Override
+    public boolean isFacebookLogin() {
+        AccessToken token;
+        token = AccessToken.getCurrentAccessToken();
+
+        if (token == null) {
+            return false;
+            //Means user is not logged in
+        }
+        else return true;
+    }
+
+    @Override
     public void submitScore(int highScore) {
         if (isSignedIn() == true) {
             Games.Leaderboards.submitScore(gameHelper.getApiClient(),
@@ -785,59 +930,91 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     }
 
     @Override
-    public void signIn() {
-        try
-        {
-            runOnUiThread(new Runnable()
-            {
+    public void signIn(OnLoginListenerInterface onLoginListenerInterface) {
+        try {
+            runOnUiThread(new Runnable() {
                 @Override
-                public void run()
-                {
+                public void run() {
                     gameHelper.beginUserInitiatedSignIn();
                 }
             });
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             Gdx.app.log("MainActivity", "Log in failed: " + e.getMessage() + ".");
         }
     }
 
     @Override
     public void signOut() {
-        try
-        {
-            runOnUiThread(new Runnable()
-            {
+        try {
+            runOnUiThread(new Runnable() {
                 @Override
-                public void run()
-                {
+                public void run() {
                     gameHelper.signOut();
                 }
             });
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             Gdx.app.log("MainActivity", "Log out failed: " + e.getMessage() + ".");
         }
     }
 
     @Override
     public void showScore() {
-        if (isSignedIn() == true)
-        {
+        if (isSignedIn() == true) {
             startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient(),
                     getString(R.string.leaderboard_leaderboard)), requestCode);
-        }
-        else
-        {
-            signIn();
+        } else {
+            signIn(null);
         }
     }
 
     @Override
     public boolean isSignedIn() {
         return gameHelper.isSignedIn();
+    }
+
+    @Override
+    public void singInFb(final OnLoginListenerInterface onLoginListenerInterface) {
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "user_friends"));
+
+
+        LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                System.out.println("");
+                onLoginListenerInterface.onLoginFb();
+            }
+
+            @Override
+            public void onCancel() {
+                System.out.println("");
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                System.out.println("");
+            }
+        });
+    }
+
+    @Override
+    public void singOutFb(OnLoginListenerInterface onLoginListenerInterface) {
+        LoginManager.getInstance().logOut();
+    }
+
+    @Override
+    public void showInviteFacebook() {
+        String appLinkUrl, previewImageUrl;
+
+        appLinkUrl = "https://www.mydomain.com/myapplink";
+        previewImageUrl = "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQl7_l5BbIq8deoXQALDTwQNQFfGKesNeV_XKLnucVKkzBN7SUS86d9GhJV";
+
+        if (AppInviteDialog.canShow()) {
+            AppInviteContent content = new AppInviteContent.Builder()
+                    .setApplinkUrl(appLinkUrl)
+                    .setPreviewImageUrl(previewImageUrl)
+                    .build();
+            AppInviteDialog.show(getActivity(), content);
+        }
     }
 
 

@@ -15,9 +15,9 @@ public class CarSortingManager {
         add("CC080");
         add("CC100");
         add("CC220");
-        add("SP220");
-        add("CC280");
+        add("SP170");
         add("CC430");
+        add("CC280");
         add("CC130");
         add("CC170");
         add("SP100");
@@ -28,7 +28,6 @@ public class CarSortingManager {
         add("EC2");
         add("EC1");
         add("EC3");
-        add("SP170");
         add("CC350");
         add("SP280");
         add("SP080");

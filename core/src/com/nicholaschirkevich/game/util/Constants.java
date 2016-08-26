@@ -23,6 +23,8 @@ public class Constants {
     public static String PREFERENCES_VK_IMG_SOURCE = "PREFERENCES_VK_IMG_SOURCE";
     public static String PREFERENCES_VK_HIGH_SCORE = "PREFERENCES_VK_HIGH_SCORE";
 
+    public static String PREFERENCES_IS_FIRST_START = "PREFERENCES_IS_FIRST_START";
+
     public static final float CAR_POS_X_LEFT = 120;
     public static final float CAR_POS_X_RIGHT = 215;
     public static final float CAR_CENTER_X = 130;
@@ -339,8 +341,14 @@ public class Constants {
     public static final String X6_id = "x6";
 
 
+
+
     public static final String TITLE_VEHICLES_ID = "title_vehicles";
     public static final String TITLE_VEHICLES_RESOURCE = "title_vehicles.png";
+
+    public static final String TITLE_LEADERBOARD_RUS_ID = "title_leaderboard_rus";
+    public static final String TITLE_LEADERBOARD_RUS_RESOURCE = "title_leaderboard_rus.png";
+
     public static final String TITLE_VEHICLES_RUS_RESOURCE = "title_vehicles_rus.png";
 
     public static final String DANGER_ID = "danger";
@@ -955,14 +963,14 @@ public class Constants {
     public static final float PRIZE_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 5f;
 
 
-    public static final float SECOND_POSITION_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
-    public static final float SECOND_POSITION_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 7f+16;
+    public static final float SECOND_POSITION_BTTN_X_VISIBLE = GameRuners.WIDTH / 4-80;
+    public static final float SECOND_POSITION_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 7f+190;
 
     public static final float CENTER_POSITION_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
-    public static final float CENTER_POSITION_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 7f+50;
+    public static final float CENTER_POSITION_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 7f+190;
 
-    public static final float THIRD_POSITION_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
-    public static final float THIRD_POSITION_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 7f +79;
+    public static final float THIRD_POSITION_BTTN_X_VISIBLE = GameRuners.WIDTH / 4+80;
+    public static final float THIRD_POSITION_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 7f +190;
 
     public static final float VK_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
     public static final float VK_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 5f + 90;
@@ -978,7 +986,7 @@ public class Constants {
     public static final float DISTANCE_LABEL_X = GameRuners.WIDTH / 4f - 115;
     public static final float DISTANCE_LABEL_Y = GameRuners.HEIGHT / 4f + 63;
 
-    public static final float DISTANCE_COUNT_LABEL_X = GameRuners.WIDTH / 4f + 100;
+    public static final float DISTANCE_COUNT_LABEL_X = GameRuners.WIDTH / 4f + 115f;
     public static final float DISTANCE_COUNT_LABEL_Y = GameRuners.HEIGHT / 4f + 60;
 
     public static final float BOOSTERS_GAME_OVER_LABEL_X = GameRuners.WIDTH / 4f - 115;
@@ -1053,13 +1061,13 @@ public class Constants {
     public static final float GAME_OVER_COINT_IMAGE_COIN_Y =  GameRuners.HEIGHT / 2.5f-54;
 
     public static final float GAME_OVER_TOTAL_ACHIVE_X_VISIBLE = GameRuners.WIDTH / 4f;
-    public static final float GAME_OVER_TOTAL_ACHIVE_Y_VISIBLE = GameRuners.HEIGHT / 3 +19f;
+    public static final float GAME_OVER_TOTAL_ACHIVE_Y_VISIBLE = GameRuners.HEIGHT / 3 +100f;
 
     public static final float GAME_OVER_ACHIVE_COUNT_X_VISIBLE = GameRuners.WIDTH / 4f;
     public static final float GAME_OVER_ACHIVE_COUNT_Y_VISIBLE = GameRuners.HEIGHT / 3f + 85;
 
     public static final float GAME_OVER_TOTAL_ACHIVE_COUNT_X_VISIBLE = GameRuners.WIDTH / 4f+2;
-    public static final float GAME_OVER_TOTAL_ACHIVE_COUNT_Y_VISIBLE = GameRuners.HEIGHT / 3f-4;
+    public static final float GAME_OVER_TOTAL_ACHIVE_COUNT_Y_VISIBLE = GameRuners.HEIGHT / 3f+34;
 
     public static final float GAME_OVER_BEST_ACHIVE_X_VISIBLE = GameRuners.WIDTH /4f;
     public static final float GAME_OVER_BEST_ACHIVE_Y_VISIBLE = GameRuners.HEIGHT / 3.5f+8;
@@ -1100,7 +1108,10 @@ public class Constants {
     public static final String Localization_EN = "en";
     public static final String Localization_ID = "id";
 
+    public static final String LEADERBOARD_LOAD_ERROR_TEXT = "leaderboard_load_error_text";
+    public static final String FRIENDS_VK_ERROR_LOAD_FRIEND = "friends_vk_error_load_friend";
     public static final String GO_PLAY_WITH_FRIEND_2_BTN = "go_play_with_friend_2_btn";
+    public static final String LB_HEADER_TEXT = "lb_header_text";
     public static final String MP_PLAY_BTN = "mp_play_btn";
     public static final String SETTINGS_SOUND_ON_LBL = "settings_sound_on_lbl";
     public static final String SETTINGS_SOUND_OFF_LBL = "settings_sound_off_lbl";
@@ -1212,9 +1223,9 @@ public class Constants {
     public static final String CARS_TYPE_CAR_NAME_IMEGE = "CarNameImage";
 
 
-    public static final float PASSER_CAR_LINEAR_DUMPING = 2.2f;
+    public static final float PASSER_CAR_LINEAR_DUMPING = 7f;
     public static final float PASSER_CAR_ANGULAR_DUMPING = 3f;
-    public static final float MY_CAR_LINEAR_DUMPING = 2f;
+    public static final float MY_CAR_LINEAR_DUMPING = 7f;
     public static final float MY_CAR_ANGULAR_DUMPING = 3f;
 
     public static final float TIME_RELAX_ZONE_START = 30;

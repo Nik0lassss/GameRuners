@@ -157,8 +157,9 @@ public class MenuGameOver extends Group {
     }
 
     public void setUpDisntanceCountLabel() {
-        distance_count_label.setBounds(Constants.DISTANCE_COUNT_LABEL_X - distance_count_label.getPrefWidth() / 4, Constants.DISTANCE_COUNT_LABEL_Y, distance_count_label.getPrefWidth(), distance_count_label.getPrefHeight());
+        distance_count_label.setBounds(Constants.DISTANCE_COUNT_LABEL_X, Constants.DISTANCE_COUNT_LABEL_Y, distance_count_label.getPrefWidth(), distance_count_label.getPrefHeight());
         distance_count_label.setFontScale(0.6f, 0.6f);
+        distance_count_label.setX(Constants.DISTANCE_COUNT_LABEL_X- distance_count_label.getPrefWidth());
         addActor(distance_count_label);
     }
 

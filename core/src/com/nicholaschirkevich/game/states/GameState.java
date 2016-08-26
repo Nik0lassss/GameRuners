@@ -112,6 +112,9 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     private Label testCoinCount;
     private ImageButton imageButton;
     private Label labelAchives;
+    private boolean collisionCameraMove = false;
+    private boolean collisionCameraMoveLeft = false;
+    private float cameraMoveTime = 0;
 
     ArrayList<PasserCar> passerCars;
     // ArrayList<Bushs> bushsArrayLeft, bushsArrayRight;
@@ -627,12 +630,12 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         imageButton = new ImageButton(new Image(AssetsManager.getTextureRegion(Constants.COIN_ICON_1_NAME_ID)).getDrawable());
         //imageButton.setBounds(labelCoinCount.getX() + 50, labelCoinCount.getY() - 2, imageButton.getWidth(), imageButton.getHeight());
         imageButton.setBounds(GameRuners.WIDTH / 2 - 25, GameRuners.HEIGHT / 2 - 30, imageButton.getWidth(), imageButton.getHeight());
-        imageButton.addListener(new ClickListener(){
+        imageButton.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                 super.touchDown(event, x, y, pointer, button);
+                super.touchDown(event, x, y, pointer, button);
                 // stage.addActor(new CoinShopState(null, gsm, actionResolver, (Group)stage));
-                return  true;
+                return true;
             }
         });
         stage.addActor(imageButton);
@@ -714,6 +717,50 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     @Override
     public void update(float dt) {
         handleInput();
+        if (collisionCameraMove) {
+            cameraMoveTime += dt;
+            if (cameraMoveTime > 0.1){
+                collisionCameraMove = false;
+                camera.position.x = 160;}
+        }
+        if (collisionCameraMove) {
+            if (collisionCameraMoveLeft) {
+                if (camera.position.x > 155) {
+                    camera.position.x = camera.position.x - 4f;
+                    camera.update();
+                } else collisionCameraMoveLeft = false;
+            } else if (!collisionCameraMoveLeft) {
+                if (camera.position.x < 165) {
+                    camera.position.x = camera.position.x + 4f;
+                    camera.update();
+                } else collisionCameraMoveLeft = true;
+            }
+        }
+
+        System.out.println("camerapos x" + camera.position.x);
+//        System.out.println("myCar.body.getLinearVelocity().x " + myCar.body.getLinearVelocity().x);
+//        System.out.println("myCar.body.getLinearVelocity().y " + myCar.body.getLinearVelocity().y);
+//        System.out.println("myCar.body.getAngularVelocity() "+myCar.body.getAngularVelocity());
+
+        for(PasserCar passerCar: passerCars)
+        {
+          if(((PasserCarDataType)passerCar.body.getUserData()).isContact())
+          {
+              if (passerCar.body.getAngularVelocity() < -7) {
+                  passerCar.body.setAngularVelocity(-7);
+              }
+              if (passerCar.body.getAngularVelocity() > 7) {
+                  passerCar.body.setAngularVelocity(7);
+              }
+          }
+        }
+        if (myCar.body.getAngularVelocity() < -7) {
+            myCar.body.setAngularVelocity(-7);
+        }
+        if (myCar.body.getAngularVelocity() > 7) {
+            myCar.body.setAngularVelocity(7);
+        }
+
         if (isStartTrafficLighter && isGameStart == false) roadNew.updateTrafficLighter(dt);
         GameManager.setAchives(achives);
         GameManager.setDistance(distacne);
@@ -1076,10 +1123,11 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
             }
             if (isUpdateGodeMode) {
-                thronsOnCarRight.get(0).update(dt, myCar.getX(), myCar.getY() + myCar.getCarTexture().getRegionHeight() / 2 + thronsOnCarRight.get(0).getBoostOnCar().getRegionHeight() / 2);
-                thronsOnCarLeft.get(0).update(dt, myCar.getX(), myCar.getY() + myCar.getCarTexture().getRegionHeight() / 2 + thronsOnCarLeft.get(0).getBoostOnCar().getRegionHeight() / 2);
-                godMedeTime += dt;
-
+                if (!thronsOnCarRight.isEmpty() && !thronsOnCarLeft.isEmpty()) {
+                    thronsOnCarRight.get(0).update(dt, myCar.getX(), myCar.getY() + myCar.getCarTexture().getRegionHeight() / 2 + thronsOnCarRight.get(0).getBoostOnCar().getRegionHeight() / 2);
+                    thronsOnCarLeft.get(0).update(dt, myCar.getX(), myCar.getY() + myCar.getCarTexture().getRegionHeight() / 2 + thronsOnCarLeft.get(0).getBoostOnCar().getRegionHeight() / 2);
+                    godMedeTime += dt;
+                }
                 if (godMedeTime > 3) {
                     effectMode.setIsStartAlfa(true);
                 }
@@ -1162,7 +1210,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
             GameManager.setIsCollision(true);
 
-            GameManager.setCollisionSpeed(GameManager.getCurrentSpeed() <= 10 ? 0 : GameManager.getCurrentSpeed() - 15);
+            GameManager.setCollisionSpeed(GameManager.getCurrentSpeed() <= 10 ? 0 : GameManager.getCurrentSpeed() - 7);
 
 
             if (timer > 1) {
@@ -1170,7 +1218,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                 AssetsManager.stopMusic();
                 // stage.addActor(new MenuGameOver(this, gsm));
                 //stage.addActor(new MenuSaveMe(this, gsm,actionResolver));
-                if (actionResolver != null && actionResolver.getAdmobStatus() && actionResolver.isAvailibleInternet() && actionResolver.isIntertatlLoaded() && actionResolver.isSaveMeIntertitalLoad() && !isSavedMe && distacne > 100) {
+                if (actionResolver != null && actionResolver.getAdmobStatus() && actionResolver.isIntertatlLoaded() && actionResolver.isSaveMeIntertitalLoad() && !isSavedMe && distacne > 100) {
                     {
                         isMyCarCollision = false;
                         isMyCarCollisionWithBlocks = false;
@@ -1203,7 +1251,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
             if (timer > 1) {
                 GameManager.pauseGame = true;
 //                stage.addActor(new MenuSaveMe(this, gsm,actionResolver));
-                if (actionResolver.isAvailibleInternet() && actionResolver.getAdmobStatus() && actionResolver.isIntertatlLoaded() && actionResolver.isSaveMeIntertitalLoad() && !isSavedMe && distacne > 100) {
+                if ( actionResolver.getAdmobStatus() && actionResolver.isIntertatlLoaded() && actionResolver.isSaveMeIntertitalLoad() && !isSavedMe && distacne > 100) {
                     isSavedMe = true;
                     stage.addActor(menuSaveMe);
                     ToastHelper.resetToasts();
@@ -1364,6 +1412,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+
                 pauseGame();
                 isAfterPause = true;
 
@@ -1666,7 +1715,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
         isMyCarCollision = false;
 
-
+        collisionCameraMove=false;
+        cameraMoveTime= 0;
         GameManager.resetSpeed();
         GameManager.setIsCollisionWithCar(false);
         GameManager.setIsCollision(false);
@@ -1821,28 +1871,43 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     @Override
     public void onCollision() {
         if (!isMyCarCollision) {
+            collisionCameraMove=true;
             AssetsManager.playSound(Constants.SOUND_CRASH_2);
             Array<Action> actions = myCar.getActions();
             for (Action action : actions) {
                 myCar.removeAction(action);
             }
             // world.setGravity(new Vector2(0,-200));
+
             for (PasserCar passerCar : passerCars) {
+                //passerCar.body.setLinearVelocity(5000, GameManager.getCurrentSpeed() * 30);
                 if (((PasserCarDataType) passerCar.body.getUserData()).isContact()) {
-                    if (passerCar.getIsLeft() && myCar.isTurnRun())
-                        passerCar.body.setLinearVelocity(0, GameManager.getCurrentSpeed() * 5);
+
+                    if (passerCar.getIsLeft() && myCar.isTurnRun()){
+                        passerCar.body.applyLinearImpulse(new Vector2(330+GameManager.getCurrentSpeed(), GameManager.getCurrentSpeed()+100),new Vector2(5,5) , true);
+                        //passerCar.body.setLinearVelocity(-150000, GameManager.getCurrentSpeed() * 30);
+                 }
                     else if (!passerCar.getIsLeft() && myCar.isTurnRun()) {
-                        passerCar.body.setLinearVelocity(0, GameManager.getCurrentSpeed() * 5);
+                        passerCar.body.applyLinearImpulse(new Vector2(-330+GameManager.getCurrentSpeed(),GameManager.getCurrentSpeed()+100),new Vector2(5,5),true);
+                       // passerCar.body.setLinearVelocity(150000, GameManager.getCurrentSpeed() * 30);
+
                     }
                 }
+
             }
 
             //System.out.println("myCar.isTurnRun() " + myCar.isTurnRun());
             isMyCarCollision = true;
             if (myCar.isLeft())
-                myCar.body.setLinearVelocity(-800, GameManager.getCurrentSpeed() + 356);
+            {
+                myCar.body.applyLinearImpulse(new Vector2(730+GameManager.getCurrentSpeed(), GameManager.getCurrentSpeed()+50), new Vector2(5, 5), true);
+            }
+                //myCar.body.setLinearVelocity(5000000, GameManager.getCurrentSpeed() + 5856);
             else if (!myCar.isLeft())
-                myCar.body.setLinearVelocity(800, GameManager.getCurrentSpeed() + 356);
+            {
+                myCar.body.applyLinearImpulse(new Vector2(-730+GameManager.getCurrentSpeed(), GameManager.getCurrentSpeed()+50), new Vector2(5, 25), true);
+            }
+                //myCar.body.setLinearVelocity(-500000, GameManager.getCurrentSpeed() + 5856);
 
         }
     }

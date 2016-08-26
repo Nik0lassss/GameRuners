@@ -145,4 +145,21 @@ public class RecordsItem extends Group implements OnGetLidearBoards {
     public void onGetHighscoresFriends(ArrayList<VkUser> arrayList) {
 
     }
+
+    @Override
+    public void onGetFacebookHighscoresFriends(ArrayList<VkUser> arrayList) {
+
+    }
+
+    @Override
+    public void onGetLeaderboardErrore(String errore) {
+
+    }
+
+    @Override
+    public void onGetVkLeaderboardErrore(String errore) {
+
+    }
+
+
 }

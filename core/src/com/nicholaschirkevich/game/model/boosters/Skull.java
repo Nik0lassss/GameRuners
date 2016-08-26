@@ -42,9 +42,9 @@ public class Skull extends Prize {
         isLeft = left;
         // isLeft = rand.nextBoolean();
         if (isLeft)
-            position.x = Constants.getCarPostitionXLeft(skullOnRoadAnimation.getKeyFrames()[0].getRegionWidth());
+            position.x = Constants.getCarPostitionXLeft(skullOnRoadAnimation.getKeyFrames()[0].getRegionWidth()+7);
         else
-            position.x = Constants.getCarPostitionXRight(skullOnRoadAnimation.getKeyFrames()[0].getRegionWidth());
+            position.x = Constants.getCarPostitionXRight(skullOnRoadAnimation.getKeyFrames()[0].getRegionWidth()+7);
 
         this.world = world;
         //sprite = new Sprite(carTexture);

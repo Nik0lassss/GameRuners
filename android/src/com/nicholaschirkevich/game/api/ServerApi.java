@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.facebook.AccessToken;
 import com.nicholaschirkevich.game.R;
 import com.nicholaschirkevich.game.entity.LeaderboardEntity;
 import com.nicholaschirkevich.game.entity.VkUser;
@@ -124,6 +125,68 @@ public class ServerApi {
         }
     };
 
+    public static void getHighscoresFacebookFriends(final OnGetLidearBoards onGetLidearBoards, final ArrayList<VkUser> arrayList) {
+
+        StringBuilder stringQuery = new StringBuilder();
+        stringQuery.append("?");
+        for (int i = 0; i < arrayList.size(); i++) {
+            stringQuery.append("friends=" + arrayList.get(i).getId());
+            if (i < arrayList.size() - 1) {
+                stringQuery.append("&");
+            }
+        }
+        final AccessToken token;
+        token = AccessToken.getCurrentAccessToken();
+
+        if (token != null) {
+            stringQuery.append("&friends="+token.getUserId());
+            //Means user is not logged in
+        }else
+        {
+            onGetLidearBoards.onGetVkLeaderboardErrore("");
+        }
+
+        receiver.sendGetRequest(serverApiContext.getString(R.string.server_url) + serverApiContext.getString(R.string.server_url_get_facebook_highscores) + stringQuery, new Response.Listener() {
+            @Override
+            public void onResponse(Object object) {
+                try {
+                    // ArrayList<LeaderboardEntity> highEntities = new ArrayList<>();
+                    ArrayList<VkUser> vkUsers = new ArrayList<VkUser>();
+                    JSONArray jsonObjects = new JSONArray((String) object);
+                    for (int i = 0; i < jsonObjects.length(); i++) {
+                        LeaderboardEntity highscoreEntity = Mapper.jsonToLeaderBoardEntity((JSONObject) jsonObjects.get(i));
+
+                        //highEntities.add(highscoreEntity);
+
+                        for (VkUser vkUser : arrayList) {
+                            if (highscoreEntity.getFb_id().equals(vkUser.getId())) {
+                                vkUser.setHighscore(highscoreEntity.getHighscore());
+                                vkUsers.add(vkUser);
+                            }
+                        }
+                        if (token != null && GameManager.getVkUser() != null && highscoreEntity.getFb_id().equals(token.getUserId())) {
+//                            VkUser vkCurrentUser = GameManager.getVkUser();
+//                            vkCurrentUser.setHighscore(highscoreEntity.getHighscore());
+//                            vkUsers.add(GameManager.getVkUser());
+                        }
+                    }
+
+                    onGetLidearBoards.onGetHighscoresFriends(vkUsers);
+                    //onGetLeaderBoardsListenerServerApi.onGetLidearboardsData(leaderboardEntities);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                onGetLidearBoards.onGetVkLeaderboardErrore(volleyError.getMessage());
+            }
+        });
+    }
+
     public static void getHighscoresFriends(final OnGetLidearBoards onGetLidearBoards, final ArrayList<VkUser> arrayList) {
 
         StringBuilder stringQuery = new StringBuilder();
@@ -136,6 +199,9 @@ public class ServerApi {
         }
         if (VKAccessToken.currentToken() != null)
             stringQuery.append("&friends="+VKAccessToken.currentToken().userId);
+        else {
+            onGetLidearBoards.onGetVkLeaderboardErrore("");
+        }
         receiver.sendGetRequest(serverApiContext.getString(R.string.server_url) + serverApiContext.getString(R.string.server_url_get_highscores) + stringQuery, new Response.Listener() {
             @Override
             public void onResponse(Object object) {
@@ -149,12 +215,12 @@ public class ServerApi {
                         //highEntities.add(highscoreEntity);
 
                         for (VkUser vkUser : arrayList) {
-                            if (highscoreEntity.getVk_id().equals(vkUser.getId()) ) {
+                            if (highscoreEntity.getVk_id().equals(vkUser.getId())) {
                                 vkUser.setHighscore(highscoreEntity.getHighscore());
                                 vkUsers.add(vkUser);
                             }
                         }
-                        if( VKAccessToken.currentToken()!=null && GameManager.getVkUser()!=null && highscoreEntity.getVk_id().equals(GameManager.getVkUser().getId())) {
+                        if (VKAccessToken.currentToken() != null && GameManager.getVkUser() != null && highscoreEntity.getVk_id().equals(GameManager.getVkUser().getId())) {
                             VkUser vkCurrentUser = GameManager.getVkUser();
                             vkCurrentUser.setHighscore(highscoreEntity.getHighscore());
                             vkUsers.add(GameManager.getVkUser());
@@ -169,10 +235,15 @@ public class ServerApi {
 
 
             }
-        }, getFriendsHighscoreErroreListener);
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                onGetLidearBoards.onGetVkLeaderboardErrore(volleyError.getMessage());
+            }
+        });
     }
 
-    public static void getLeaderBoards(OnGetLidearBoards onGetLeaderBoardsListener) {
+    public static void getLeaderBoards(final OnGetLidearBoards onGetLeaderBoardsListener) {
         onGetLeaderBoardsListenerServerApi = onGetLeaderBoardsListener;
         receiver.sendGetRequest(serverApiContext.getString(R.string.server_url) + serverApiContext.getString(R.string.server_url_get_leaderboards), new Response.Listener() {
             @Override
@@ -192,7 +263,12 @@ public class ServerApi {
 
 
             }
-        }, getLeaderBoardsErroreListener);
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                onGetLeaderBoardsListener.onGetLeaderboardErrore(volleyError.getMessage());
+            }
+        });
     }
 
     public static void getImages(final OnGetLidearBoards onGetLeaderBoardsListener, String url) {

@@ -69,7 +69,7 @@ public class MyCar extends com.nicholaschirkevich.game.model.side_objects.Car {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         fixtureDef.density = 0.0001f;
-        fixtureDef.restitution = 0f;
+        fixtureDef.restitution = 1f;
         MyCarDataType myCarDataType = new MyCarDataType();
         myCarDataType.setBounds(bounds);
         body.setUserData(myCarDataType);
@@ -106,7 +106,7 @@ public class MyCar extends com.nicholaschirkevich.game.model.side_objects.Car {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         fixtureDef.density = 0.001f;
-        fixtureDef.restitution = 0f;
+        fixtureDef.restitution = 1f;
 
 
         fixtureDef.filter.categoryBits = Constants.MY_CAR_FILTER_ENTITY;
@@ -123,6 +123,7 @@ public class MyCar extends com.nicholaschirkevich.game.model.side_objects.Car {
     @Override
     public void update(float dt) {
         MyCarDataType myCarDataType = (MyCarDataType) body.getUserData();
+
 
 //        if(getActions().size==1)
 //            isTurnRun=false;

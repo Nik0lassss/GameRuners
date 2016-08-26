@@ -261,7 +261,7 @@ public class NewRoad {
     public void draw(SpriteBatch sb) {
 //        sb.draw(roadTexture, posRoad1.x, posRoad1.y);
 //        sb.draw(roadTexture, posRoad2.x, posRoad2.y);
-        sb.draw(back_tile, 0, 0, GameRuners.WIDTH, GameRuners.HEIGHT);
+        sb.draw(back_tile, -30, 0, GameRuners.WIDTH, GameRuners.HEIGHT);
         for (int i = 0; i < size; i++) {
 
             roads.get(i).draw(sb);

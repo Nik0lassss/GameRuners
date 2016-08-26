@@ -1,4 +1,6 @@
 android {
+    signingConfigs {
+    }
     buildToolsVersion "23.0.1"
     compileSdkVersion 23
     sourceSets {
@@ -16,8 +18,12 @@ android {
     }
     defaultConfig {
         applicationId "com.nicholaschirkevich.game"
-        minSdkVersion 9
+        minSdkVersion 15
         targetSdkVersion 23
+    }
+    buildTypes {
+        debug {
+        }
     }
 }
 // called every time gradle gets executed, takes the native dependencies of
@@ -98,16 +104,26 @@ eclipse {
     }
 }
 
+
+repositories {
+    mavenCentral()
+}
+
 dependencies {
 
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:design:23.1.1'
-    compile 'com.google.android.gms:play-services-ads:8.4.0'
-    compile 'com.google.android.gms:play-services-games:8.4.0'
     compile project(':BaseGameUtils')
     compile project(':vksdk_library-release')
     compile files('libs/volley.jar')
+
+    compile 'com.android.support:appcompat-v7:23.1.1'
+//    compile 'com.android.support:design:23.1.1'
+    compile 'com.google.android.gms:play-services-analytics:8.4.0'
+    compile 'com.google.android.gms:play-services-ads:8.4.0'
+    compile 'com.google.android.gms:play-services-games:8.4.0'
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+
 }
+
 // sets up the Android Idea project, using the old Ant based build.
 idea {
     module {

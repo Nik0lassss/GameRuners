@@ -274,6 +274,7 @@ public class AssetsManager {
 
 
         texturesMap.put(Constants.COIN_SHOP_NAME_ID, new TextureRegion(new Texture(Constants.COIN_SHOP_NAME_RESOURCE)));
+        texturesMap.put(Constants.TITLE_LEADERBOARD_RUS_ID, new TextureRegion(new Texture(Constants.TITLE_LEADERBOARD_RUS_RESOURCE)));
 
         texturesMap.put(Constants.BACK_BUTTON_PRESSED_ID, new TextureRegion(new Texture(Constants.BACK_BUTTON_PRESSED_RESOURCE)));
         texturesMap.put(Constants.BACK_BUTTON_ID, new TextureRegion(new Texture(Constants.BACK_BUTTON_RESOURCE)));

@@ -45,6 +45,8 @@ public class GameManager {
     private static Date lastFreeCarPrize;
     private static VkUser vkUser;
 
+    private static boolean isFirstStartApp;
+
     private static int CarShopSize;
 
     public static int getCarShopSize() {
@@ -346,6 +348,10 @@ public class GameManager {
 
         sideObjectsLeftRoad1ArrayListType.add(SideObjectType.ROAD_1_TREE_1_ID_LEFT);
         sideObjectsLeftRoad1ArrayListType.add(SideObjectType.ROAD_1_STUMP_ID_LEFT);
+        sideObjectsLeftRoad1ArrayListType.add(SideObjectType.ROAD_1_BUSH_1_ID_LEFT_AND_STUMP_LEFT);
+        sideObjectsLeftRoad1ArrayListType.add(SideObjectType.ROAD_1_TREE_1_ID_LEFT_AND_BUSH);
+        sideObjectsLeftRoad1ArrayListType.add(SideObjectType.ROAD_1_TREE_1_ID_LEFT_AND_TREE);
+
 
         ArrayList<SideObjectType> sideObjectsRightRoad1ArrayListType = new ArrayList<SideObjectType>();
         sideObjectsRightRoad1ArrayListType.add(SideObjectType.ROAD_1_BUSH_1_ID_RIGHT);
@@ -353,6 +359,9 @@ public class GameManager {
 
         sideObjectsRightRoad1ArrayListType.add(SideObjectType.ROAD_1_TREE_1_ID_RIGHT);
         sideObjectsRightRoad1ArrayListType.add(SideObjectType.ROAD_1_STUMP_ID_RIGHT);
+
+        sideObjectsRightRoad1ArrayListType.add(SideObjectType.ROAD_1_BUSH_1_ID_RIGHT_AND_STUMP_RIGHT);
+        sideObjectsRightRoad1ArrayListType.add(SideObjectType.ROAD_1_TREE_1_ID_RIGHT_AND_BUSH);
 
         ArrayList<SideObjectType> staticSideRightObjectsArrayList = new ArrayList<SideObjectType>();
         SideObjectType sideObjectLighterLType = SideObjectType.ROAD_1_LIGHTER_L_ID;
@@ -597,6 +606,14 @@ public class GameManager {
         return strings;
     }
 
+    public static boolean isFirstStartApp() {
+        return isFirstStartApp;
+    }
+
+    public static void setIsFirstStartApp(boolean isFirstStartApp) {
+        GameManager.isFirstStartApp = isFirstStartApp;
+    }
+
     public void resetAchives() {
         achives = 0;
     }
@@ -607,10 +624,15 @@ public class GameManager {
             preferences.putString(Constants.PREFERENCES_KEY_CAR_ID, currentCarID);
             preferences.flush();
         } else currentCarID = loadId;
+        if(preferences.getBoolean(Constants.PREFERENCES_IS_FIRST_START,true))
+        {
+            isFirstStartApp = true;
+            preferences.putBoolean(Constants.PREFERENCES_IS_FIRST_START,false);
+        } else isFirstStartApp = false;
 
         coinCounter = preferences.getInteger(Constants.PREFERENCES_KEY_COIN_COUNT_ID, 0);
         bestAchives = preferences.getInteger(Constants.PREFERENCES_KEY_ACHIVES_COUNT_ID, 0);
-        isTouchControl = preferences.getBoolean(Constants.PREFERENCES_CONTROL_ID);
+        isTouchControl = preferences.getBoolean(Constants.PREFERENCES_CONTROL_ID,true);
         isSoundEnable = preferences.getBoolean(Constants.PREFERENCES_SOUND_SETTING_ID);
         Long lastCarUpdateTimePrize = preferences.getLong(Constants.PREFERENCES_LAST_CAR_PRIZE_TIME_MILLIS, 0);
         if (lastCarUpdateTimePrize.equals(0l)) {

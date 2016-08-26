@@ -15,8 +15,10 @@
     <string name="server_url">http://s.pixelplex.by:3001/</string>
     <string name="server_url_get_leaderboards">leaderboard</string>
     <string name="server_url_get_highscores">getHighscores</string>
+    <string name="server_url_get_facebook_highscores">getFBHighscores</string>
     <string name="preferenceskey">preferenceskey</string>
     <string name="admobestatus">admobestatus</string>
+    <string name="facebook_app_id">502715496576881</string>
 
 
 </resources>

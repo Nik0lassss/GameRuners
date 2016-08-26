@@ -11,17 +11,28 @@ import java.util.Arrays;
  * Created by Nikolas on 03.07.2016.
  */
 public enum SideObjectType {
-    ROAD_1_BUSH_1_ID_LEFT(Constants.ROAD_1_BUSH_1_LEFT_ID, 20, 20, new Vector3(-10, 1200, 0), new Vector3(-10, 1200, 0),160),
-    ROAD_1_BUSH_2_ID_LEFT(Constants.ROAD_1_BUSH_2_LEFT_ID, 20, 20, new Vector3(-10, 1200, 0), new Vector3(-10, 1200, 0),160),
-    ROAD_1_BUSH_1_ID_RIGHT(Constants.ROAD_1_BUSH_1_RIGHT_ID, 20, 20, new Vector3(270, 1200, 0), new Vector3(270, 1200, 0),160),
-    ROAD_1_BUSH_2_ID_RIGHT(Constants.ROAD_1_BUSH_2_RIGHT_ID, 20, 20, new Vector3(270, 1200, 0), new Vector3(270, 1200, 0),160),
+    ROAD_1_BUSH_1_ID_LEFT(Constants.ROAD_1_BUSH_1_LEFT_ID, 20, 50, new Vector3(-10, 1200, 0), new Vector3(-10, 1200, 0),100),
+    ROAD_1_BUSH_2_ID_LEFT(Constants.ROAD_1_BUSH_2_LEFT_ID, 20, 50, new Vector3(-10, 1200, 0), new Vector3(-10, 1200, 0),100),
+    ROAD_1_BUSH_1_ID_RIGHT(Constants.ROAD_1_BUSH_1_RIGHT_ID, 20, 50, new Vector3(270, 1200, 0), new Vector3(270, 1200, 0),100),
+    ROAD_1_BUSH_2_ID_RIGHT(Constants.ROAD_1_BUSH_2_RIGHT_ID, 20, 50, new Vector3(270, 1200, 0), new Vector3(270, 1200, 0),100),
     ROAD_1_TILE_ID(Constants.ROAD_1_TILE_ID, 10, 10, new Vector3(20, 800, 0), new Vector3(20, 800, 0),160),
     ROAD_1_LIGHTER_L_ID(Constants.ROAD_1_LIGHTER_L_ID, 0, 0, new Vector3(-30, 1200, 0), new Vector3(-30, 1200, 0),160),
     ROAD_1_LIGHTER_R_ID(Constants.ROAD_1_LIGHTER_R_ID, 0, 0, new Vector3(210, 1200, 0), new Vector3(210, 1200, 0),160),
-    ROAD_1_STUMP_ID_LEFT(Constants.ROAD_1_STUMP_LEFT_ID, 20, 20, new Vector3(-10, 1200, 0), new Vector3(-10, 1200, 0),160),
-    ROAD_1_STUMP_ID_RIGHT(Constants.ROAD_1_STUMP_RIGHT_ID, 20, 20, new Vector3(270, 1200, 0), new Vector3(270, 1200, 0),160),
-    ROAD_1_TREE_1_ID_LEFT(Constants.ROAD_1_TREE_1_LEFT_ID, 20, 20, new Vector3(-10, 1200, 0), new Vector3(-10, 1200, 0),160),
-    ROAD_1_TREE_1_ID_RIGHT(Constants.ROAD_1_TREE_1_RIGHT_ID, 20, 20, new Vector3(270, 1200, 0), new Vector3(270, 1200, 0),160),
+    ROAD_1_STUMP_ID_LEFT(Constants.ROAD_1_STUMP_LEFT_ID, 20, 50, new Vector3(-10, 1200, 0), new Vector3(-10, 1200, 0),100),
+    ROAD_1_STUMP_ID_RIGHT(Constants.ROAD_1_STUMP_RIGHT_ID, 20, 50, new Vector3(270, 1200, 0), new Vector3(270, 1200, 0),100),
+    ROAD_1_TREE_1_ID_LEFT(Constants.ROAD_1_TREE_1_LEFT_ID, 20, 50, new Vector3(-20, 1200, 0), new Vector3(-20, 1200, 0),100),
+    ROAD_1_TREE_1_ID_RIGHT(Constants.ROAD_1_TREE_1_RIGHT_ID, 20, 50, new Vector3(270, 1200, 0), new Vector3(270, 1200, 0),100),
+    ROAD_1_STUMP_ID_APPEND_TO_BUSH(Constants.ROAD_1_STUMP_LEFT_ID, 20, 50,30,-10),
+    ROAD_1_BUSH_ID_APPEND_TO_TREE_AND_STUMP(Constants.ROAD_1_BUSH_1_LEFT_ID, 20, 50,30,-10),
+    ROAD_1_BUSH_1_ID_LEFT_AND_STUMP_LEFT(Constants.ROAD_1_BUSH_1_LEFT_ID, 20, 50, new Vector3(-25, 1200, 0), new Vector3(-25, 1200, 0),new ArrayList<SideObjectType>(Arrays.asList(ROAD_1_STUMP_ID_APPEND_TO_BUSH)),100),
+    ROAD_1_TREE_1_ID_LEFT_AND_BUSH(Constants.ROAD_1_TREE_1_LEFT_ID, 20, 50, new Vector3(-30, 1200, 0), new Vector3(-30, 1200, 0),new ArrayList<SideObjectType>(Arrays.asList(ROAD_1_BUSH_ID_APPEND_TO_TREE_AND_STUMP)),100),
+    ROAD_1_TREE_1_ID_LEFT_APPEND(Constants.ROAD_1_TREE_1_LEFT_ID, 20, 50, -10,-20),
+    ROAD_1_TREE_1_ID_LEFT_AND_TREE(Constants.ROAD_1_TREE_1_LEFT_ID, 20, 50, new Vector3(-20, 1200, 0), new Vector3(-20, 1200, 0),new ArrayList<SideObjectType>(Arrays.asList(ROAD_1_TREE_1_ID_LEFT_APPEND)),100),
+
+    ROAD_1_STUMP_ID_APPEND_TO_BUSH_RIGHT(Constants.ROAD_1_STUMP_RIGHT_ID, 20, 50,-20,-10),
+    ROAD_1_BUSH_ID_APPEND_TO_TREE_AND_STUMP_RIGHT(Constants.ROAD_1_BUSH_1_RIGHT_ID, 20, 50,-20,-10),
+    ROAD_1_BUSH_1_ID_RIGHT_AND_STUMP_RIGHT(Constants.ROAD_1_BUSH_1_RIGHT_ID, 20, 50, new Vector3(275, 1200, 0), new Vector3(275, 1200, 0),new ArrayList<SideObjectType>(Arrays.asList(ROAD_1_STUMP_ID_APPEND_TO_BUSH_RIGHT)),100),
+    ROAD_1_TREE_1_ID_RIGHT_AND_BUSH(Constants.ROAD_1_TREE_1_RIGHT_ID, 20, 50, new Vector3(275, 1200, 0), new Vector3(275, 1200, 0),new ArrayList<SideObjectType>(Arrays.asList(ROAD_1_BUSH_ID_APPEND_TO_TREE_AND_STUMP_RIGHT)),100),
 
 
     ROAD_2_BOARD_LEFT_ID(Constants.ROAD_2_BOARD_LEFT_ID, 10, 10, new Vector3(0, 1200, 0), new Vector3(0, 1200, 0),60),
