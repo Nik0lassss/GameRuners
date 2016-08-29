@@ -377,7 +377,7 @@ public class GameManager {
         sideObjectLighterRType.setIsLeft(false);
         staticSideLeftObjectsArrayList.add(sideObjectLighterRType);
 
-        NewRoad road1 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_1_TILE_ID).getTexture(), AssetsManager.getTextureRegion(Constants.ROAD_1_TILE_BACK_ID).getTexture(), sideObjectsRightRoad1ArrayListType, sideObjectsLeftRoad1ArrayListType, staticSideRightObjectsArrayList, staticSideLeftObjectsArrayList, TraffictLighterEnum.TRAFFICT_LIGHTER_COUNTYSIDE,false);
+        NewRoad road1 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_1_TILE_ID).getTexture(), AssetsManager.getTextureRegion(Constants.ROAD_1_TILE_BACK_ID).getTexture(), sideObjectsRightRoad1ArrayListType, sideObjectsLeftRoad1ArrayListType, staticSideRightObjectsArrayList, staticSideLeftObjectsArrayList, TraffictLighterEnum.TRAFFICT_LIGHTER_COUNTYSIDE, false);
         roads.put("TrackTypeCountrySide", road1);
 
         ArrayList<SideObjectType> sideObjectsRoad2RightArrayListType = new ArrayList<SideObjectType>();
@@ -402,7 +402,7 @@ public class GameManager {
         ArrayList<SideObjectType> staticSide2LeftObjectsArrayList = new ArrayList<SideObjectType>();
 
 
-        NewRoad road2 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_2_TILE__ID).getTexture(), AssetsManager.getTextureRegion(Constants.ROAD_2_TILE_BACK_ID).getTexture(), sideObjectsRoad2RightArrayListType, sideObjectsRoad2LeftArrayListType, staticSide2RightObjectsArrayList, staticSide2LeftObjectsArrayList, TraffictLighterEnum.TRAFFICT_LIGHTER_MEXICO,false);
+        NewRoad road2 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_2_TILE__ID).getTexture(), AssetsManager.getTextureRegion(Constants.ROAD_2_TILE_BACK_ID).getTexture(), sideObjectsRoad2RightArrayListType, sideObjectsRoad2LeftArrayListType, staticSide2RightObjectsArrayList, staticSide2LeftObjectsArrayList, TraffictLighterEnum.TRAFFICT_LIGHTER_MEXICO, false);
         roads.put("TrackTypeMexico", road2);
 
 
@@ -429,7 +429,7 @@ public class GameManager {
         ArrayList<SideObjectType> staticSide3LeftObjectsArrayList = new ArrayList<SideObjectType>();
 
 
-        NewRoad road3 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_3_TILE_ID).getTexture(), AssetsManager.getTextureRegion(Constants.ROAD_3_TILE_BACK_ID).getTexture(), sideObjectsRightRoad3ArrayListType, sideObjectsLeftRoad3ArrayListType, staticSide3RightObjectsArrayList, staticSide3LeftObjectsArrayList, TraffictLighterEnum.TRAFFICT_LIGHTER_SNOWLAND,false);
+        NewRoad road3 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_3_TILE_ID).getTexture(), AssetsManager.getTextureRegion(Constants.ROAD_3_TILE_BACK_ID).getTexture(), sideObjectsRightRoad3ArrayListType, sideObjectsLeftRoad3ArrayListType, staticSide3RightObjectsArrayList, staticSide3LeftObjectsArrayList, TraffictLighterEnum.TRAFFICT_LIGHTER_SNOWLAND, false);
         roads.put("TrackTypeSnowLand", road3);
 
         ArrayList<SideObjectType> sideObjectsRoad4RightArrayListType = new ArrayList<SideObjectType>();
@@ -460,7 +460,7 @@ public class GameManager {
 
         ArrayList<SideObjectType> staticSide4LeftObjectsArrayList = new ArrayList<SideObjectType>();
 
-        NewRoad road4 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_4_TILE_ID).getTexture(), AssetsManager.getTextureRegion(Constants.ROAD_4_TILE_BACK_ID).getTexture(), sideObjectsRoad4RightArrayListType, sideObjectsRoad4LeftArrayListType, staticSide4RightObjectsArrayList, staticSide4LeftObjectsArrayList, TraffictLighterEnum.TRAFFICT_LIGHTER_CITY,true);
+        NewRoad road4 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_4_TILE_ID).getTexture(), AssetsManager.getTextureRegion(Constants.ROAD_4_TILE_BACK_ID).getTexture(), sideObjectsRoad4RightArrayListType, sideObjectsRoad4LeftArrayListType, staticSide4RightObjectsArrayList, staticSide4LeftObjectsArrayList, TraffictLighterEnum.TRAFFICT_LIGHTER_CITY, true);
         roads.put("TrackTypeCity", road4);
 
 
@@ -479,7 +479,7 @@ public class GameManager {
 
         ArrayList<SideObjectType> staticSide5LeftObjectsArrayList = new ArrayList<SideObjectType>();
 
-        NewRoad road5 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_5_TILE_ID).getTexture(), AssetsManager.getTextureRegion(Constants.ROAD_5_TILE_BACK_ID).getTexture(), sideObjectsRoad5RightArrayListType, sideObjectsRoad5LeftArrayListType, staticSide5RightObjectsArrayList, staticSide5LeftObjectsArrayList, TraffictLighterEnum.TRAFFICT_LIGHTER_BEACH,false);
+        NewRoad road5 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_5_TILE_ID).getTexture(), AssetsManager.getTextureRegion(Constants.ROAD_5_TILE_BACK_ID).getTexture(), sideObjectsRoad5RightArrayListType, sideObjectsRoad5LeftArrayListType, staticSide5RightObjectsArrayList, staticSide5LeftObjectsArrayList, TraffictLighterEnum.TRAFFICT_LIGHTER_BEACH, false);
         roads.put("TrackTypeBeach", road5);
 
         ArrayList<SideObjectType> sideObjectsRoad6RightArrayListType = new ArrayList<SideObjectType>();
@@ -501,7 +501,7 @@ public class GameManager {
 
         ArrayList<SideObjectType> staticSide6LeftObjectsArrayList = new ArrayList<SideObjectType>();
 
-        NewRoad road6 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_6_TILE_ID).getTexture(), AssetsManager.getTextureRegion(Constants.ROAD_6_TILE_BACK_ID).getTexture(), sideObjectsRoad6RightArrayListType, sideObjectsRoad6LeftArrayListType, staticSide6RightObjectsArrayList, staticSide6LeftObjectsArrayList, TraffictLighterEnum.TRAFFICT_LIGHTER_CANYON,false);
+        NewRoad road6 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_6_TILE_ID).getTexture(), AssetsManager.getTextureRegion(Constants.ROAD_6_TILE_BACK_ID).getTexture(), sideObjectsRoad6RightArrayListType, sideObjectsRoad6LeftArrayListType, staticSide6RightObjectsArrayList, staticSide6LeftObjectsArrayList, TraffictLighterEnum.TRAFFICT_LIGHTER_CANYON, false);
         roads.put("TrackTypeCanyon", road6);
 
         ArrayList<SideObjectType> sideObjectsRightRoad7ArrayListType = new ArrayList<SideObjectType>();
@@ -534,7 +534,7 @@ public class GameManager {
         staticSide7LeftObjectsArrayList.add(sideObject7left);
 
 
-        NewRoad road7 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_7_TILE_ID).getTexture(), AssetsManager.getTextureRegion(Constants.ROAD_7_TILE_BACK_ID).getTexture(), sideObjectsRightRoad7ArrayListType, sideObjectsLeftRoad7ArrayListType, staticSide7RightObjectsArrayList, staticSide7LeftObjectsArrayList, TraffictLighterEnum.TRAFFICT_LIGHTER_CHINATOWN,false);
+        NewRoad road7 = new NewRoad(AssetsManager.getTextureRegion(Constants.ROAD_7_TILE_ID).getTexture(), AssetsManager.getTextureRegion(Constants.ROAD_7_TILE_BACK_ID).getTexture(), sideObjectsRightRoad7ArrayListType, sideObjectsLeftRoad7ArrayListType, staticSide7RightObjectsArrayList, staticSide7LeftObjectsArrayList, TraffictLighterEnum.TRAFFICT_LIGHTER_CHINATOWN, false);
         roads.put("TrackTypeChinaTown", road7);
         //road1.setSideObjectTypeArrayList(sideObjectsRoad1ArrayListType);
 
@@ -607,7 +607,10 @@ public class GameManager {
     }
 
     public static boolean isFirstStartApp() {
-        return isFirstStartApp;
+        boolean isFirstStart = preferences.getBoolean(Constants.PREFERENCES_IS_FIRST_START,true);
+        if(isFirstStart) preferences.putBoolean(Constants.PREFERENCES_IS_FIRST_START, false);
+        preferences.flush();
+        return isFirstStart;
     }
 
     public static void setIsFirstStartApp(boolean isFirstStartApp) {
@@ -624,15 +627,14 @@ public class GameManager {
             preferences.putString(Constants.PREFERENCES_KEY_CAR_ID, currentCarID);
             preferences.flush();
         } else currentCarID = loadId;
-        if(preferences.getBoolean(Constants.PREFERENCES_IS_FIRST_START,true))
-        {
-            isFirstStartApp = true;
-            preferences.putBoolean(Constants.PREFERENCES_IS_FIRST_START,false);
-        } else isFirstStartApp = false;
+//        if (preferences.getBoolean(Constants.PREFERENCES_IS_FIRST_START, true)) {
+//            isFirstStartApp = true;
+//            preferences.putBoolean(Constants.PREFERENCES_IS_FIRST_START, false);
+//        } else isFirstStartApp = false;
 
         coinCounter = preferences.getInteger(Constants.PREFERENCES_KEY_COIN_COUNT_ID, 0);
         bestAchives = preferences.getInteger(Constants.PREFERENCES_KEY_ACHIVES_COUNT_ID, 0);
-        isTouchControl = preferences.getBoolean(Constants.PREFERENCES_CONTROL_ID,true);
+        isTouchControl = preferences.getBoolean(Constants.PREFERENCES_CONTROL_ID, true);
         isSoundEnable = preferences.getBoolean(Constants.PREFERENCES_SOUND_SETTING_ID);
         Long lastCarUpdateTimePrize = preferences.getLong(Constants.PREFERENCES_LAST_CAR_PRIZE_TIME_MILLIS, 0);
         if (lastCarUpdateTimePrize.equals(0l)) {

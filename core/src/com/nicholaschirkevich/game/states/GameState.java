@@ -59,6 +59,8 @@ import com.nicholaschirkevich.game.menu.StartGameButton;
 import com.nicholaschirkevich.game.model.boosters.BoostOnCarLeft;
 import com.nicholaschirkevich.game.model.boosters.BoostOnCarRight;
 import com.nicholaschirkevich.game.model.boosters.Booster;
+import com.nicholaschirkevich.game.model.boosters.TutorialBlocks;
+import com.nicholaschirkevich.game.model.boosters.TutorialSpringboard;
 import com.nicholaschirkevich.game.model.side_objects.Bushs;
 import com.nicholaschirkevich.game.model.boosters.Coin;
 import com.nicholaschirkevich.game.model.boosters.Dirt;
@@ -116,7 +118,10 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     private boolean collisionCameraMoveLeft = false;
     private float cameraMoveTime = 0;
 
+    private boolean isFirstStart = false;
+
     ArrayList<PasserCar> passerCars;
+
     // ArrayList<Bushs> bushsArrayLeft, bushsArrayRight;
     //ArrayList<RoadLighter> roadLighters;
     ArrayList<Coin> coins;
@@ -124,6 +129,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     ArrayList<Ladle> ladles;
     ArrayList<Booster> boosters;
     ArrayList<Springboard> springboards;
+    ArrayList<TutorialBlocks> tutorialBlocksesArrayList;
+    ArrayList<TutorialSpringboard> tutorialSpringboardArrayList;
     MenuSaveMe menuSaveMe;
     public GestureListnener gestureListnener;
 
@@ -150,6 +157,13 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     private ParticleEffect pf;
     private ParticleEffect pfl;
     private float springboardtime = 0;
+
+
+    private float tutorialSpringboardsTime = 0;
+    private float tutorialBlocksTime = 0;
+    private int tutorialBlocksCount = 0;
+    private int tutorialCarCount = 0;
+    private float tutorialCarsTime = 0;
 
     private float timer = 0;
 
@@ -228,6 +242,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         GameManager.initial(world, stage);
         GameManager.resetSpeed();
         setUpCamera();
+        isFirstStart = GameManager.isFirstStartApp();
         GameManager.setStopGeneratePasserCars(false);
         //setUpTrafficLighter();
         carsTypes = GameManager.getCarsTypes();
@@ -247,6 +262,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         ladles = new ArrayList<Ladle>();
         boosters = new ArrayList<Booster>();
         springboards = new ArrayList<Springboard>();
+        tutorialBlocksesArrayList = new ArrayList<TutorialBlocks>();
+        tutorialSpringboardArrayList = new ArrayList<TutorialSpringboard>();
         menuSaveMe = new MenuSaveMe(this, gsm, actionResolver);
         ToastHelper.setUpToastHelper(stage);
 
@@ -256,7 +273,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         afterPauseLabel.setBounds(GameRuners.WIDTH / 4 - (afterPauseLabel.getPrefWidth() + 10), GameRuners.HEIGHT / 4 - (afterPauseLabel.getPrefHeight() / 2), afterPauseLabel.getPrefWidth(), afterPauseLabel.getPrefHeight());
         stage.addActor(afterPauseLabel);
 
-        setUpPasserCars();
+        if (!isFirstStart) setUpPasserCars();
         // setUpBushs();
         // setUpRoadLighter();
         setUpThornsLeftOnCar();
@@ -489,6 +506,38 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
     }
 
+    public void updateTutorialBlocks(ArrayList<TutorialBlocks> tutorialBlocks, float dt) {
+        if (tutorialBlocks.size() != 0 && camera.viewportHeight - tutorialBlocks.get(tutorialBlocks.size() - 1).getPosition().y > 10) {
+
+
+        }
+
+        for (int i = 0; i < tutorialBlocks.size(); i++) {
+
+            tutorialBlocks.get(i).update(dt);
+            if (tutorialBlocks.get(i).getPosition().y < -300) {
+                tutorialBlocks.remove(i);
+            }
+
+        }
+    }
+
+    public void updateTutorialSpringoardBlocks(ArrayList<TutorialSpringboard> tutorialSpringboardArrayList, float dt) {
+        if (tutorialSpringboardArrayList.size() != 0 && camera.viewportHeight - tutorialSpringboardArrayList.get(tutorialSpringboardArrayList.size() - 1).getPosition().y > 10) {
+
+
+        }
+
+        for (int i = 0; i < tutorialSpringboardArrayList.size(); i++) {
+
+            tutorialSpringboardArrayList.get(i).update(dt);
+            if (tutorialSpringboardArrayList.get(i).getPosition().y < -300) {
+                tutorialSpringboardArrayList.remove(i);
+            }
+
+        }
+    }
+
     public void updatSpringboards(ArrayList<Springboard> springboards, float dt) {
         if (springboards.size() != 0 && camera.viewportHeight - springboards.get(springboards.size() - 1).getPosition().y > 10) {
             // coinsArray.add(new Coin(world, 90, (int) camera.viewportHeight + 150, 10));
@@ -719,9 +768,10 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         handleInput();
         if (collisionCameraMove) {
             cameraMoveTime += dt;
-            if (cameraMoveTime > 0.1){
+            if (cameraMoveTime > 0.1) {
                 collisionCameraMove = false;
-                camera.position.x = 160;}
+                camera.position.x = 160;
+            }
         }
         if (collisionCameraMove) {
             if (collisionCameraMoveLeft) {
@@ -737,22 +787,20 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
             }
         }
 
-        System.out.println("camerapos x" + camera.position.x);
+        //   System.out.println("camerapos x" + camera.position.x);
 //        System.out.println("myCar.body.getLinearVelocity().x " + myCar.body.getLinearVelocity().x);
 //        System.out.println("myCar.body.getLinearVelocity().y " + myCar.body.getLinearVelocity().y);
 //        System.out.println("myCar.body.getAngularVelocity() "+myCar.body.getAngularVelocity());
 
-        for(PasserCar passerCar: passerCars)
-        {
-          if(((PasserCarDataType)passerCar.body.getUserData()).isContact())
-          {
-              if (passerCar.body.getAngularVelocity() < -7) {
-                  passerCar.body.setAngularVelocity(-7);
-              }
-              if (passerCar.body.getAngularVelocity() > 7) {
-                  passerCar.body.setAngularVelocity(7);
-              }
-          }
+        for (PasserCar passerCar : passerCars) {
+            if (((PasserCarDataType) passerCar.body.getUserData()).isContact()) {
+                if (passerCar.body.getAngularVelocity() < -7) {
+                    passerCar.body.setAngularVelocity(-7);
+                }
+                if (passerCar.body.getAngularVelocity() > 7) {
+                    passerCar.body.setAngularVelocity(7);
+                }
+            }
         }
         if (myCar.body.getAngularVelocity() < -7) {
             myCar.body.setAngularVelocity(-7);
@@ -948,8 +996,18 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
             }
 
             udateBlows(passerCars, myCar);
-            if (!isMyCarCollision && !isMyCarCollisionWithBlocks)
+//            if(isFirstStart && !passerCars.isEmpty())
+//            {
+//                PasserCar.updateCars(passerCars, camera, dt, this);
+//            }
+            if (!isMyCarCollision && !isMyCarCollisionWithBlocks && !isFirstStart) {
                 PasserCar.updateCars(passerCars, camera, dt, this);
+            }
+
+            if (isFirstStart) {
+                for (PasserCar passerCar : passerCars)
+                    passerCar.update(dt);
+            }
             if (isPasserSideCollision) {
                 for (int i = 0; i < passerCars.size(); i++) {
 
@@ -966,16 +1024,50 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 //            updateBushs(bushsArrayLeft, dt, true);
 //            updateBushs(bushsArrayRight, dt, false);
             //upateRoadLighters(roadLighters, dt);
-            updateCoins(coins, dt);
-            updatSkulls(skulls, dt);
-            updatSpringboards(springboards, dt);
-            updatFlySpringboards(flySpringBoards, dt);
-            updatDirts(dirts, dt);
-            springboardtime += dt;
+            if (!isFirstStart) {
+                updateCoins(coins, dt);
+                updatSkulls(skulls, dt);
+                updatSpringboards(springboards, dt);
+                updatFlySpringboards(flySpringBoards, dt);
+                updatDirts(dirts, dt);
+            } else {
+
+                updateTutorialSpringoardBlocks(tutorialSpringboardArrayList,dt);
+                updateTutorialBlocks(tutorialBlocksesArrayList, dt);
+            }
+            if (!isFirstStart) springboardtime += dt;
             if (springboardtime > Constants.TIME_SPRINGBOARD) {
                 springboards.add(new Springboard(world, 90, (int) (PasserCar.getPosYLastCar(passerCars) + 600), 10));
                 springboardtime = 0;
             }
+
+            tutorialBlocksTime += dt;
+            if (isFirstStart && tutorialBlocksTime > 3 && tutorialBlocksCount < 2) {
+                tutorialBlocksesArrayList.add(new TutorialBlocks(world, 90, (int) (600), 10));
+                tutorialBlocksTime = 0;
+                tutorialBlocksCount++;
+            }
+
+            tutorialCarsTime += dt;
+            if (isFirstStart && tutorialCarsTime > 8) {
+                passerCars.add(new PasserCar(world, 90, (int) camera.viewportHeight + 700, 10, false, RandomUtil.getRandomOtherCarType().getKey(), this));
+                passerCars.add(new PasserCar(world, 90, (int) camera.viewportHeight + 950, 10, true, RandomUtil.getRandomOtherCarType().getKey(), this));
+                tutorialCarsTime = 0;
+            }
+
+            tutorialSpringboardsTime+=dt;
+            if(isFirstStart && tutorialSpringboardsTime>12)
+            {
+                tutorialSpringboardArrayList.add(new TutorialSpringboard(world, 90, (int) (900), 10));
+                tutorialSpringboardsTime=0;
+            }
+
+            // if (isFirstStart) {
+//                for (PasserCar passerCar : passerCars) {
+//                    passerCar.update(dt);
+//                }
+            //}
+
             if (GameManager.getAllTime() > Constants.TIME_RELAX_ZONE_START) {
                 GameManager.setStopGeneratePasserCars(true);
             }
@@ -1109,10 +1201,14 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
             }
 
+            if (isFirstStart) {
+                if (GameManager.getAllTime() > 15) isFirstStart = false;
+            }
 
-            updatLadle(ladles, dt);
-            updatBooster(boosters, dt);
-
+            if (!isFirstStart) {
+                updatLadle(ladles, dt);
+                updatBooster(boosters, dt);
+            }
             for (RoadHole roadHole : roadHoles) {
                 roadHole.update(dt);
             }
@@ -1180,7 +1276,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                 ladleOnCar = null;
             }
 
-            Prize.updatePrize(world, camera, coins, skulls, ladles, boosters, springboards, flySpringBoards, dirts, dt, PasserCar.getPosYLastCar(passerCars), PasserCar.getIsLeftLastCar(passerCars));
+            if (!isAfterPause && !isFirstStart)
+                Prize.updatePrize(world, camera, coins, skulls, ladles, boosters, springboards, flySpringBoards, dirts, dt, PasserCar.getPosYLastCar(passerCars), PasserCar.getIsLeftLastCar(passerCars));
 
             roadNew.getTrafficLight().getPosition().set(41, roadNew.getTrafficLight().getPosition().y + (-GameManager.getCurrentSpeed()) * dt);
 
@@ -1251,7 +1348,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
             if (timer > 1) {
                 GameManager.pauseGame = true;
 //                stage.addActor(new MenuSaveMe(this, gsm,actionResolver));
-                if ( actionResolver.getAdmobStatus() && actionResolver.isIntertatlLoaded() && actionResolver.isSaveMeIntertitalLoad() && !isSavedMe && distacne > 100) {
+                if (actionResolver.getAdmobStatus() && actionResolver.isIntertatlLoaded() && actionResolver.isSaveMeIntertitalLoad() && !isSavedMe && distacne > 100) {
                     isSavedMe = true;
                     stage.addActor(menuSaveMe);
                     ToastHelper.resetToasts();
@@ -1526,6 +1623,15 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         for (Springboard springboard : springboards) {
             springboard.draw(sb);
         }
+
+        for (TutorialBlocks tutorialBlock : tutorialBlocksesArrayList) {
+            tutorialBlock.draw(sb);
+        }
+
+        for (TutorialSpringboard tutorialSpringboard : tutorialSpringboardArrayList) {
+            tutorialSpringboard.draw(sb);
+        }
+
         for (FlySpringboard flySpringboard : flySpringBoards) {
             flySpringboard.draw(sb);
         }
@@ -1715,8 +1821,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
         isMyCarCollision = false;
 
-        collisionCameraMove=false;
-        cameraMoveTime= 0;
+        collisionCameraMove = false;
+        cameraMoveTime = 0;
         GameManager.resetSpeed();
         GameManager.setIsCollisionWithCar(false);
         GameManager.setIsCollision(false);
@@ -1775,7 +1881,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     public void onStartRelaxZone(boolean isStart, float dt) {
         timeToCoin += dt;
 
-        if (isStart == false)
+        if (isStart == false && !isFirstStart)
             setUpPasserCars();
     }
 
@@ -1858,6 +1964,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         AssetsManager.playSound(Constants.SOUND_JUMP);
         isJumpCar = true;
         isJumpCarUpdate = true;
+        if(isFirstStart) collisionCameraMove = true;
     }
 
     @Override
@@ -1871,7 +1978,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     @Override
     public void onCollision() {
         if (!isMyCarCollision) {
-            collisionCameraMove=true;
+            isFirstStart = false;
+            collisionCameraMove = true;
             AssetsManager.playSound(Constants.SOUND_CRASH_2);
             Array<Action> actions = myCar.getActions();
             for (Action action : actions) {
@@ -1883,13 +1991,12 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                 //passerCar.body.setLinearVelocity(5000, GameManager.getCurrentSpeed() * 30);
                 if (((PasserCarDataType) passerCar.body.getUserData()).isContact()) {
 
-                    if (passerCar.getIsLeft() && myCar.isTurnRun()){
-                        passerCar.body.applyLinearImpulse(new Vector2(330+GameManager.getCurrentSpeed(), GameManager.getCurrentSpeed()+100),new Vector2(5,5) , true);
+                    if (passerCar.getIsLeft() && myCar.isTurnRun()) {
+                        passerCar.body.applyLinearImpulse(new Vector2(330 + GameManager.getCurrentSpeed(), GameManager.getCurrentSpeed() + 100), new Vector2(5, 5), true);
                         //passerCar.body.setLinearVelocity(-150000, GameManager.getCurrentSpeed() * 30);
-                 }
-                    else if (!passerCar.getIsLeft() && myCar.isTurnRun()) {
-                        passerCar.body.applyLinearImpulse(new Vector2(-330+GameManager.getCurrentSpeed(),GameManager.getCurrentSpeed()+100),new Vector2(5,5),true);
-                       // passerCar.body.setLinearVelocity(150000, GameManager.getCurrentSpeed() * 30);
+                    } else if (!passerCar.getIsLeft() && myCar.isTurnRun()) {
+                        passerCar.body.applyLinearImpulse(new Vector2(-330 + GameManager.getCurrentSpeed(), GameManager.getCurrentSpeed() + 100), new Vector2(5, 5), true);
+                        // passerCar.body.setLinearVelocity(150000, GameManager.getCurrentSpeed() * 30);
 
                     }
                 }
@@ -1898,16 +2005,14 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
             //System.out.println("myCar.isTurnRun() " + myCar.isTurnRun());
             isMyCarCollision = true;
-            if (myCar.isLeft())
-            {
-                myCar.body.applyLinearImpulse(new Vector2(730+GameManager.getCurrentSpeed(), GameManager.getCurrentSpeed()+50), new Vector2(5, 5), true);
+            if (myCar.isLeft()) {
+                myCar.body.applyLinearImpulse(new Vector2(730 + GameManager.getCurrentSpeed(), GameManager.getCurrentSpeed() + 50), new Vector2(5, 5), true);
             }
-                //myCar.body.setLinearVelocity(5000000, GameManager.getCurrentSpeed() + 5856);
-            else if (!myCar.isLeft())
-            {
-                myCar.body.applyLinearImpulse(new Vector2(-730+GameManager.getCurrentSpeed(), GameManager.getCurrentSpeed()+50), new Vector2(5, 25), true);
+            //myCar.body.setLinearVelocity(5000000, GameManager.getCurrentSpeed() + 5856);
+            else if (!myCar.isLeft()) {
+                myCar.body.applyLinearImpulse(new Vector2(-730 + GameManager.getCurrentSpeed(), GameManager.getCurrentSpeed() + 50), new Vector2(5, 25), true);
             }
-                //myCar.body.setLinearVelocity(-500000, GameManager.getCurrentSpeed() + 5856);
+            //myCar.body.setLinearVelocity(-500000, GameManager.getCurrentSpeed() + 5856);
 
         }
     }

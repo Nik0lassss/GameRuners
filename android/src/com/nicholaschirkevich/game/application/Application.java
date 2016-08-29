@@ -19,6 +19,7 @@ import com.nicholaschirkevich.game.helper.LruBitmapCache;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKAccessTokenTracker;
 import com.vk.sdk.VKSdk;
+import com.vk.sdk.util.VKUtil;
 
 /**
  * Created by Nikolas on 24.05.2016.

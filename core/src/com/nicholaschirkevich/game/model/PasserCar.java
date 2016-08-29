@@ -147,6 +147,7 @@ public class PasserCar extends com.nicholaschirkevich.game.model.side_objects.Ca
 
     }
 
+
     @Override
     public void update(float dt) {
 
@@ -154,7 +155,7 @@ public class PasserCar extends com.nicholaschirkevich.game.model.side_objects.Ca
 
         if (passerCarDataType.getCollisionPasserCarType().equals(passerCarDataType.getCollisionPasserCarType().SIDE_COLLISION)) {
             sideCollisionTime += dt;
-            System.out.println("pos x" + position.x);
+
             if (!isLeft && position.x > 200) {
                 passerCarDataType.setIsAfterHoleCollision(true);
             }
@@ -174,10 +175,11 @@ public class PasserCar extends com.nicholaschirkevich.game.model.side_objects.Ca
                 bounds.setPosition(body.getPosition().x, body.getPosition().y);
                 position.x = body.getPosition().x;
                 position.y = body.getPosition().y;
+
             } else {
                 bounds.setPosition(position.x, position.y);
                 body.setTransform(position.x, position.y, angeltCrashLadle);
-                System.out.println(sideCollisionTime);
+
             }
         }
 

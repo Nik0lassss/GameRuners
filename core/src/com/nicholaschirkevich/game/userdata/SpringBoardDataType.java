@@ -5,8 +5,9 @@ package com.nicholaschirkevich.game.userdata;
  */
 public class SpringBoardDataType extends UserData {
     private boolean isRecievedByMycar = false;
+
     public SpringBoardDataType() {
-        userDataType=UserDataType.SPRING_ON_ROAD;
+        userDataType = UserDataType.SPRING_ON_ROAD;
     }
 
     public boolean isRecievedByMycar() {

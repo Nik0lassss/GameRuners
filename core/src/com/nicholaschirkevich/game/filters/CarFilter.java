@@ -20,7 +20,6 @@ import com.nicholaschirkevich.game.model.boosters.ThronsOnCarRight;
 import com.nicholaschirkevich.game.states.GameState;
 import com.nicholaschirkevich.game.states.GameStateManager;
 import com.nicholaschirkevich.game.states.State;
-import com.nicholaschirkevich.game.states.TutorialState;
 import com.nicholaschirkevich.game.userdata.BoosterDataType;
 import com.nicholaschirkevich.game.userdata.CoinDataType;
 import com.nicholaschirkevich.game.userdata.LadleOnRoadDataType;
