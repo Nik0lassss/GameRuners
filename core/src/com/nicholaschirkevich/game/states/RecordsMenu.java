@@ -85,10 +85,10 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
                 public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                     if (actionResolver.isAvailibleInternet()) {
                         AssetsManager.playSound(Constants.SOUND_CLICK);
-                        if(actionResolver.isVkLogin()){
-                        actionResolver.showInviteBox();
-                        }else if (actionResolver.isFacebookLogin()){
-                        actionResolver.showInviteFacebook();
+                        if (actionResolver.isVkLogin()) {
+                            actionResolver.showInviteBox();
+                        } else if (actionResolver.isFacebookLogin()) {
+                            actionResolver.showInviteFacebook();
                         }
 
                         return true;
@@ -129,7 +129,7 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
         menuName = new Label(GameManager.getStrings().get(Constants.LB_HEADER_TEXT), AssetsManager.getUiSkin());
         menuName.setBounds(60, GameRuners.HEIGHT / 2 - 35, menuName.getWidth(), menuName.getHeight());
         menuName.setColor(255f / 255f, 128f / 255f, 0f / 255f, 1f);
-
+        if(!GameManager.getLocale().equals(Constants.RU_LOCALE)) menuName.setFontScale(0.8f,0.8f);
         Image imageTitle = new Image(AssetsManager.getTextureRegion(Constants.TITLE_LEADERBOARD_RUS_ID));
         imageTitle.setBounds(10, GameRuners.HEIGHT / 2 - 35, imageTitle.getWidth(), imageTitle.getHeight());
 
@@ -157,7 +157,6 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
             @Override
             public void act(float delta) {
                 super.act(delta);
-
 
 
                 if (GameManager.getGestureListnener().getDeltaX() < -20 && Math.abs(GameManager.getGestureListnener().getDeltaY()) < 5) {
@@ -234,12 +233,17 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
         addActor(backgroung_image);
 
         getLidearBoards(thisView);
-        if(actionResolver.isVkLogin()){
+        if (actionResolver.isVkLogin()) {
             getHighscoresVkFriends(this);
-        }
-        else if(actionResolver.isFacebookLogin())
-        {
+        } else if (actionResolver.isFacebookLogin()) {
             getHighscoresFacebookFriends(this);
+        } else {
+            Label errorLabel = new Label(GameManager.getStrings().get(Constants.MP_POP_UP_TEXT), AssetsManager.getUiSkin());
+            errorLabel.setFontScale(0.5f, 0.5f);
+            errorLabel.setAlignment(Align.center, Align.center);
+            table1.add(errorLabel);
+            table1.padTop(120f);
+            disableProgressBar();
         }
 //        getHighscoresVkFriends(this);
 
@@ -252,7 +256,6 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
         addActor(image);
         addActor(pane);
         addRectagleScroll();
-
         setUpProgressBar();
 
         addActor(imageTitle);
@@ -262,24 +265,51 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
 
     private void getHighscoresVkFriends(final OnGetLidearBoards onGetLidearBoards) {
         if (!isHighScoreLoad) {
-            isHighScoreLoad = true;
-            actionResolver.getHighscoresVkFriends(onGetLidearBoards);
-            System.out.println("  actionResolver.getHighscoresVkFriends(onGetLidearBoards);");
+            if (actionResolver.isAvailibleInternet()) {
+                isHighScoreLoad = true;
+                actionResolver.getHighscoresVkFriends(onGetLidearBoards);
+                System.out.println("  actionResolver.getHighscoresVkFriends(onGetLidearBoards);");
+            } else {
+                Label errorLabel = new Label(GameManager.getStrings().get(Constants.NO_INTERNET_CONNECTION_ALERT), AssetsManager.getUiSkin());
+                errorLabel.setFontScale(0.5f, 0.5f);
+                errorLabel.setAlignment(Align.center, Align.center);
+                table1.add(errorLabel);
+                table1.padTop(120f);
+                disableProgressBar();
+            }
         }
     }
 
     private void getLidearBoards(OnGetLidearBoards onGetLidearBoards) {
         if (!isLeaderboardsLoad) {
-            isLeaderboardsLoad = true;
-            actionResolver.getLidearBoards(onGetLidearBoards);
+            if (actionResolver.isAvailibleInternet()) {
+                isLeaderboardsLoad = true;
+                actionResolver.getLidearBoards(onGetLidearBoards);
+            } else {
+                Label errorLabel = new Label(GameManager.getStrings().get(Constants.NO_INTERNET_CONNECTION_ALERT), AssetsManager.getUiSkin());
+                errorLabel.setFontScale(0.5f, 0.5f);
+                errorLabel.setAlignment(Align.center, Align.center);
+                table2.add(errorLabel);
+                table2.padTop(120f);
+                disableProgressBar();
+            }
         }
     }
 
     private void getHighscoresFacebookFriends(final OnGetLidearBoards onGetLidearBoards) {
         if (!isHighScoreLoad) {
-            isHighScoreLoad = true;
-            actionResolver.getHighScoreFacebookFriends(onGetLidearBoards);
-            System.out.println("  actionResolver.getHighscoresVkFriends(onGetLidearBoards);");
+            if (actionResolver.isAvailibleInternet()) {
+                isHighScoreLoad = true;
+                actionResolver.getHighScoreFacebookFriends(onGetLidearBoards);
+                System.out.println("  actionResolver.getHighscoresVkFriends(onGetLidearBoards);");
+            }
+        }else {
+            Label errorLabel = new Label(GameManager.getStrings().get(Constants.NO_INTERNET_CONNECTION_ALERT), AssetsManager.getUiSkin());
+            errorLabel.setFontScale(0.5f, 0.5f);
+            errorLabel.setAlignment(Align.center, Align.center);
+            table1.add(errorLabel);
+            table1.padTop(120f);
+            disableProgressBar();
         }
     }
 
@@ -309,6 +339,7 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
         progressBarImage.setAlign(Align.center);
         progressBarImage.setPosition(GameRuners.WIDTH / 4 - progressBarImage.getPrefWidth() / 2, GameRuners.HEIGHT / 4 - progressBarImage.getPrefHeight() / 2);
         addActor(progressBarImage);
+        if (!actionResolver.isAvailibleInternet()) progressBarImage.setVisible(false);
     }
 
     void showProgressBar() {
@@ -524,7 +555,6 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
         setUpHighscoreFriendsTable(arrayList);
 
 
-
     }
 
     @Override
@@ -534,14 +564,45 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
 
     @Override
     public void onGetLeaderboardErrore(String errore) {
+        disableProgressBar();
+        Gdx.app.postRunnable(new Runnable() {
+            @Override
+            public void run() {
 
+                Label errorLabel = new Label(GameManager.getStrings().get(Constants.LEADERBOARD_LOAD_ERROR_TEXT), AssetsManager.getUiSkin());
+                errorLabel.setFontScale(0.5f, 0.5f);
+                errorLabel.setAlignment(Align.center, Align.center);
+                table2.add(errorLabel);
+                table2.padTop(120f);
+                disableProgressBar();
+                //pane2.setAmountY(recordAdapter.getMyIndex() * 60 - 145);
+
+
+            }
+        });
     }
 
     @Override
     public void onGetVkLeaderboardErrore(String errore) {
+        disableProgressBar();
+        Gdx.app.postRunnable(new Runnable() {
+            @Override
+            public void run() {
 
+                Label errorLabel = new Label(GameManager.getStrings().get(Constants.LEADERBOARD_LOAD_ERROR_TEXT), AssetsManager.getUiSkin());
+                errorLabel.setFontScale(0.5f, 0.5f);
+                errorLabel.setAlignment(Align.center, Align.center);
+//                table1.add(errorLabel);
+//                table1.padTop(20f);
+                table1.add(errorLabel);
+                table1.padTop(120f);
+                disableProgressBar();
+                //pane2.setAmountY(recordAdapter.getMyIndex() * 60 - 145);
+
+
+            }
+        });
     }
-
 
 
     @Override
@@ -555,7 +616,6 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
             if (progressBarImage != null)
                 progressBarImage.setRotation(progressBarImage.getRotation() - 20f);
         }
-
 
 
     }

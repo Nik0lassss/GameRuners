@@ -140,6 +140,8 @@ public class AssetsManager {
     private static TextureAtlas right_wing;
     private static TextureAtlas car_crash_animation;
     private static TextureAtlas gate_animation;
+    private static TextureAtlas swipe_animation_tutorial;
+    private static TextureAtlas tap_animation_tutorial;
     private static BitmapFont smallFont;
     private static BitmapFont smallestFont;
     private static BitmapFont largeFont;
@@ -273,7 +275,7 @@ public class AssetsManager {
         texturesMap.put(Constants.BTTN_RESUME_PRESSED_ID, new TextureRegion(new Texture(Constants.BTTN_RESUME_PRESSED_RESOURCE)));
 
 
-        texturesMap.put(Constants.COIN_SHOP_NAME_ID, new TextureRegion(new Texture(Constants.COIN_SHOP_NAME_RESOURCE)));
+        //texturesMap.put(Constants.COIN_SHOP_NAME_ID, new TextureRegion(new Texture(Constants.COIN_SHOP_NAME_RESOURCE)));
         texturesMap.put(Constants.TITLE_LEADERBOARD_RUS_ID, new TextureRegion(new Texture(Constants.TITLE_LEADERBOARD_RUS_RESOURCE)));
 
         texturesMap.put(Constants.BACK_BUTTON_PRESSED_ID, new TextureRegion(new Texture(Constants.BACK_BUTTON_PRESSED_RESOURCE)));
@@ -576,6 +578,12 @@ public class AssetsManager {
         animationsMap.put(Constants.LADLE_ON_CAR_ASSETS_ID, createAnimation(ladle_on_car_texture_atlas, Constants.LADLE_ON_CAR_REGION_NAMES));
         animationsMap.put(Constants.BOOSTER_ON_ROAD_ASSETS_ID, createAnimation(booster_on_road_texture_atlas, Constants.BOOSTER_ON_ROAD_REGION_NAMES));
         animationsMap.put(Constants.LADLE_ON_ROAD_ASSETS_ID, createAnimation(ladle_on_road_texture_atlas, Constants.LADLE_ON_ROAD_REGION_NAMES));
+
+        swipe_animation_tutorial = new TextureAtlas(Constants.SWIPE_ANIMATION_TUTORIAL_PATH);
+        tap_animation_tutorial = new TextureAtlas(Constants.TAP_ANIMATION_FOR_TUTORIAL_PATH);
+        animationsMap.put(Constants.TAP_ANIMATION_FOR_TUTORIAL_ID, createAnimation(tap_animation_tutorial, Constants.TAP_ANIMATION_FOR_TUTORIAL));
+        animationsMap.put(Constants.SWIPE_ANIMATION_TUTORIAL_ID, createAnimation(swipe_animation_tutorial, Constants.SWIPE_ANIMATION_TUTORIAL));
+
 
         animationsMap.put(Constants.MY_CAR_ASSETS_ID, createAnimation(carTextureAtlas,
                 Constants.MY_CAR_REGION_NAMES));

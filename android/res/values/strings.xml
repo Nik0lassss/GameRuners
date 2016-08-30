@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Speedy Road</string>
-    <integer name="com_vk_sdk_AppId">5214745</integer>
-    <string name="photo_id">photo-47594638_689374739</string>
-    <string name="VkDialogText">"Choose your vehicle. Hit the gas. Go! #speedyroad "</string>
-    <string name="VkDialogLink">https://itunes.apple.com/ru/app/speedy-road-endless-8-bit-race/id1008125487?mt=8</string>
-    <string name="VkDialogLinkText">Posted from app Speedy Road</string>
-    <string name="base64EncodedKey">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAl+2QLNYn/X4JTQuVos5SJDKfIs3ve8JGL9xOw/DAmCrkQSC3GmDYlq5mzn0XyQl7aUJcj9jAq1AOKg89iDXyaskrhpkeVxfPidZEJCtQLEeNVYmm2xo4iaqaFgRXJMS0cxTbsVO+0c38HrfXvWr7Bg0bmguRy6+Hh2WnNaMuXg43o1gELh+rRcWRoviXVgnLyB/A7PSCjtV6a5PzMypQ/8IYPXpgwsQ644l/5VJA+Po0QBPoh3G5+l479nRXfm4eZ31mZYhF/Q8wNPgjOWnriUnXumenAu8z+C8xL/JCi2ovLqbMnK2hBWdyjwAeuTsSKc6gQfNnM+adCcQAi+IxfwIDAQAB</string>
-    <string name="purchasetocken">speedy_road_tocken</string>
-    <string name="inAppBuillingOk">In-app Billing is set up OK</string>
-    <string name="inAppBuillingErrore">In-app Billing setup failed:</string>
-    <string name="packagePurchase">com.example.</string>
-    <string name="server_url">http://s.pixelplex.by:3001/</string>
-    <string name="server_url_get_leaderboards">leaderboard</string>
-    <string name="server_url_get_highscores">getHighscores</string>
-    <string name="server_url_get_facebook_highscores">getFBHighscores</string>
-    <string name="preferenceskey">preferenceskey</string>
-    <string name="admobestatus">admobestatus</string>
-    <string name="facebook_app_id">502715496576881</string>
+    <string name="app_name" translatable="false">Speedy Road</string>
+    <integer name="com_vk_sdk_AppId" translatable="false"> 5214745</integer>
+    <string name="photo_id" translatable="false">photo-47594638_689374739</string>
+    <string name="VkDialogText" translatable="false">"Choose your vehicle. Hit the gas. Go! #speedyroad "</string>
+    <string name="VkDialogLink" translatable="false">https://itunes.apple.com/ru/app/speedy-road-endless-8-bit-race/id1008125487?mt=8</string>
+    <string name="VkDialogLinkText" translatable="false">Posted from app Speedy Road</string>
+    <string name="base64EncodedKey" translatable="false">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAl+2QLNYn/X4JTQuVos5SJDKfIs3ve8JGL9xOw/DAmCrkQSC3GmDYlq5mzn0XyQl7aUJcj9jAq1AOKg89iDXyaskrhpkeVxfPidZEJCtQLEeNVYmm2xo4iaqaFgRXJMS0cxTbsVO+0c38HrfXvWr7Bg0bmguRy6+Hh2WnNaMuXg43o1gELh+rRcWRoviXVgnLyB/A7PSCjtV6a5PzMypQ/8IYPXpgwsQ644l/5VJA+Po0QBPoh3G5+l479nRXfm4eZ31mZYhF/Q8wNPgjOWnriUnXumenAu8z+C8xL/JCi2ovLqbMnK2hBWdyjwAeuTsSKc6gQfNnM+adCcQAi+IxfwIDAQAB</string>
+    <string name="purchasetocken" translatable="false">speedy_road_tocken</string>
+    <string name="inAppBuillingOk" translatable="false">In-app Billing is set up OK</string>
+    <string name="inAppBuillingErrore" translatable="false">In-app Billing setup failed:</string>
+    <string name="packagePurchase" translatable="false">com.example.</string>
+    <string name="server_url" translatable="false">http://s.pixelplex.by:3001/</string>
+    <string name="server_url_get_leaderboards" translatable="false">leaderboard</string>
+    <string name="server_url_get_highscores" translatable="false">getHighscores</string>
+    <string name="server_url_get_facebook_highscores" translatable="false">getFBHighscores</string>
+    <string name="preferenceskey" translatable="false">preferenceskey</string>
+    <string name="admobestatus" translatable="false">admobestatus</string>
+    <string name="facebook_app_id" translatable="false">502715496576881</string>
+    <string name="vk_invite_friends_message">Invitation sent</string>
+    <string name="leaderboard_invite_text">Invite friends</string>
 
 
 </resources>

@@ -564,12 +564,12 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                                    IabHelper.OnIabSetupFinishedListener() {
                                        public void onIabSetupFinished(IabResult result) {
                                            if (!result.isSuccess()) {
-                                               Toast.makeText(getContext(), getString(R.string.inAppBuillingErrore), Toast.LENGTH_LONG).show();
-                                               Log.d(TAG, getString(R.string.inAppBuillingErrore) +
-                                                       result);
+                                              // Toast.makeText(getContext(), getString(R.string.inAppBuillingErrore), Toast.LENGTH_LONG).show();
+                                             //  Log.d(TAG, getString(R.string.inAppBuillingErrore) +
+                                                     //  result);
                                            } else {
-                                               Toast.makeText(getContext(), getString(R.string.inAppBuillingOk), Toast.LENGTH_LONG).show();
-                                               Log.d(TAG, getString(R.string.inAppBuillingOk));
+                                               //Toast.makeText(getContext(), getString(R.string.inAppBuillingOk), Toast.LENGTH_LONG).show();
+                                              // Log.d(TAG, getString(R.string.inAppBuillingOk));
                                            }
                                        }
                                    });
@@ -857,6 +857,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
             @Override
             public void onError(VKError error) {
                 super.onError(error);
+                onGetLidearBoards.onGetVkLeaderboardErrore(error.errorMessage);
                 Log.d("VkDemoApp", "onError: " + error);
             }
 

@@ -148,6 +148,8 @@ public class Constants {
     public static final String COIN_SHADOW_ATLAS_PATH = "coin_shadow.txt";
     public static final String SKULL_ON_ROAD_ATLAS_PATH = "skull_on_road.txt";
     public static final String LADLE_ON_ROAD_ATLAS_PATH = "ladle_on_road.txt";
+    public static final String TAP_ANIMATION_FOR_TUTORIAL_PATH = "tap_animation_for_tutorial.txt";
+    public static final String SWIPE_ANIMATION_TUTORIAL_PATH = "swipe_animation_tutorial.txt";
     public static final String BOOSTER_ON_ROAD_ATLAS_PATH = "booster_on_road.txt";
     public static final String LADLE_ON_CAR_ATLAS_PATH = "ladle.txt";
     public static final String BOOSTER_R_ATLAS_PATH = "boost_r.txt";
@@ -266,6 +268,12 @@ public class Constants {
     public static final String[] ROAD_1_STUMP_1_REGION_NAMES = new String[]{"road_1_stump"};
     public static final String[] ROAD_1_LIGHTER_L_REGION_NAMES = new String[]{"road_1_lighter_l_move_1"};
     public static final String[] ROAD_1_LIGHTER_R_REGION_NAMES = new String[]{"road_1_lighter_r_move_1"};
+
+    public static final String TAP_ANIMATION_FOR_TUTORIAL_ID = "tap_animation_for_tutorial";
+    public static final String SWIPE_ANIMATION_TUTORIAL_ID = "swipe_animation_tutorial";
+
+    public static final String[] TAP_ANIMATION_FOR_TUTORIAL = new String[]{"tap_animation_for_tutorial_1","tap_animation_for_tutorial_2","tap_animation_for_tutorial_3","tap_animation_for_tutorial_4","tap_animation_for_tutorial_5","tap_animation_for_tutorial_6","tap_animation_for_tutorial_7","tap_animation_for_tutorial_8"};
+    public static final String[] SWIPE_ANIMATION_TUTORIAL = new String[]{"swipe_animation_tutorial_1","swipe_animation_tutorial_2","swipe_animation_tutorial_3","swipe_animation_tutorial_4","swipe_animation_tutorial_5","swipe_animation_tutorial_6","swipe_animation_tutorial_7","swipe_animation_tutorial_8","swipe_animation_tutorial_9","swipe_animation_tutorial_10"};
 
     public static final String COIN_ICON_2_ID = "coin_icon_2";
     public static final String COIN_ICON_2_RESOURCE = "coin_icon_2.png";
@@ -1109,6 +1117,9 @@ public class Constants {
     public static final String Localization_ID = "id";
 
     public static final String LEADERBOARD_LOAD_ERROR_TEXT = "leaderboard_load_error_text";
+    public static final String MP_POP_UP_TEXT = "mp_pop_up_text";
+    public static final String TITLE_COIN = "title_coin";
+    public static final String NO_INTERNET_CONNECTION_ALERT = "no_internet_connection_alert";
     public static final String FRIENDS_VK_ERROR_LOAD_FRIEND = "friends_vk_error_load_friend";
     public static final String GO_PLAY_WITH_FRIEND_2_BTN = "go_play_with_friend_2_btn";
     public static final String LB_HEADER_TEXT = "lb_header_text";

@@ -450,10 +450,10 @@
     <string><id>mp_draw_btn</id><type>	text</type><en>	No sides</en><ru>	Ничья</ru> </string>
     <string><id>mp_wait_btn</id><type>	text</type><en>	Wait</en><ru>	Ждите</ru> </string>
     <string><id>mp_unknow_lbl</id><type>	text</type><en>	Wait for user</en><ru>	Ждите</ru> </string>
-    <string><id> mp_pop_up_text</id><type>	text</type><en>	Enter via the social network to play with your friends</en><ru>	Войдите через социальную сеть, чтобы играть с друзьями</ru> </string>
+    <string><id> mp_pop_up_text</id><type>	text</type><en>	Enter via  the social \n network to play \n with your friends</en><ru>	Войдите через социальную \n сеть,  чтобы \n играть с друзьями</ru> </string>
     <string><id>mp_havent_friends_in_game_text</id><type>	text</type><en>	We couldn't find any friends in the game</en><ru>	Нам не удалось найти ваших друзей в игре</ru> </string>
     <string><id> mp_havent_friends_in_game_fb_text</id><type>	text</type><en>	We could not find\nyour friends from Facebook</en><ru>	Мы не смогли найти\nваших друзей из Facebook</ru> </string>
-    <string><id>no_internet_connection_alert</id><type>	text</type><en>	No internet connection</en><ru>	Проверьте интернет соединение</ru> </string>
+    <string><id>no_internet_connection_alert</id><type>	text</type><en>	No internet connection</en><ru>	Проверьте интернет \n соединение</ru> </string>
     <string><id>mp_pop_up_for_push_text</id><type>	text</type><en>	 Want to stay informed about the next race?</en><ru>	Сообщить, когда ваш следующий заезд?</ru> </string>
     <string><id>mp_win_or_lose_points</id><type>	text</type><en>	Points</en><ru>	Очков</ru> </string>
     <string><id>server_is_not_avaible_alert</id><type>	text</type><en>	Server is not avaible now</en><ru>	Сервер игры не доступен в данный момент</ru> </string>

@@ -108,7 +108,7 @@ public class FriendDialogListAdapter extends BaseAdapter {
                     public void onComplete(VKResponse response) {
 
                         super.onComplete(response);
-                        Toast.makeText(context,response.toString(),Toast.LENGTH_LONG).show();
+                        Toast.makeText(context,context.getString(R.string.vk_invite_friends_message),Toast.LENGTH_LONG).show();
                     }
 
                     @Override

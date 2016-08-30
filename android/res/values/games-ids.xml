@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_id">718362685113</string>
-    <string name="package_name">com.nicholaschirkevich.game</string>
-    <string name="leaderboard_leaderboard">CgkIud2CjvQUEAIQAA</string>
+    <string name="app_id" translatable="false">718362685113</string>
+    <string name="package_name" translatable="false">com.nicholaschirkevich.game</string>
+    <string name="leaderboard_leaderboard" translatable="false">CgkIud2CjvQUEAIQAA</string>
 </resources>

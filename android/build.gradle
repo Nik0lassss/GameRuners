@@ -16,6 +16,9 @@ android {
 
         instrumentTest.setRoot('tests')
     }
+
+
+
     defaultConfig {
         applicationId "com.nicholaschirkevich.game"
         minSdkVersion 15
@@ -25,9 +28,6 @@ android {
         debug {
         }
         release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'),
-                    'proguard-rules.pro'
         }
     }
 }

@@ -125,6 +125,7 @@ public class LeaderboardMenu extends Group implements ResumeButtonListener, OnGe
         menuName = new Label(GameManager.getStrings().get(Constants.LB_HEADER_TEXT), AssetsManager.getUiSkin());
         menuName.setBounds(60, GameRuners.HEIGHT / 2 - 35, menuName.getWidth(), menuName.getHeight());
         menuName.setColor(255f / 255f, 128f / 255f, 0f / 255f, 1f);
+        if(!GameManager.getLocale().equals(Constants.RU_LOCALE)) menuName.setFontScale(0.5f,0.5f);
 
         Image imageTitle = new Image(AssetsManager.getTextureRegion(Constants.TITLE_LEADERBOARD_RUS_ID));
         imageTitle.setBounds(10, GameRuners.HEIGHT / 2 - 35, imageTitle.getWidth(), imageTitle.getHeight());
@@ -229,12 +230,18 @@ public class LeaderboardMenu extends Group implements ResumeButtonListener, OnGe
         addActor(backgroung_image);
 
         getLidearBoards(thisView);
-        if(actionResolver.isVkLogin()){
+
+        if (actionResolver.isVkLogin()) {
             getHighscoresVkFriends(this);
-        }
-        else if(actionResolver.isFacebookLogin())
-        {
+        } else if (actionResolver.isFacebookLogin()) {
             getHighscoresFacebookFriends(this);
+        } else {
+            Label errorLabel = new Label(GameManager.getStrings().get(Constants.MP_POP_UP_TEXT), AssetsManager.getUiSkin());
+            errorLabel.setFontScale(0.5f, 0.5f);
+            errorLabel.setAlignment(Align.center, Align.center);
+            table1.add(errorLabel);
+            table1.padTop(20f);
+            disableProgressBar();
         }
 
         //getHighscoresFacebookFriends(this);
@@ -261,24 +268,51 @@ public class LeaderboardMenu extends Group implements ResumeButtonListener, OnGe
 
     private void getHighscoresVkFriends(final OnGetLidearBoards onGetLidearBoards) {
         if (!isHighScoreLoad) {
-            isHighScoreLoad = true;
-            actionResolver.getHighscoresVkFriends(onGetLidearBoards);
-            System.out.println("  actionResolver.getHighscoresVkFriends(onGetLidearBoards);");
-        }
-    }
-
-    private void getHighscoresFacebookFriends(final OnGetLidearBoards onGetLidearBoards) {
-        if (!isHighScoreLoad) {
-            isHighScoreLoad = true;
-            actionResolver.getHighScoreFacebookFriends(onGetLidearBoards);
-            System.out.println("  actionResolver.getHighscoresVkFriends(onGetLidearBoards);");
+            if (actionResolver.isAvailibleInternet()) {
+                isHighScoreLoad = true;
+                actionResolver.getHighscoresVkFriends(onGetLidearBoards);
+                System.out.println("  actionResolver.getHighscoresVkFriends(onGetLidearBoards);");
+            } else {
+                Label errorLabel = new Label(GameManager.getStrings().get(Constants.NO_INTERNET_CONNECTION_ALERT), AssetsManager.getUiSkin());
+                errorLabel.setFontScale(0.5f, 0.5f);
+                errorLabel.setAlignment(Align.center, Align.center);
+                table1.add(errorLabel);
+                table1.padTop(20f);
+                disableProgressBar();
+            }
         }
     }
 
     private void getLidearBoards(OnGetLidearBoards onGetLidearBoards) {
         if (!isLeaderboardsLoad) {
-            isLeaderboardsLoad = true;
-            actionResolver.getLidearBoards(onGetLidearBoards);
+            if (actionResolver.isAvailibleInternet()) {
+                isLeaderboardsLoad = true;
+                actionResolver.getLidearBoards(onGetLidearBoards);
+            } else {
+                Label errorLabel = new Label(GameManager.getStrings().get(Constants.NO_INTERNET_CONNECTION_ALERT), AssetsManager.getUiSkin());
+                errorLabel.setFontScale(0.5f, 0.5f);
+                errorLabel.setAlignment(Align.center, Align.center);
+                table2.add(errorLabel);
+                table2.padTop(20f);
+                disableProgressBar();
+            }
+        }
+    }
+
+    private void getHighscoresFacebookFriends(final OnGetLidearBoards onGetLidearBoards) {
+        if (!isHighScoreLoad) {
+            if (actionResolver.isAvailibleInternet()) {
+                isHighScoreLoad = true;
+                actionResolver.getHighScoreFacebookFriends(onGetLidearBoards);
+                System.out.println("  actionResolver.getHighscoresVkFriends(onGetLidearBoards);");
+            }
+        }else {
+            Label errorLabel = new Label(GameManager.getStrings().get(Constants.NO_INTERNET_CONNECTION_ALERT), AssetsManager.getUiSkin());
+            errorLabel.setFontScale(0.5f, 0.5f);
+            errorLabel.setAlignment(Align.center, Align.center);
+            table1.add(errorLabel);
+            table1.padTop(20f);
+            disableProgressBar();
         }
     }
 
@@ -308,6 +342,7 @@ public class LeaderboardMenu extends Group implements ResumeButtonListener, OnGe
         progressBarImage.setAlign(Align.center);
         progressBarImage.setPosition(GameRuners.WIDTH / 4 - progressBarImage.getPrefWidth() / 2, GameRuners.HEIGHT / 4 - progressBarImage.getPrefHeight() / 2 - 100);
         addActor(progressBarImage);
+        if (!actionResolver.isAvailibleInternet()) progressBarImage.setVisible(false);
     }
 
     void showProgressBar() {
@@ -545,8 +580,8 @@ public class LeaderboardMenu extends Group implements ResumeButtonListener, OnGe
                 Label errorLabel = new Label(GameManager.getStrings().get(Constants.LEADERBOARD_LOAD_ERROR_TEXT), AssetsManager.getUiSkin());
                 errorLabel.setFontScale(0.5f, 0.5f);
                 errorLabel.setAlignment(Align.center, Align.center);
-                table1.add(errorLabel);
-                table1.padTop(20f);
+                table2.add(errorLabel);
+                table2.padTop(20f);
                 disableProgressBar();
                 //pane2.setAmountY(recordAdapter.getMyIndex() * 60 - 145);
 
@@ -566,8 +601,8 @@ public class LeaderboardMenu extends Group implements ResumeButtonListener, OnGe
                 Label errorLabel = new Label(GameManager.getStrings().get(Constants.LEADERBOARD_LOAD_ERROR_TEXT), AssetsManager.getUiSkin());
                 errorLabel.setFontScale(0.5f, 0.5f);
                 errorLabel.setAlignment(Align.center, Align.center);
-                table2.add(errorLabel);
-                table2.padTop(20f);
+                table1.add(errorLabel);
+                table1.padTop(20f);
                 disableProgressBar();
                 //pane2.setAmountY(recordAdapter.getMyIndex() * 60 - 145);
 

@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
@@ -180,9 +181,26 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     private Image pauseButtonImageUp, pauseButtonImageDown;
     private Texture pauseButtonTextureUp, pauseButtonTextureDown;
 
+    private float timeTutorialLeft = 0;
+    private float timeTutorialRight = 0;
+    private boolean showTutorialLeft = false;
+    private boolean showTutorialRight = false;
+
+
+    private float timeToTutorialStep1 = 4;
+    private boolean isShowStep1 = false;
+    private float timeToTutorialStep2 = 7;
+    private boolean isShowStep2 = false;
+    private float timeToTutorialStep3 = 9;
+    private boolean isShowStep3 = false;
+    private float timeToTutorialStep4 = 11;
+    private boolean isShowStep4 = false;
+
+
     private Label afterPauseLabel;
     private float contactFlyCars = 1;
     private float playTimeAnimation = 0;
+    private float tutorialControlAnimationTime = 0;
     private boolean isPause = true;
     private boolean isGameStart = false;
     private boolean isAfterPause = false;
@@ -274,6 +292,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         stage.addActor(afterPauseLabel);
 
         if (!isFirstStart) setUpPasserCars();
+        if(isFirstStart)  tutorialBlocksesArrayList.add(new TutorialBlocks(world, 90, (int) (1100), 10));
         // setUpBushs();
         // setUpRoadLighter();
         setUpThornsLeftOnCar();
@@ -838,6 +857,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
             isGameStart = true;
         }
 
+//        if (isFirstStart) tutorialControlAnimationTime += dt;
+        tutorialControlAnimationTime += dt;
 
         if (isMyCarCollision || isMyCarCollisionWithBlocks)
             playTimeAnimation += dt;
@@ -1021,9 +1042,32 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                     }
                 }
             }
+
 //            updateBushs(bushsArrayLeft, dt, true);
 //            updateBushs(bushsArrayRight, dt, false);
             //upateRoadLighters(roadLighters, dt);
+
+
+            if (showTutorialLeft) {
+                if (timeTutorialLeft < 1.5) {
+                    timeTutorialLeft += dt;
+                } else {
+                    timeTutorialLeft = 0;
+                    showTutorialLeft=false;
+                    tutorialControlAnimationTime =0;
+                }
+            }
+
+            if (showTutorialRight) {
+                if (timeTutorialRight < 1.5) {
+                    timeTutorialRight += dt;
+                } else {
+                    timeTutorialRight = 0;
+                    showTutorialRight=false;
+                    tutorialControlAnimationTime=0;
+                }
+            }
+
             if (!isFirstStart) {
                 updateCoins(coins, dt);
                 updatSkulls(skulls, dt);
@@ -1031,8 +1075,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                 updatFlySpringboards(flySpringBoards, dt);
                 updatDirts(dirts, dt);
             } else {
-
-                updateTutorialSpringoardBlocks(tutorialSpringboardArrayList,dt);
+                updateTutorialSpringoardBlocks(tutorialSpringboardArrayList, dt);
                 updateTutorialBlocks(tutorialBlocksesArrayList, dt);
             }
             if (!isFirstStart) springboardtime += dt;
@@ -1042,24 +1085,24 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
             }
 
             tutorialBlocksTime += dt;
-            if (isFirstStart && tutorialBlocksTime > 3 && tutorialBlocksCount < 2) {
+            if (isFirstStart && tutorialBlocksTime > 7 && tutorialBlocksCount < 1) {
                 tutorialBlocksesArrayList.add(new TutorialBlocks(world, 90, (int) (600), 10));
                 tutorialBlocksTime = 0;
                 tutorialBlocksCount++;
             }
 
             tutorialCarsTime += dt;
-            if (isFirstStart && tutorialCarsTime > 8) {
-                passerCars.add(new PasserCar(world, 90, (int) camera.viewportHeight + 700, 10, false, RandomUtil.getRandomOtherCarType().getKey(), this));
-                passerCars.add(new PasserCar(world, 90, (int) camera.viewportHeight + 950, 10, true, RandomUtil.getRandomOtherCarType().getKey(), this));
+            if (isFirstStart && tutorialCarsTime > 7) {
+                passerCars.add(new PasserCar(world, 90, (int) camera.viewportHeight + 700, 10, true, RandomUtil.getRandomOtherCarType().getKey(), this));
+                passerCars.add(new PasserCar(world, 90, (int) camera.viewportHeight + 1200, 10, false, RandomUtil.getRandomOtherCarType().getKey(), this));
                 tutorialCarsTime = 0;
             }
 
-            tutorialSpringboardsTime+=dt;
-            if(isFirstStart && tutorialSpringboardsTime>12)
-            {
+            tutorialSpringboardsTime += dt;
+            if (isFirstStart && tutorialSpringboardsTime > 12) {
                 tutorialSpringboardArrayList.add(new TutorialSpringboard(world, 90, (int) (900), 10));
-                tutorialSpringboardsTime=0;
+
+                tutorialSpringboardsTime = 0;
             }
 
             // if (isFirstStart) {
@@ -1203,6 +1246,32 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
             if (isFirstStart) {
                 if (GameManager.getAllTime() > 15) isFirstStart = false;
+            }
+
+
+
+            if(isFirstStart)
+            {
+                if(GameManager.getAllTime()>timeToTutorialStep1 && !isShowStep1)
+                {
+                    showTutorialRight = true;
+                    isShowStep1=true;
+                }
+                if(GameManager.getAllTime()>timeToTutorialStep2 && !isShowStep2)
+                {
+                    showTutorialLeft = true;
+                    isShowStep2= true;
+                }
+                if(GameManager.getAllTime()>timeToTutorialStep3 && !isShowStep3)
+                {
+                    showTutorialRight = true;
+                    isShowStep3 = true;
+                }
+                if(GameManager.getAllTime()>timeToTutorialStep4 && !isShowStep4)
+                {
+                    showTutorialLeft = true;
+                    isShowStep4 = true;
+                }
             }
 
             if (!isFirstStart) {
@@ -1711,6 +1780,28 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         }
 
 
+        if (showTutorialLeft) {
+            if(!GameManager.isTouchControl()) {
+                TextureRegion tr = AssetsManager.getAnimation(Constants.SWIPE_ANIMATION_TUTORIAL_ID).getKeyFrame(tutorialControlAnimationTime, true);
+                sb.draw(tr, 60, 160, tr.getRegionWidth() / 2, tr.getRegionHeight() / 2, tr.getRegionWidth(), tr.getRegionHeight(), 1, 1, 180f);
+            }else
+            {
+                TextureRegion tr = AssetsManager.getAnimation(Constants.TAP_ANIMATION_FOR_TUTORIAL_ID).getKeyFrame(tutorialControlAnimationTime, true);
+                sb.draw(tr, 80, 160, tr.getRegionWidth() / 2, tr.getRegionHeight() / 2, tr.getRegionWidth(), tr.getRegionHeight(), 1, 1, 180f);
+            }
+
+        }
+        if (showTutorialRight) {
+            if(!GameManager.isTouchControl()) {
+                TextureRegion tr = AssetsManager.getAnimation(Constants.SWIPE_ANIMATION_TUTORIAL_ID).getKeyFrame(tutorialControlAnimationTime, true);
+                sb.draw(tr, 160, 160, tr.getRegionWidth() / 2, tr.getRegionHeight() / 2, tr.getRegionWidth(), tr.getRegionHeight(), 1, 1, 0f);
+            }else
+            {
+                TextureRegion tr = AssetsManager.getAnimation(Constants.TAP_ANIMATION_FOR_TUTORIAL_ID).getKeyFrame(tutorialControlAnimationTime, true);
+                sb.draw(tr, 180, 160, tr.getRegionWidth() / 2, tr.getRegionHeight() / 2, tr.getRegionWidth(), tr.getRegionHeight(), 1, 1, 0f);
+            }
+        }
+
         if (GameManager.isCollisionWithCar()) {
             //collision.draw(sb);
             GameManager.setIsCollisionWithCar(false);
@@ -1964,7 +2055,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         AssetsManager.playSound(Constants.SOUND_JUMP);
         isJumpCar = true;
         isJumpCarUpdate = true;
-        if(isFirstStart) collisionCameraMove = true;
+        if (isFirstStart) collisionCameraMove = true;
     }
 
     @Override

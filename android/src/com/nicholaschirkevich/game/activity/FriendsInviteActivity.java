@@ -39,51 +39,50 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 public class FriendsInviteActivity extends Activity {
-	// Log tag
+    // Log tag
 
-	// Movies json url
+    // Movies json url
 
-	private ProgressDialog pDialog;
+    private ProgressDialog pDialog;
 
-	private ListView listView;
-	private FriendDialogListAdapter adapter;
-	private VKRequest currentRequest;
-	private Activity thisActivity;
-	private Button button;
+    private ListView listView;
+    private FriendDialogListAdapter adapter;
+    private VKRequest currentRequest;
+    private Activity thisActivity;
+    private Button button;
 
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_friend_invite);
-		button = (Button) findViewById(R.id.invite_frined_activity_back_button);
-		button.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				onBackPressed();
-			}
-		});
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_friend_invite);
+        button = (Button) findViewById(R.id.invite_frined_activity_back_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
-		currentRequest = VKApi.friends().get(VKParameters.from(VKApiConst.FIELDS, "id,first_name,last_name,photo_100"));
-		final ArrayList<User> users = new ArrayList<>();
+        currentRequest = VKApi.friends().get(VKParameters.from(VKApiConst.FIELDS, "id,first_name,last_name,photo_100"));
+        final ArrayList<User> users = new ArrayList<>();
 
-		thisActivity = this;
-		currentRequest.executeWithListener(new VKRequest.VKRequestListener() {
-			@Override
-			public void onComplete(VKResponse response) {
-				super.onComplete(response);
-				Log.d("VkDemoApp", "onComplete " + response);
+        thisActivity = this;
+        currentRequest.executeWithListener(new VKRequest.VKRequestListener() {
+            @Override
+            public void onComplete(VKResponse response) {
+                super.onComplete(response);
+                Log.d("VkDemoApp", getString(R.string.vk_invite_friends_message));
 
-				VKUsersArray usersArray = (VKUsersArray) response.parsedModel;
-				users.clear();
+                VKUsersArray usersArray = (VKUsersArray) response.parsedModel;
+                users.clear();
 
-				for (VKApiUserFull userFull : usersArray) {
+                for (VKApiUserFull userFull : usersArray) {
 
-					users.add(new User(userFull.toString(), userFull.id, userFull.photo_100));
+                    users.add(new User(userFull.toString(), userFull.id, userFull.photo_100));
 
-				}
+                }
 
 //				final Dialog dialog = new Dialog(getContext());
 //
@@ -98,40 +97,40 @@ public class FriendsInviteActivity extends Activity {
 //				lv.setAdapter(clad);
 
 
-				listView = (ListView) findViewById(R.id.list_friends_dialog_main);
-				adapter = new FriendDialogListAdapter(thisActivity, users);
-				listView.setAdapter(adapter);
+                listView = (ListView) findViewById(R.id.list_friends_dialog_main);
+                adapter = new FriendDialogListAdapter(thisActivity, users);
+                listView.setAdapter(adapter);
 
 //				pDialog = new ProgressDialog(getApplicationContext());
 //				// Showing progress dialog before making http request
 //				pDialog.setMessage("Loading...");
 //				pDialog.show();
 
-				// changing action bar color
+                // changing action bar color
 
-				//lv.setOnItemClickListener(........);
+                //lv.setOnItemClickListener(........);
 
 
-			}
+            }
 
-			@Override
-			public void attemptFailed(VKRequest request, int attemptNumber, int totalAttempts) {
-				super.attemptFailed(request, attemptNumber, totalAttempts);
-				Log.d("VkDemoApp", "attemptFailed " + request + " " + attemptNumber + " " + totalAttempts);
-			}
+            @Override
+            public void attemptFailed(VKRequest request, int attemptNumber, int totalAttempts) {
+                super.attemptFailed(request, attemptNumber, totalAttempts);
+                Log.d("VkDemoApp", "attemptFailed " + request + " " + attemptNumber + " " + totalAttempts);
+            }
 
-			@Override
-			public void onError(VKError error) {
-				super.onError(error);
-				Log.d("VkDemoApp", "onError: " + error);
-			}
+            @Override
+            public void onError(VKError error) {
+                super.onError(error);
+                Log.d("VkDemoApp", "onError: " + error);
+            }
 
-			@Override
-			public void onProgress(VKRequest.VKProgressType progressType, long bytesLoaded, long bytesTotal) {
-				super.onProgress(progressType, bytesLoaded, bytesTotal);
-				Log.d("VkDemoApp", "onProgress " + progressType + " " + bytesLoaded + " " + bytesTotal);
-			}
-		});
+            @Override
+            public void onProgress(VKRequest.VKProgressType progressType, long bytesLoaded, long bytesTotal) {
+                super.onProgress(progressType, bytesLoaded, bytesTotal);
+                Log.d("VkDemoApp", "onProgress " + progressType + " " + bytesLoaded + " " + bytesTotal);
+            }
+        });
 
 //		listView = (ListView) findViewById(R.id.list_friends_dialog_main);
 //		adapter = new FriendDialogListAdapter(this, movieList);
@@ -148,26 +147,25 @@ public class FriendsInviteActivity extends Activity {
 
 //		getActionBar().setBackgroundDrawable(
 //				new ColorDrawable(Color.parseColor("#1b1b1b")));
-	}
+    }
 
-	@Override
-	public void onDestroy() {
-		super.onDestroy();
-		hidePDialog();
-	}
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        hidePDialog();
+    }
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-	}
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 
-	private void hidePDialog() {
-		if (pDialog != null) {
-			pDialog.dismiss();
-			pDialog = null;
-		}
-	}
-
+    private void hidePDialog() {
+        if (pDialog != null) {
+            pDialog.dismiss();
+            pDialog = null;
+        }
+    }
 
 
 }

@@ -65,6 +65,7 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
     private  UpdateCoinCountInterface updateCoinCountInterface;
     public CoinShopState(GameStateManager gsm, ActionResolver actionResolver,Actor parentView) {
 
+
         this.updateCoinCountInterface = updateCoinCountInterface;
         this.actionResolver = actionResolver;
         this.parentView = parentView;
@@ -94,6 +95,7 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
         setUpImageCoinCount();
         setUpCoinCountLabel();
         setUpResumeImageButton();
+
 
     }
 

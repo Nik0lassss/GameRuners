@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="vk_invite_friends_message">Приглашение отправлено</string>
+    <string name="leaderboard_invite_text">Пригласить друга</string>
+
+</resources>

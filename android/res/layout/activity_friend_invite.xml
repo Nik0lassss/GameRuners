@@ -23,7 +23,7 @@
                 android:layout_weight="10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ПРИГЛАСИТЬ ДРУГА"
+                android:text="@string/leaderboard_invite_text"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="@color/vk_white"

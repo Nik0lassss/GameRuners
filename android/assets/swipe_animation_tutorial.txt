@@ -1,0 +1,76 @@
+
+swipe_animation_tutorial.png
+size: 512,256
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+swipe_animation_tutorial_1
+  rotate: false
+  xy: 2, 161
+  size: 140, 76
+  orig: 140, 76
+  offset: 0, 0
+  index: -1
+swipe_animation_tutorial_2
+  rotate: false
+  xy: 2, 83
+  size: 140, 76
+  orig: 140, 76
+  offset: 0, 0
+  index: -1
+swipe_animation_tutorial_3
+  rotate: false
+  xy: 144, 161
+  size: 140, 76
+  orig: 140, 76
+  offset: 0, 0
+  index: -1
+swipe_animation_tutorial_4
+  rotate: false
+  xy: 2, 5
+  size: 140, 76
+  orig: 140, 76
+  offset: 0, 0
+  index: -1
+swipe_animation_tutorial_5
+  rotate: false
+  xy: 144, 83
+  size: 140, 76
+  orig: 140, 76
+  offset: 0, 0
+  index: -1
+swipe_animation_tutorial_6
+  rotate: false
+  xy: 286, 161
+  size: 140, 76
+  orig: 140, 76
+  offset: 0, 0
+  index: -1
+swipe_animation_tutorial_7
+  rotate: false
+  xy: 144, 5
+  size: 140, 76
+  orig: 140, 76
+  offset: 0, 0
+  index: -1
+swipe_animation_tutorial_8
+  rotate: false
+  xy: 286, 83
+  size: 140, 76
+  orig: 140, 76
+  offset: 0, 0
+  index: -1
+swipe_animation_tutorial_9
+  rotate: false
+  xy: 286, 5
+  size: 140, 76
+  orig: 140, 76
+  offset: 0, 0
+  index: -1
+swipe_animation_tutorial_10
+  rotate: false
+  xy: 2, 2
+  size: 1, 1
+  orig: 1, 1
+  offset: 0, 0
+  index: -1
