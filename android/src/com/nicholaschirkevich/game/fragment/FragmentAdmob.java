@@ -234,7 +234,6 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         byButton = (Button) getActivity().findViewById(R.id.bttn_by);
 
 
-
         Application application = (Application) getActivity().getApplication();
         tracker = application.tracker();
 
@@ -329,10 +328,10 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 //                                    e.printStackTrace();
 //                                }
             /* handle the result */
-                            }
+            }
 //                        }
 //                ).executeAsync();
-           // }
+            // }
         });
         showButton = (Button) getActivity().findViewById(R.id.bttn_show);
         showButton.setOnClickListener(new View.OnClickListener() {
@@ -564,16 +563,13 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                                    IabHelper.OnIabSetupFinishedListener() {
                                        public void onIabSetupFinished(IabResult result) {
                                            if (!result.isSuccess()) {
-                                              // Toast.makeText(getContext(), getString(R.string.inAppBuillingErrore), Toast.LENGTH_LONG).show();
-                                             //  Log.d(TAG, getString(R.string.inAppBuillingErrore) +
-                                                     //  result);
+
                                            } else {
-                                               //Toast.makeText(getContext(), getString(R.string.inAppBuillingOk), Toast.LENGTH_LONG).show();
-                                              // Log.d(TAG, getString(R.string.inAppBuillingOk));
+
                                            }
                                        }
                                    });
-        //showInterstitial();
+
     }
 
 
@@ -660,9 +656,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
     @Override
     public void showVkLoginActivity() {
-//        Intent intent = new Intent(getActivity(), LoginActivity.class);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        startActivity(intent);
+
         VKSdk.login(getActivity(), vkScope);
     }
 
@@ -676,62 +670,6 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
         Intent intent = new Intent(getActivity(), FriendsInviteActivity.class);
         startActivity(intent);
-//        currentRequest = VKApi.friends().get(VKParameters.from(VKApiConst.FIELDS, "id,first_name,last_name,photo_100"));
-//        final ArrayList<User> users = new ArrayList<>();
-//
-//        currentRequest.executeWithListener(new VKRequest.VKRequestListener() {
-//            @Override
-//            public void onComplete(VKResponse response) {
-//                super.onComplete(response);
-//                Log.d("VkDemoApp", "onComplete " + response);
-//
-//                VKUsersArray usersArray = (VKUsersArray) response.parsedModel;
-//                users.clear();
-//
-//                for (VKApiUserFull userFull : usersArray) {
-//
-//                    users.add(new User(userFull.toString(), userFull.id, userFull.photo_100));
-//
-//                }
-//
-//                final Dialog dialog = new Dialog(getContext());
-//
-//                View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_main, null);
-//
-//                ListView lv = (ListView) view.findViewById(R.id.list_friends_dialog_main);
-//
-//
-//                // Change MyActivity.this and myListOfItems to your own values
-//                FriendDialogListAdapter clad = new FriendDialogListAdapter(getContext(), users);
-//
-//                lv.setAdapter(clad);
-//
-        //               lv.setOnItemClickListener(........);
-//
-//                dialog.setContentView(view);
-//
-//                dialog.show();
-//            }
-//
-//            @Override
-//            public void attemptFailed(VKRequest request, int attemptNumber, int totalAttempts) {
-//                super.attemptFailed(request, attemptNumber, totalAttempts);
-//                Log.d("VkDemoApp", "attemptFailed " + request + " " + attemptNumber + " " + totalAttempts);
-//            }
-//
-//            @Override
-//            public void onError(VKError error) {
-//                super.onError(error);
-//                Log.d("VkDemoApp", "onError: " + error);
-//            }
-//
-//            @Override
-//            public void onProgress(VKRequest.VKProgressType progressType, long bytesLoaded, long bytesTotal) {
-//                super.onProgress(progressType, bytesLoaded, bytesTotal);
-//                Log.d("VkDemoApp", "onProgress " + progressType + " " + bytesLoaded + " " + bytesTotal);
-//            }
-//        });
-//
 
     }
 
@@ -835,7 +773,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
             @Override
             public void onComplete(VKResponse response) {
                 super.onComplete(response);
-                Log.d("VkDemoApp", "onComplete " + response);
+
 
                 VKList<VKApiUserFull> usersArray = (VKList<VKApiUserFull>) response.parsedModel;
                 friends.clear();
@@ -851,14 +789,14 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
             @Override
             public void attemptFailed(VKRequest request, int attemptNumber, int totalAttempts) {
                 super.attemptFailed(request, attemptNumber, totalAttempts);
-                Log.d("VkDemoApp", "attemptFailed " + request + " " + attemptNumber + " " + totalAttempts);
+
             }
 
             @Override
             public void onError(VKError error) {
                 super.onError(error);
                 onGetLidearBoards.onGetVkLeaderboardErrore(error.errorMessage);
-                Log.d("VkDemoApp", "onError: " + error);
+
             }
 
             @Override
@@ -895,9 +833,9 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                                 JSONObject picture = userJson.getJSONObject("picture");
                                 JSONObject dataPicture = picture.getJSONObject("data");
                                 String urlPicture = dataPicture.getString("url");
-                                users.add(new VkUser(id,urlPicture,first_name,last_name,""));
+                                users.add(new VkUser(id, urlPicture, first_name, last_name, ""));
                             }
-                           ServerApi.getHighscoresFacebookFriends(onGetLidearBoards, users);
+                            ServerApi.getHighscoresFacebookFriends(onGetLidearBoards, users);
                             //onGetLidearBoards.onGetFacebookHighscoresFriends(users);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -918,8 +856,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         if (token == null) {
             return false;
             //Means user is not logged in
-        }
-        else return true;
+        } else return true;
     }
 
     @Override
@@ -940,7 +877,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                 }
             });
         } catch (Exception e) {
-            Gdx.app.log("MainActivity", "Log in failed: " + e.getMessage() + ".");
+
         }
     }
 
@@ -954,7 +891,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                 }
             });
         } catch (Exception e) {
-            Gdx.app.log("MainActivity", "Log out failed: " + e.getMessage() + ".");
+
         }
     }
 
@@ -1036,12 +973,8 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
             public void onResult(VKSdk.LoginState loginState) {
                 switch (loginState) {
                     case LoggedOut:
-
-                        //showLogin();
                         break;
                     case LoggedIn:
-
-                        //showLogout();
                         break;
                     case Pending:
                         break;
@@ -1076,7 +1009,6 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                         showLogin();
                         break;
                     case LoggedIn:
-                        //showLogout();
                         break;
                     case Pending:
                         break;
@@ -1106,38 +1038,28 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                 .setShareDialogListener(new VKShareDialog.VKShareDialogListener() {
                     @Override
                     public void onVkShareComplete(int postId) {
-                        //контент отправлен
-                        Toast.makeText(getContext(), "контент отправлен", Toast.LENGTH_LONG).show();
+
                     }
 
                     @Override
                     public void onVkShareCancel() {
-                        //Toast.makeText(getContext(), "отмена", Toast.LENGTH_LONG).show();
-                        //отмена
+
                     }
 
                     @Override
                     public void onVkShareError(VKError error) {
-                        // Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
+
                     }
                 }).show(getFragmentManager(), "VK_SHARE_DIALOG");
     }
 
     private void showLogin() {
         VKSdk.login(getActivity(), vkScope);
-//        getSupportFragmentManager()
-//                .beginTransaction()
-//                .replace(R.id., new LoginFragment())
-//                .commitAllowingStateLoss();
     }
 
     private void showLogout() {
         VKSdk.logout();
 
-//        getSupportFragmentManager()
-//                .beginTransaction()
-//                .replace(R.id., new LoginFragment())
-//                .commitAllowingStateLoss();
     }
 
     @Override

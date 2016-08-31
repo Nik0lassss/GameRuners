@@ -43,10 +43,6 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
         FragmentTransaction tr = getSupportFragmentManager().beginTransaction();
         tr.replace(R.id.GameView, gameFragment, "FragmentAdmob");
         tr.commit();
-
-        String[] fingerprints = VKUtil.getCertificateFingerprint(this, this.getPackageName());
-        for (String fingerprint : fingerprints)
-            System.out.println("finderpring "+fingerprint);
     }
 
 
@@ -57,7 +53,6 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
         if (!VKSdk.onActivityResult(requestCode, resultCode, data, new VKCallback<VKAccessToken>() {
             @Override
             public void onResult(VKAccessToken res) {
-                Toast.makeText(getApplicationContext(), "Good", Toast.LENGTH_LONG).show();
                 VKRequest currentRequest = VKApi.users().get(VKParameters.from(VKApiConst.USER_IDS, res.userId, VKApiConst.FIELDS, "id,first_name,last_name,photo_100"));
 
                 currentRequest.executeWithListener(new VKRequest.VKRequestListener() {
@@ -80,39 +75,27 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
                     @Override
                     public void attemptFailed(VKRequest request, int attemptNumber, int totalAttempts) {
                         super.attemptFailed(request, attemptNumber, totalAttempts);
-                        Log.d("VkDemoApp", "attemptFailed " + request + " " + attemptNumber + " " + totalAttempts);
+
                     }
 
                     @Override
                     public void onError(VKError error) {
                         super.onError(error);
-                        Log.d("VkDemoApp", "onError: " + error);
+
                     }
 
                     @Override
                     public void onProgress(VKRequest.VKProgressType progressType, long bytesLoaded, long bytesTotal) {
                         super.onProgress(progressType, bytesLoaded, bytesTotal);
-                        Log.d("VkDemoApp", "onProgress " + progressType + " " + bytesLoaded + " " + bytesTotal);
+
                     }
                 });
-//                listview = (ListView ) findViewById(R.id.listViewFriends);
-//                VKRequest vkRequest = VKApi.friends().get(VKParameters.from(VKApiConst.FIELDS,"first_name","last_name"));
-//                vkRequest.executeWithListener(new VKRequest.VKRequestListener() {
-//                    @Override
-//                    public void onComplete(VKResponse response) {
-//                        super.onComplete(response);
-//                        VKList vkList = (VKList) response.parsedModel;
-//                        ArrayAdapter<String > arrayAdapter = new ArrayAdapter<String>(MainActivity.this,android.R.layout.simple_expandable_list_item_1,vkList);
-//                        listview.setAdapter(arrayAdapter);
-//                    }
-//
-//                });
 // Пользователь успешно авторизовался
             }
 
             @Override
             public void onError(VKError error) {
-                Toast.makeText(getApplicationContext(), "Errore", Toast.LENGTH_LONG).show();
+
 // Произошла ошибка авторизации (например, пользователь запретил авторизацию)
             }
         })) {
@@ -128,6 +111,5 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
 
     @Override
     public void exit() {
-
     }
 }

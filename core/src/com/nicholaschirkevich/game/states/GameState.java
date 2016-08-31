@@ -165,6 +165,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     private int tutorialBlocksCount = 0;
     private int tutorialCarCount = 0;
     private float tutorialCarsTime = 0;
+    private float tutorialCarsTime2 = 0;
 
     private float timer = 0;
 
@@ -187,13 +188,13 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     private boolean showTutorialRight = false;
 
 
-    private float timeToTutorialStep1 = 4;
+    private float timeToTutorialStep1 = 3.5f;
     private boolean isShowStep1 = false;
-    private float timeToTutorialStep2 = 7;
+    private float timeToTutorialStep2 = 6;
     private boolean isShowStep2 = false;
     private float timeToTutorialStep3 = 9;
     private boolean isShowStep3 = false;
-    private float timeToTutorialStep4 = 11;
+    private float timeToTutorialStep4 = 11.5f;
     private boolean isShowStep4 = false;
 
 
@@ -292,7 +293,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         stage.addActor(afterPauseLabel);
 
         if (!isFirstStart) setUpPasserCars();
-        if(isFirstStart)  tutorialBlocksesArrayList.add(new TutorialBlocks(world, 90, (int) (1100), 10));
+        if (isFirstStart)
+            tutorialBlocksesArrayList.add(new TutorialBlocks(world, 90, (int) (1100), 10));
         // setUpBushs();
         // setUpRoadLighter();
         setUpThornsLeftOnCar();
@@ -1053,8 +1055,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                     timeTutorialLeft += dt;
                 } else {
                     timeTutorialLeft = 0;
-                    showTutorialLeft=false;
-                    tutorialControlAnimationTime =0;
+                    showTutorialLeft = false;
+                    tutorialControlAnimationTime = 0;
                 }
             }
 
@@ -1063,8 +1065,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                     timeTutorialRight += dt;
                 } else {
                     timeTutorialRight = 0;
-                    showTutorialRight=false;
-                    tutorialControlAnimationTime=0;
+                    showTutorialRight = false;
+                    tutorialControlAnimationTime = 0;
                 }
             }
 
@@ -1092,10 +1094,18 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
             }
 
             tutorialCarsTime += dt;
-            if (isFirstStart && tutorialCarsTime > 7) {
+            tutorialCarsTime2 += dt;
+
+
+            if (isFirstStart && tutorialCarsTime > 8) {
                 passerCars.add(new PasserCar(world, 90, (int) camera.viewportHeight + 700, 10, true, RandomUtil.getRandomOtherCarType().getKey(), this));
-                passerCars.add(new PasserCar(world, 90, (int) camera.viewportHeight + 1200, 10, false, RandomUtil.getRandomOtherCarType().getKey(), this));
+//
                 tutorialCarsTime = 0;
+            }
+
+            if (isFirstStart && tutorialCarsTime2 > 10) {
+                passerCars.add(new PasserCar(world, 90, (int) camera.viewportHeight + 700, 10, false, RandomUtil.getRandomOtherCarType().getKey(), this));
+                tutorialCarsTime2 = 0;
             }
 
             tutorialSpringboardsTime += dt;
@@ -1249,26 +1259,20 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
             }
 
 
-
-            if(isFirstStart)
-            {
-                if(GameManager.getAllTime()>timeToTutorialStep1 && !isShowStep1)
-                {
+            if (isFirstStart) {
+                if (GameManager.getAllTime() > timeToTutorialStep1 && !isShowStep1) {
                     showTutorialRight = true;
-                    isShowStep1=true;
+                    isShowStep1 = true;
                 }
-                if(GameManager.getAllTime()>timeToTutorialStep2 && !isShowStep2)
-                {
+                if (GameManager.getAllTime() > timeToTutorialStep2 && !isShowStep2) {
                     showTutorialLeft = true;
-                    isShowStep2= true;
+                    isShowStep2 = true;
                 }
-                if(GameManager.getAllTime()>timeToTutorialStep3 && !isShowStep3)
-                {
+                if (GameManager.getAllTime() > timeToTutorialStep3 && !isShowStep3) {
                     showTutorialRight = true;
                     isShowStep3 = true;
                 }
-                if(GameManager.getAllTime()>timeToTutorialStep4 && !isShowStep4)
-                {
+                if (GameManager.getAllTime() > timeToTutorialStep4 && !isShowStep4) {
                     showTutorialLeft = true;
                     isShowStep4 = true;
                 }
@@ -1781,22 +1785,20 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
 
         if (showTutorialLeft) {
-            if(!GameManager.isTouchControl()) {
+            if (!GameManager.isTouchControl()) {
                 TextureRegion tr = AssetsManager.getAnimation(Constants.SWIPE_ANIMATION_TUTORIAL_ID).getKeyFrame(tutorialControlAnimationTime, true);
-                sb.draw(tr, 60, 160, tr.getRegionWidth() / 2, tr.getRegionHeight() / 2, tr.getRegionWidth(), tr.getRegionHeight(), 1, 1, 180f);
-            }else
-            {
+                sb.draw(tr, 20, 160, tr.getRegionWidth() / 2, tr.getRegionHeight() / 2, tr.getRegionWidth(), tr.getRegionHeight(), 1, 1, 180f);
+            } else {
                 TextureRegion tr = AssetsManager.getAnimation(Constants.TAP_ANIMATION_FOR_TUTORIAL_ID).getKeyFrame(tutorialControlAnimationTime, true);
                 sb.draw(tr, 80, 160, tr.getRegionWidth() / 2, tr.getRegionHeight() / 2, tr.getRegionWidth(), tr.getRegionHeight(), 1, 1, 180f);
             }
 
         }
         if (showTutorialRight) {
-            if(!GameManager.isTouchControl()) {
+            if (!GameManager.isTouchControl()) {
                 TextureRegion tr = AssetsManager.getAnimation(Constants.SWIPE_ANIMATION_TUTORIAL_ID).getKeyFrame(tutorialControlAnimationTime, true);
                 sb.draw(tr, 160, 160, tr.getRegionWidth() / 2, tr.getRegionHeight() / 2, tr.getRegionWidth(), tr.getRegionHeight(), 1, 1, 0f);
-            }else
-            {
+            } else {
                 TextureRegion tr = AssetsManager.getAnimation(Constants.TAP_ANIMATION_FOR_TUTORIAL_ID).getKeyFrame(tutorialControlAnimationTime, true);
                 sb.draw(tr, 180, 160, tr.getRegionWidth() / 2, tr.getRegionHeight() / 2, tr.getRegionWidth(), tr.getRegionHeight(), 1, 1, 0f);
             }
