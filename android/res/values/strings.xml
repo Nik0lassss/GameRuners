@@ -49,6 +49,7 @@
     <string name="fragment_admob_vk_share_dialog_val">VK_SHARE_DIALOG</string>
     <string name="app_id_pub">ca-app-pub-3929550233974663/5014713038</string>
     <string name="get_bonus_admob_id">ca-app-pub-3929550233974663/1475819439</string>
+    <string name="vk_api_fileds_get_users_query">id,first_name,last_name,photo_100</string>
 
 
 </resources>

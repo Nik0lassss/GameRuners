@@ -53,7 +53,7 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
         if (!VKSdk.onActivityResult(requestCode, resultCode, data, new VKCallback<VKAccessToken>() {
             @Override
             public void onResult(VKAccessToken res) {
-                VKRequest currentRequest = VKApi.users().get(VKParameters.from(VKApiConst.USER_IDS, res.userId, VKApiConst.FIELDS, "id,first_name,last_name,photo_100"));
+                VKRequest currentRequest = VKApi.users().get(VKParameters.from(VKApiConst.USER_IDS, res.userId, VKApiConst.FIELDS, getString(R.string.vk_api_fileds_get_users_query)));
 
                 currentRequest.executeWithListener(new VKRequest.VKRequestListener() {
                     @Override

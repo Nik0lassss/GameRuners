@@ -96,8 +96,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     private InterstitialAd mInterstitialAdSaveMe, interstitialGetBonus;
     private ImageView defaultImage;
     private RewardedVideoAd mAd;
-    private String appId = getString(R.string.app_id_pub);
-    private String getBonusAdmobId = getString(R.string.get_bonus_admob_id);
+
     private Button showButton, byButton;
     private GameHelper gameHelper;
     private boolean isAdmobOn = true;
@@ -223,9 +222,9 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
 
         mInterstitialAdSaveMe = new InterstitialAd(getContext());
-        mInterstitialAdSaveMe.setAdUnitId(appId);
+        mInterstitialAdSaveMe.setAdUnitId(getString(R.string.app_id_pub));
         interstitialGetBonus = new InterstitialAd(getContext());
-        interstitialGetBonus.setAdUnitId(getBonusAdmobId);
+        interstitialGetBonus.setAdUnitId(getString(R.string.get_bonus_admob_id));
         mCallbackManager = CallbackManager.Factory.create();
 
         defaultImage = (ImageView) getActivity().findViewById(R.id.default_image);
