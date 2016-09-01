@@ -34,103 +34,25 @@ public class ServerApi {
     private static Receiver receiver;
     private static Context serverApiContext;
     private static OnGetLidearBoards onGetLeaderBoardsListenerServerApi;
-    private static HashMap<Integer, OnGetLidearBoards> onGetLidearBoardsHashMap = new HashMap<>();
-    private static HashMap<Integer, String> urlHashMap = new HashMap<>();
-    private static int currentLoadImageIndex;
-    private static Thread thread = new Thread();
+    private static int compress_procent = 100;
 
     public static void setUpReciever(Context context) {
         serverApiContext = context;
         receiver = new Receiver(context);
     }
 
-    private Response.Listener getLeaderBoardsListener = new Response.Listener() {
-        @Override
-        public void onResponse(Object object) {
-            try {
-                ArrayList<LeaderboardEntity> leaderboardEntities = new ArrayList<>();
-                JSONArray jsonObjects = new JSONArray((String) object);
-                for (int i = 0; i < jsonObjects.length(); i++) {
-                    LeaderboardEntity leaderboardEntity = Mapper.jsonToLeaderBoardEntity((JSONObject) jsonObjects.get(i));
-
-                    leaderboardEntities.add(leaderboardEntity);
-                }
-                onGetLeaderBoardsListenerServerApi.onGetLidearboardsData(leaderboardEntities);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
 
 
-        }
-    };
-
-    private Response.Listener getHihscoreListener = new Response.Listener() {
-        @Override
-        public void onResponse(Object object) {
-            try {
-                ArrayList<LeaderboardEntity> leaderboardEntities = new ArrayList<>();
-                JSONArray jsonObjects = new JSONArray((String) object);
-                for (int i = 0; i < jsonObjects.length(); i++) {
-                    LeaderboardEntity leaderboardEntity = Mapper.jsonToLeaderBoardEntity((JSONObject) jsonObjects.get(i));
-
-                    leaderboardEntities.add(leaderboardEntity);
-                }
-                onGetLeaderBoardsListenerServerApi.onGetLidearboardsData(leaderboardEntities);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
 
 
-        }
-    };
 
-
-//    private static Response.Listener<Bitmap> getBitmapListener = new Response.Listener<Bitmap>() {
-//
-//        @Override
-//        public void onResponse(Bitmap bitmap) {
-//            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-//            byte[] byteArray = stream.toByteArray();
-//            onGetLidearBoardsHashMap.get(currentLoadImageIndex).onGetImage(byteArray);
-//            onGetLidearBoardsHashMap.remove(currentLoadImageIndex);
-//            currentLoadImageIndex++;
-//            if (!onGetLidearBoardsHashMap.isEmpty()) {
-//                if (onGetLidearBoardsHashMap.size() < currentLoadImageIndex) {
-//                    receiver.getPicture(urlHashMap.get(currentLoadImageIndex), getBitmapListener, getBitmapErroreListener);
-//                    urlHashMap.remove(currentLoadImageIndex);
-//                }
-//            } else {
-//                thread.interrupt();
-//            }
-//        }
-//    };
-
-    private static Response.ErrorListener getBitmapErroreListener = new Response.ErrorListener() {
-        @Override
-        public void onErrorResponse(VolleyError volleyError) {
-
-        }
-    };
-    private static Response.ErrorListener getLeaderBoardsErroreListener = new Response.ErrorListener() {
-        @Override
-        public void onErrorResponse(VolleyError volleyError) {
-
-        }
-    };
-    private static Response.ErrorListener getFriendsHighscoreErroreListener = new Response.ErrorListener() {
-        @Override
-        public void onErrorResponse(VolleyError volleyError) {
-
-        }
-    };
 
     public static void getHighscoresFacebookFriends(final OnGetLidearBoards onGetLidearBoards, final ArrayList<VkUser> arrayList) {
 
         StringBuilder stringQuery = new StringBuilder();
         stringQuery.append("?");
         for (int i = 0; i < arrayList.size(); i++) {
-            stringQuery.append("friends=" + arrayList.get(i).getId());
+            stringQuery.append(serverApiContext.getString(R.string.get_hisghscore_append_string) + arrayList.get(i).getId());
             if (i < arrayList.size() - 1) {
                 stringQuery.append("&");
             }
@@ -139,7 +61,7 @@ public class ServerApi {
         token = AccessToken.getCurrentAccessToken();
 
         if (token != null) {
-            stringQuery.append("&friends="+token.getUserId());
+            stringQuery.append(serverApiContext.getString(R.string.get_highscore_facebook_friends_append)+token.getUserId());
             //Means user is not logged in
         }else
         {
@@ -150,13 +72,12 @@ public class ServerApi {
             @Override
             public void onResponse(Object object) {
                 try {
-                    // ArrayList<LeaderboardEntity> highEntities = new ArrayList<>();
+
                     ArrayList<VkUser> vkUsers = new ArrayList<VkUser>();
                     JSONArray jsonObjects = new JSONArray((String) object);
                     for (int i = 0; i < jsonObjects.length(); i++) {
                         LeaderboardEntity highscoreEntity = Mapper.jsonToLeaderBoardEntity((JSONObject) jsonObjects.get(i));
 
-                        //highEntities.add(highscoreEntity);
 
                         for (VkUser vkUser : arrayList) {
                             if (highscoreEntity.getFb_id().equals(vkUser.getId())) {
@@ -165,14 +86,12 @@ public class ServerApi {
                             }
                         }
                         if (token != null && GameManager.getVkUser() != null && highscoreEntity.getFb_id().equals(token.getUserId())) {
-//                            VkUser vkCurrentUser = GameManager.getVkUser();
-//                            vkCurrentUser.setHighscore(highscoreEntity.getHighscore());
-//                            vkUsers.add(GameManager.getVkUser());
+//
                         }
                     }
 
                     onGetLidearBoards.onGetHighscoresFriends(vkUsers);
-                    //onGetLeaderBoardsListenerServerApi.onGetLidearboardsData(leaderboardEntities);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -192,13 +111,13 @@ public class ServerApi {
         StringBuilder stringQuery = new StringBuilder();
         stringQuery.append("?");
         for (int i = 0; i < arrayList.size(); i++) {
-            stringQuery.append("friends=" + arrayList.get(i).getId());
+            stringQuery.append(serverApiContext.getString(R.string.get_highscore_friends_val) + arrayList.get(i).getId());
             if (i < arrayList.size() - 1) {
                 stringQuery.append("&");
             }
         }
         if (VKAccessToken.currentToken() != null)
-            stringQuery.append("&friends="+VKAccessToken.currentToken().userId);
+            stringQuery.append(serverApiContext.getString(R.string.get_vk_friends_val)+VKAccessToken.currentToken().userId);
         else {
             onGetLidearBoards.onGetVkLeaderboardErrore("");
         }
@@ -206,13 +125,12 @@ public class ServerApi {
             @Override
             public void onResponse(Object object) {
                 try {
-                    // ArrayList<LeaderboardEntity> highEntities = new ArrayList<>();
+
                     ArrayList<VkUser> vkUsers = new ArrayList<VkUser>();
                     JSONArray jsonObjects = new JSONArray((String) object);
                     for (int i = 0; i < jsonObjects.length(); i++) {
                         LeaderboardEntity highscoreEntity = Mapper.jsonToLeaderBoardEntity((JSONObject) jsonObjects.get(i));
 
-                        //highEntities.add(highscoreEntity);
 
                         for (VkUser vkUser : arrayList) {
                             if (highscoreEntity.getVk_id().equals(vkUser.getId())) {
@@ -228,7 +146,7 @@ public class ServerApi {
                     }
 
                     onGetLidearBoards.onGetHighscoresFriends(vkUsers);
-                    //onGetLeaderBoardsListenerServerApi.onGetLidearboardsData(leaderboardEntities);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -277,7 +195,7 @@ public class ServerApi {
             @Override
             public void onResponse(Bitmap bitmap) {
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                bitmap.compress(Bitmap.CompressFormat.PNG, compress_procent, stream);
                 byte[] byteArray = stream.toByteArray();
                 onGetLeaderBoardsListener.onGetImage(byteArray);
             }
@@ -288,32 +206,6 @@ public class ServerApi {
             }
         });
     }
-
-//    public static void getImages(OnGetLidearBoards onGetLeaderBoardsListener, String url, int index) {
-//        //onGetLeaderBoardsListenerServerApi = onGetLeaderBoardsListener;
-//        onGetLidearBoardsHashMap.put(index, onGetLeaderBoardsListener);
-//        urlHashMap.put(index, url);
-//        //receiver.getPicture(url,getBitmapListener,getBitmapErroreListener);
-//        if (thread == null) startLoadImage(url, index);
-//        else if (!thread.isAlive()) {
-//            startLoadImage(url, index);
-//            currentLoadImageIndex = index;
-//        }
-//    }
-
-//    public static void startLoadImage(final String url, int index) {
-//        thread = new Thread() {
-//            @Override
-//            public void run() {
-//                while (!onGetLidearBoardsHashMap.isEmpty()) {
-//                    receiver.getPicture(url, getBitmapListener, getBitmapErroreListener);
-//                }
-//            }
-//        };
-//
-//        thread.start();
-//        receiver.getPicture(url, getBitmapListener, getBitmapErroreListener);
-//    }
 
 
 }

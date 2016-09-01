@@ -21,6 +21,34 @@
     <string name="facebook_app_id" translatable="false">502715496576881</string>
     <string name="vk_invite_friends_message">Invitation sent</string>
     <string name="leaderboard_invite_text">Invite friends</string>
+    <string name="tracker_id">UA-82375384-1</string>
+    <string name="apps_send_request">apps.sendRequest</string>
+    <string name="text">text</string>
+    <string name="invite_friends_vk">Приглашаю в игру</string>
+    <string name="type_vk_invite">type</string>
+    <string name="value_vk_invite">invite</string>
+    <string name="name_vk_invite">name</string>
+    <string name="name_vk_value_invite">Speedy Road</string>
+    <string name="key_vk_invite">key</string>
+    <string name="key_value_invite">testkey</string>
+    <string name="separat_key">separate</string>
+    <string name="separate_key_value_vk">false</string>
+    <string name="get_vk_friends_val"><![CDATA[&friends=]]></string>
+    <string name="get_highscore_friends_val">friends=</string>
+    <string name="get_highscore_facebook_friends_append"><![CDATA[&friends=]]></string>
+    <string name="get_hisghscore_append_string">friends=</string>
+    <string name="fragment_admob_json_val_data">data</string>
+    <string name="fragment_admob_json_val_id">id</string>
+    <string name="fragment_admob_json_val_first_name">first_name</string>
+    <string name="fragment_admob_json_val_last_name">last_name</string>
+    <string name="fragment_admob_json_val_picture">picture</string>
+    <string name="fragment_admob_json_val_data_picture">data</string>
+    <string name="fragment_admob_json_val_url">url</string>
+    <string name="fragment_admob_sing_fb_public_profile_val">public_profile</string>
+    <string name="fragment_admob_sing_fb_user_friends">user_friends</string>
+    <string name="fragment_admob_vk_share_dialog_val">VK_SHARE_DIALOG</string>
+    <string name="app_id_pub">ca-app-pub-3929550233974663/5014713038</string>
+    <string name="get_bonus_admob_id">ca-app-pub-3929550233974663/1475819439</string>
 
 
 </resources>

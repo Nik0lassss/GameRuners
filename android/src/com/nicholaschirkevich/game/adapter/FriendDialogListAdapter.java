@@ -35,7 +35,6 @@ public class FriendDialogListAdapter extends BaseAdapter {
     private Context context;
 
 
-
     public FriendDialogListAdapter(Context context, ArrayList<User> users) {
         this.users = users;
         this.context = context;
@@ -74,41 +73,22 @@ public class FriendDialogListAdapter extends BaseAdapter {
         final User user = users.get(position);
 
 
-//        ViewHolder holder;
-//        if (convertView == null)
-//            convertView = layoutInflater.inflate(R.layout.friend_invite_dialog_item_layout, null);
-//            holder = new ViewHolder();
-            TextView name = (TextView) convertView.findViewById(R.id.first_name_frined_invite_dialog_item_layout);
-            //TextView quantityView = (TextView) convertView.findViewById(R.id.last_name_frined_invite_dialog_item_layout);
-        thumbNail.setImageUrl(user.getPhoto_100(), imageLoader);
-             //imageView = (ImageProgressViewScale) convertView.findViewById(R.id.fragment_friends_item_friend_image);
-//            convertView.setTag(R.id.first_name_frined_invite_dialog_item_layout,unitView);
-//            convertView.setTag(R.id.last_name_frined_invite_dialog_item_layout,quantityView);
-//            convertView.setTag(R.id.fragment_friends_item_friend_image,imageView);
-//        }
-//            convertView.setTag(holder);
-//        } else {
-//            holder = (ViewHolder) convertView.getTag();
-//        }
-//         unitView= (TextView) convertView.getTag(R.id.first_name_frined_invite_dialog_item_layout);
-//         quantityView =(TextView) convertView.getTag(R.id.last_name_frined_invite_dialog_item_layout);
-//         imageView = (ImageProgressViewScale) convertView.getTag(R.id.fragment_friends_item_friend_image);
-        name.setText(users.get(position).getName().toString());
-        //quantityView.setText(String.valueOf(users.get(position).getID()));
-        //imageView.setImageCircleUrl(users.get(position).getPhoto_100());
+        TextView name = (TextView) convertView.findViewById(R.id.first_name_frined_invite_dialog_item_layout);
 
+        thumbNail.setImageUrl(user.getPhoto_100(), imageLoader);
+        name.setText(users.get(position).getName().toString());
 
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                VKRequest vkSendInvite = new VKRequest("apps.sendRequest", VKParameters.from(VKApiConst.USER_ID,user.getID(),"text","Приглашаю по тестить","type","invite","name","sadasf","key","testkey","separate","false"));
+                VKRequest vkSendInvite = new VKRequest(context.getString(R.string.apps_send_request), VKParameters.from(VKApiConst.USER_ID, user.getID(), context.getString(R.string.text), context.getString(R.string.invite_friends_vk), context.getString(R.string.type_vk_invite), context.getString(R.string.value_vk_invite), context.getString(R.string.name_vk_invite), context.getString(R.string.name_vk_value_invite), context.getString(R.string.key_vk_invite), context.getString(R.string.key_value_invite), context.getString(R.string.separat_key), context.getString(R.string.separate_key_value_vk)));
                 vkSendInvite.executeWithListener(new VKRequest.VKRequestListener() {
                     @Override
                     public void onComplete(VKResponse response) {
 
                         super.onComplete(response);
-                        Toast.makeText(context,context.getString(R.string.vk_invite_friends_message),Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, context.getString(R.string.vk_invite_friends_message), Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -130,9 +110,4 @@ public class FriendDialogListAdapter extends BaseAdapter {
         return convertView;
     }
 
-    static class ViewHolder {
-        TextView unitView;
-        TextView quantityView;
-        ImageProgressViewScale imageView;
-    }
 }

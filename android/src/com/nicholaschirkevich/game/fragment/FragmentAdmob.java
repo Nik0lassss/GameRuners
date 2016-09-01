@@ -96,8 +96,8 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     private InterstitialAd mInterstitialAdSaveMe, interstitialGetBonus;
     private ImageView defaultImage;
     private RewardedVideoAd mAd;
-    private String appId = "ca-app-pub-3929550233974663/5014713038";
-    private String getBonusAdmobId = "ca-app-pub-3929550233974663/1475819439";
+    private String appId = getString(R.string.app_id_pub);
+    private String getBonusAdmobId = getString(R.string.get_bonus_admob_id);
     private Button showButton, byButton;
     private GameHelper gameHelper;
     private boolean isAdmobOn = true;
@@ -170,7 +170,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
             // if continuationToken != null, call getPurchases again
             // and pass in the token to retrieve more items
         }
-        //mHelper.consumeAsync();
+
 
 
         Purchase purchase;
@@ -221,8 +221,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         };
         gameHelper.setup(gameHelperListener);
 
-//        Games.Leaderboards.submitScore(mGoogleApiClient, getString(R.string.leaderboard_id), 20);
-        // VKSdk.login(getActivity(), vkScope);
+
         mInterstitialAdSaveMe = new InterstitialAd(getContext());
         mInterstitialAdSaveMe.setAdUnitId(appId);
         interstitialGetBonus = new InterstitialAd(getContext());
@@ -269,65 +268,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                         .setCategory("Action")
                         .setAction("Share")
                         .build());
-//                String appLinkUrl, previewImageUrl;
 //
-//                appLinkUrl = "https://www.mydomain.com/myapplink";
-//                previewImageUrl = "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQl7_l5BbIq8deoXQALDTwQNQFfGKesNeV_XKLnucVKkzBN7SUS86d9GhJV";
-//
-//                if (AppInviteDialog.canShow()) {
-//                    AppInviteContent content = new AppInviteContent.Builder()
-//                            .setApplinkUrl(appLinkUrl)
-//                            .setPreviewImageUrl(previewImageUrl)
-//                            .build();
-//                    AppInviteDialog.show(getActivity(), content);
-//                }
-//                if (gameHelper.isSignedIn() == true) {
-//                    Games.Leaderboards.submitScore(gameHelper.getApiClient(),
-//                            getString(R.string.leaderboard_leaderboard), 100);
-//                }
-
-
-//                mHelper.launchPurchaseFlow(getActivity(), ITEM_SKU_SP, 10001,
-//                        mPurchaseFinishedListener, getString(R.string.purchasetocken));
-//                Bundle parameters = new Bundle();
-//                parameters.putString("fields", "id,first_name,last_name,link,picture");
-//                final ArrayList<VkUser> users = new ArrayList<VkUser>();
-//
-//                new GraphRequest(
-//                        AccessToken.getCurrentAccessToken(),
-//                        "/me/friends",
-//                        parameters,
-//                        HttpMethod.GET,
-//                        new GraphRequest.Callback() {
-//                            public void onCompleted(GraphResponse response) {
-//
-//
-//                                JSONObject jsonObject = response.getJSONObject();
-//                                StringBuilder sb = new StringBuilder();
-//                                try {
-//                                    JSONArray usersJson = jsonObject.getJSONArray("data");
-//                                    for (int i = 0; i < usersJson.length(); i++) {
-//                                        JSONObject userJson = (JSONObject) usersJson.get(i);
-//                                        String id = userJson.getString("id");
-//                                        String first_name = userJson.getString("first_name");
-//                                        String last_name = userJson.getString("last_name");
-//                                        JSONObject picture = userJson.getJSONObject("picture");
-//                                        JSONObject dataPicture = picture.getJSONObject("data");
-//                                        String urlPicture = dataPicture.getString("url");
-//                                        users.add(new VkUser(id,first_name,last_name,urlPicture,""));
-//                                    }
-//                                } catch (JSONException e) {
-//                                    e.printStackTrace();
-//                                }
-//                                VkUser vkUser = new VkUser();
-//                                vkUser.setId("");
-
-//                                try {
-//                                    ((JSONObject)jsonObject.get(0)).get("picture");
-//                                } catch (JSONException e) {
-//                                    e.printStackTrace();
-//                                }
-            /* handle the result */
             }
 //                        }
 //                ).executeAsync();
@@ -338,39 +279,11 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
             @Override
             public void onClick(View v) {
 
-//                gameHelper.beginUserInitiatedSignIn();
-//                if (gameHelper.isSignedIn()) {
-//                    startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient(),
-//                            getString(R.string.leaderboard_leaderboard)), requestCode);
-//                } else {
-//                    gameHelper.beginUserInitiatedSignIn();
-//                }
+//
 
 
                 showPreviousPurchases();
-//                showButton.setEnabled(false);
-//                byButton.setEnabled(true);
-//                String base64EncodedPublicKey =
-//                        getString(R.string.base64EncodedKey);
 //
-//                mHelper = new IabHelper(getContext(), base64EncodedPublicKey);
-//
-//                mHelper.startSetup(new
-//                                           IabHelper.OnIabSetupFinishedListener() {
-//                                               public void onIabSetupFinished(IabResult result) {
-//                                                   if (!result.isSuccess()) {
-//                                                       Toast.makeText(getContext(), getString(R.string.inAppBuillingErrore), Toast.LENGTH_LONG).show();
-//                                                       Log.d(TAG, getString(R.string.inAppBuillingErrore) +
-//                                                               result);
-//                                                   } else {
-//                                                       Toast.makeText(getContext(), getString(R.string.inAppBuillingOk), Toast.LENGTH_LONG).show();
-//                                                       Log.d(TAG, getString(R.string.inAppBuillingOk));
-//                                                   }
-//                                               }
-//                                           });
-
-
-                //showInterstitial();
             }
         });
 
@@ -724,7 +637,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
             @Override
             public void onComplete(VKResponse response) {
                 super.onComplete(response);
-                Log.d("VkDemoApp", "onComplete " + response);
+
 
                 VKList<VKApiUserFull> usersArray = (VKList<VKApiUserFull>) response.parsedModel;
                 images.clear();
@@ -741,19 +654,19 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
             @Override
             public void attemptFailed(VKRequest request, int attemptNumber, int totalAttempts) {
                 super.attemptFailed(request, attemptNumber, totalAttempts);
-                Log.d("VkDemoApp", "attemptFailed " + request + " " + attemptNumber + " " + totalAttempts);
+
             }
 
             @Override
             public void onError(VKError error) {
                 super.onError(error);
-                Log.d("VkDemoApp", "onError: " + error);
+
             }
 
             @Override
             public void onProgress(VKRequest.VKProgressType progressType, long bytesLoaded, long bytesTotal) {
                 super.onProgress(progressType, bytesLoaded, bytesTotal);
-                Log.d("VkDemoApp", "onProgress " + progressType + " " + bytesLoaded + " " + bytesTotal);
+
             }
         });
     }
@@ -802,7 +715,6 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
             @Override
             public void onProgress(VKRequest.VKProgressType progressType, long bytesLoaded, long bytesTotal) {
                 super.onProgress(progressType, bytesLoaded, bytesTotal);
-                Log.d("VkDemoApp", "onProgress " + progressType + " " + bytesLoaded + " " + bytesTotal);
             }
         });
     }
@@ -824,19 +736,19 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                         JSONObject jsonObject = response.getJSONObject();
                         StringBuilder sb = new StringBuilder();
                         try {
-                            JSONArray usersJson = jsonObject.getJSONArray("data");
+                            JSONArray usersJson = jsonObject.getJSONArray(getString(R.string.fragment_admob_json_val_data));
                             for (int i = 0; i < usersJson.length(); i++) {
                                 JSONObject userJson = (JSONObject) usersJson.get(i);
-                                String id = userJson.getString("id");
-                                String first_name = userJson.getString("first_name");
-                                String last_name = userJson.getString("last_name");
-                                JSONObject picture = userJson.getJSONObject("picture");
-                                JSONObject dataPicture = picture.getJSONObject("data");
-                                String urlPicture = dataPicture.getString("url");
+                                String id = userJson.getString(getString(R.string.fragment_admob_json_val_id));
+                                String first_name = userJson.getString(getString(R.string.fragment_admob_json_val_first_name));
+                                String last_name = userJson.getString(getString(R.string.fragment_admob_json_val_last_name));
+                                JSONObject picture = userJson.getJSONObject(getString(R.string.fragment_admob_json_val_picture));
+                                JSONObject dataPicture = picture.getJSONObject(getString(R.string.fragment_admob_json_val_data_picture));
+                                String urlPicture = dataPicture.getString(getString(R.string.fragment_admob_json_val_url));
                                 users.add(new VkUser(id, urlPicture, first_name, last_name, ""));
                             }
                             ServerApi.getHighscoresFacebookFriends(onGetLidearBoards, users);
-                            //onGetLidearBoards.onGetFacebookHighscoresFriends(users);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -912,7 +824,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
     @Override
     public void singInFb(final OnLoginListenerInterface onLoginListenerInterface) {
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "user_friends"));
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList(getString(R.string.fragment_admob_sing_fb_public_profile_val), getString(R.string.fragment_admob_sing_fb_user_friends)));
 
 
         LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
@@ -942,7 +854,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     @Override
     public void showInviteFacebook() {
         String appLinkUrl, previewImageUrl;
-
+//TODO: need set real url and image
         appLinkUrl = "https://www.mydomain.com/myapplink";
         previewImageUrl = "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQl7_l5BbIq8deoXQALDTwQNQFfGKesNeV_XKLnucVKkzBN7SUS86d9GhJV";
 
@@ -1050,7 +962,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                     public void onVkShareError(VKError error) {
 
                     }
-                }).show(getFragmentManager(), "VK_SHARE_DIALOG");
+                }).show(getFragmentManager(), getString(R.string.fragment_admob_vk_share_dialog_val));
     }
 
     private void showLogin() {

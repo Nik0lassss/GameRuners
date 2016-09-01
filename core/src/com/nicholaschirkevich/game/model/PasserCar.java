@@ -190,11 +190,11 @@ public class PasserCar extends com.nicholaschirkevich.game.model.side_objects.Ca
 
             if (!passerCarDataType.isBefore()) {
                 passerCarDataType.setCollisionPasserCarType(CollisionPasserCarType.SIDE_COLLISION);
-                System.out.println("Side collision");
+
             } else {
                 passerCarDataType.setCollisionPasserCarType(CollisionPasserCarType.COUNTER_COLLISION);
                 position.set(position.x, position.y, 0);
-                System.out.println("Counter collision");
+
 
                 bounds.setPosition(position.x, position.y);
                 body.setTransform(position.x, position.y, 0.0f);
@@ -219,7 +219,7 @@ public class PasserCar extends com.nicholaschirkevich.game.model.side_objects.Ca
 
             if (timer > 0.4) {
                 GameManager.pauseGame = true;
-                System.out.println("Pause");
+
                 timer = 0;
             }
 
