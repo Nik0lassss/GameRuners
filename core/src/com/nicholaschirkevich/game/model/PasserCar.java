@@ -25,6 +25,21 @@ import java.util.Random;
  * Created by Nikolas on 13.02.2016.
  */
 public class PasserCar extends com.nicholaschirkevich.game.model.side_objects.Car implements Model {
+    public static final int GENERATE_CAR_DISTANCE = 100;
+    public static final int DEFAULT_DISTANCE = 90;
+    public static final int APPEND_DISTANCE = 170;
+    public static final int DEFAULT_MOVEMENT = 10;
+    public static final int DEFAULT_SECOND_DISTANCE = 200;
+    public static final float ANGLE = 0.0f;
+    public static final int APPEND_Y = 600;
+    public static final int COEFFICIENT = 2;
+    public static final int RANDOM_MAX = 70;
+    public static final int RANDOM_MIN = 0;
+    public static final int BLOCK_TIME = 12;
+    public static final int DEFAULT_Y = 200;
+    public static final int COLLISION_TURN_SPEED = 880;
+    public static final int LEFT_BORDER = 40;
+    public static final int SPEED_COEFFICIENT = 56;
     private Random rand;
     private static World world;
 
@@ -37,7 +52,7 @@ public class PasserCar extends com.nicholaschirkevich.game.model.side_objects.Ca
     private float sideCollisionTime = 0;
     private static boolean isBlocks = false;
     private static int bloksCount = 0;
-    private static float bocksTime = 6;
+    private static float blocksTime = 6;
     private static boolean bloksIsLeftStart = false;
     private static float timeBloks = 0;
     private static boolean isFromGarage = false;
@@ -156,19 +171,19 @@ public class PasserCar extends com.nicholaschirkevich.game.model.side_objects.Ca
         if (passerCarDataType.getCollisionPasserCarType().equals(passerCarDataType.getCollisionPasserCarType().SIDE_COLLISION)) {
             sideCollisionTime += dt;
 
-            if (!isLeft && position.x > 200) {
+            if (!isLeft && position.x > DEFAULT_SECOND_DISTANCE) {
                 passerCarDataType.setIsAfterHoleCollision(true);
             }
-            if (isLeft && position.x < 40) {
+            if (isLeft && position.x < LEFT_BORDER) {
                 passerCarDataType.setIsAfterHoleCollision(true);
             }
 
             if (isLeft) {
 
-                position.add(-(880) * dt, -10 * dt, 0);
+                position.add(-COLLISION_TURN_SPEED * dt, -DEFAULT_MOVEMENT * dt, 0);
             } else {
 
-                position.add((880) * dt, -10 * dt, 0);
+                position.add((COLLISION_TURN_SPEED) * dt, -DEFAULT_MOVEMENT * dt, 0);
             }
 
             if (((PasserCarDataType) body.getUserData()).isContact()) {
@@ -197,7 +212,7 @@ public class PasserCar extends com.nicholaschirkevich.game.model.side_objects.Ca
 
 
                 bounds.setPosition(position.x, position.y);
-                body.setTransform(position.x, position.y, 0.0f);
+                body.setTransform(position.x, position.y, ANGLE);
                 setPosition(position.x, position.y);
             }
 
@@ -205,10 +220,10 @@ public class PasserCar extends com.nicholaschirkevich.game.model.side_objects.Ca
 
 
         } else if (!passerCarDataType.isBlow() && !passerCarDataType.isLadleCollision()) {
-            position.add(0, (-GameManager.getCurrentSpeed() + 56) * dt, 0);
+            position.add(0, (-GameManager.getCurrentSpeed() + SPEED_COEFFICIENT) * dt, 0);
 
             bounds.setPosition(position.x, position.y);
-            body.setTransform(position.x, position.y, 0.0f);
+            body.setTransform(position.x, position.y, ANGLE);
             setPosition(position.x, position.y);
             stateTime += dt;
         } else if (passerCarDataType.isBlow()) {
@@ -236,13 +251,13 @@ public class PasserCar extends com.nicholaschirkevich.game.model.side_objects.Ca
         position.set(0, x, 0);
 
         bounds.setPosition(position.x, position.y);
-        body.setTransform(position.x, position.y, 0.0f);
+        body.setTransform(position.x, position.y, ANGLE);
 
 
     }
 
     public static Float getPosYLastCar(ArrayList<PasserCar> passerCars) {
-        return passerCars.size() != 0 ? passerCars.get(passerCars.size() - 1).getPosition().y : 200;
+        return passerCars.size() != 0 ? passerCars.get(passerCars.size() - 1).getPosition().y : DEFAULT_Y;
     }
 
     public static boolean getIsLeftLastCar(ArrayList<PasserCar> passerCars) {
@@ -263,16 +278,16 @@ public class PasserCar extends com.nicholaschirkevich.game.model.side_objects.Ca
 
     public void setPosition() {
 
-        int randomY = rand.nextInt((70 - 0) + 1) + 0;
+        int randomY = rand.nextInt((RANDOM_MAX - RANDOM_MIN) + 1) + RANDOM_MIN;
         isLeft = rand.nextBoolean();
         if (isLeft)
-            position.x = Constants.CAR_POS_X_LEFT - carAnimation.getKeyFrames()[0].getRegionHeight() / 2;
+            position.x = Constants.CAR_POS_X_LEFT - carAnimation.getKeyFrames()[0].getRegionHeight() / COEFFICIENT;
         else
-            position.x = Constants.CAR_POS_X_RIGHT - carAnimation.getKeyFrames()[0].getRegionHeight() / 2;
-        position.add(0, defaultY + randomY + 600, 0);
+            position.x = Constants.CAR_POS_X_RIGHT - carAnimation.getKeyFrames()[0].getRegionHeight() / COEFFICIENT;
+        position.add(0, defaultY + randomY + APPEND_Y, 0);
 
         bounds.setPosition(position.x, position.y);
-        body.setTransform(position.x, position.y, 0.0f);
+        body.setTransform(position.x, position.y, ANGLE);
     }
 
     @Override
@@ -298,12 +313,12 @@ public class PasserCar extends com.nicholaschirkevich.game.model.side_objects.Ca
     public static void generateBlocks(float dt) {
 
         timeBloks += dt;
-        if (timeBloks > bocksTime) {
+        if (timeBloks > blocksTime) {
             isBlocks = true;
             timeBloks = 0;
             bloksIsLeftStart = RandomUtil.getRandomBoolean();
             generateBlocksCount();
-            bocksTime = 12;
+            blocksTime = BLOCK_TIME;
         }
     }
 
@@ -312,9 +327,9 @@ public class PasserCar extends com.nicholaschirkevich.game.model.side_objects.Ca
         if (!GameManager.isStopGeneratePasserCars()) {
             if (bloksCount > 0) {
 
-                if (passerCars.size() != 0 && camera.viewportHeight - passerCars.get(passerCars.size() - 1).getPosition().y > 100) {
+                if (passerCars.size() != 0 && camera.viewportHeight - passerCars.get(passerCars.size() - 1).getPosition().y > GENERATE_CAR_DISTANCE) {
 
-                    passerCars.add(new PasserCar(world, 90, (int) camera.viewportHeight + 170, 10, bloksIsLeftStart, RandomUtil.getRandomOtherCarType().getKey(), generateHoleAfterLadle));
+                    passerCars.add(new PasserCar(world, DEFAULT_DISTANCE, (int) camera.viewportHeight + APPEND_DISTANCE, DEFAULT_MOVEMENT, bloksIsLeftStart, RandomUtil.getRandomOtherCarType().getKey(), generateHoleAfterLadle));
                     if (bloksIsLeftStart) bloksIsLeftStart = false;
                     else bloksIsLeftStart = true;
 
@@ -374,12 +389,12 @@ public class PasserCar extends com.nicholaschirkevich.game.model.side_objects.Ca
 
         if (!GameManager.isStopGeneratePasserCars()) {
             if (passerCars.size() != 0 && camera.viewportHeight - passerCars.get(passerCars.size() - 1).getPosition().y > Constants.passerCarDistance) {
-                passerCars.add(new PasserCar(world, 90, (int) camera.viewportHeight + 200, 10, RandomUtil.getRandomOtherCarType().getKey(), generateHoleAfterLadle));
+                passerCars.add(new PasserCar(world, DEFAULT_DISTANCE, (int) camera.viewportHeight + DEFAULT_SECOND_DISTANCE, DEFAULT_MOVEMENT, RandomUtil.getRandomOtherCarType().getKey(), generateHoleAfterLadle));
             }
 
         }
         if (!GameManager.isStopGeneratePasserCars() && passerCars.size() == 0) {
-            passerCars.add(new PasserCar(world, 90, (int) camera.viewportHeight + 200, 10, RandomUtil.getRandomOtherCarType().getKey(), generateHoleAfterLadle));
+            passerCars.add(new PasserCar(world, DEFAULT_DISTANCE, (int) camera.viewportHeight + DEFAULT_SECOND_DISTANCE, DEFAULT_MOVEMENT, RandomUtil.getRandomOtherCarType().getKey(), generateHoleAfterLadle));
         }
         for (int i = 0; i < passerCars.size(); i++) {
 
