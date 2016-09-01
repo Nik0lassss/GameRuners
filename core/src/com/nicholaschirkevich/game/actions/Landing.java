@@ -17,8 +17,7 @@ public class Landing {
     }
     public boolean isLanding()
     {
-//        System.out.println("myCar.getPosition().y "+myCar.getPosition().y);
-//        System.out.println("passerCar.getPosition().y+passerCar.getCarTexture().getRegionHeight()+ "+(passerCar.getPosition().y+passerCar.getCarTexture().getRegionHeight()+20));
+
         if(myCar.getY()>passerCar.getY()+passerCar.getCarTexture().getRegionHeight()+5)
         {
             return true;

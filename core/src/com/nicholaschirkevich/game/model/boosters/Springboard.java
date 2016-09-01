@@ -25,9 +25,7 @@ public class Springboard extends Prize {
     private Random rand;
     private static World world;
 
-    // public static final short PASSER_CAR_FILTER_ENTITY = 0x1 << 1; // 0010 or 0x2 in hex
-    // 0001
-    ; // 0010 or 0x2 in hex
+
     private int defaultX;
     private int defaultY;
     public Body body;
@@ -48,9 +46,7 @@ public class Springboard extends Prize {
             position.x = Constants.getCarPostitionXRight(springboardAnimation.getKeyFrames()[0].getRegionWidth());
 
         this.world = world;
-        //sprite = new Sprite(carTexture);
-        //sprite.setPosition(x, y);
-        //passerCarAnimation = AssetsManager.getAnimation(animation_asset_id);
+
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -90,15 +86,11 @@ public class Springboard extends Prize {
         defaultY = y;
 
         isLeft = ifLeft;
-      //  if (isLeft)
+
             position.x = Constants.getCarPostitionXLeft(springboardAnimation.getKeyFrames()[0].getRegionWidth())-15;
-//        else
-//            position.x = Constants.getCarPostitionXRight(springboardAnimation.getKeyFrames()[0].getRegionWidth());
 
         this.world = world;
-        //sprite = new Sprite(carTexture);
-        //sprite.setPosition(x, y);
-        //passerCarAnimation = AssetsManager.getAnimation(animation_asset_id);
+
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -132,12 +124,12 @@ public class Springboard extends Prize {
     }
 
     public void draw(SpriteBatch batch) {
-        //batch.draw(getCoinShadowTexture(), position.x, position.y - 10);
+
         batch.draw(getSpringBoardTexture(), position.x, position.y);
         for (Block block:blocks)
         {
             block.draw(batch);
-            //System.out.println("draw blocks");
+
         }
     }
 
@@ -146,7 +138,7 @@ public class Springboard extends Prize {
 
         position.add(0, (-GameManager.getCurrentSpeed()) * dt, 0);
 
-        //sprite.setPosition(position.x, position.y);
+
         bounds.setPosition(position.x, position.y);
         body.setTransform(position.x, position.y, 0.0f);
         setPosition(position.x, position.y);
@@ -160,7 +152,7 @@ public class Springboard extends Prize {
     public void setDefaultPosition(int x) {
         position.set(0, x, 0);
 
-        //sprite.setPosition(position.x, position.y);
+
         bounds.setPosition(position.x, position.y);
         body.setTransform(position.x, position.y, 0.0f);
 
@@ -176,7 +168,7 @@ public class Springboard extends Prize {
         else
             position.x = Constants.CAR_POS_X_RIGHT - springboardAnimation.getKeyFrames()[0].getRegionHeight() / 2;
         position.add(0, defaultY + randomY + 600, 0);
-        //sprite.setPosition(position.x, position.y);
+
         bounds.setPosition(position.x, position.y);
         body.setTransform(position.x, position.y, 0.0f);
     }
@@ -195,11 +187,8 @@ public class Springboard extends Prize {
     public static void updateCoins(ArrayList<Springboard> busterses, Camera camera, float dt) {
 
         if (camera.viewportHeight - busterses.get(busterses.size() - 1).getPosition().y > Constants.coinDistance) {
-//            boolean isBigCar = rand.nextBoolean();
-//            if (!isBigCar)
+//
             busterses.add(new Springboard(world, 90, (int) camera.viewportHeight + 20, 10));
-//            else
-//                passerCars.add(new PasserCar(world, 90, (int) camera.viewportHeight + 200, 10, true, Constants.OTHERCAR_2_1_ASSETS_ID));
 //
         }
 
