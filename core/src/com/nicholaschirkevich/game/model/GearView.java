@@ -36,8 +36,17 @@ import com.nicholaschirkevich.game.util.ToastHelper;
 
 public class GearView extends Actor {
 
+    public static final float GEAR_TEXT_FONT_SCALE_X = 0.6f;
+    public static final float GEAR_TEXT_FONT_SCALE_Y = 0.6f;
+    public static final float ACHIVE_LABEL_FONT_SCALE_X = 0.6f;
+    public static final float ACHIVE_LABEL_FONT_SCALE_Y = 0.6f;
+    public static final String X_2 = "x2";
+    public static final String X_3 = "x3";
+    public static final String X_4 = "x4";
+    public static final String X_5 = "x5";
+    public static final String X_6 = "x6";
     private TextureRegion textureRegion;
-    private Label gearText,achiveLabel;
+    private Label gearText, achiveLabel;
     private Rectangle bounds;
     private static float width = 64, height = 13;
     private String achivesText;
@@ -48,20 +57,16 @@ public class GearView extends Actor {
         this.achivesText = achivesText;
         gearText = new Label(gearNumberText, AssetsManager.getUiSkin());
         gearText.setBounds(GameRuners.WIDTH / 4 - gearText.getWidth() / 3, GameRuners.HEIGHT / 4 - (height / 2), width, height);
-        gearText.setFontScale(0.6f, 0.6f);
+        gearText.setFontScale(GEAR_TEXT_FONT_SCALE_X, GEAR_TEXT_FONT_SCALE_Y);
 
         gearText.setColor(Color.ORANGE);
 
-        achiveLabel = new Label(achivesText,AssetsManager.getUiSkin());
-        achiveLabel.setBounds(GameRuners.WIDTH / 4 - achiveLabel.getWidth() / 2 +10, GameRuners.HEIGHT / 4 - (height / 2), width, height);
-        achiveLabel.setFontScale(0.6f, 0.6f);
+        achiveLabel = new Label(achivesText, AssetsManager.getUiSkin());
+        achiveLabel.setBounds(GameRuners.WIDTH / 4 - achiveLabel.getWidth() / 2 + 10, GameRuners.HEIGHT / 4 - (height / 2), width, height);
+        achiveLabel.setFontScale(ACHIVE_LABEL_FONT_SCALE_X, ACHIVE_LABEL_FONT_SCALE_Y);
 
-        achiveLabel.setColor(achiveLabel.getColor().r,achiveLabel.getColor().g,achiveLabel.getColor().b,0f);
-        //gearText.setText(gearNumberText);
+        achiveLabel.setColor(achiveLabel.getColor().r, achiveLabel.getColor().g, achiveLabel.getColor().b, 0f);
 
-//        textureRegion = AssetsManager.getTextureRegion(assetsId);
-//        gearText = new Label("",AssetsManager.getUiSkin());
-//        gearText.setBounds(GameRuners.WIDTH/4-(width/2), GameRuners.HEIGHT/4-(height/2), width, height);
         SequenceAction sequenceAction = new SequenceAction();
         sequenceAction.addAction(Actions.delay(1.5f));
         sequenceAction.addAction(new ViewActionAlfa(gearText));
@@ -69,7 +74,7 @@ public class GearView extends Actor {
         sequenceAction.addAction(new Action() {
             @Override
             public boolean act(float delta) {
-                achiveLabel.setColor(gearText.getColor().r,gearText.getColor().g,gearText.getColor().b,1f);
+                achiveLabel.setColor(gearText.getColor().r, gearText.getColor().g, gearText.getColor().b, 1f);
                 achiveLabel.setColor(Color.RED);
                 achiveLabel.setText(achivesText);
                 return true;
@@ -77,15 +82,7 @@ public class GearView extends Actor {
         });
         sequenceAction.addAction(Actions.delay(1.5f));
         sequenceAction.addAction(new ViewActionAlfa(achiveLabel));
-//        sequenceAction.addAction(new Action() {
-//            @Override
-//            public boolean act(float delta) {
-//                float alfa = gearText.getColor().a;
-//                if (alfa > 0) alfa -= 0.2f;
-//                gearText.setColor(gearText.getColor().r, gearText.getColor().g, gearText.getColor().b, alfa);
-//                return true;
-//            }
-//        });
+//
         sequenceAction.addAction(Actions.removeActor());
         addAction(sequenceAction);
         setWidth(bounds.width);
@@ -95,72 +92,38 @@ public class GearView extends Actor {
 
     public static void getView(int gear) {
         AssetsManager.playSound(Constants.SOUND_GEAR);
-//        //System.out.println("Get view gear "+gear);
-//        switch (gear) {
-//            case 1:
-//                return new GearView(new Rectangle(GameRuners.WIDTH/4-(width/2), GameRuners.HEIGHT/4-(height/2), width, height), Constants.GEAR_1_ID);
 //
-//            case 2:
-//                return new GearView(new Rectangle(GameRuners.WIDTH/4-(width/2), GameRuners.HEIGHT/4-(height/2), width, height), Constants.GEAR_2_ID);
-//
-//            case 3:
-//                return new GearView(new Rectangle(GameRuners.WIDTH/4-(width/2), GameRuners.HEIGHT/4-(height/2), width, height), Constants.GEAR_3_ID);
-//
-//            case 4:
-//                return new GearView(new Rectangle(GameRuners.WIDTH/4-(width/2), GameRuners.HEIGHT/4-(height/2), width, height), Constants.GEAR_4_ID);
-//
-//            case 5:
-//                return new GearView(new Rectangle(GameRuners.WIDTH/4-(width/2), GameRuners.HEIGHT/4-(height/2), width, height), Constants.GEAR_5_ID);
-//
-//            case 6:
-//                return new GearView(new Rectangle(GameRuners.WIDTH/4-(width/2), GameRuners.HEIGHT/4-(height/2), width, height), Constants.GEAR_6_ID);
-//
-//        }
-//        return new GearView(new Rectangle(GameRuners.WIDTH/4-(width/2), GameRuners.HEIGHT/4-(height/2), width, height), Constants.GEAR_6_ID);
-        //System.out.println("Get view gear "+gear);
         switch (gear) {
             case 1:
-                ToastHelper.showCenterMessage(GameManager.getStrings().get(Constants.GAME_GEAR_2_LBL),"x2",Color.ORANGE,Color.RED, ToastLength.TOAST_LONG);
-                //return new GearView(new Rectangle(GameRuners.WIDTH / 4 - (width / 2), GameRuners.HEIGHT / 4 - (height / 2), width, height), GameManager.getStrings().get(Constants.GAME_GEAR_1_LBL),"x1");
+                ToastHelper.showCenterMessage(GameManager.getStrings().get(Constants.GAME_GEAR_2_LBL), X_2, Color.ORANGE, Color.RED, ToastLength.TOAST_LONG);
             case 2:
-                ToastHelper.showCenterMessage(GameManager.getStrings().get(Constants.GAME_GEAR_3_LBL),"x3",Color.ORANGE,Color.RED, ToastLength.TOAST_LONG);
-               // return new GearView(new Rectangle(GameRuners.WIDTH / 4 - (width / 2), GameRuners.HEIGHT / 4 - (height / 2), width, height), GameManager.getStrings().get(Constants.GAME_GEAR_2_LBL),"x2");
+                ToastHelper.showCenterMessage(GameManager.getStrings().get(Constants.GAME_GEAR_3_LBL), X_3, Color.ORANGE, Color.RED, ToastLength.TOAST_LONG);
 
             case 3:
-                ToastHelper.showCenterMessage(GameManager.getStrings().get(Constants.GAME_GEAR_4_LBL),"x4",Color.ORANGE,Color.RED, ToastLength.TOAST_LONG);
-                //return new GearView(new Rectangle(GameRuners.WIDTH / 4 - (width / 2), GameRuners.HEIGHT / 4 - (height / 2), width, height), GameManager.getStrings().get(Constants.GAME_GEAR_3_LBL),"x3");
+                ToastHelper.showCenterMessage(GameManager.getStrings().get(Constants.GAME_GEAR_4_LBL), X_4, Color.ORANGE, Color.RED, ToastLength.TOAST_LONG);
 
             case 4:
-                ToastHelper.showCenterMessage(GameManager.getStrings().get(Constants.GAME_GEAR_5_LBL),"x5",Color.ORANGE,Color.RED, ToastLength.TOAST_LONG);
-                //return new GearView(new Rectangle(GameRuners.WIDTH / 4 - (width / 2), GameRuners.HEIGHT / 4 - (height / 2), width, height), GameManager.getStrings().get(Constants.GAME_GEAR_4_LBL),"x4");
+                ToastHelper.showCenterMessage(GameManager.getStrings().get(Constants.GAME_GEAR_5_LBL), X_5, Color.ORANGE, Color.RED, ToastLength.TOAST_LONG);
 
             case 5:
-                ToastHelper.showCenterMessage(GameManager.getStrings().get(Constants.GAME_GEAR_6_LBL),"x6",Color.ORANGE,Color.RED, ToastLength.TOAST_LONG);
-                //return new GearView(new Rectangle(GameRuners.WIDTH / 4 - (width / 2), GameRuners.HEIGHT / 4 - (height / 2), width, height), GameManager.getStrings().get(Constants.GAME_GEAR_5_LBL),"x5");
+                ToastHelper.showCenterMessage(GameManager.getStrings().get(Constants.GAME_GEAR_6_LBL), X_6, Color.ORANGE, Color.RED, ToastLength.TOAST_LONG);
 
-//            case 6:
-//                ToastHelper.showCenterMessage(GameManager.getStrings().get(Constants.GAME_GEAR_6_LBL),null,Color.ORANGE,null, ToastLength.TOAST_LONG);
-//                //return new GearView(new Rectangle(GameRuners.WIDTH / 4 - (width / 2), GameRuners.HEIGHT / 4 - (height / 2), width, height), GameManager.getStrings().get(Constants.GAME_GEAR_6_LBL),"x6");
 
         }
-        //return new GearView(new Rectangle(GameRuners.WIDTH / 4 - (width / 2), GameRuners.HEIGHT / 4 - (height / 2), width, height), GameManager.getStrings().get(Constants.GAME_GEAR_6_LBL),"x6");
 
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
-//        if (GameManager.getInstance().getGameState() == GameState.OVER) {
-//            remove();
-//        }
+
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
         gearText.draw(batch, parentAlpha);
-        achiveLabel.draw(batch,parentAlpha);
-        //batch.draw(textureRegion, bounds.x, bounds.y, bounds.width, bounds.height);
+        achiveLabel.draw(batch, parentAlpha);
 
     }
 }

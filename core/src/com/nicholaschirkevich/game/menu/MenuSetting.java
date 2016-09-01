@@ -621,7 +621,7 @@ public class MenuSetting extends Group implements UpdateCoinCountInterface, OnLo
                     public boolean act(float delta) {
 
                         getStage().addActor(parentView);
-                        // getStage().addActor(new MenuTest(listenerResume, gsm, actionResolver));
+                        // getStage().addActor(new MainMenu(listenerResume, gsm, actionResolver));
                         return true;
                     }
                 });

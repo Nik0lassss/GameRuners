@@ -13,6 +13,9 @@ import com.nicholaschirkevich.game.util.GameManager;
  */
 public class RoadTypeEnum {
 
+    public static final int POS_ROAD_Y_APPEND = 120;
+    public static final int DEFAULT_X = 0;
+    public static final int DEFAULT_Y = 1120;
     private boolean isCrossroad = false;
     private Texture roadTexture;
     private Rectangle bounds;
@@ -24,20 +27,18 @@ public class RoadTypeEnum {
         this.roadTexture = roadTexture;
     }
 
-    public void update(float dt)
-    {
+    public void update(float dt) {
 
-        if (0 > posRoad.y + 120 + roadTexture.getHeight() * 2 * dt) {
-            posRoad.add(0, 1120);
+        if (0 > posRoad.y + POS_ROAD_Y_APPEND + roadTexture.getHeight() * 2 * dt) {
+            posRoad.add(DEFAULT_X, DEFAULT_Y);
         }
 
         posRoad.set(GameRuners.WIDTH / 4 - roadTexture.getWidth() / 2, posRoad.y - GameManager.getCurrentSpeed() * dt);
-        bounds.set(posRoad.x,posRoad.y,roadTexture.getWidth(),roadTexture.getHeight());
+        bounds.set(posRoad.x, posRoad.y, roadTexture.getWidth(), roadTexture.getHeight());
     }
 
-    public void draw (SpriteBatch sb)
-    {
-        sb.draw(roadTexture,posRoad.x,posRoad.y);
+    public void draw(SpriteBatch sb) {
+        sb.draw(roadTexture, posRoad.x, posRoad.y);
     }
 
     public boolean isCrossroad() {

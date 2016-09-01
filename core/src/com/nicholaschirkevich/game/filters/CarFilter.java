@@ -35,6 +35,7 @@ import com.nicholaschirkevich.game.util.GameManager;
  */
 public class CarFilter implements ContactFilter {
 
+    public static final int VIBRATE_DURATION_MILLISECONDS = 500;
     GameStateManager gsm;
     GameState gameState;
     PauseAfterCollision pauseAfterCollision;
@@ -65,28 +66,6 @@ public class CarFilter implements ContactFilter {
 
         Filter filterB = fixtureB.getFilterData();
 
-//        if ((filterA.categoryBits == PasserCar.PASSER_CAR_FILTER_ENTITY && filterB.categoryBits == LadleOnCar.LADLE_MASK) ||
-//                (filterB.categoryBits == PasserCar.PASSER_CAR_FILTER_ENTITY && filterA.categoryBits == LadleOnCar.LADLE_MASK)) {
-//
-//
-//            PasserCarDataType passerCarDataType = new PasserCarDataType();
-//            if (BodyUtils.bodyIsPasserCar(fixtureA.getBody())) {
-//                passerCarDataType = (PasserCarDataType) fixtureA.getBody().getUserData();
-//            } else if (BodyUtils.bodyIsPasserCar(fixtureB.getBody())) {
-//                passerCarDataType = (PasserCarDataType) fixtureB.getBody().getUserData();
-//            }
-//
-//
-//            passerCarDataType.setIsLadleCollision(true);
-//            listenerAddLadleInterface.removeLadle();
-//
-//
-//            System.out.println("Collision with passer car");
-//            System.out.println("filterA.categoryBits" + filterA.categoryBits);
-//            System.out.println("filterB.categoryBits" + filterB.categoryBits);
-//
-//            return false;
-//        }
 
         if ((filterA.categoryBits == Constants.PASSER_CAR_FILTER_ENTITY && filterB.categoryBits == Constants.PASSER_CAR_FILTER_ENTITY) ||
                 (filterB.categoryBits == Constants.PASSER_CAR_FILTER_ENTITY && filterA.categoryBits == Constants.PASSER_CAR_FILTER_ENTITY)) {
@@ -108,7 +87,7 @@ public class CarFilter implements ContactFilter {
 
         if ((filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterB.categoryBits == Constants.SPRING_BOARD_MASK) ||
                 (filterB.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterA.categoryBits == Constants.SPRING_BOARD_MASK)) {
-            System.out.println("springboard collision");
+
             zoomCarListenerInterface.onZoomJump();
             MyCarDataType myCarDataType = new MyCarDataType();
 
@@ -123,7 +102,7 @@ public class CarFilter implements ContactFilter {
         }
         if ((filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterB.categoryBits == Constants.FLY_SPRING_BOARD_MASK) ||
                 (filterB.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterA.categoryBits == Constants.FLY_SPRING_BOARD_MASK)) {
-            System.out.println("springboard collision");
+
             zoomCarListenerInterface.onZoomCar();
 
 
@@ -133,7 +112,7 @@ public class CarFilter implements ContactFilter {
         if ((filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterB.categoryBits == Constants.BLOCK_MASK) ||
                 (filterB.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterA.categoryBits == Constants.BLOCK_MASK)) {
 
-//            zoomCarListenerInterface.onZoomCar();
+//
             MyCarDataType myCarDataType = new MyCarDataType();
 
             if (BodyUtils.bodyIsMyCar(fixtureA.getBody())) {
@@ -143,7 +122,7 @@ public class CarFilter implements ContactFilter {
             }
             if (!myCarDataType.isJump()) {
                 onSetCollisionCarsInterface.onBlockCollision();
-                Gdx.input.vibrate(500);
+                Gdx.input.vibrate(VIBRATE_DURATION_MILLISECONDS);
             }
 
 
@@ -170,28 +149,22 @@ public class CarFilter implements ContactFilter {
 
         }
 
-        if((filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterB.categoryBits == Constants.ROAD_SIDE_LEFT) ||
-                (filterB.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterA.categoryBits == Constants.ROAD_SIDE_LEFT))
-        {
-            //onSetCollisionCarsInterface.onSideCollision();
+        if ((filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterB.categoryBits == Constants.ROAD_SIDE_LEFT) ||
+                (filterB.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterA.categoryBits == Constants.ROAD_SIDE_LEFT)) {
+
 
         }
-        if((filterA.categoryBits == Constants.PASSER_CAR_FILTER_ENTITY && filterB.categoryBits == Constants.ROAD_SIDE_LEFT) ||
-                (filterB.categoryBits == Constants.PASSER_CAR_FILTER_ENTITY && filterA.categoryBits == Constants.ROAD_SIDE_LEFT))
-        {
+        if ((filterA.categoryBits == Constants.PASSER_CAR_FILTER_ENTITY && filterB.categoryBits == Constants.ROAD_SIDE_LEFT) ||
+                (filterB.categoryBits == Constants.PASSER_CAR_FILTER_ENTITY && filterA.categoryBits == Constants.ROAD_SIDE_LEFT)) {
             PasserCarDataType passerCarDataType = null;
-            if(BodyUtils.bodyIsPasserCar(fixtureA.getBody()))
-            {
+            if (BodyUtils.bodyIsPasserCar(fixtureA.getBody())) {
                 passerCarDataType = (PasserCarDataType) fixtureA.getBody().getUserData();
-            }
-            else if (BodyUtils.bodyIsPasserCar(fixtureB.getBody()))
-            {
+            } else if (BodyUtils.bodyIsPasserCar(fixtureB.getBody())) {
                 passerCarDataType = (PasserCarDataType) fixtureB.getBody().getUserData();
             }
 
 
             passerCarDataType.setIsSideObjectContact(true);
-            System.out.println("  passerCarDataType.setIsCollisionWhithPasser(true);");
             onSetCollisionCarsInterface.onPasserSideCollision();
 
         }
@@ -228,15 +201,13 @@ public class CarFilter implements ContactFilter {
             } else {
                 if (myCarDataType != null && passerCarDataType != null && !myCarDataType.isAfterPause()) {
 
-                    Gdx.input.vibrate(500);
+                    Gdx.input.vibrate(VIBRATE_DURATION_MILLISECONDS);
                     passerCarDataType.setIsContact(true);
                     myCarDataType.setIsContact(true);
                     onSetCollisionCarsInterface.onCollision();
-                    System.out.println("-------------------------------------------------------------------------");
+
                 }
 
-                // passerCarDataType.setIsBlow(true);
-                //myCarDataType.setIsBlow(true);
 
                 return true;
             }
@@ -261,18 +232,15 @@ public class CarFilter implements ContactFilter {
             passerCarDataType.setIsCollisionThrons(true);
 //
 //
-            System.out.println("Collide Thorns");
+
 
             return false;
         }
 
-        // System.out.println("Constact filter");
-        /*&& ((fixtureA.getUserData().equals("player") && fixtureB.getUserData().equals("p"))||
-                (fixtureB.getUserData().equals("player") && fixtureA.getUserData().equals("p")))*/
+
         if ((filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterB.categoryBits == Coin.COIN_MASK) ||
                 (filterB.categoryBits == Coin.COIN_MASK && filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY)) {
-//            String stringA =(String) fixtureA.getBody().getUserData();
-//            String stringB =(String)fixtureB.getBody().getUserData();
+//
             CoinDataType coinDataType = new CoinDataType();
             if (BodyUtils.bodyIsCoin(fixtureA.getBody())) {
                 coinDataType = (CoinDataType) fixtureA.getBody().getUserData();
@@ -282,21 +250,14 @@ public class CarFilter implements ContactFilter {
 
             coinDataType.setIsRecievedByMycar(true);
             GameManager.addCoint();
-            GameManager.setGameCoin(GameManager.getCoinCount()+1);
+            GameManager.setGameCoin(GameManager.getCoinCount() + 1);
             gameState.updateCoinCount(GameManager.getCoinCounter());
-//            System.out.println(stringA);
-//            System.out.println(stringB);
-//            gameState.getMyCar().setIsBlow(true);
-//            pauseAfterCollision.pauseAfterCollision();
-//            gsm.set(new GameState(gsm, false, false));
-
-            //Log.e("don't","+");
+//
             return false;
         }
         if ((filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterB.categoryBits == Constants.SKULL_MASK) ||
                 (filterB.categoryBits == Constants.SKULL_MASK && filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY)) {
-//            String stringA =(String) fixtureA.getBody().getUserData();
-//            String stringB =(String)fixtureB.getBody().getUserData();
+//
             SkullOnRoadDataType skullDataType = new SkullOnRoadDataType();
             MyCarDataType myCarDataType = new MyCarDataType();
             if (BodyUtils.bodyIsSkull(fixtureA.getBody())) {
@@ -313,48 +274,28 @@ public class CarFilter implements ContactFilter {
             skullDataType.setIsRecievedByMycar(true);
             myCarDataType.setIsGodMode(true);
             setGodModeInterface.setGodMode();
-            System.out.println("listenerAddBoostInterface.onAddBoost() 222;");
-            // System.out.println("listenerAddBoostInterface.onAddBoost();");
-//            GameManager.addCoint();
-//            gameState.updateCoinCount(GameManager.getCoinCounter());
-//            System.out.println(stringA);
-//            System.out.println(stringB);
-//            gameState.getMyCar().setIsBlow(true);
-//            pauseAfterCollision.pauseAfterCollision();
-//            gsm.set(new GameState(gsm, false, false));
 
-            //Log.e("don't","+");
+
             return false;
         }
         if ((filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterB.categoryBits == Booster.BUSTER_MASK) ||
                 (filterB.categoryBits == Booster.BUSTER_MASK && filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY)) {
-//            String stringA =(String) fixtureA.getBody().getUserData();
-//            String stringB =(String)fixtureB.getBody().getUserData();
+//
             BoosterDataType boosterDataType = new BoosterDataType();
             if (BodyUtils.bodyIsBooster(fixtureA.getBody())) {
                 boosterDataType = (BoosterDataType) fixtureA.getBody().getUserData();
             } else if (BodyUtils.bodyIsBooster(fixtureB.getBody())) {
                 boosterDataType = (BoosterDataType) fixtureB.getBody().getUserData();
             }
-            System.out.println("listenerAddBoostInterface.onAddBoost();");
+
             boosterDataType.setIsRecievedByMycar(true);
             listenerAddBoostInterface.onAddBoost();
-//            GameManager.addCoint();
-//            gameState.updateCoinCount(GameManager.getCoinCounter());
-//            System.out.println(stringA);
-//            System.out.println(stringB);
-//            gameState.getMyCar().setIsBlow(true);
-//            pauseAfterCollision.pauseAfterCollision();
-//            gsm.set(new GameState(gsm, false, false));
-
-            //Log.e("don't","+");
+//
             return false;
         }
 
         if ((filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY && filterB.categoryBits == Ladle.LADLE_MASK) ||
                 (filterB.categoryBits == Ladle.LADLE_MASK && filterA.categoryBits == Constants.MY_CAR_FILTER_ENTITY)) {
-//            String stringA =(String) fixtureA.getBody().getUserData();
-//            String stringB =(String)fixtureB.getBody().getUserData();
             LadleOnRoadDataType coinDataType = new LadleOnRoadDataType();
             MyCarDataType myCarDataType = new MyCarDataType();
             if (BodyUtils.bodyIsLadle(fixtureA.getBody())) {
@@ -368,20 +309,12 @@ public class CarFilter implements ContactFilter {
             } else if (BodyUtils.bodyIsMyCar(fixtureB.getBody())) {
                 myCarDataType = (MyCarDataType) fixtureB.getBody().getUserData();
             }
-            //System.out.println("listenerAddBoostInterface.onAddBoost();");
+
             coinDataType.setIsRecievedByMycar(true);
-            System.out.println("Ladle collisiton");
+
             listenerAddLadleInterface.onAddLadle();
             myCarDataType.setIsHaveLadle(true);
-//            GameManager.addCoint();
-//            gameState.updateCoinCount(GameManager.getCoinCounter());
-//            System.out.println(stringA);
-//            System.out.println(stringB);
-//            gameState.getMyCar().setIsBlow(true);
-//            pauseAfterCollision.pauseAfterCollision();
-//            gsm.set(new GameState(gsm, false, false));
-
-            //Log.e("don't","+");
+//
             return false;
         }
 

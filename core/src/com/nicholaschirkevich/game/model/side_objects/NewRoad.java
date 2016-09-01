@@ -31,6 +31,7 @@ import java.util.ArrayList;
  */
 public class NewRoad {
 
+    public static final int SIDE_OBJECT_DEFAULT_X = 1300;
     private String id;
     private ArrayList<SideObjectType> sideObjectRightTypeArrayList = new ArrayList<SideObjectType>();
     private ArrayList<SideObjectType> sideObjectLeftTypeArrayList = new ArrayList<SideObjectType>();
@@ -60,8 +61,7 @@ public class NewRoad {
     private World world;
     private int size = 10;
 //
-//    private ArrayList<Vector2> positionsRoads = new ArrayList<Vector2>();
-//    private ArrayList<Rectangle> boundRoads = new ArrayList<Rectangle>();
+//
 
 
     public void setWorld(World world) {
@@ -84,12 +84,11 @@ public class NewRoad {
     public NewRoad(Texture roadTexture, Texture back_tile, ArrayList<SideObjectType> sideObjectRightTypeArrayList, ArrayList<SideObjectType> sideObjectLeftTypeArrayList, ArrayList<SideObjectType> staticSideRightObjectTypeArrayList, ArrayList<SideObjectType> staticSideLeftObjectTypeArrayList, TraffictLighterEnum traffictLighterEnum, boolean withCrossroad) {
 
         this.withCrossroad = withCrossroad;
-        //this.roadTexture = roadTexture;
+
         this.back_tile = back_tile;
-        //this.roadTexture = AssetsManager.getTextureRegion(Constants.ROAD_5_TILE_ID).getTexture();
+
         roadTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
-        //posX= 7;
         posX = GameRuners.WIDTH / 4 - roadTexture.getWidth() / 2;
         for (int i = 0; i < size; i++) {
             if (withCrossroad) {
@@ -114,8 +113,7 @@ public class NewRoad {
                 roadTypeEnum.setBounds(new Rectangle(roadTypeEnum.getPosRoad().x, roadTypeEnum.getPosRoad().y, roadTexture.getWidth(), roadTexture.getHeight()));
                 roads.add(roadTypeEnum);
             }
-//            positionsRoads.add(new Vector2(posX, i == 0 ? 20 : (positionsRoads.get(i - 1).y + 124)));
-//            boundRoads.add(new Rectangle(positionsRoads.get(i).x, positionsRoads.get(i).y, roadTexture.getWidth(),roadTexture.getHeight()));
+//
         }
 
         this.sideObjectRightTypeArrayList.addAll(sideObjectRightTypeArrayList);
@@ -205,7 +203,7 @@ public class NewRoad {
             SideObject sideObject = new SideObject(sideObjectType, true, leftTopPos + sideObjectType.getDistance());
 
 
-            //leftTopPos+=sideObject.getHeight();
+
 
             while (leftTopPos < 1200) {
                 if(Intersector.overlaps(sideObject.getShape(),bounsGarage))
@@ -224,7 +222,7 @@ public class NewRoad {
             SideObjectType sideObjectType = sideObjectRightTypeArrayList.get(RandomUtil.getRand(0, sideObjectRightTypeArrayList.size() - 1));
             SideObject sideObject = new SideObject(sideObjectType, true, rightTopPos + sideObjectType.getDistance());
 
-            //rightTopPos+=sideObject.getHeight();
+
 
             while (rightTopPos < 1200) {
                 if(Intersector.overlaps(sideObject.getShape(),bounsGarage))
@@ -250,22 +248,15 @@ public class NewRoad {
         this.id = id;
     }
 
-    public ArrayList<SideObject> getSideObjectRightArrayList() {
-        return sideObjectRightArrayList;
-    }
 
-    public void setSideObjectRightArrayList(ArrayList<SideObject> sideObjectRightArrayList) {
-        this.sideObjectRightArrayList = sideObjectRightArrayList;
-    }
 
     public void draw(SpriteBatch sb) {
-//        sb.draw(roadTexture, posRoad1.x, posRoad1.y);
-//        sb.draw(roadTexture, posRoad2.x, posRoad2.y);
+//
         sb.draw(back_tile, -30, 0, GameRuners.WIDTH, GameRuners.HEIGHT);
         for (int i = 0; i < size; i++) {
 
             roads.get(i).draw(sb);
-            //sb.draw(roadTexture, positionsRoads.get(i).x, positionsRoads.get(i).y);
+
         }
         sb.draw(trafficLight.getTraffictLighterEnum().getStart_line(), posStartLine.x, posStartLine.y);
 
@@ -284,13 +275,11 @@ public class NewRoad {
         }
         for (int i = sideObjectRightArrayList.size() - 1; i >= 0; i--) {
             sideObjectRightArrayList.get(i).draw(sb);
-//            System.out.println("draw right" + sideObjectRightArrayList.get(i).getPosition().x + " " + sideObjectRightArrayList.get(i).getPosition().y);
-//            System.out.println("------------------");
+//
         }
         for (int i = sideObjectLeftArrayList.size() - 1; i >= 0; i--) {
             sideObjectLeftArrayList.get(i).draw(sb);
-//            System.out.println("draw left" + sideObjectLeftArrayList.get(i).getPosition().x + " " + sideObjectLeftArrayList.get(i).getPosition().y);
-//            System.out.println("------------------");
+//
         }
         if (trafficLight.getTexture() != null)
             sb.draw(trafficLight.getTexture(), trafficLighterPosition.x, trafficLighterPosition.y);
@@ -303,16 +292,12 @@ public class NewRoad {
 
         for (int i = sideObjectRightArrayList.size() - 1; i >= 0; i--) {
             sideObjectRightArrayList.get(i).draw(sb);
-//            System.out.println("draw right" + sideObjectRightArrayList.get(i).getPosition().x + " " + sideObjectRightArrayList.get(i).getPosition().y);
-//            System.out.println("------------------");
+//
         }
         for (int i = sideObjectLeftArrayList.size() - 1; i >= 0; i--) {
             sideObjectLeftArrayList.get(i).draw(sb);
-//            System.out.println("draw left" + sideObjectLeftArrayList.get(i).getPosition().x + " " + sideObjectLeftArrayList.get(i).getPosition().y);
-//            System.out.println("------------------");
+
         }
-//        if (trafficLight.getTexture() != null)
-//            sb.draw(trafficLight.getTexture(), trafficLighterPosition.x, trafficLighterPosition.y);
 
     }
 
@@ -361,7 +346,7 @@ public class NewRoad {
 
                         }
 
-                        System.out.println("sideObject1.getShape()"+sideObject1.getShape());
+
 
                     }
 
@@ -422,14 +407,14 @@ public class NewRoad {
 
 
         if (sideObjectLeftArrayList.isEmpty()) {
-            //SideObject sideObject = new SideObject(sideObjectLeftTypeArrayList.get(RandomUtil.getRand(0, sideObjectLeftTypeArrayList.size() - 1)),true);
+
             if (!sideObjectLeftTypeArrayList.isEmpty())
                 sideObjectLeftArrayList.add(new SideObject(sideObjectLeftTypeArrayList.get(RandomUtil.getRand(0, sideObjectLeftTypeArrayList.size() - 1)), true));
         } else if (GameRuners.HEIGHT - sideObjectLeftArrayList.get(sideObjectLeftArrayList.size() - 1).getPosition().y + sideObjectLeftArrayList.get(sideObjectLeftArrayList.size() - 1).getHeight() > 560) {
 
             leftTopPos = sideObjectLeftArrayList.get(sideObjectLeftArrayList.size() - 1).getPosition().y + sideObjectLeftArrayList.get(sideObjectLeftArrayList.size() - 1).getHeight();
             SideObjectType sideObjectType = sideObjectLeftTypeArrayList.get(RandomUtil.getRand(0, sideObjectLeftTypeArrayList.size() - 1));
-            //        SideObject sideObject = new SideObject(sideObjectLeftTypeArrayList.get(RandomUtil.getRand(0, sideObjectLeftTypeArrayList.size() - 1)), true, leftTopPos);
+
             SideObject sideObject = new SideObject(sideObjectType, true, leftTopPos + sideObjectType.getDistance());
             ;
             if (!sideObjectType.isMovible()) {
@@ -466,11 +451,11 @@ public class NewRoad {
 
 
         if (sideObjectRightArrayList.isEmpty()) {
-            //SideObject sideObject = new SideObject(sideObjectLeftTypeArrayList.get(RandomUtil.getRand(0, sideObjectLeftTypeArrayList.size() - 1)),true);
+
             if (!sideObjectRightTypeArrayList.isEmpty())
                 sideObjectRightArrayList.add(new SideObject(sideObjectRightTypeArrayList.get(RandomUtil.getRand(0, sideObjectRightTypeArrayList.size() - 1)), true));
         } else if (GameRuners.HEIGHT - sideObjectRightArrayList.get(sideObjectRightArrayList.size() - 1).getPosition().y + sideObjectRightArrayList.get(sideObjectRightArrayList.size() - 1).getHeight() > 560) {
-            // SideObject sideObject = new SideObject(sideObjectLeftTypeArrayList.get(RandomUtil.getRand(0, sideObjectLeftTypeArrayList.size() - 1)),true);
+
             rightTopPos = sideObjectRightArrayList.get(sideObjectRightArrayList.size() - 1).getPosition().y + sideObjectRightArrayList.get(sideObjectRightArrayList.size() - 1).getHeight();
             SideObjectType sideObjectType = sideObjectRightTypeArrayList.get(RandomUtil.getRand(0, sideObjectRightTypeArrayList.size() - 1));
             SideObject sideObject = new SideObject(sideObjectType, true, rightTopPos + sideObjectType.getDistance());
@@ -487,7 +472,6 @@ public class NewRoad {
             SideObjectType sideObjectType1 = sideObjectRightTypeArrayList.get(RandomUtil.getRand(0, sideObjectRightTypeArrayList.size() - 1));
             SideObject sideObject1 =new SideObject(sideObjectType1, false, rightTopPos + sideObjectType1.getDistance());
 
-            //sideObjectRightArrayList.add(new SideObject(sideObjectRightTypeArrayList.get(RandomUtil.getRand(0, sideObjectRightTypeArrayList.size() - 1)), false, sideObjectRightArrayList.get(sideObjectRightArrayList.size() - 1).getPosition().y + sideObjectRightArrayList.get(sideObjectRightArrayList.size() - 1).getHeight()));
             sideObjectRightArrayList.add(sideObject1);
         }
         for (int i = 0; i < sideObjectRightArrayList.size(); i++) {
@@ -511,31 +495,17 @@ public class NewRoad {
             if(road.isCrossroad()) {
                 for(SideObject sideObject:sideObjectRightArrayList) {
                     if (Intersector.overlaps(sideObject.getShape(), road.getBounds())) {
-                        sideObject.setPosition(new Vector3(1300, sideObject.getPosition().y, 0));
+                        sideObject.setPosition(new Vector3(SIDE_OBJECT_DEFAULT_X, sideObject.getPosition().y, 0));
                     }
                 }
                 for (SideObject sideObject : sideObjectLeftArrayList) {
                     if (Intersector.overlaps(sideObject.getShape(), road.getBounds())) {
-                        sideObject.setPosition(new Vector3(-1300, sideObject.getPosition().y, 0));
+                        sideObject.setPosition(new Vector3(-SIDE_OBJECT_DEFAULT_X, sideObject.getPosition().y, 0));
                     }
                 }
             }
         }
 //
-//        for(SideObject sideObject:sideObjectRightArrayList)
-//        {
-//            if(Intersector.overlaps(sideObject.getShape(), roadTypeEnum.getBounds()))
-//            {
-//                sideObject.setPosition(new Vector3(300,0,0));
-//            }
-//        }
-//        for(SideObject sideObject:sideObjectLeftArrayList)
-//        {
-//            if(Intersector.overlaps(sideObject.getShape(), roadTypeEnum.getBounds()))
-//            {
-//                sideObject.setPosition(new Vector3(-300,0,0));
-//            }
-//        }
 
     }
 
@@ -543,23 +513,7 @@ public class NewRoad {
         trafficLight.update(dt);
     }
 
-//    public Texture getRoadTexture() {
 //
-//        return roadTexture;
-//    }
-//
-//    public void setRoadTexture(Texture roadTexture) {
-//        this.roadTexture = roadTexture;
-//    }
-
-
-    public static int getPosX() {
-        return posX;
-    }
-
-    public static void setPosX(int posX) {
-        NewRoad.posX = posX;
-    }
 
 
 }

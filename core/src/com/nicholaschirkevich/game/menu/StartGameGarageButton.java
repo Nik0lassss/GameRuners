@@ -77,15 +77,10 @@ public class StartGameGarageButton extends GameButton {
     }
     @Override
     public void touched() {
-        System.out.println("Touched");
+
         hide();
         gsm.push(new GameState(gsm,false,true,actionResolver));
-        //listener.resumeButtonOnResume();
-//        if (GameManager.getInstance().getGameState() == GameState.PAUSED) {
-//            listener.resumeButtonOnResume();
-//        } else {
-//            listener.resumeButtonOnPause();
-//        }
+
     }
 
 }

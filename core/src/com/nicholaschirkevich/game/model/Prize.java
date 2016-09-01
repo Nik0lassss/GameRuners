@@ -16,6 +16,7 @@ import com.nicholaschirkevich.game.util.RandomUtil;
 public abstract class Prize extends Actor {
 
 
+    public static final int INDEX = 0;
     public static int speed = 100;
     public static int turnSpeed = 950;
 
@@ -112,58 +113,55 @@ public abstract class Prize extends Actor {
     }
 
     public TextureRegion getCoinTexture() {
-        return coinAnimation.getKeyFrames()[0];
+        return coinAnimation.getKeyFrames()[INDEX];
     }
 
     public TextureRegion getCoinShadowTexture() {
-        return shadowCoinAnimation.getKeyFrames()[0];
+        return shadowCoinAnimation.getKeyFrames()[INDEX];
     }
 
     public TextureRegion getBusterTexture() {
-        return skullOnRoadAnimation.getKeyFrames()[0];
+        return skullOnRoadAnimation.getKeyFrames()[INDEX];
     }
 
     public TextureRegion getLadleTexture() {
-        return ladleOnRoadAnimation.getKeyFrames()[0];
+        return ladleOnRoadAnimation.getKeyFrames()[INDEX];
     }
 
     public TextureRegion getBoosterOnRoadTexture() {
-        return boosterOnRoad.getKeyFrames()[0];
+        return boosterOnRoad.getKeyFrames()[INDEX];
     }
-    public TextureRegion getSpringBoardTexture() {return  springboardAnimation.getKeyFrames()[0];};
+    public TextureRegion getSpringBoardTexture() {return  springboardAnimation.getKeyFrames()[INDEX];};
 
     public TextureRegion getBlockTexture()
     {
-        return block.getKeyFrames()[0];
+        return block.getKeyFrames()[INDEX];
     }
     public TextureRegion getDirtTexture()
     {
-        return dirt.getKeyFrames()[0];
+        return dirt.getKeyFrames()[INDEX];
     }
     public TextureRegion getDirtOnScreen_1_Texture()
     {
-        return dirt_on_screen_1.getKeyFrames()[0];
+        return dirt_on_screen_1.getKeyFrames()[INDEX];
     }
     public TextureRegion getDirtOnScreen_2_Texture()
     {
-        return dirt_on_screen_2.getKeyFrames()[0];
+        return dirt_on_screen_2.getKeyFrames()[INDEX];
     }
     public TextureRegion getDirtOnScreen_3_Texture()
     {
-        return dirt_on_screen_3.getKeyFrames()[0];
+        return dirt_on_screen_3.getKeyFrames()[INDEX];
     }
     public TextureRegion getDirtOnScreen_4_Texture()
     {
-        return dirt_on_screen_4.getKeyFrames()[0];
+        return dirt_on_screen_4.getKeyFrames()[INDEX];
     }
     public TextureRegion getDirtOnScreen_5_Texture()
     {
-        return dirt_on_screen_5.getKeyFrames()[0];
+        return dirt_on_screen_5.getKeyFrames()[INDEX];
     }
-    public TextureRegion getDirtOnScreen_6_Texture()
-    {
-        return dirt_on_screen_6.getKeyFrames()[0];
-    }
+
     public Animation getFlySpringboardAnimation()
     {
         return flySpringboardAnimation;

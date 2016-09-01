@@ -37,16 +37,14 @@ public class ResumeButton extends GameButton {
 
     @Override
     protected String getRegionName() {
-        //return GameManager.getInstance().getGameState() == GameState.PAUSED ? Constants.PLAY_REGION_NAME : Constants.PAUSE_REGION_NAME;
+
         return Constants.BTTN_RESUME_REGION_NAME;
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
-//        if (GameManager.getInstance().getGameState() == GameState.OVER) {
-//            remove();
-//        }
+//
     }
 
 
@@ -67,14 +65,10 @@ public class ResumeButton extends GameButton {
     }
     @Override
     public void touched() {
-        System.out.println("Touched");
+
         hide();
         listener.resumeButtonOnResume();
-//        if (GameManager.getInstance().getGameState() == GameState.PAUSED) {
-//            listener.resumeButtonOnResume();
-//        } else {
-//            listener.resumeButtonOnPause();
-//        }
+
     }
 
 }

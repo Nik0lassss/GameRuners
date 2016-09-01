@@ -14,12 +14,23 @@ import java.util.TimerTask;
  * Created by Nikolas on 25.02.2016.
  */
 public class TrafficLight {
+    public static final double TIME_STATE_1 = 0.8;
+    public static final double TIME_STATE_2 = 1.3;
+    public static final double TIME_STATE_3 = 1.8;
+    public static final double TIME_STATE = 0.5;
+    public static final int CURRENT_STATE_1 = 1;
+    public static final int CURRENT_STATE_2 = 2;
+    public static final int CURRENT_STATE_3 = 3;
+    public static final int CURRENT_STATE = 0;
+    public static final int STATE_1 = 1;
+    public static final double STATE_2 = 1.5;
+    public static final int STATE_3 = 2;
     private Texture texture;
     private Vector2 position;
-    //private Rectangle bounds;
+
     private boolean isWork = false;
-    private final int red = 0, green1 = 1, green2 = 2, green3 = 3;
-    private float time =0;
+    private final int red = 0;
+    private float time = 0;
     private int currentState = red;
     OnTrafficLightListener onTrafficLightListener;
 
@@ -31,68 +42,49 @@ public class TrafficLight {
 
 
     public TrafficLight(int x, int y, TraffictLighterEnum traffictLighterEnum) {
-//        textureGreen1 = AssetsManager.getTextureRegion(Constants.START_LIGHT_1_ID).getTexture();
-//        textureGreen2 = AssetsManager.getTextureRegion(Constants.START_LIGHT_2_ID).getTexture();
-//        textureGreen3 =  AssetsManager.getTextureRegion(Constants.START_LIGHT_3_ID).getTexture();
-//        textureRed =  AssetsManager.getTextureRegion(Constants.START_LIGHT_RED_ID).getTexture();
+//
         texture = traffictLighterEnum.getTexture(currentState);
         position = new Vector2(x, y);
-//        bounds = new Rectangle(x, y, texture.getWidth(), texture.getHeight());
+//
 
         this.traffictLighterEnum = traffictLighterEnum;
     }
 
 
-
-
-
-    public void update(float dt)
-    {
-        time+=dt;
-        if(time>0.8 && currentState ==1)
-        {
+    public void update(float dt) {
+        time += dt;
+        if (time > TIME_STATE_1 && currentState == CURRENT_STATE_1) {
             AssetsManager.playSoundLow(Constants.SOUND_START1);
-        } else if(time>1.3 && currentState==2)
-        {
+        } else if (time > TIME_STATE_2 && currentState == CURRENT_STATE_2) {
             AssetsManager.playSoundLow(Constants.SOUND_START1);
-        }else if(time>1.8 && currentState ==3)
-        {
+        } else if (time > TIME_STATE_3 && currentState == CURRENT_STATE_3) {
             AssetsManager.playSoundLow(Constants.SOUND_START_2);
-        }else if(time>2.4)
-        {
-            //AssetsManager.playSound(Constants.SOUND_START_2);
         }
 
-       if(time>0.5 && currentState ==0)
-       {
-           texture = traffictLighterEnum.getTexture(currentState);
-           currentState++;
+        if (time > TIME_STATE && currentState == CURRENT_STATE) {
+            texture = traffictLighterEnum.getTexture(currentState);
+            currentState++;
+            return;
+        } else if (time > STATE_1 && currentState == CURRENT_STATE_1) {
+            texture = traffictLighterEnum.getTexture(currentState);
+            currentState++;
 
-           return;
-       }
-         else if(time>1 && currentState ==1)
-       {
-           texture = traffictLighterEnum.getTexture(currentState);
-           currentState++;
+            return;
+        } else if (time > STATE_2 && currentState == CURRENT_STATE_2) {
+            texture = traffictLighterEnum.getTexture(currentState);
+            currentState++;
 
-           return;
-       } else if(time>1.5 && currentState ==2)
-       {
-           texture = traffictLighterEnum.getTexture(currentState);
-           currentState++;
+            return;
+        } else if (time > STATE_3 && currentState == CURRENT_STATE_3) {
+            texture = traffictLighterEnum.getTexture(currentState);
+            currentState++;
 
-           return;
-       }else if(time>2 && currentState ==3)
-       {
-           texture = traffictLighterEnum.getTexture(currentState);
-           currentState++;
-           //AssetsManager.playSound(Constants.SOUND_START_2);
-           onTrafficLightListener.onStartTraffic();
-           isWork = false;
-           currentState=0;
-           time=0;
-           return;
-       }
+            onTrafficLightListener.onStartTraffic();
+            isWork = false;
+            currentState = 0;
+            time = 0;
+            return;
+        }
 
     }
 
@@ -107,8 +99,6 @@ public class TrafficLight {
     public Vector2 getPosition() {
         return position;
     }
-
-
 
 
 }

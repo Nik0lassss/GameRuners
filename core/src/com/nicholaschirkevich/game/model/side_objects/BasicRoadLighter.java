@@ -1,6 +1,5 @@
 package com.nicholaschirkevich.game.model.side_objects;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
@@ -24,10 +23,7 @@ public abstract class BasicRoadLighter {
 
 
     public BasicRoadLighter(int x, int y, int movement, String key) {
-//        roadLighterTexture = CacheTexture.getTexture(textureSrc);
-//        if (roadLighterTexture == null) {
-//            roadLighterTexture = new Texture(textureSrc);
-//            CacheTexture.setTexture(roadLighterTexture, textureSrc);
+
 //        }
         roadLighterAnimation = AssetsManager.getAnimation(key);
         position = new Vector3(x, y, 0);

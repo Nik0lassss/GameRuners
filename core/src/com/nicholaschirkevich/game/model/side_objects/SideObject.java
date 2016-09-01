@@ -72,7 +72,7 @@ public class SideObject {
         position = isLeft != true ? sideObjectType.getPosRight().cpy() : sideObjectType.getPosLeft().cpy();
         position.x += RandomUtil.getNoRandomBoolean()==true?(RandomUtil.getRand(0,sideObjectType.getDeltaX())):(-RandomUtil.getRand(0,sideObjectType.getDeltaX()));
          shape = new Rectangle(position.x, position.y, width, height);
-        //position = sideObjectType.getPosLeft().cpy();
+
     }
 
     public SideObject(SideObjectType sideObjectType, boolean isLeft, float posY) {
@@ -81,7 +81,7 @@ public class SideObject {
 
         height = sideObjectTexture.getHeight();
         width = sideObjectTexture.getWidth();
-//        position = isLeft!=true?sideObjectType.getPosRight().cpy():sideObjectType.getPosLeft().cpy();
+//
         position = sideObjectType.getPosLeft().cpy();
         position.x += RandomUtil.getRand(0, sideObjectType.getDeltaX());
         position.y = posY;

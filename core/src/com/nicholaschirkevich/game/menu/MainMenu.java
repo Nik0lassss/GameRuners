@@ -34,7 +34,10 @@ import com.nicholaschirkevich.game.util.GameManager;
 /**
  * Created by Nikolas on 10.03.2016.
  */
-public class MenuTest extends Group implements UpdateCoinCountInterface {
+public class MainMenu extends Group implements UpdateCoinCountInterface {
+    public static final String DEFAULT_FONT = "default-font";
+    public static final float LABEL_COUNT_FONT_SCALE_X = 0.60f;
+    public static final float LABEL_COUNT_FONT_SCALE_Y = 0.60f;
     Texture slot_vehicle;
     Texture speed_text;
     TextButton resumeButton, playOnline, prizeButton;
@@ -49,9 +52,9 @@ public class MenuTest extends Group implements UpdateCoinCountInterface {
     private ActionResolver actionResolver;
     private ImageButton imageButton;
     private Label labelCoinCount;
-    BitmapFont font = new BitmapFont(Gdx.files.internal("SRFont.fnt"), Gdx.files.internal("SRFont.png"), false);
 
-    public MenuTest(ResumeButtonListener listener, GameStateManager gsm, ActionResolver actionResolver) {
+
+    public MainMenu(ResumeButtonListener listener, GameStateManager gsm, ActionResolver actionResolver) {
 
 
         this.groupView = this;
@@ -94,9 +97,7 @@ public class MenuTest extends Group implements UpdateCoinCountInterface {
         setUpBackgroung(false);
         setUpResume();
         setUpImageLogo();
-        //setUpPlayOnline();
-        //setUpPrize();
-        //setUpSaveMe();
+
         setCarShop();
         setCoinShop();
         setSettingMenu();
@@ -105,12 +106,7 @@ public class MenuTest extends Group implements UpdateCoinCountInterface {
 
         setUpImageCoinCount();
         setUpCoinCountLabel();
-        //setUpIcon();
-        //setUpIconSpeed();
-        //setUpIconWeight();
-        //setUpIconSpeedBar();
-        //setUpIconWeightBar();
-        //setUpDelimiterSpeedBar();
+
 
         setBounds(0, 0, GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2);
     }
@@ -131,18 +127,7 @@ public class MenuTest extends Group implements UpdateCoinCountInterface {
         addActor(imageLogo);
     }
 
-//    private void setUpSaveMe() {
 //
-//        Texture saveMeBonus = new Texture("for_save_me_button_100.png");
-//
-//        saveMeBonus.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-//
-//        imageLogo = new Image(saveMeBonus);
-//        imageLogo.setAlign(Align.top);
-//        imageLogo.setRotation(0.5f);
-//        imageLogo.setBounds(Constants.SAVE_ME_BONUS_X, Constants.SAVE_ME_BONUS_Y, imageLogo.getWidth(), imageLogo.getHeight());
-//        addActor(imageLogo);
-//    }
 
     private void setUpBackgroung(boolean selected) {
         if (selected) {
@@ -155,93 +140,21 @@ public class MenuTest extends Group implements UpdateCoinCountInterface {
 
     }
 
-//    private void setUpIcon() {
-//        Image icon = new Image(car_texture);
-//        icon.setBounds(getX() + 39 - car_texture.getWidth() / 2, getY() + 7, car_texture.getWidth(), car_texture.getHeight());
-//        addActor(icon);
-//    }
-
-    private void setUpIconSpeed() {
-        Image iconSpeed = new Image(speed_text);
-        iconSpeed.setBounds(getX() + 93, getY() + 40, 40, 10);
-        addActor(iconSpeed);
-    }
-
-    private void setUpPrize() {
-
-        float x = Constants.PRIZE_BTTN_X_VISIBLE, y = Constants.PRIZE_BTTN_Y_VISIBLE, width = 70, height = 55;
-        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.down = getPrizeDownButtonImage.getDrawable();
-        textButtonStyle.up = getPrizeUpButtonImage.getDrawable();
-        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
-
-        prizeButton = new TextButton("Sing in", textButtonStyle);
-
-        prizeButton.getLabel().setFontScale(0.4f, 0.4f);
-        prizeButton.getLabelCell().padLeft(5f);
-
-
-        prizeButton.setBounds(x - resumeButtonUpImage.getWidth() / 2, y - resumeButtonUpImage.getHeight() / 2, resumeButtonUpImage.getWidth(), resumeButtonUpImage.getHeight());
-
-
-        addActor(prizeButton);
-
-    }
-
-    private void setUpPlayOnline() {
-
-        float x = Constants.PLAY_ONLINE_BTTN_X_VISIBLE, y = Constants.PLAY_ONLINE_BTTN_Y_VISIBLE, width = 70, height = 55;
-        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        textButtonStyle.down = playOnlineDownImage.getDrawable();
-        textButtonStyle.up = playOnlineUpImage.getDrawable();
-//        String RUSSIAN_FONT_NAME = "fonts/SpeedyRoadStr.ttf";
-//        String RUSSIAN_CHARACTERS = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
-//                + "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
-//                + "1234567890.,:;_¡!¿?\"'+-*/()[]={}";
 //
-//        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-//        parameter.characters = RUSSIAN_CHARACTERS;
-//        parameter.size = 24;
-//
-//        // Generate font
-//        FreeTypeFontGenerator generator = new FreeTypeFontGenerator( Gdx.files.internal(RUSSIAN_FONT_NAME) );
-//        BitmapFont font = generator.generateFont(parameter);
-//        // Dispose resources
-//        generator.dispose();
-        //BitmapFont bitmapFont =AssetsManager.getUiSkin().getFont("default-font");
-
-        //BitmapFont font = new BitmapFont (Gdx.files.internal ("SRFont.fnt"), Gdx.files.internal ("SRFont.png"), false);
-        textButtonStyle.font = textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
-        ;
-
-        String playOnlineText = GameManager.getStrings().get(Constants.GO_PLAY_WITH_FRIEND_2_BTN);
-        //playOnline = new TextButton( GameManager.getStrings().get(Constants.GO_PLAY_WITH_FRIEND_2_BTN), textButtonStyle);
-        playOnline = new TextButton(playOnlineText, textButtonStyle);
-        playOnline.getLabel().setFontScale(0.5f, 0.4f);
-        playOnline.getLabel().setColor(Color.WHITE);
-        playOnline.getLabelCell().padLeft(35f);
-
-
-        playOnline.setBounds(x - resumeButtonUpImage.getWidth() / 2, y - resumeButtonUpImage.getHeight() / 2, resumeButtonUpImage.getWidth(), resumeButtonUpImage.getHeight());
-
-
-        addActor(playOnline);
-
-    }
 
 
     public void setUpImageCoinCount() {
         imageButton = new ImageButton(new Image(AssetsManager.getTextureRegion(Constants.COIN_ICON_1_NAME_ID)).getDrawable());
-        //imageButton.setBounds(labelCoinCount.getX() + 50, labelCoinCount.getY() - 2, imageButton.getWidth(), imageButton.getHeight());
+
         imageButton.setBounds(GameRuners.WIDTH / 2 - 25, GameRuners.HEIGHT / 2 - 30, imageButton.getWidth(), imageButton.getHeight());
         addActor(imageButton);
     }
 
     public void setUpCoinCountLabel() {
         labelCoinCount = new Label(String.valueOf(GameManager.getCoinCounter()), AssetsManager.getUiSkin());
-        labelCoinCount.setFontScale(0.60f, 0.60f);
+        labelCoinCount.setFontScale(LABEL_COUNT_FONT_SCALE_X, LABEL_COUNT_FONT_SCALE_Y);
         labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
-        //labelCoinCount.setBounds(imageButton.getX() - 45, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
+
 
         labelCoinCount.addListener(new ClickListener() {
             @Override
@@ -287,7 +200,7 @@ public class MenuTest extends Group implements UpdateCoinCountInterface {
 
     private void setCoinShop() {
 
-        float x = Constants.COIN_SHOP_BTTN_X_VISIBLE, y = Constants.COIN_SHOP_BTTN_Y_VISIBLE, width = 70, height = 55;
+        float x = Constants.COIN_SHOP_BTTN_X_VISIBLE, y = Constants.COIN_SHOP_BTTN_Y_VISIBLE;
 
         coinShop = new ImageButton(coinShomImageUp.getDrawable(), coinShopImageDown.getDrawable());
         coinShop.setBounds(x - coinShomImageUp.getWidth() / 2, y - coinShomImageUp.getHeight() / 2, coinShomImageUp.getWidth(), coinShomImageUp.getHeight());
@@ -372,16 +285,7 @@ public class MenuTest extends Group implements UpdateCoinCountInterface {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 AssetsManager.playSound(Constants.SOUND_CLICK);
-//                TabbedPane.TabbedPaneStyle tabbedPaneStyle = new TabbedPane.TabbedPaneStyle();
-//                tabbedPaneStyle.font= AssetsManager.getUiSkin().getFont("default-font");
-//                tabbedPaneStyle.bodyBackground=new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_UNSELECTED_ID)).getDrawable();
-//                TabbedPane tabPane = new TabbedPane(tabbedPaneStyle);
 //
-//                tabPane.addTab("Все ", new Image(coinShomImageUp.getDrawable()));
-//                tabPane.addTab("Друзья ", new Image(coinShomImageUp.getDrawable()));
-//                tabPane.setBounds(GameRuners.WIDTH/4-50,GameRuners.HEIGHT/4,100f,100f);
-
-                //addActor(new TestShopState( gsm, actionResolver,groupView));
                 super.touchDown(event, x, y, pointer, button);
                 addActor(new RecordsMenu(gsm, actionResolver, groupView));
 
@@ -401,7 +305,7 @@ public class MenuTest extends Group implements UpdateCoinCountInterface {
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.down = resumeButtonDownImage.getDrawable();
         textButtonStyle.up = resumeButtonUpImage.getDrawable();
-        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
+        textButtonStyle.font = AssetsManager.getUiSkin().getFont(DEFAULT_FONT);
 
         resumeButton = new TextButton(GameManager.getStrings().get(Constants.MP_PLAY_BTN), textButtonStyle);
         resumeButton.getLabel().setFontScale(0.55f, 0.55f);

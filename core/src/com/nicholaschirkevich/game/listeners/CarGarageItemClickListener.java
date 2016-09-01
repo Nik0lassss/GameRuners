@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
  * Created by Nikolas on 12.03.2016.
  */
 public class CarGarageItemClickListener extends ClickListener {
-    private String id;
+
     private com.nicholaschirkevich.game.interfaces.UpdateGarageCarItem updateGarageCarItem;
 
     public CarGarageItemClickListener(com.nicholaschirkevich.game.interfaces.UpdateGarageCarItem updateGarageCarItem) {
@@ -16,8 +16,7 @@ public class CarGarageItemClickListener extends ClickListener {
 
     @Override
     public void clicked(InputEvent event, float x, float y) {
-//        System.out.println("clicke " +id);
-//        GameManager.setCurrentCarID(id);
+
         updateGarageCarItem.onUpdateGarageCarItem(true);
 
     }

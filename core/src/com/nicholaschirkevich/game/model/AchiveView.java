@@ -31,7 +31,7 @@ public class AchiveView extends Actor {
 
     private TextureRegion textureRegion;
     private Rectangle bounds;
-    private static float width = 23, height= 12;
+    private static float width = 23, height = 12;
 
     public AchiveView(Rectangle bounds, String assetsId) {
         this.bounds = bounds;
@@ -44,27 +44,24 @@ public class AchiveView extends Actor {
         setHeight(bounds.height);
     }
 
-    public static Actor getView(int gear)
-    {
+    public static Actor getView(int gear) {
         switch (gear) {
             case 1:
                 break;
-                //return new AchiveView(new Rectangle(GameRuners.WIDTH/4-(width/2), GameRuners.HEIGHT/4-(height/2), width, height), Constants.X1_id);
-
             case 2:
-                return new AchiveView(new Rectangle(GameRuners.WIDTH/4-(width/2), GameRuners.HEIGHT/4-(height/2), width, height), Constants.X2_id);
+                return new AchiveView(new Rectangle(GameRuners.WIDTH / 4 - (width / 2), GameRuners.HEIGHT / 4 - (height / 2), width, height), Constants.X2_id);
 
             case 3:
-                return new AchiveView(new Rectangle(GameRuners.WIDTH/4-(width/2), GameRuners.HEIGHT/4-(height/2), width, height), Constants.X3_id);
+                return new AchiveView(new Rectangle(GameRuners.WIDTH / 4 - (width / 2), GameRuners.HEIGHT / 4 - (height / 2), width, height), Constants.X3_id);
 
             case 4:
-                return new AchiveView(new Rectangle(GameRuners.WIDTH/4-(width/2), GameRuners.HEIGHT/4-(height/2), width, height), Constants.X4_id);
+                return new AchiveView(new Rectangle(GameRuners.WIDTH / 4 - (width / 2), GameRuners.HEIGHT / 4 - (height / 2), width, height), Constants.X4_id);
 
             case 5:
-                return new AchiveView(new Rectangle(GameRuners.WIDTH/4-(width/2), GameRuners.HEIGHT/4-(height/2), width, height), Constants.X5_id);
+                return new AchiveView(new Rectangle(GameRuners.WIDTH / 4 - (width / 2), GameRuners.HEIGHT / 4 - (height / 2), width, height), Constants.X5_id);
 
             case 6:
-                return new AchiveView(new Rectangle(GameRuners.WIDTH/4-(width/2), GameRuners.HEIGHT/4-(height/2), width, height), Constants.X6_id);
+                return new AchiveView(new Rectangle(GameRuners.WIDTH / 4 - (width / 2), GameRuners.HEIGHT / 4 - (height / 2), width, height), Constants.X6_id);
 
         }
         return null;

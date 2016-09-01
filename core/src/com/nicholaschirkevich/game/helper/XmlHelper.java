@@ -13,19 +13,9 @@ import com.nicholaschirkevich.game.entity.NormalTextures;
 import com.nicholaschirkevich.game.entity.RightRocketPosition;
 import com.nicholaschirkevich.game.util.Constants;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 /**
  * Created by Nikolas on 10.03.2016.
@@ -40,7 +30,6 @@ public class XmlHelper {
             XmlReader.Element speedsElement = carsElement.getChild(i).getChildByName(Constants.GEAR_SHIFT_FILE_SPEED_KEY);
             XmlReader.Element timesElement = carsElement.getChild(i).getChildByName(Constants.GEAR_SHIFT_FILE_TIME_KEY);
             for (int z = 0; z < speedsElement.getChildCount(); z++) {
-                //System.out.println(speedsElement.getChild(z).getText());
                 gearShift.getSpeeds().add(Integer.valueOf(speedsElement.getChild(z).getText()));
             }
             for (int n = 0; n < timesElement.getChildCount(); n++) {
@@ -54,12 +43,11 @@ public class XmlHelper {
     public static HashMap<String, String> getStringsRus() {
         HashMap<String, String> strings = new HashMap<String, String>();
         XmlReader.Element root = getRoot(Constants.STRINGS_FILE_PATH);
-        //XmlReader.Element stringElement = root.getChildByName(Constants.STRINGS_KEY);
         for (int i = 0; i < root.getChildCount(); i++) {
             XmlReader.Element element = root.getChild(i);
-           XmlReader.Element child = element.getChildByName(Constants.Localization_ID);
-           XmlReader.Element valueRu = element.getChildByName(Constants.Localization_RU);
-            strings.put(child.getText(), valueRu.toString().replace("<ru>\n\t","").replace("\n</ru>","").replace("\\n","\n").replace("\\s"," "));
+            XmlReader.Element child = element.getChildByName(Constants.Localization_ID);
+            XmlReader.Element valueRu = element.getChildByName(Constants.Localization_RU);
+            strings.put(child.getText(), valueRu.toString().replace("<ru>\n\t", "").replace("\n</ru>", "").replace("\\n", "\n").replace("\\s", " "));
         }
         return strings;
     }
@@ -72,7 +60,7 @@ public class XmlHelper {
             XmlReader.Element element = root.getChild(i);
             XmlReader.Element child = element.getChildByName(Constants.Localization_ID);
             XmlReader.Element valueEn = element.getChildByName(Constants.Localization_EN);
-            strings.put(child.getText(),valueEn.toString().replace("<en>\n\t","").replace("\n</en>","").replace("\\n","\n"));
+            strings.put(child.getText(), valueEn.toString().replace("<en>\n\t", "").replace("\n</en>", "").replace("\\n", "\n"));
         }
         return strings;
     }

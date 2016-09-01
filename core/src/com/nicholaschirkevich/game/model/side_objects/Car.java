@@ -17,37 +17,40 @@ import com.nicholaschirkevich.game.util.RandomUtil;
 public abstract class Car extends Actor {
 
 
+    public static final int INDEX = 0;
+    public static final int X = 0;
+    public static final int Y = 0;
+    public static final int Z = 0;
     public static int speed = 100;
     public static int turnSpeed = 950;
 
     protected Vector3 position;
     protected Vector3 velosity;
-    protected Vector3 acceleration;
-    //protected TextureRegion carTexture;
+
     protected Animation carAnimation;
     protected Rectangle bounds;
     protected boolean isLeft;
 
 
     public Car(int x, int y, int movement, String key) {
-        //carTexture = AssetsManager.getTextureRegion(key);
+
         carAnimation = AssetsManager.getAnimation(key);
-        position = new Vector3(x, y, 0);
-        velosity = new Vector3(0, 0, 0);
+        position = new Vector3(x, y, Z);
+        velosity = new Vector3(X, Y, Z);
         this.speed = movement;
 
-        bounds = new Rectangle(x, y, carAnimation.getKeyFrames()[0].getRegionWidth(), carAnimation.getKeyFrames()[0].getRegionHeight());
+        bounds = new Rectangle(x, y, carAnimation.getKeyFrames()[INDEX].getRegionWidth(), carAnimation.getKeyFrames()[INDEX].getRegionHeight());
     }
 
     public Car( int y, int movement,  String key) {
-        //carTexture = AssetsManager.getTextureRegion(key);
+
         carAnimation = AssetsManager.getAnimation(key);
-        position = new Vector3(Constants.getCarPostitionXLeft(carAnimation.getKeyFrames()[0].getRegionWidth()), y, 0);
-        velosity = new Vector3(0, 0, 0);
+        position = new Vector3(Constants.getCarPostitionXLeft(carAnimation.getKeyFrames()[INDEX].getRegionWidth()), y, Z);
+        velosity = new Vector3(X, Y, Z);
         this.speed = movement;
 
-        bounds = new Rectangle(Constants.getCarPostitionXLeft(carAnimation.getKeyFrames()[0].getRegionWidth()), y, carAnimation.getKeyFrames()[0].getRegionWidth(), carAnimation.getKeyFrames()[0].getRegionHeight());
-        //setBounds(Constants.getCarPostitionXLeft(carTexture.getRegionWidth()), y, carTexture.getRegionWidth(), carTexture.getRegionHeight());
+        bounds = new Rectangle(Constants.getCarPostitionXLeft(carAnimation.getKeyFrames()[INDEX].getRegionWidth()), y, carAnimation.getKeyFrames()[INDEX].getRegionWidth(), carAnimation.getKeyFrames()[INDEX].getRegionHeight());
+
     }
 
     public void setIsLeft(boolean isLeft)
@@ -55,24 +58,7 @@ public abstract class Car extends Actor {
             this.isLeft=isLeft;
         }
 
-    public static Vector2 getRandomInitialPosition() {
-        if (RandomUtil.getRandomBoolean())
-            return new Vector2(Constants.CAR_POS_X_LEFT, Constants.CAR_POS_Y);
-        else return new Vector2(Constants.CAR_POS_X_RIGHT, Constants.CAR_POS_Y);
-    }
 
-    protected float getRandomXPosition() {
-        if (RandomUtil.getRandomBoolean()) {
-            isLeft = true;
-            return Constants.CAR_POS_X_LEFT;
-        } else {
-            isLeft = false;
-            return Constants.CAR_POS_X_RIGHT;
-        }
-    }
-    public static boolean getRandomPosition() {
-      return RandomUtil.getRandomBoolean();
-    }
 
     public abstract void update(float dt);
 
@@ -84,7 +70,7 @@ public abstract class Car extends Actor {
     }
 
     public TextureRegion getCarTexture() {
-        return carAnimation.getKeyFrames()[0];
+        return carAnimation.getKeyFrames()[INDEX];
     }
 
     public Rectangle getBounds() {

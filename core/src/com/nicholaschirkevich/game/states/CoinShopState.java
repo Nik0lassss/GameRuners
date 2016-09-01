@@ -1,43 +1,32 @@
 package com.nicholaschirkevich.game.states;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.admob.ActionResolver;
-import com.nicholaschirkevich.game.entity.CarsType;
 import com.nicholaschirkevich.game.entity.CoinShop;
 import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
 import com.nicholaschirkevich.game.interfaces.UpdateCoinCountInterface;
 import com.nicholaschirkevich.game.interfaces.UpdateGarageTable;
-import com.nicholaschirkevich.game.menu.BackButton;
-import com.nicholaschirkevich.game.menu.MenuTest;
-import com.nicholaschirkevich.game.menu.StartGameGarageButton;
 import com.nicholaschirkevich.game.menu.items.CoinShopItem;
 import com.nicholaschirkevich.game.util.AssetsManager;
 import com.nicholaschirkevich.game.util.Constants;
 import com.nicholaschirkevich.game.util.GameManager;
 import com.nicholaschirkevich.game.view_adapters.CoinShopAdapter;
-import com.nicholaschirkevich.game.view_adapters.GarageAdapter;
 
 import java.util.ArrayList;
 
@@ -46,7 +35,30 @@ import java.util.ArrayList;
  * Created by Nikolas on 10.03.2016.
  */
 public class CoinShopState extends Group implements ResumeButtonListener, UpdateGarageTable ,UpdateCoinCountInterface {
-   private OrthographicCamera camera;
+    public static final float LABEL_COIN_FONT_SCALE_X = 0.60f;
+    public static final float LABEL_COIN_FONT_SCALE_Y = 0.60f;
+    public static final String DEFAULT_FONT = "default-font";
+    public static final String EMPTY_TEXT = "";
+    public static final float BTTN_BACK_FONT_SCALE_X = 0.4f;
+    public static final float BTTN_BACK_FONT_SCALE_Y = 0.4f;
+    public static final float PRICE = 0.99f;
+    public static final float PRICE2 = 2.99f;
+    public static final float PRICE3 = 4.99f;
+    public static final float PRICE4 = 9.99f;
+    public static final int COINS = 500;
+    public static final int COINS2 = 1950;
+    public static final int COINS3 = 3750;
+    public static final int COINS4 = 10000;
+    public static final int ID = 1;
+    public static final int ID2 = 2;
+    public static final int ID3 = 3;
+    public static final int ID4 = 4;
+    public static final int DISCOUNT_30 = 30;
+    public static final int DISCOUNT_50 = 50;
+    public static final int DISCOUNT_100 = 100;
+    public static final float PAD_TOP_TABLE = 3f;
+    public static final int SCROLL_PAN_HEIGHT_PADDING = 70;
+    private OrthographicCamera camera;
     private Texture cnr_line, garageNameTexture, backgroung_texture, backButtonTextureDown, backButtonTextureUp;
     private Image image, garageNameImage, backgroung_image, backButtonImageDown, backButtonImageUp;
     private ScrollPane scrollPane2;
@@ -88,8 +100,7 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
         setUpCoinShop();
         setUpBackButton();
 
-//        setUpBackButton();
-//        setUpStartButton();
+
         addActor(image);
         addActor(garageNameImage);
         setUpImageCoinCount();
@@ -117,14 +128,12 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
 
     public void setUpImageCoinCount() {
         imageButton = new ImageButton(new Image(AssetsManager.getTextureRegion(Constants.COIN_ICON_1_NAME_ID)).getDrawable());
-        //imageButton.setBounds(labelCoinCount.getX() + 50, labelCoinCount.getY() - 2, imageButton.getWidth(), imageButton.getHeight());
+
         imageButton.setBounds(GameRuners.WIDTH / 2 - 25, GameRuners.HEIGHT / 2 - 30, imageButton.getWidth(), imageButton.getHeight());
         addActor(imageButton);
     }
 
-    public State getParentState() {
-        return parentState;
-    }
+
 
     public void setParentState(State parentState) {
         this.parentState = parentState;
@@ -133,9 +142,9 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
 
     public void setUpCoinCountLabel() {
         labelCoinCount = new Label(String.valueOf(GameManager.getCoinCounter()), AssetsManager.getUiSkin());
-        labelCoinCount.setFontScale(0.60f, 0.60f);
+        labelCoinCount.setFontScale(LABEL_COIN_FONT_SCALE_X, LABEL_COIN_FONT_SCALE_Y);
         labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
-        //labelCoinCount.setBounds(imageButton.getX() - 45, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
+
         addActor(labelCoinCount);
     }
 
@@ -152,10 +161,10 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.down = backButtonImageDown.getDrawable();
         textButtonStyle.up = backButtonImageUp.getDrawable();
-        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
+        textButtonStyle.font = AssetsManager.getUiSkin().getFont(DEFAULT_FONT);
 
-        backBttn = new TextButton("", textButtonStyle);
-        backBttn.getLabel().setFontScale(0.4f, 0.4f);
+        backBttn = new TextButton(EMPTY_TEXT, textButtonStyle);
+        backBttn.getLabel().setFontScale(BTTN_BACK_FONT_SCALE_X, BTTN_BACK_FONT_SCALE_Y);
         backBttn.getLabelCell().padLeft(25f);
 
 
@@ -177,7 +186,7 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
                         else{
                            ((UpdateCoinCountInterface)parentState).updateCoinCountView();
                            remove();}
-                        //getStage().addActor(new MenuTest(listenerResume, gsm, actionResolver));
+
                         return true;
                     }
                 });
@@ -201,10 +210,10 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
 
         addActor(container);
         ArrayList<CoinShopItem> coinShopItems = new ArrayList<CoinShopItem>();
-        CoinShop coinShop = new CoinShop(1, 0.99f, 500, GameManager.getStrings().get(Constants.CM_COINS_PACK_FIRST_LINE), 0, Constants.COIN_SHOP_STANDART_ID);
-        CoinShop coinShop2 = new CoinShop(2, 2.99f, 1950, GameManager.getStrings().get(Constants.CM_MEDIUM_COINS_PACK_FIRST_LINE) + "\n        " + GameManager.getStrings().get(Constants.CM_MEDIUM_COINS_PACK_SECOND_LINE), 30, Constants.COIN_SHOP_2_ID);
-        CoinShop coinShop3 = new CoinShop(3, 4.99f, 3750, GameManager.getStrings().get(Constants.CM_BIG_COINS_PACK_FIRST_LINE) + "\n        " + GameManager.getStrings().get(Constants.CM_BIG_COINS_PACK_SECOND_LINE), 50, Constants.COIN_SHOP_3_ID);
-        CoinShop coinShop4 = new CoinShop(4, 9.99f, 10000, GameManager.getStrings().get(Constants.CM_GREAT_COINS_PACK_FIRST_LINE)+"\n        "+GameManager.getStrings().get(Constants.CM_GREAT_COINS_PACK_SECOND_LINE), 100, Constants.COIN_SHOP_4_ID);
+        CoinShop coinShop = new CoinShop(ID, PRICE, COINS, GameManager.getStrings().get(Constants.CM_COINS_PACK_FIRST_LINE), 0, Constants.COIN_SHOP_STANDART_ID);
+        CoinShop coinShop2 = new CoinShop(ID2, PRICE2, COINS2, GameManager.getStrings().get(Constants.CM_MEDIUM_COINS_PACK_FIRST_LINE) + "\n        " + GameManager.getStrings().get(Constants.CM_MEDIUM_COINS_PACK_SECOND_LINE), DISCOUNT_30, Constants.COIN_SHOP_2_ID);
+        CoinShop coinShop3 = new CoinShop(ID3, PRICE3, COINS3, GameManager.getStrings().get(Constants.CM_BIG_COINS_PACK_FIRST_LINE) + "\n        " + GameManager.getStrings().get(Constants.CM_BIG_COINS_PACK_SECOND_LINE), DISCOUNT_50, Constants.COIN_SHOP_3_ID);
+        CoinShop coinShop4 = new CoinShop(ID4, PRICE4, COINS4, GameManager.getStrings().get(Constants.CM_GREAT_COINS_PACK_FIRST_LINE)+"\n        "+GameManager.getStrings().get(Constants.CM_GREAT_COINS_PACK_SECOND_LINE), DISCOUNT_100, Constants.COIN_SHOP_4_ID);
         coinShopItems.add(new CoinShopItem(coinShop, 1,actionResolver,this));
         CoinShopAdapter garageAdapter = new CoinShopAdapter(table, coinShopItems);
         table.add(new CoinShopItem(coinShop, 1,actionResolver,this)).row();
@@ -212,11 +221,11 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
         table.add(new CoinShopItem(coinShop3, 1,actionResolver,this)).row();
         table.add(new CoinShopItem(coinShop4, 1,actionResolver,this)).row();
         table.top();
-        table.padTop(3f);
+        table.padTop(PAD_TOP_TABLE);
         garageAdapter.loadTableData();
 
         scrollPane2 = new ScrollPane(table);
-        scrollPane2.setBounds(0, 0, GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2 - 70);
+        scrollPane2.setBounds(0, 0, GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2 - SCROLL_PAN_HEIGHT_PADDING);
         scrollPane2.setScrollingDisabled(true, false);
         scrollPane2.setOverscroll(false, false);
         scrollPane2.invalidate();
@@ -256,6 +265,5 @@ public class CoinShopState extends Group implements ResumeButtonListener, Update
 
         labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() -5, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
 
-//        labelCoinCount.notify();
     }
 }

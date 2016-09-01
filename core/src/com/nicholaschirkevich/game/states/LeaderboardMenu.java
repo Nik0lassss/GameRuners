@@ -1,6 +1,5 @@
 package com.nicholaschirkevich.game.states;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -38,6 +37,7 @@ import java.util.ArrayList;
  * Created by Nikolas on 10.03.2016.
  */
 public class LeaderboardMenu extends Group implements ResumeButtonListener, OnGetLidearBoards {
+    public static final String DEFAULT_FONT = "default-font";
     private OrthographicCamera camera;
     private Texture cnr_line, backgroung_texture, backButtonTextureDown, backButtonTextureUp;
     private Image image, backgroung_image, backButtonImageDown, backButtonImageUp;
@@ -244,9 +244,7 @@ public class LeaderboardMenu extends Group implements ResumeButtonListener, OnGe
             disableProgressBar();
         }
 
-        //getHighscoresFacebookFriends(this);
 
-        //setUpBackButton();
 
         setUpTabImageButton();
 
@@ -261,8 +259,6 @@ public class LeaderboardMenu extends Group implements ResumeButtonListener, OnGe
         boolean islog = actionResolver.isFacebookLogin();
 
 
-//        addActor(imageTitle);
-//        addActor(menuName);
     }
 
 
@@ -271,7 +267,7 @@ public class LeaderboardMenu extends Group implements ResumeButtonListener, OnGe
             if (actionResolver.isAvailibleInternet()) {
                 isHighScoreLoad = true;
                 actionResolver.getHighscoresVkFriends(onGetLidearBoards);
-                System.out.println("  actionResolver.getHighscoresVkFriends(onGetLidearBoards);");
+
             } else {
                 Label errorLabel = new Label(GameManager.getStrings().get(Constants.NO_INTERNET_CONNECTION_ALERT), AssetsManager.getUiSkin());
                 errorLabel.setFontScale(0.5f, 0.5f);
@@ -304,7 +300,7 @@ public class LeaderboardMenu extends Group implements ResumeButtonListener, OnGe
             if (actionResolver.isAvailibleInternet()) {
                 isHighScoreLoad = true;
                 actionResolver.getHighScoreFacebookFriends(onGetLidearBoards);
-                System.out.println("  actionResolver.getHighscoresVkFriends(onGetLidearBoards);");
+
             }
         }else {
             Label errorLabel = new Label(GameManager.getStrings().get(Constants.NO_INTERNET_CONNECTION_ALERT), AssetsManager.getUiSkin());
@@ -358,7 +354,7 @@ public class LeaderboardMenu extends Group implements ResumeButtonListener, OnGe
         leftTextButtonStyle = new TextButton.TextButtonStyle();
         leftTextButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_SELECTED_ID)).getDrawable();
         leftTextButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_SELECTED_ID)).getDrawable();
-        leftTextButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
+        leftTextButtonStyle.font = AssetsManager.getUiSkin().getFont(DEFAULT_FONT);
         leftButtonFriends = new TextButton(GameManager.getStrings().get(Constants.LEADERBOARD_FRIENDS_TEXT), leftTextButtonStyle);
         leftButtonFriends.getLabel().setFontScale(0.5f, 0.5f);
         leftButtonFriends.setBounds(11, ySelect, GameRuners.WIDTH / 4 - 12, 62);
@@ -367,7 +363,7 @@ public class LeaderboardMenu extends Group implements ResumeButtonListener, OnGe
         rightTextButtonStyle = new TextButton.TextButtonStyle();
         rightTextButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_UNSELECTED_ID)).getDrawable();
         rightTextButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.RECORN_TAB_BUTTON_UNSELECTED_ID)).getDrawable();
-        rightTextButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
+        rightTextButtonStyle.font = AssetsManager.getUiSkin().getFont(DEFAULT_FONT);
         rightButtonFriends = new TextButton(GameManager.getStrings().get(Constants.LEADERBOARD_GLOBAL_TEXT), rightTextButtonStyle);
         rightButtonFriends.getLabel().setFontScale(0.5f, 0.5f);
         rightButtonFriends.setBounds(GameRuners.WIDTH / 4 + 1, yUnSelect, GameRuners.WIDTH / 4 - 12, 57);
@@ -436,7 +432,7 @@ public class LeaderboardMenu extends Group implements ResumeButtonListener, OnGe
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.down = backButtonImageDown.getDrawable();
         textButtonStyle.up = backButtonImageUp.getDrawable();
-        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
+        textButtonStyle.font = AssetsManager.getUiSkin().getFont(DEFAULT_FONT);
 
         backBttn = new TextButton("", textButtonStyle);
         backBttn.getLabel().setFontScale(0.4f, 0.4f);
@@ -604,7 +600,7 @@ public class LeaderboardMenu extends Group implements ResumeButtonListener, OnGe
                 table1.add(errorLabel);
                 table1.padTop(20f);
                 disableProgressBar();
-                //pane2.setAmountY(recordAdapter.getMyIndex() * 60 - 145);
+
 
 
             }

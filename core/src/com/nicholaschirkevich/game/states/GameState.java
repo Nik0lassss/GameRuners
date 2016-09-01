@@ -51,7 +51,7 @@ import com.nicholaschirkevich.game.interfaces.ZoomCarListener;
 import com.nicholaschirkevich.game.menu.MenuGameOver;
 import com.nicholaschirkevich.game.menu.MenuPause;
 import com.nicholaschirkevich.game.menu.MenuSaveMe;
-import com.nicholaschirkevich.game.menu.MenuTest;
+import com.nicholaschirkevich.game.menu.MainMenu;
 import com.nicholaschirkevich.game.menu.PauseButton;
 import com.nicholaschirkevich.game.model.MyCar;
 import com.nicholaschirkevich.game.model.PasserCar;
@@ -413,7 +413,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
 
         if (isFromGarage) startFromGarage();
-        else stage.addActor(new MenuTest(this, gsm, actionResolver));
+        else stage.addActor(new MainMenu(this, gsm, actionResolver));
         textureCollisisonPoint = AssetsManager.getTextureRegion(Constants.CONTACT_POINT_ID).getTexture();
     }
 
