@@ -106,6 +106,8 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
             "test_tag";
     private View view;
 
+    private boolean isLoadGetBonusInterstitial = false;
+
     private IabHelper.OnConsumeFinishedListener mConsumeFinishedListener;
     private IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener;
 
@@ -224,6 +226,20 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         mInterstitialAdSaveMe = new InterstitialAd(getContext());
         mInterstitialAdSaveMe.setAdUnitId(getString(R.string.app_id_pub));
         interstitialGetBonus = new InterstitialAd(getContext());
+
+        interstitialGetBonus.setAdListener(new AdListener() {
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                super.onAdFailedToLoad(errorCode);
+                isLoadGetBonusInterstitial = false;
+            }
+
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                isLoadGetBonusInterstitial = true;
+            }
+        });
         interstitialGetBonus.setAdUnitId(getString(R.string.get_bonus_admob_id));
         mCallbackManager = CallbackManager.Factory.create();
 
@@ -452,11 +468,11 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     private void startGame() {
         if (isAdmobOn) {
             // Request a new ad if one isn't already loaded, hide the button, and kick off the timer.
-            if (!mInterstitialAdSaveMe.isLoading() && !mInterstitialAdSaveMe.isLoaded()) {
-                //AdRequest adRequest = new AdRequest.Builder().addTestDevice("024E787E6EB1DF2F6E701EE93F986BA4").build();
-                AdRequest adRequest = new AdRequest.Builder().build();
-                mInterstitialAdSaveMe.loadAd(adRequest);
-            }
+//            if (!mInterstitialAdSaveMe.isLoading() && !mInterstitialAdSaveMe.isLoaded()) {
+//                //AdRequest adRequest = new AdRequest.Builder().addTestDevice("024E787E6EB1DF2F6E701EE93F986BA4").build();
+//                AdRequest adRequest = new AdRequest.Builder().build();
+//                mInterstitialAdSaveMe.loadAd(adRequest);
+//            }
             if (!interstitialGetBonus.isLoading() && !interstitialGetBonus.isLoaded()) {
                 //AdRequest adRequest = new AdRequest.Builder().addTestDevice("024E787E6EB1DF2F6E701EE93F986BA4").build();
                 AdRequest adRequest = new AdRequest.Builder().build();
@@ -538,21 +554,21 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
     @Override
     public boolean isGetBonusIntertatlLoaded() {
-        final boolean[] isLoaded = {false};
-        try {
-
-
-            runOnUiThread(new Runnable() {
-
-
-                public void run() {
-                    isLoaded[0] = interstitialGetBonus.isLoaded();
-
-                }
-            });
-        } catch (Exception e) {
-        }
-        return isLoaded[0];
+//        final boolean[] isLoaded = {false};
+//        try {
+//
+//
+//            runOnUiThread(new Runnable() {
+//
+//
+//                public void run() {
+//                    isLoaded[0] = interstitialGetBonus.isLoaded();
+//
+//                }
+//            });
+//        } catch (Exception e) {
+//        }
+        return isLoadGetBonusInterstitial;
     }
 
     @Override

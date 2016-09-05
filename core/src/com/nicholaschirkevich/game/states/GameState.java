@@ -1326,7 +1326,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                 GameManager.pauseGame = true;
                 AssetsManager.stopMusic();
 
-                if (actionResolver != null && actionResolver.getAdmobStatus() && actionResolver.isIntertatlLoaded() && actionResolver.isSaveMeIntertitalLoad() && !isSavedMe && distacne > MAX_DISTANCE) {
+               // if (actionResolver != null && actionResolver.getAdmobStatus() && actionResolver.isIntertatlLoaded() && actionResolver.isSaveMeIntertitalLoad() && !isSavedMe && distacne > MAX_DISTANCE) {
+                if (actionResolver != null && actionResolver.getAdmobStatus() && actionResolver.isIntertatlLoaded()  && !isSavedMe ) {
                     {
                         isMyCarCollision = false;
                         isMyCarCollisionWithBlocks = false;
@@ -1359,7 +1360,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
             if (timer > 1) {
                 GameManager.pauseGame = true;
 //
-                if (actionResolver.getAdmobStatus() && actionResolver.isIntertatlLoaded() && actionResolver.isSaveMeIntertitalLoad() && !isSavedMe && distacne > MAX_SAVE_ME_DISTANCE) {
+               // if (actionResolver.getAdmobStatus() && actionResolver.isIntertatlLoaded() && actionResolver.isSaveMeIntertitalLoad() && !isSavedMe && distacne > MAX_SAVE_ME_DISTANCE) {
+                if (actionResolver != null && actionResolver.getAdmobStatus() && actionResolver.isIntertatlLoaded()  && !isSavedMe) {
                     isSavedMe = true;
                     stage.addActor(menuSaveMe);
                     ToastHelper.resetToasts();

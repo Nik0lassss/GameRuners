@@ -173,7 +173,8 @@ public class MenuGameOverTotal extends Group implements UpdateCoinCountInterface
         //setUpPlayOnline();
 
         if (GameManager.isNeedFreeCarPrize()) {
-            if (actionResolver.isGetBonusIntertitalLoad() && actionResolver.isGetBonusIntertatlLoaded()) {
+            //if (actionResolver.isGetBonusIntertitalLoad() && actionResolver.isGetBonusIntertatlLoaded()) {
+            if ( actionResolver.isGetBonusIntertatlLoaded()) {
                 setGetBonus(Constants.THIRD_POSITION_BTTN_X_VISIBLE, Constants.THIRD_POSITION_BTTN_Y_VISIBLE);
                 if (GameManager.getMyCars().size() < GameManager.getCarShopSize()) {
                     setUpPrize(Constants.SECOND_POSITION_BTTN_X_VISIBLE, Constants.SECOND_POSITION_BTTN_Y_VISIBLE);
@@ -189,7 +190,8 @@ public class MenuGameOverTotal extends Group implements UpdateCoinCountInterface
             }
         } else {
 
-            if (actionResolver.isGetBonusIntertitalLoad() && actionResolver.isGetBonusIntertatlLoaded()) {
+//            if (actionResolver.isGetBonusIntertitalLoad() && actionResolver.isGetBonusIntertatlLoaded()) {
+            if ( actionResolver.isGetBonusIntertatlLoaded()) {
                 setGetBonus(Constants.THIRD_POSITION_BTTN_X_VISIBLE, Constants.THIRD_POSITION_BTTN_Y_VISIBLE);
                 if (GameManager.getMyCars().size() < GameManager.getCarShopSize()) {
                     setUpNextPrize(Constants.SECOND_POSITION_BTTN_X_VISIBLE, Constants.SECOND_POSITION_BTTN_Y_VISIBLE);
