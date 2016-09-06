@@ -172,13 +172,14 @@ public class MenuGameOverTotal extends Group implements UpdateCoinCountInterface
         //setUpImageLogo();
         //setUpPlayOnline();
 
+
         if (GameManager.isNeedFreeCarPrize()) {
             //if (actionResolver.isGetBonusIntertitalLoad() && actionResolver.isGetBonusIntertatlLoaded()) {
             if ( actionResolver.isGetBonusIntertatlLoaded()) {
                 setGetBonus(Constants.THIRD_POSITION_BTTN_X_VISIBLE, Constants.THIRD_POSITION_BTTN_Y_VISIBLE);
                 if (GameManager.getMyCars().size() < GameManager.getCarShopSize()) {
                     setUpPrize(Constants.SECOND_POSITION_BTTN_X_VISIBLE, Constants.SECOND_POSITION_BTTN_Y_VISIBLE);
-                    setFreeForPrize(Constants.FREE_FOR_PRIZE_SECOND_LINE_BONUS_X, Constants.SECOND_POSITION_BTTN_Y_VISIBLE - 10);
+                    setFreeForPrize(Constants.FREE_FOR_PRIZE_FIRST_LINE_BONUS_X, Constants.SECOND_POSITION_BTTN_Y_VISIBLE - 10);
                     GameManager.setNewFreeCarPrizeDate();
                 }
             } else {

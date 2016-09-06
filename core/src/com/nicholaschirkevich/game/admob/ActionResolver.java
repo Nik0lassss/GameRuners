@@ -18,6 +18,7 @@ public interface ActionResolver {
     boolean isGetBonusIntertitalLoad();
     boolean isIntertatlLoaded();
     boolean isGetBonusIntertatlLoaded();
+    void updateIntertionalState();
 
     boolean getAdmobStatus();
     void setAdmobStatus(boolean statusAdMob);

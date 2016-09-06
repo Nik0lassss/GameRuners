@@ -115,6 +115,8 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     private BuyProduct buyProduct;
     IabHelper mHelper;
     GameRuners gameRuners;
+
+    private boolean lastInternetState = false;
     static final String ITEM_SKU = "android.test.purchased";
     static final String ITEM_SKU_SP = "com.example.sp000";
 
@@ -220,6 +222,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         };
         gameHelper.setup(gameHelperListener);
 
+        lastInternetState = isAvailibleInternet();
 
         mInterstitialAdSaveMe = new InterstitialAd(getContext());
 
@@ -495,24 +498,33 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
     private void startLoadSaveMeVideoInterstitial() {
         if (isAdmobOn) {
-            // Request a new ad if one isn't already loaded, hide the button, and kick off the timer.
-            if (!mInterstitialAdSaveMe.isLoading() && !mInterstitialAdSaveMe.isLoaded()) {
-                //AdRequest adRequest = new AdRequest.Builder().addTestDevice("024E787E6EB1DF2F6E701EE93F986BA4").build();
-                AdRequest adRequest = new AdRequest.Builder().build();
-                mInterstitialAdSaveMe.loadAd(adRequest);
-            }
-        }
+
+                    // Request a new ad if one isn't already loaded, hide the button, and kick off the timer.
+                    if (!mInterstitialAdSaveMe.isLoading() && !mInterstitialAdSaveMe.isLoaded()) {
+                        //AdRequest adRequest = new AdRequest.Builder().addTestDevice("024E787E6EB1DF2F6E701EE93F986BA4").build();
+                        AdRequest adRequest = new AdRequest.Builder().build();
+                        mInterstitialAdSaveMe.loadAd(adRequest);
+                    }
+                }
+
+
+
     }
 
     private void startLoadGetBonusVideoInterstitial() {
+
         if (isAdmobOn) {
 
-            if (!interstitialGetBonus.isLoading() && !interstitialGetBonus.isLoaded()) {
-                //AdRequest adRequest = new AdRequest.Builder().addTestDevice("024E787E6EB1DF2F6E701EE93F986BA4").build();
-                AdRequest adRequest = new AdRequest.Builder().build();
-                interstitialGetBonus.loadAd(adRequest);
-            }
-        }
+
+                    if (!interstitialGetBonus.isLoading() && !interstitialGetBonus.isLoaded()) {
+                        //AdRequest adRequest = new AdRequest.Builder().addTestDevice("024E787E6EB1DF2F6E701EE93F986BA4").build();
+                        AdRequest adRequest = new AdRequest.Builder().build();
+                        interstitialGetBonus.loadAd(adRequest);
+                    }
+                }
+
+
+
     }
 
     private void initialBillingServie() {
@@ -575,21 +587,44 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
     @Override
     public boolean isGetBonusIntertatlLoaded() {
-//        final boolean[] isLoaded = {false};
-//        try {
-//
-//
-//            runOnUiThread(new Runnable() {
-//
-//
-//                public void run() {
-//                    isLoaded[0] = interstitialGetBonus.isLoaded();
-//
-//                }
-//            });
-//        } catch (Exception e) {
-//        }
+
         return isLoadGetBonusInterstitial;
+    }
+
+    @Override
+    public void updateIntertionalState() {
+//        runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                if(mInterstitialAdSaveMe.isLoading() && !mInterstitialAdSaveMe.isLoaded() && isAvailibleInternet())
+//                {
+//
+//                    startLoadSaveMeVideoInterstitial();
+//                    isLoadSaveMeInterstitial = mInterstitialAdSaveMe.isLoaded();
+//                }
+//                if(interstitialGetBonus.isLoading() && !interstitialGetBonus.isLoaded() && isAvailibleInternet())
+//                {
+//
+//                    startLoadGetBonusVideoInterstitial();
+//                    isLoadGetBonusInterstitial =interstitialGetBonus.isLoaded();
+//                }
+//
+//                if(!isAvailibleInternet())
+//                {
+//                    isLoadGetBonusInterstitial=false;
+//                    isLoadSaveMeInterstitial = false;
+//                }
+////                isLoadGetBonusInterstitial =interstitialGetBonus.isLoaded();
+////                isLoadSaveMeInterstitial = mInterstitialAdSaveMe.isLoaded();
+//            }
+//        });
+//
+//        lastInternetState=isAvailibleInternet();
+        if(!isAvailibleInternet())
+               {
+                  isLoadGetBonusInterstitial=false;
+                    isLoadSaveMeInterstitial = false;
+                }
     }
 
     @Override

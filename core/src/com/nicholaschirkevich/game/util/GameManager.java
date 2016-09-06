@@ -608,13 +608,15 @@ public class GameManager {
 
     public static boolean isFirstStartApp() {
         boolean isFirstStart = preferences.getBoolean(Constants.PREFERENCES_IS_FIRST_START,true);
-        if(isFirstStart) preferences.putBoolean(Constants.PREFERENCES_IS_FIRST_START, false);
+//        if(isFirstStart) preferences.putBoolean(Constants.PREFERENCES_IS_FIRST_START, false);
         preferences.flush();
         return isFirstStart;
     }
 
     public static void setIsFirstStartApp(boolean isFirstStartApp) {
         GameManager.isFirstStartApp = isFirstStartApp;
+        preferences.putBoolean(Constants.PREFERENCES_IS_FIRST_START, isFirstStartApp);
+        preferences.flush();
     }
 
     public void resetAchives() {

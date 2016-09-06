@@ -228,6 +228,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     private float cameraMoveTime = 0;
 
     private boolean isFirstStart = false;
+    private boolean isFirstStartUpdateCars = false;
 
     ArrayList<PasserCar> passerCars;
 
@@ -368,6 +369,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         GameManager.resetSpeed();
         setUpCamera();
         isFirstStart = GameManager.isFirstStartApp();
+        isFirstStartUpdateCars = GameManager.isFirstStartApp();
         GameManager.setStopGeneratePasserCars(false);
 
         carsTypes = GameManager.getCarsTypes();
@@ -415,6 +417,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         if (isFromGarage) startFromGarage();
         else stage.addActor(new MainMenu(this, gsm, actionResolver));
         textureCollisisonPoint = AssetsManager.getTextureRegion(Constants.CONTACT_POINT_ID).getTexture();
+        actionResolver.updateIntertionalState();
     }
 
 
@@ -1008,11 +1011,11 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
             udateBlows(passerCars);
 //
-            if (!isMyCarCollision && !isMyCarCollisionWithBlocks && !isFirstStart) {
+            if (!isMyCarCollision && !isMyCarCollisionWithBlocks && !isFirstStartUpdateCars) {
                 PasserCar.updateCars(passerCars, camera, dt, this);
             }
 
-            if (isFirstStart) {
+            if (isFirstStartUpdateCars) {
                 for (PasserCar passerCar : passerCars)
                     passerCar.update(dt);
             }
@@ -1070,7 +1073,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
             tutorialBlocksTime += dt;
             if (isFirstStart && tutorialBlocksTime > 7 && tutorialBlocksCount < 1) {
-                tutorialBlocksesArrayList.add(new TutorialBlocks(world, BLOCK_DEFAULT_X,  (APPEND_Y), 10));
+                tutorialBlocksesArrayList.add(new TutorialBlocks(world, BLOCK_DEFAULT_X, (APPEND_Y), 10));
                 tutorialBlocksTime = 0;
                 tutorialBlocksCount++;
             }
@@ -1092,9 +1095,10 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
             tutorialSpringboardsTime += dt;
             if (isFirstStart && tutorialSpringboardsTime > TUTORIAL_SPRINGBOARD_TIME) {
-                tutorialSpringboardArrayList.add(new TutorialSpringboard(world, DEFAULT_SPRINGBOARD_X,  DEFAULT_SPRINGBOARD_Y, SPRINGBOARD_MOVEMENT));
+                tutorialSpringboardArrayList.add(new TutorialSpringboard(world, DEFAULT_SPRINGBOARD_X, DEFAULT_SPRINGBOARD_Y, SPRINGBOARD_MOVEMENT));
 
                 tutorialSpringboardsTime = 0;
+                GameManager.setIsFirstStartApp(false);
             }
 
 
@@ -1196,7 +1200,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
             }
 
             if (isFirstStart) {
-                if (GameManager.getAllTime() > FIRST_START_TUTORIAL_DURATION) isFirstStart = false;
+                if (GameManager.getAllTime() > FIRST_START_TUTORIAL_DURATION){ isFirstStart = false;
+                isFirstStartUpdateCars = false;}
             }
 
 
@@ -1326,25 +1331,29 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                 GameManager.pauseGame = true;
                 AssetsManager.stopMusic();
 
-               // if (actionResolver != null && actionResolver.getAdmobStatus() && actionResolver.isIntertatlLoaded() && actionResolver.isSaveMeIntertitalLoad() && !isSavedMe && distacne > MAX_DISTANCE) {
-                if (actionResolver != null && actionResolver.getAdmobStatus() && actionResolver.isIntertatlLoaded()  && !isSavedMe && distacne > MAX_DISTANCE) {
-                    {
+                if (isFirstStart) {
+                    gsm.set(new GameState(gsm, false, true, actionResolver));
+                } else {
+                    // if (actionResolver != null && actionResolver.getAdmobStatus() && actionResolver.isIntertatlLoaded() && actionResolver.isSaveMeIntertitalLoad() && !isSavedMe && distacne > MAX_DISTANCE) {
+                    if (actionResolver != null && actionResolver.getAdmobStatus() && actionResolver.isIntertatlLoaded() && !isSavedMe && distacne > MAX_DISTANCE) {
+                        {
+                            isMyCarCollision = false;
+                            isMyCarCollisionWithBlocks = false;
+                            stage.addActor(menuSaveMe);
+                            isSavedMe = true;
+                            ToastHelper.resetToasts();
+                        }
+                    } else {
+
                         isMyCarCollision = false;
-                        isMyCarCollisionWithBlocks = false;
-                        stage.addActor(menuSaveMe);
-                        isSavedMe = true;
+                        stage.addActor(new MenuGameOver(gsm, this, actionResolver));
+                        labelAchives.setVisible(false);
+                        labelCoinCount.setVisible(false);
+                        imageButton.setVisible(false);
                         ToastHelper.resetToasts();
                     }
-                } else {
 
-                    isMyCarCollision = false;
-                    stage.addActor(new MenuGameOver(gsm, this, actionResolver));
-                    labelAchives.setVisible(false);
-                    labelCoinCount.setVisible(false);
-                    imageButton.setVisible(false);
-                    ToastHelper.resetToasts();
                 }
-
                 timer = 0;
             }
         }
@@ -1359,19 +1368,23 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
             if (timer > 1) {
                 GameManager.pauseGame = true;
-//
-               // if (actionResolver.getAdmobStatus() && actionResolver.isIntertatlLoaded() && actionResolver.isSaveMeIntertitalLoad() && !isSavedMe && distacne > MAX_SAVE_ME_DISTANCE) {
-                if (actionResolver != null && actionResolver.getAdmobStatus() && actionResolver.isIntertatlLoaded()  && !isSavedMe && distacne > MAX_SAVE_ME_DISTANCE) {
-                    isSavedMe = true;
-                    stage.addActor(menuSaveMe);
-                    ToastHelper.resetToasts();
-                } else {
-                    ToastHelper.resetToasts();
-                    stage.addActor(new MenuGameOver(gsm, this, actionResolver));
-                    labelAchives.setVisible(false);
-                    labelCoinCount.setVisible(false);
-                    imageButton.setVisible(false);
 
+                if (isFirstStart) {
+                    gsm.set(new GameState(gsm, false, true, actionResolver));
+                } else {
+                    // if (actionResolver.getAdmobStatus() && actionResolver.isIntertatlLoaded() && actionResolver.isSaveMeIntertitalLoad() && !isSavedMe && distacne > MAX_SAVE_ME_DISTANCE) {
+                    if (actionResolver != null && actionResolver.getAdmobStatus() && actionResolver.isIntertatlLoaded() && !isSavedMe && distacne > MAX_SAVE_ME_DISTANCE) {
+                        isSavedMe = true;
+                        stage.addActor(menuSaveMe);
+                        ToastHelper.resetToasts();
+                    } else {
+                        ToastHelper.resetToasts();
+                        stage.addActor(new MenuGameOver(gsm, this, actionResolver));
+                        labelAchives.setVisible(false);
+                        labelCoinCount.setVisible(false);
+                        imageButton.setVisible(false);
+
+                    }
                 }
 
                 timer = 0;
@@ -1872,7 +1885,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     @Override
     public void onCollision() {
         if (!isMyCarCollision) {
-            isFirstStart = false;
+            isFirstStartUpdateCars = false;
             collisionCameraMove = true;
             AssetsManager.playSound(Constants.SOUND_CRASH_2);
             Array<Action> actions = myCar.getActions();

@@ -1096,6 +1096,8 @@ public class Constants {
     public static final float FREE_FOR_PRIZE_SECOND_LINE_BONUS_X = GameRuners.WIDTH / 3.35f;
     public static final float FREE_FOR_PRIZE_SECOND_LINE_BONUS_Y = SECOND_POSITION_BTTN_Y_VISIBLE-10;
 
+    public static final float FREE_FOR_PRIZE_FIRST_LINE_BONUS_X = GameRuners.WIDTH / 3.35f-80;
+
     public static final String GEAR_SHIFT_FILE_PATH = "gear_shift.xml";
     public static final String STRINGS_FILE_PATH = "localization.xml";
     public static final String GEAR_SHIFT_FILE_SPEED_KEY = "speeds";
