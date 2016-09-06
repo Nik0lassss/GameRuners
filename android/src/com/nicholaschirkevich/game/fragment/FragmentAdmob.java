@@ -17,13 +17,11 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
@@ -78,7 +76,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.logging.Logger;
 
 import util.IabHelper;
 import util.IabResult;
@@ -107,6 +104,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     private View view;
 
     private boolean isLoadGetBonusInterstitial = false;
+    private boolean isLoadSaveMeInterstitial = false;
 
     private IabHelper.OnConsumeFinishedListener mConsumeFinishedListener;
     private IabHelper.OnIabPurchaseFinishedListener mPurchaseFinishedListener;
@@ -224,6 +222,35 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
 
         mInterstitialAdSaveMe = new InterstitialAd(getContext());
+
+        mInterstitialAdSaveMe.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                super.onAdClosed();
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                super.onAdFailedToLoad(errorCode);
+                isLoadSaveMeInterstitial = false;
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                super.onAdLeftApplication();
+            }
+
+            @Override
+            public void onAdOpened() {
+                super.onAdOpened();
+            }
+
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                isLoadSaveMeInterstitial = true;
+            }
+        });
         mInterstitialAdSaveMe.setAdUnitId(getString(R.string.app_id_pub));
         interstitialGetBonus = new InterstitialAd(getContext());
 
@@ -334,7 +361,8 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         };
 
 
-        startGame();
+        startLoadSaveMeVideoInterstitial();
+        startLoadGetBonusVideoInterstitial();
         gameRuners = new GameRuners(this);
 
 
@@ -400,21 +428,21 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
                 public void run() {
 
-                    mInterstitialAdSaveMe.setAdListener(new AdListener() {
+                    interstitialGetBonus.setAdListener(new AdListener() {
                         @Override
                         public void onAdClosed() {
-                            startGame();
+                            startLoadGetBonusVideoInterstitial();
 
                             gameRuners.onAdCloseAfterGetBonus();
 
                         }
                     });
 
-                    if (mInterstitialAdSaveMe != null && mInterstitialAdSaveMe.isLoaded()) {
-                        mInterstitialAdSaveMe.show();
+                    if (interstitialGetBonus != null && interstitialGetBonus.isLoaded()) {
+                        interstitialGetBonus.show();
                     } else {
                         Toast.makeText(getContext(), "Ad did not load", Toast.LENGTH_SHORT).show();
-                        startGame();
+                        startLoadGetBonusVideoInterstitial();
 
                     }
                 }
@@ -436,7 +464,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                     mInterstitialAdSaveMe.setAdListener(new AdListener() {
                         @Override
                         public void onAdClosed() {
-                            startGame();
+                            startLoadSaveMeVideoInterstitial();
                             if (isAfterGetBonus) {
                                 gameRuners.onAdCloseAfterGetBonus();
                             } else {
@@ -450,12 +478,12 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                         mInterstitialAdSaveMe.show();
                     } else {
                         Toast.makeText(getContext(), "Ad did not load", Toast.LENGTH_SHORT).show();
-                        startGame();
+                        startLoadSaveMeVideoInterstitial();
                         if (isAfterGetBonus) {
 
                         } else {
                             gameRuners.onAdClose();
-                            startGame();
+                            startLoadSaveMeVideoInterstitial();
                         }
                     }
                 }
@@ -465,14 +493,20 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
     }
 
-    private void startGame() {
+    private void startLoadSaveMeVideoInterstitial() {
         if (isAdmobOn) {
             // Request a new ad if one isn't already loaded, hide the button, and kick off the timer.
-//            if (!mInterstitialAdSaveMe.isLoading() && !mInterstitialAdSaveMe.isLoaded()) {
-//                //AdRequest adRequest = new AdRequest.Builder().addTestDevice("024E787E6EB1DF2F6E701EE93F986BA4").build();
-//                AdRequest adRequest = new AdRequest.Builder().build();
-//                mInterstitialAdSaveMe.loadAd(adRequest);
-//            }
+            if (!mInterstitialAdSaveMe.isLoading() && !mInterstitialAdSaveMe.isLoaded()) {
+                //AdRequest adRequest = new AdRequest.Builder().addTestDevice("024E787E6EB1DF2F6E701EE93F986BA4").build();
+                AdRequest adRequest = new AdRequest.Builder().build();
+                mInterstitialAdSaveMe.loadAd(adRequest);
+            }
+        }
+    }
+
+    private void startLoadGetBonusVideoInterstitial() {
+        if (isAdmobOn) {
+
             if (!interstitialGetBonus.isLoading() && !interstitialGetBonus.isLoaded()) {
                 //AdRequest adRequest = new AdRequest.Builder().addTestDevice("024E787E6EB1DF2F6E701EE93F986BA4").build();
                 AdRequest adRequest = new AdRequest.Builder().build();
@@ -535,21 +569,8 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
     @Override
     public boolean isIntertatlLoaded() {
-        final boolean[] isLoaded = {false};
-        try {
 
-
-            runOnUiThread(new Runnable() {
-
-
-                public void run() {
-                    isLoaded[0] = mInterstitialAdSaveMe.isLoaded();
-
-                }
-            });
-        } catch (Exception e) {
-        }
-        return isLoaded[0];
+        return isLoadSaveMeInterstitial;
     }
 
     @Override
