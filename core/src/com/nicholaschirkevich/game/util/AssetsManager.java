@@ -256,6 +256,8 @@ public class AssetsManager {
         texturesMap.put(Constants.BTTN_NEXT_PRIZE_PRESSED_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BTTN_NEXT_PRIZE_PRESSED_RESOURCE))));
         texturesMap.put(Constants.BTTN_GET_BONUS_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BTTN_GET_BONUS_RESOURCE))));
         texturesMap.put(Constants.BTTN_GET_BONUS_PRESSED_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BTTN_GET_BONUS_PRESSED_RESOURCE))));
+        texturesMap.put(Constants.BUTTON_SOCIAL_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BUTTON_SOCIAL_RESOURCE))));
+        texturesMap.put(Constants.BUTTON_SOCIAL_PRESSED_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BUTTON_SOCIAL_PRESSED_RESOURCE))));
 
     //    texturesMap.put(Constants.SPEED_TEXT_ID, new TextureRegion(new Texture(Constants.SPEED_TEXT_RESOURCE)));
         texturesMap.put(Constants.SPEED_BAR_ID, new TextureRegion(new Texture(Constants.SPEED_BAR_RESOURCE)));

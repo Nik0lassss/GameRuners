@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
@@ -125,7 +126,7 @@ public class LeaderboardMenu extends Group implements ResumeButtonListener, OnGe
         menuName = new Label(GameManager.getStrings().get(Constants.LB_HEADER_TEXT), AssetsManager.getUiSkin());
         menuName.setBounds(60, GameRuners.HEIGHT / 2 - 35, menuName.getWidth(), menuName.getHeight());
         menuName.setColor(255f / 255f, 128f / 255f, 0f / 255f, 1f);
-        if(!GameManager.getLocale().equals(Constants.RU_LOCALE)) menuName.setFontScale(0.5f,0.5f);
+        if (!GameManager.getLocale().equals(Constants.RU_LOCALE)) menuName.setFontScale(0.5f, 0.5f);
 
         Image imageTitle = new Image(AssetsManager.getTextureRegion(Constants.TITLE_LEADERBOARD_RUS_ID));
         imageTitle.setBounds(10, GameRuners.HEIGHT / 2 - 35, imageTitle.getWidth(), imageTitle.getHeight());
@@ -245,7 +246,6 @@ public class LeaderboardMenu extends Group implements ResumeButtonListener, OnGe
         }
 
 
-
         setUpTabImageButton();
 
 
@@ -257,6 +257,22 @@ public class LeaderboardMenu extends Group implements ResumeButtonListener, OnGe
 
         boolean islogin = actionResolver.isFacebookLogin();
         boolean islog = actionResolver.isFacebookLogin();
+
+        setUpSocialButtons();
+    }
+
+
+    private void setUpSocialButtons() {
+
+        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+        textButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.BUTTON_SOCIAL_ID)).getDrawable();
+        textButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.BUTTON_SOCIAL_PRESSED_ID)).getDrawable();
+        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
+        TextButton buttonSocial = new TextButton("Facebook", textButtonStyle);
+        buttonSocial.getLabel().setFontScale(0.5f,0.5f);
+        buttonSocial.setPosition(20,60);
+        buttonSocial.setWidth(160);
+        table1.addActor(buttonSocial);
 
 
     }
@@ -302,7 +318,7 @@ public class LeaderboardMenu extends Group implements ResumeButtonListener, OnGe
                 actionResolver.getHighScoreFacebookFriends(onGetLidearBoards);
 
             }
-        }else {
+        } else {
             Label errorLabel = new Label(GameManager.getStrings().get(Constants.NO_INTERNET_CONNECTION_ALERT), AssetsManager.getUiSkin());
             errorLabel.setFontScale(0.5f, 0.5f);
             errorLabel.setAlignment(Align.center, Align.center);
@@ -600,7 +616,6 @@ public class LeaderboardMenu extends Group implements ResumeButtonListener, OnGe
                 table1.add(errorLabel);
                 table1.padTop(20f);
                 disableProgressBar();
-
 
 
             }

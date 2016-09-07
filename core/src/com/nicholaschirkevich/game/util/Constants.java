@@ -448,6 +448,13 @@ public class Constants {
     public static final String BUTTON_PLAY_WITH_A_FRIEND_ID = "button_play_with_a_friend";
     public static final String BUTTON_PLAY_WITH_A_FRIEND_RESOURCE = "button_play_with_a_friend.png";
 
+
+    public static final String BUTTON_SOCIAL_ID = "button_social";
+    public static final String BUTTON_SOCIAL_RESOURCE = "button_social.png";
+
+    public static final String BUTTON_SOCIAL_PRESSED_ID = "button_social_pressed";
+    public static final String BUTTON_SOCIAL_PRESSED_RESOURCE = "button_social_pressed.png";
+
     public static final String ICON_ICON_VK_ID = "icon_vk";
     public static final String ICON_ICON_VK_RESOURCE = "icon_vk.png";
 
