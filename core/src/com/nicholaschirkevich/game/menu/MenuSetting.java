@@ -406,7 +406,11 @@ public class MenuSetting extends Group implements UpdateCoinCountInterface, OnLo
                         public boolean act(float delta) {
                             if (actionResolver.isVkLogin()) {
 
-                                if (actionResolver.isAvailibleInternet()) actionResolver.vkLogout();
+                                if (actionResolver.isAvailibleInternet()) {
+                                    actionResolver.vkLogout();
+                                    inviteFriends.remove();
+                                    setUpSingInFb();
+                                }
 
                                 if (actionResolver.isAvailibleInternet()) {
                                     singInVkBttn.setText(GameManager.getStrings().get(Constants.MS_SIGN_IN_LBL));
@@ -414,9 +418,9 @@ public class MenuSetting extends Group implements UpdateCoinCountInterface, OnLo
                                 }
                             } else {
                                 if (actionResolver.isAvailibleInternet()) {
-                                    actionResolver.showVkLoginActivity();
+                                    actionResolver.showVkLoginActivity((OnLoginListenerInterface) thisGroupView);
                                     //singInFbBttn.remove();
-                                    singInVkBttn.setText(GameManager.getStrings().get(Constants.SETTINGS_VK_LOGOUT_LBL));
+                                    //singInVkBttn.setText(GameManager.getStrings().get(Constants.SETTINGS_VK_LOGOUT_LBL));
                                 }
                             }
 
@@ -462,8 +466,7 @@ public class MenuSetting extends Group implements UpdateCoinCountInterface, OnLo
 
             if (!actionResolver.isFacebookLogin()) {
                 singInFbBttn.setBounds(x, y - singInFbBttn.getHeight() / 2, buttonWidth, buttonHeight);
-            }
-            else {
+            } else {
                 float x1 = Constants.SING_IN_VK_BTTN_X_VISIBLE, y1 = Constants.SING_IN_VK_Y_VISIBLE;
                 singInFbBttn.setBounds(x1, y1 - singInFbBttn.getHeight() / 2, buttonWidth, buttonHeight);
             }
@@ -487,7 +490,7 @@ public class MenuSetting extends Group implements UpdateCoinCountInterface, OnLo
                                 inviteFriends.remove();
                                 setUpSingInVk();
                                 singInFbBttn.setX(Constants.SING_IN_FB_BTTN_X_VISIBLE);
-                                singInFbBttn.setY(Constants.SING_IN_FB_Y_VISIBLE-singInFbBttn.getHeight() / 2);
+                                singInFbBttn.setY(Constants.SING_IN_FB_Y_VISIBLE - singInFbBttn.getHeight() / 2);
                             }
                             //listener.resumeButtonOnResume();
                             return true;
@@ -514,7 +517,7 @@ public class MenuSetting extends Group implements UpdateCoinCountInterface, OnLo
             textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
             final SequenceAction sequenceAction = new SequenceAction();
 
-            inviteFriends= new TextButton(GameManager.getStrings().get(Constants.SETTINGS_VK_INVITE_FIRST_LINE) + "\n" + GameManager.getStrings().get(Constants.SETTINGS_VK_INVITE_SECOND_LINE), textButtonStyle);
+            inviteFriends = new TextButton(GameManager.getStrings().get(Constants.SETTINGS_VK_INVITE_FIRST_LINE) + "\n" + GameManager.getStrings().get(Constants.SETTINGS_VK_INVITE_SECOND_LINE), textButtonStyle);
             inviteFriends.getLabel().setFontScale(0.4f, 0.4f);
             inviteFriends.getLabel().setAlignment(Align.left, Align.left);
             inviteFriends.getLabelCell().padLeft(40f);
@@ -674,6 +677,10 @@ public class MenuSetting extends Group implements UpdateCoinCountInterface, OnLo
 
     @Override
     public void onLoginVk() {
+        singInVkBttn.setText(GameManager.getStrings().get(Constants.SETTINGS_VK_LOGOUT_LBL));
+        singInFbBttn.remove();
+        setUpInviteFriends();
+
 
     }
 }

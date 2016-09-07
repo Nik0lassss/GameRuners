@@ -120,6 +120,8 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     static final String ITEM_SKU = "android.test.purchased";
     static final String ITEM_SKU_SP = "com.example.sp000";
 
+    private OnLoginListenerInterface onLoginListenerInterface;
+
     //static final String ITEM_SKU = "com.example.sp";
 
     private String[] vkScope = new String[]{VKScope.WALL, VKScope.PHOTOS, VKScope.NOHTTPS, VKScope.PAGES};
@@ -171,7 +173,6 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
             // if continuationToken != null, call getPurchases again
             // and pass in the token to retrieve more items
         }
-
 
 
         Purchase purchase;
@@ -499,14 +500,13 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     private void startLoadSaveMeVideoInterstitial() {
         if (isAdmobOn) {
 
-                    // Request a new ad if one isn't already loaded, hide the button, and kick off the timer.
-                    if (!mInterstitialAdSaveMe.isLoading() && !mInterstitialAdSaveMe.isLoaded()) {
-                        //AdRequest adRequest = new AdRequest.Builder().addTestDevice("024E787E6EB1DF2F6E701EE93F986BA4").build();
-                        AdRequest adRequest = new AdRequest.Builder().build();
-                        mInterstitialAdSaveMe.loadAd(adRequest);
-                    }
-                }
-
+            // Request a new ad if one isn't already loaded, hide the button, and kick off the timer.
+            if (!mInterstitialAdSaveMe.isLoading() && !mInterstitialAdSaveMe.isLoaded()) {
+                //AdRequest adRequest = new AdRequest.Builder().addTestDevice("024E787E6EB1DF2F6E701EE93F986BA4").build();
+                AdRequest adRequest = new AdRequest.Builder().build();
+                mInterstitialAdSaveMe.loadAd(adRequest);
+            }
+        }
 
 
     }
@@ -516,13 +516,12 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         if (isAdmobOn) {
 
 
-                    if (!interstitialGetBonus.isLoading() && !interstitialGetBonus.isLoaded()) {
-                        //AdRequest adRequest = new AdRequest.Builder().addTestDevice("024E787E6EB1DF2F6E701EE93F986BA4").build();
-                        AdRequest adRequest = new AdRequest.Builder().build();
-                        interstitialGetBonus.loadAd(adRequest);
-                    }
-                }
-
+            if (!interstitialGetBonus.isLoading() && !interstitialGetBonus.isLoaded()) {
+                //AdRequest adRequest = new AdRequest.Builder().addTestDevice("024E787E6EB1DF2F6E701EE93F986BA4").build();
+                AdRequest adRequest = new AdRequest.Builder().build();
+                interstitialGetBonus.loadAd(adRequest);
+            }
+        }
 
 
     }
@@ -619,12 +618,16 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 //            }
 //        });
 //
-//        lastInternetState=isAvailibleInternet();
-        if(!isAvailibleInternet())
-               {
-                  isLoadGetBonusInterstitial=false;
-                    isLoadSaveMeInterstitial = false;
-                }
+
+        if (!isAvailibleInternet()) {
+            isLoadGetBonusInterstitial = false;
+            isLoadSaveMeInterstitial = false;
+        }
+        if (lastInternetState != isAvailibleInternet() && isAvailibleInternet()) {
+            isLoadGetBonusInterstitial = true;
+            isLoadSaveMeInterstitial = true;
+        }
+        lastInternetState = isAvailibleInternet();
     }
 
     @Override
@@ -639,8 +642,9 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
 
     @Override
-    public void showVkLoginActivity() {
+    public void showVkLoginActivity(OnLoginListenerInterface thisGroupView) {
 
+        this.onLoginListenerInterface = thisGroupView;
         VKSdk.login(getActivity(), vkScope);
     }
 
@@ -936,6 +940,11 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                     .build();
             AppInviteDialog.show(getActivity(), content);
         }
+    }
+
+    @Override
+    public void onVkLogin() {
+        onLoginListenerInterface.onLoginVk();
     }
 
 

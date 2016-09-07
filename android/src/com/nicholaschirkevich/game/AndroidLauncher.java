@@ -55,6 +55,7 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
             public void onResult(VKAccessToken res) {
                 VKRequest currentRequest = VKApi.users().get(VKParameters.from(VKApiConst.USER_IDS, res.userId, VKApiConst.FIELDS, getString(R.string.vk_api_fileds_get_users_query)));
 
+                gameFragment.onVkLogin();
                 currentRequest.executeWithListener(new VKRequest.VKRequestListener() {
                     @Override
                     public void onComplete(VKResponse response) {

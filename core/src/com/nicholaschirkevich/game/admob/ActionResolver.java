@@ -22,7 +22,7 @@ public interface ActionResolver {
 
     boolean getAdmobStatus();
     void setAdmobStatus(boolean statusAdMob);
-    void showVkLoginActivity();
+    void showVkLoginActivity(OnLoginListenerInterface onLoginListenerInterface);
     void getVkStatusLogin();
     void vkLogout();
     void sendPostOnVk();
@@ -50,5 +50,6 @@ public interface ActionResolver {
     void singOutFb(OnLoginListenerInterface onLoginListenerInterface);
     void showInviteFacebook();
 
+    void onVkLogin();
 
 }
