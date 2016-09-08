@@ -14,7 +14,7 @@
         </type>
         <en>Speedy Road
         </en>
-        <ru>Speedy Road
+        <ru>Speedy Roads
         </ru>
     </string>
     <string>
@@ -467,12 +467,12 @@
     <string><id>leaderboard_load_error_text	</id><type>text</type><en>	We can't load leaderboard \n now</en><ru>	Рекорды игроков \n сейчас недоступны</ru> </string>
     <string><id>leaderboard_friends_text</id><type>	text</type><en>	Friends</en><ru>	Друзья</ru> </string>
     <string><id>leaderboard_global_text</id><type>	text</type><en>	Global</en><ru>	Все</ru> </string>
-    <string><id>leaderboard_login_facebook_text</id><type>	text	</type><en>Sign in Facebook</en><ru>	Войти в Facebook</ru> </string>
+    <string><id>leaderboard_login_facebook_text</id><type>	text	</type><en>Sign in \n Facebook</en><ru>	Войти в \n Facebook</ru> </string>
     <string><id>leaderboard_invite_text</id><type>	text</type><en>	Invite friends</en><ru>	Пригласить друга</ru> </string>
     <string><id>go_play_with_friend_btn	</id><type>text</type><en>	Play with friends</en><ru>	Играть с друзьями</ru> </string>
     <string><id>go_play_with_friend_2_btn</id><type>	text</type><en>	Play \n online</en><ru>	Играть \n онлайн</ru> </string>
     <string><id>go_play_with_friend_3_btn</id><type>	text</type><en>	Challenge mode</en><ru>	Бросить вызов</ru> </string>
-    <string><id> ms_sign_in_lbl</id><type>	text</type><en>	Sing in</en><ru>	Войти</ru> </string>
+    <string><id> ms_sign_in_lbl</id><type>	text</type><en>	Sign in</en><ru>	Войти</ru> </string>
     <string><id>ms_vk_lbl	</id><type>text</type><en>	VK</en><ru>	VK</ru> </string>
     <string><id>ms_f_lbl	</id><type>text</type><en>	Facebook	</en><ru>Facebook</ru> </string>
     <string><id>mp_unknow_lbl</id><type>	text</type><en>	Unknown</en><ru>	Неизвестно</ru> </string>

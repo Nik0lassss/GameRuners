@@ -1196,6 +1196,8 @@ public class Constants {
     public static final String LEADERBOARD_FRIENDS_TEXT = "leaderboard_friends_text";
     public static final String LEADERBOARD_GLOBAL_TEXT = "leaderboard_global_text";
     public static final String LEADERBOARD_INVITE_TEXT = "leaderboard_invite_text";
+    public static final String LEADERBOARD_LOGIN_FACEBOOK_TEXT = "leaderboard_login_facebook_text";
+    public static final String LEADERBOARD_LOGIN_VK_TEXT = "leaderboard_login_vk_text";
 
 
 

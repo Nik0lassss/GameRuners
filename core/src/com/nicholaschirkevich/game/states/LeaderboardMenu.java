@@ -268,14 +268,30 @@ public class LeaderboardMenu extends Group implements ResumeButtonListener, OnGe
         textButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.BUTTON_SOCIAL_ID)).getDrawable();
         textButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.BUTTON_SOCIAL_PRESSED_ID)).getDrawable();
         textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
-        TextButton buttonSocial = new TextButton("Facebook", textButtonStyle);
+        TextButton buttonSocial = new TextButton(GameManager.getStrings().get(Constants.LEADERBOARD_LOGIN_FACEBOOK_TEXT), textButtonStyle);
         buttonSocial.getLabel().setFontScale(0.5f,0.5f);
-        buttonSocial.setPosition(20,60);
-        buttonSocial.setWidth(160);
+        buttonSocial.setPosition(10,50);
+        buttonSocial.setHeight(60);
+        buttonSocial.setWidth(130);
         table1.addActor(buttonSocial);
+
+        TextButton.TextButtonStyle textButtonFacebookStyle = new TextButton.TextButtonStyle();
+        textButtonFacebookStyle.up = new Image(AssetsManager.getTextureRegion(Constants.BUTTON_SOCIAL_ID)).getDrawable();
+        textButtonFacebookStyle.down = new Image(AssetsManager.getTextureRegion(Constants.BUTTON_SOCIAL_PRESSED_ID)).getDrawable();
+        textButtonFacebookStyle.font = AssetsManager.getUiSkin().getFont("default-font");
+        TextButton buttonVkSocial = new TextButton(GameManager.getStrings().get(Constants.LEADERBOARD_LOGIN_VK_TEXT), textButtonFacebookStyle);
+        buttonVkSocial.getLabel().setFontScale(0.5f,0.5f);
+        buttonVkSocial.setPosition(160, 50);
+        buttonVkSocial.setHeight(60);
+        buttonVkSocial.setWidth(130);
+        table1.addActor(buttonVkSocial);
+
 
 
     }
+
+
+
 
 
     private void getHighscoresVkFriends(final OnGetLidearBoards onGetLidearBoards) {
