@@ -23,6 +23,7 @@ import com.nicholaschirkevich.game.entity.LeaderboardEntity;
 import com.nicholaschirkevich.game.entity.VkUser;
 import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
 import com.nicholaschirkevich.game.listeners.OnGetLidearBoards;
+import com.nicholaschirkevich.game.listeners.OnLoginListenerInterface;
 import com.nicholaschirkevich.game.menu.RecordRectangle;
 import com.nicholaschirkevich.game.menu.customview.ScrollPanCustom;
 import com.nicholaschirkevich.game.util.AssetsManager;
@@ -36,7 +37,7 @@ import java.util.ArrayList;
 /**
  * Created by Nikolas on 10.03.2016.
  */
-public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLidearBoards {
+public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLidearBoards, OnLoginListenerInterface {
     private OrthographicCamera camera;
     private Texture cnr_line, backgroung_texture, backButtonTextureDown, backButtonTextureUp;
     private Image image, backgroung_image, backButtonImageDown, backButtonImageUp;
@@ -68,9 +69,88 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
 
     private RecordsLeaderBoardAdapter recordAdapter;
 
+    @Override
+    public void onLoginFb() {
+        table1.clear();
+        table1.padTop(0);
+        if (actionResolver.isVkLogin()) {
+            getHighscoresVkFriends(this);
+        } else if (actionResolver.isFacebookLogin()) {
+            getHighscoresFacebookFriends(this);
+        } else {
+            Label errorLabel = new Label(GameManager.getStrings().get(Constants.MP_POP_UP_TEXT), AssetsManager.getUiSkin());
+            errorLabel.setFontScale(0.5f, 0.5f);
+            errorLabel.setAlignment(Align.center, Align.center);
+            table1.add(errorLabel);
+            table1.padTop(20f);
+            disableProgressBar();
+        }
+    }
+
+    @Override
+    public void onLoginVk() {
+        table1.clear();
+        table1.padTop(0);
+        if (actionResolver.isVkLogin()) {
+            getHighscoresVkFriends(this);
+        } else if (actionResolver.isFacebookLogin()) {
+            getHighscoresFacebookFriends(this);
+        } else {
+            Label errorLabel = new Label(GameManager.getStrings().get(Constants.MP_POP_UP_TEXT), AssetsManager.getUiSkin());
+            errorLabel.setFontScale(0.5f, 0.5f);
+            errorLabel.setAlignment(Align.center, Align.center);
+            table1.add(errorLabel);
+            table1.padTop(20f);
+            disableProgressBar();
+        }
+    }
+
     class HighScoreItem extends Group {
         private TextButton inviteFriend;
         ScrollPanCustom pane1;
+
+        private void setUpSocialButtons() {
+
+            TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+            textButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.BUTTON_SOCIAL_ID)).getDrawable();
+            textButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.BUTTON_SOCIAL_PRESSED_ID)).getDrawable();
+            textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
+            TextButton buttonSocial = new TextButton(GameManager.getStrings().get(Constants.LEADERBOARD_LOGIN_FACEBOOK_TEXT), textButtonStyle);
+            buttonSocial.getLabel().setFontScale(0.45f, 0.45f);
+            buttonSocial.setPosition(10, 5);
+            buttonSocial.setHeight(60);
+            buttonSocial.setWidth(130);
+            buttonSocial.addListener(new ClickListener() {
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    super.touchDown(event, x, y, pointer, button);
+                    actionResolver.singInFb(thisView);
+                    return true;
+                }
+            });
+            addActor(buttonSocial);
+
+            TextButton.TextButtonStyle textButtonFacebookStyle = new TextButton.TextButtonStyle();
+            textButtonFacebookStyle.up = new Image(AssetsManager.getTextureRegion(Constants.BUTTON_SOCIAL_ID)).getDrawable();
+            textButtonFacebookStyle.down = new Image(AssetsManager.getTextureRegion(Constants.BUTTON_SOCIAL_PRESSED_ID)).getDrawable();
+            textButtonFacebookStyle.font = AssetsManager.getUiSkin().getFont("default-font");
+            TextButton buttonVkSocial = new TextButton(GameManager.getStrings().get(Constants.LEADERBOARD_LOGIN_VK_TEXT), textButtonFacebookStyle);
+            buttonVkSocial.getLabel().setFontScale(0.45f, 0.45f);
+            buttonVkSocial.setPosition(160, 5);
+            buttonVkSocial.setHeight(60);
+            buttonVkSocial.setWidth(130);
+            buttonVkSocial.addListener(new ClickListener() {
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    super.touchDown(event, x, y, pointer, button);
+                    actionResolver.showVkLoginActivity(thisView);
+                    return true;
+                }
+            });
+            addActor(buttonVkSocial);
+
+            pane1.setY(buttonVkSocial.getY() + buttonVkSocial.getPrefHeight());
+        }
 
         public void setUpInviteButton() {
             TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
@@ -96,7 +176,11 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
                     return super.touchDown(event, x, y, pointer, button);
                 }
             });
-            addActor(inviteFriend);
+            if (actionResolver.isVkLogin() || actionResolver.isFacebookLogin())
+                addActor(inviteFriend);
+            else{
+                setUpSocialButtons();
+            }
         }
 
         public void setUpPane(ScrollPanCustom scrollPane) {
@@ -126,10 +210,11 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
     public RecordsMenu(GameStateManager gsm, ActionResolver actionResolver, Group parentView) {
 
 
+        this.actionResolver = actionResolver;
         menuName = new Label(GameManager.getStrings().get(Constants.LB_HEADER_TEXT), AssetsManager.getUiSkin());
         menuName.setBounds(60, GameRuners.HEIGHT / 2 - 35, menuName.getWidth(), menuName.getHeight());
         menuName.setColor(255f / 255f, 128f / 255f, 0f / 255f, 1f);
-        if(!GameManager.getLocale().equals(Constants.RU_LOCALE)) menuName.setFontScale(0.8f,0.8f);
+        if (!GameManager.getLocale().equals(Constants.RU_LOCALE)) menuName.setFontScale(0.8f, 0.8f);
         Image imageTitle = new Image(AssetsManager.getTextureRegion(Constants.TITLE_LEADERBOARD_RUS_ID));
         imageTitle.setBounds(10, GameRuners.HEIGHT / 2 - 35, imageTitle.getWidth(), imageTitle.getHeight());
 
@@ -147,7 +232,7 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
         pane1.setScrollingDisabled(true, false);
 
 
-        mytable.add(highScoreItem).size(GameRuners.WIDTH / 2 - 22, GameRuners.HEIGHT / 2 - 210).top();
+        mytable.add(highScoreItem).size(GameRuners.WIDTH / 2 - 22, GameRuners.HEIGHT / 2 - 210);
         mytable.add(pane2).size(GameRuners.WIDTH / 2 - 22, GameRuners.HEIGHT / 2 - 210);
 
 
@@ -244,6 +329,7 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
             table1.add(errorLabel);
             table1.padTop(120f);
             disableProgressBar();
+
         }
 //        getHighscoresVkFriends(this);
 
@@ -303,7 +389,7 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
                 actionResolver.getHighScoreFacebookFriends(onGetLidearBoards);
                 System.out.println("  actionResolver.getHighscoresVkFriends(onGetLidearBoards);");
             }
-        }else {
+        } else {
             Label errorLabel = new Label(GameManager.getStrings().get(Constants.NO_INTERNET_CONNECTION_ALERT), AssetsManager.getUiSkin());
             errorLabel.setFontScale(0.5f, 0.5f);
             errorLabel.setAlignment(Align.center, Align.center);
@@ -603,6 +689,9 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
             }
         });
     }
+
+
+
 
 
     @Override

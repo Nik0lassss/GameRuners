@@ -24,6 +24,7 @@ import com.nicholaschirkevich.game.entity.LeaderboardEntity;
 import com.nicholaschirkevich.game.entity.VkUser;
 import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
 import com.nicholaschirkevich.game.listeners.OnGetLidearBoards;
+import com.nicholaschirkevich.game.listeners.OnLoginListenerInterface;
 import com.nicholaschirkevich.game.menu.RecordRectangle;
 import com.nicholaschirkevich.game.menu.customview.ScrollPanCustom;
 import com.nicholaschirkevich.game.util.AssetsManager;
@@ -37,7 +38,7 @@ import java.util.ArrayList;
 /**
  * Created by Nikolas on 10.03.2016.
  */
-public class LeaderboardMenu extends Group implements ResumeButtonListener, OnGetLidearBoards {
+public class LeaderboardMenu extends Group implements ResumeButtonListener, OnGetLidearBoards,OnLoginListenerInterface {
     public static final String DEFAULT_FONT = "default-font";
     private OrthographicCamera camera;
     private Texture cnr_line, backgroung_texture, backButtonTextureDown, backButtonTextureUp;
@@ -69,6 +70,42 @@ public class LeaderboardMenu extends Group implements ResumeButtonListener, OnGe
     private boolean updateScrollLeaderboards = false;
 
     private RecordsLeaderBoardAdapter recordAdapter;
+
+    @Override
+    public void onLoginFb() {
+        table1.clear();
+        table1.padTop(0);
+        if (actionResolver.isVkLogin()) {
+            getHighscoresVkFriends(this);
+        } else if (actionResolver.isFacebookLogin()) {
+            getHighscoresFacebookFriends(this);
+        } else {
+            Label errorLabel = new Label(GameManager.getStrings().get(Constants.MP_POP_UP_TEXT), AssetsManager.getUiSkin());
+            errorLabel.setFontScale(0.5f, 0.5f);
+            errorLabel.setAlignment(Align.center, Align.center);
+            table1.add(errorLabel);
+            table1.padTop(20f);
+            disableProgressBar();
+        }
+    }
+
+    @Override
+    public void onLoginVk() {
+        table1.clear();
+        table1.padTop(0);
+        if (actionResolver.isVkLogin()) {
+            getHighscoresVkFriends(this);
+        } else if (actionResolver.isFacebookLogin()) {
+            getHighscoresFacebookFriends(this);
+        } else {
+            Label errorLabel = new Label(GameManager.getStrings().get(Constants.MP_POP_UP_TEXT), AssetsManager.getUiSkin());
+            errorLabel.setFontScale(0.5f, 0.5f);
+            errorLabel.setAlignment(Align.center, Align.center);
+            table1.add(errorLabel);
+            table1.padTop(20f);
+            disableProgressBar();
+        }
+    }
 
     class HighScoreItem extends Group {
         private TextButton inviteFriend;
@@ -243,6 +280,7 @@ public class LeaderboardMenu extends Group implements ResumeButtonListener, OnGe
             table1.add(errorLabel);
             table1.padTop(20f);
             disableProgressBar();
+            setUpSocialButtons();
         }
 
 
@@ -258,7 +296,7 @@ public class LeaderboardMenu extends Group implements ResumeButtonListener, OnGe
         boolean islogin = actionResolver.isFacebookLogin();
         boolean islog = actionResolver.isFacebookLogin();
 
-        setUpSocialButtons();
+
     }
 
 
@@ -269,10 +307,18 @@ public class LeaderboardMenu extends Group implements ResumeButtonListener, OnGe
         textButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.BUTTON_SOCIAL_PRESSED_ID)).getDrawable();
         textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
         TextButton buttonSocial = new TextButton(GameManager.getStrings().get(Constants.LEADERBOARD_LOGIN_FACEBOOK_TEXT), textButtonStyle);
-        buttonSocial.getLabel().setFontScale(0.5f,0.5f);
-        buttonSocial.setPosition(10,50);
+        buttonSocial.getLabel().setFontScale(0.45f, 0.45f);
+        buttonSocial.setPosition(10, 40);
         buttonSocial.setHeight(60);
         buttonSocial.setWidth(130);
+        buttonSocial.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                super.touchDown(event, x, y, pointer, button);
+                actionResolver.singInFb(thisView);
+                return true;
+            }
+        });
         table1.addActor(buttonSocial);
 
         TextButton.TextButtonStyle textButtonFacebookStyle = new TextButton.TextButtonStyle();
@@ -280,10 +326,18 @@ public class LeaderboardMenu extends Group implements ResumeButtonListener, OnGe
         textButtonFacebookStyle.down = new Image(AssetsManager.getTextureRegion(Constants.BUTTON_SOCIAL_PRESSED_ID)).getDrawable();
         textButtonFacebookStyle.font = AssetsManager.getUiSkin().getFont("default-font");
         TextButton buttonVkSocial = new TextButton(GameManager.getStrings().get(Constants.LEADERBOARD_LOGIN_VK_TEXT), textButtonFacebookStyle);
-        buttonVkSocial.getLabel().setFontScale(0.5f,0.5f);
-        buttonVkSocial.setPosition(160, 50);
+        buttonVkSocial.getLabel().setFontScale(0.45f,0.45f);
+        buttonVkSocial.setPosition(160, 40);
         buttonVkSocial.setHeight(60);
         buttonVkSocial.setWidth(130);
+        buttonVkSocial.addListener(new ClickListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+               super.touchDown(event, x, y, pointer, button);
+                actionResolver.showVkLoginActivity(thisView);
+                return true;
+            }
+        });
         table1.addActor(buttonVkSocial);
 
 
