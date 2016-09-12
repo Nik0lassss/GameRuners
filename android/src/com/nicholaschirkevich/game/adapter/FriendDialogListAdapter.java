@@ -101,7 +101,7 @@ public class FriendDialogListAdapter extends BaseAdapter {
                     @Override
                     public void onError(VKError error) {
                         super.onError(error);
-                        Toast.makeText(context, error.toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(context,error.apiError.errorMessage, Toast.LENGTH_LONG).show();
                     }
                 });
 

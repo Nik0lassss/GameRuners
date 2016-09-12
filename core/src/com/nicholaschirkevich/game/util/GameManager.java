@@ -248,10 +248,10 @@ public class GameManager {
 
     private static boolean isTouchControl;
 
-    private static Label label;
-    private static Label timeLabel;
-    private static Label stageChild;
-    private static Label worldChild;
+//    private static Label label;
+//    private static Label timeLabel;
+//    private static Label stageChild;
+//    private static Label worldChild;
 
     private static World worldGameManager;
     private static Stage stageGameManager;
@@ -334,10 +334,10 @@ public class GameManager {
     public static void initial(World world, Stage stage) {
         worldGameManager = world;
         stageGameManager = stage;
-        setUpLabetDebug();
-        setUpTimeLabetDebug();
-        setUpWorldChildLabetDebug();
-        setUpStageChildLabetDebug();
+//        setUpLabetDebug();
+//        setUpTimeLabetDebug();
+//        setUpWorldChildLabetDebug();
+//        setUpStageChildLabetDebug();
         setUpRoadsHashMap();
     }
 
@@ -742,10 +742,10 @@ public class GameManager {
         if (currentSpeed < toSpeed) currentSpeed = currentSpeed + 1f;
         if (isCollision) currentSpeed = collisionSpeed;
         GameManager.setCurrentSpeed(currentSpeed);
-        label.setText(String.valueOf(currentSpeed));
-        timeLabel.setText(String.valueOf(allTime));
-        stageChild.setText("stageChild " + String.valueOf(stageGameManager.getActors().size));
-        worldChild.setText("worldChild " + String.valueOf(worldGameManager.getBodyCount()));
+//        label.setText(String.valueOf(currentSpeed));
+//        timeLabel.setText(String.valueOf(allTime));
+//        stageChild.setText("stageChild " + String.valueOf(stageGameManager.getActors().size));
+//        worldChild.setText("worldChild " + String.valueOf(worldGameManager.getBodyCount()));
         // System.out.println("Gear "+gear);
         if (dtTime > gearShift.getTimes().get(gear)) {
 
@@ -771,21 +771,21 @@ public class GameManager {
         }
     }
 
-    public static void setUpLabetDebug() {
+//    public static void setUpLabetDebug() {
+//
+//        label = new Label("0", AssetsManager.getUiSkin());
+//        label.setFontScale(0.5f, 0.5f);
+//        label.setBounds(GameRuners.WIDTH / 2 - 60, GameRuners.HEIGHT / 2 - 60, label.getWidth(), label.getHeight());
+//        stageGameManager.addActor(label);
+//    }
 
-        label = new Label("0", AssetsManager.getUiSkin());
-        label.setFontScale(0.5f, 0.5f);
-        label.setBounds(GameRuners.WIDTH / 2 - 60, GameRuners.HEIGHT / 2 - 60, label.getWidth(), label.getHeight());
-        stageGameManager.addActor(label);
-    }
-
-    public static void setUpTimeLabetDebug() {
-
-        timeLabel = new Label("0", AssetsManager.getUiSkin());
-        timeLabel.setFontScale(0.5f, 0.5f);
-        timeLabel.setBounds(GameRuners.WIDTH / 2 - 60, GameRuners.HEIGHT / 2 - 80, label.getWidth(), label.getHeight());
-        stageGameManager.addActor(timeLabel);
-    }
+//    public static void setUpTimeLabetDebug() {
+//
+//        timeLabel = new Label("0", AssetsManager.getUiSkin());
+//        timeLabel.setFontScale(0.5f, 0.5f);
+//        timeLabel.setBounds(GameRuners.WIDTH / 2 - 60, GameRuners.HEIGHT / 2 - 80, label.getWidth(), label.getHeight());
+//        stageGameManager.addActor(timeLabel);
+//    }
 
     public static void setDefaultSpeed() {
         isCollision = false;
@@ -796,21 +796,21 @@ public class GameManager {
 
     }
 
-    public static void setUpWorldChildLabetDebug() {
+//    public static void setUpWorldChildLabetDebug() {
+//
+//        worldChild = new Label("0", AssetsManager.getUiSkin());
+//        worldChild.setFontScale(0.35f, 0.35f);
+//        worldChild.setBounds(GameRuners.WIDTH / 2 - 110, GameRuners.HEIGHT / 2 - 100, label.getWidth(), label.getHeight());
+//        stageGameManager.addActor(worldChild);
+//    }
 
-        worldChild = new Label("0", AssetsManager.getUiSkin());
-        worldChild.setFontScale(0.35f, 0.35f);
-        worldChild.setBounds(GameRuners.WIDTH / 2 - 110, GameRuners.HEIGHT / 2 - 100, label.getWidth(), label.getHeight());
-        stageGameManager.addActor(worldChild);
-    }
-
-    public static void setUpStageChildLabetDebug() {
-
-        stageChild = new Label("0", AssetsManager.getUiSkin());
-        stageChild.setFontScale(0.35f, 0.35f);
-        stageChild.setBounds(GameRuners.WIDTH / 2 - 110, GameRuners.HEIGHT / 2 - 120, label.getWidth(), label.getHeight());
-        stageGameManager.addActor(stageChild);
-    }
+//    public static void setUpStageChildLabetDebug() {
+//
+//        stageChild = new Label("0", AssetsManager.getUiSkin());
+//        stageChild.setFontScale(0.35f, 0.35f);
+//        stageChild.setBounds(GameRuners.WIDTH / 2 - 110, GameRuners.HEIGHT / 2 - 120, label.getWidth(), label.getHeight());
+//        stageGameManager.addActor(stageChild);
+//    }
 
 
     public static Integer getCoinCounter() {

@@ -6,11 +6,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.badlogic.gdx.backends.android.AndroidFragmentApplication;
-import com.facebook.CallbackManager;
 import com.nicholaschirkevich.game.entity.VkUser;
 import com.nicholaschirkevich.game.fragment.FragmentAdmob;
 import com.nicholaschirkevich.game.util.GameManager;
@@ -26,7 +23,6 @@ import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
 import com.vk.sdk.api.model.VKApiUserFull;
 import com.vk.sdk.api.model.VKList;
-import com.vk.sdk.util.VKUtil;
 
 
 public class AndroidLauncher extends FragmentActivity implements AndroidFragmentApplication.Callbacks {

@@ -481,10 +481,10 @@
     <string><id>push_3</id><type>	text</type><en>	You won! One more time?</en><ru>	Ты выиграл! Ещё раз?</ru> </string>
     <string><id>push_4</id><type>	text</type><en>	Sorry, you lost the game! Rematch?	</en><ru>К сожалению, ты проиграл! Реванш?</ru> </string>
     <string><id>push_5</id><type>	text</type><en>	Draw! One more time?</en><ru>	Ничья! Ещё раз?</ru> </string>
-    <string><id>go_your_lbl	</id><type>text</type><en>	Your score	</en><ru>Твои</ru> </string>
+    <string><id>go_your_lbl	</id><type>text</type><en>	Your</en><ru>Твои</ru> </string>
     <string><id>go_destroyed_lbl</id><type>	text</type><en>	Destroyed</en><ru>	Уничтоженно</ru> </string>
-    <string><id>go_spring_board_lbl</id><type>	text</type><en>	Springboard</en><ru>	Трамплин</ru> </string>
-    <string><id>go_god_mod_lbl</id><type>	text</type><en>	Insane</en><ru>	Безумие</ru> </string>
+    <string><id>go_spring_board_lbl</id><type>	text</type><en>	Spring board</en><ru>	Трамплин</ru> </string>
+    <string><id>go_god_mod_lbl</id><type>	text</type><en>	God mod</en><ru>	Безумие</ru> </string>
     <string><id>go_dangerous_lbl</id><type>	text</type><en>	Dangerous</en><ru>На грани</ru> </string>
     <string><id>go_drift_lbl</id><type>	text</type><en>	Drift</en><ru>	Дрифт</ru> </string>
     <string><id>go_destroyed_lbl</id><type>	text</type><en>	Destroyed</en><ru>	Уничтожено</ru> </string>
