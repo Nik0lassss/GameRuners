@@ -646,6 +646,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
         this.onLoginListenerInterface = thisGroupView;
         VKSdk.login(getActivity(), vkScope);
+
     }
 
     @Override

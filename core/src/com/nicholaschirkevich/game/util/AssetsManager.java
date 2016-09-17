@@ -259,6 +259,12 @@ public class AssetsManager {
         texturesMap.put(Constants.BUTTON_SOCIAL_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BUTTON_SOCIAL_RESOURCE))));
         texturesMap.put(Constants.BUTTON_SOCIAL_PRESSED_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BUTTON_SOCIAL_PRESSED_RESOURCE))));
 
+        texturesMap.put(Constants.BTTN_SHARE_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BTTN_SHARE_RESOURCE))));
+        texturesMap.put(Constants.BTTN_SHARE_PRSSD_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BTTN_SHARE_PRSSD_RESOURCE))));
+        texturesMap.put(Constants.BUTTON_BACK_PRSSD_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BUTTON_BACK_PRSSD_RESOURCE))));
+        texturesMap.put(Constants.BUTTON_BACK_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BUTTON_BACK_RESOURCE))));
+        texturesMap.put(Constants.CONE_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.CONE_RESOURCE))));
+
     //    texturesMap.put(Constants.SPEED_TEXT_ID, new TextureRegion(new Texture(Constants.SPEED_TEXT_RESOURCE)));
         texturesMap.put(Constants.SPEED_BAR_ID, new TextureRegion(new Texture(Constants.SPEED_BAR_RESOURCE)));
         texturesMap.put(Constants.DELIMITER_ID, new TextureRegion(new Texture(Constants.DELIMITER_RESOURCE)));

@@ -23,6 +23,7 @@ import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
 import com.vk.sdk.api.model.VKApiUserFull;
 import com.vk.sdk.api.model.VKList;
+import com.vk.sdk.util.VKUtil;
 
 
 public class AndroidLauncher extends FragmentActivity implements AndroidFragmentApplication.Callbacks {
@@ -35,7 +36,6 @@ public class AndroidLauncher extends FragmentActivity implements AndroidFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
         gameFragment = new FragmentAdmob();
-
         FragmentTransaction tr = getSupportFragmentManager().beginTransaction();
         tr.replace(R.id.GameView, gameFragment, "FragmentAdmob");
         tr.commit();

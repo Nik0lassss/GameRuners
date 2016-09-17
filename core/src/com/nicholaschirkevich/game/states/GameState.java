@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
@@ -22,6 +23,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.BufferUtils;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.actions.Landing;
@@ -215,6 +218,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     public static final int DEFAULT_MOVE_TUTORIAL_BLOCK = 10;
     private GameState gameState;
     MyCar myCar;
+    private boolean getScreenShot = false;
 
     NewRoad roadNew;
     EffectBooster effectBooster;
@@ -229,6 +233,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
     private boolean isFirstStart = false;
     private boolean isFirstStartUpdateCars = false;
+
 
     ArrayList<PasserCar> passerCars;
 
@@ -813,6 +818,9 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                 } else collisionCameraMoveLeft = true;
             }
         }
+        else {
+            camera.position.x = 160;
+        }
 
 
         for (PasserCar passerCar : passerCars) {
@@ -1200,8 +1208,10 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
             }
 
             if (isFirstStart) {
-                if (GameManager.getAllTime() > FIRST_START_TUTORIAL_DURATION){ isFirstStart = false;
-                isFirstStartUpdateCars = false;}
+                if (GameManager.getAllTime() > FIRST_START_TUTORIAL_DURATION) {
+                    isFirstStart = false;
+                    isFirstStartUpdateCars = false;
+                }
             }
 
 
@@ -1346,7 +1356,9 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                     } else {
 
                         isMyCarCollision = false;
-                        stage.addActor(new MenuGameOver(gsm, this, actionResolver));
+                        //stage.addActor(new MenuGameOver(gsm, this, actionResolver));
+
+                        getScreenShot = true;
                         labelAchives.setVisible(false);
                         labelCoinCount.setVisible(false);
                         imageButton.setVisible(false);
@@ -1379,7 +1391,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                         ToastHelper.resetToasts();
                     } else {
                         ToastHelper.resetToasts();
-                        stage.addActor(new MenuGameOver(gsm, this, actionResolver));
+                        getScreenShot = true;
+                        //stage.addActor(new MenuGameOver(gsm, this, actionResolver));
                         labelAchives.setVisible(false);
                         labelCoinCount.setVisible(false);
                         imageButton.setVisible(false);
@@ -1528,6 +1541,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
 //
 
+
+
         if (isAutoTurn || isZoomCarUpdate) {
 
             effectBooster.draw(sb);
@@ -1653,7 +1668,6 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         }
 
         if (GameManager.isCollisionWithCar()) {
-
             GameManager.setIsCollisionWithCar(false);
 
         }
@@ -1693,6 +1707,13 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
 
         stage.draw();
+        if (getScreenShot) {
+            int screenShotWidth =360;
+            int screenShotHeight = 380;
+            byte[] pixels = ScreenUtils.getFrameBufferPixels(60, 90, screenShotWidth, screenShotHeight, true);
+            stage.addActor(new NewRecordShareState(gsm, actionResolver, pixels, screenShotWidth, screenShotHeight));
+            getScreenShot = false;
+        }
         sb.end();
     }
 
@@ -1889,6 +1910,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
             collisionCameraMove = true;
             AssetsManager.playSound(Constants.SOUND_CRASH_2);
             Array<Action> actions = myCar.getActions();
+
+
             for (Action action : actions) {
                 myCar.removeAction(action);
             }
@@ -1936,6 +1959,8 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
     @Override
     public void onBlockCollision() {
         if (!isMyCarCollisionWithBlocks) {
+
+
             Array<Action> actions = myCar.getActions();
             for (Action action : actions) {
                 myCar.removeAction(action);

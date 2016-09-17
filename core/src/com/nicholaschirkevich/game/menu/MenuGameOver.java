@@ -21,12 +21,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
 import com.nicholaschirkevich.game.states.GameState;
 import com.nicholaschirkevich.game.states.GameStateManager;
 import com.nicholaschirkevich.game.states.CarShopState;
+import com.nicholaschirkevich.game.states.NewRecordShareState;
 import com.nicholaschirkevich.game.util.AssetsManager;
 import com.nicholaschirkevich.game.util.Constants;
 import com.nicholaschirkevich.game.util.GameManager;
@@ -138,6 +140,7 @@ public class MenuGameOver extends Group {
                 AssetsManager.playSound(Constants.SOUND_CLICK);
 
                 getStage().addActor(new MenuGameOverTotal(gsm, resumeButtonListener, actionResolver));
+
                 remove();
 
                 return true;

@@ -28,7 +28,8 @@ public class Constants {
     public static final float CAR_POS_X_LEFT = 120;
     public static final float CAR_POS_X_RIGHT = 215;
     public static final float CAR_CENTER_X = 130;
-    public static final float CAR_POS_Y = -90;
+    //public static final float CAR_POS_Y = -90;
+    public static final float CAR_POS_Y = 250;
     public static final float CAR_TURN_SPEED = 0;
     public static final float CAR_SPEED = 0;
     public static final float PIXELS_TO_METERS = 1;
@@ -71,6 +72,25 @@ public class Constants {
     public static final String MAIN_MENU_WIN_PRIZE_UP_ID = "button_win_a_prize";
     public static final String MAIN_MENU_WIN_PRIZE_PRESSED_RESOURCE = "button_win_a_prize_pressed.png";
     public static final String MAIN_MENU_WIN_PRIZE_UP_RESOURCE = "button_win_a_prize.png";
+
+
+
+
+
+    public static final String BTTN_SHARE_ID = "bttn_share";
+    public static final String BTTN_SHARE_RESOURCE = "bttn_share.png";
+
+    public static final String BTTN_SHARE_PRSSD_ID = "bttn_share_prssd";
+    public static final String BTTN_SHARE_PRSSD_RESOURCE = "bttn_share_prssd.png";
+
+    public static final String BUTTON_BACK_PRSSD_ID = "button_back_prssd";
+    public static final String BUTTON_BACK_PRSSD_RESOURCE = "button_back_prssd.png";
+
+    public static final String BUTTON_BACK_ID = "button_back";
+    public static final String BUTTON_BACK_RESOURCE = "button_back.png";
+
+    public static final String CONE_ID = "cone";
+    public static final String CONE_RESOURCE = "cone.png";
 
 
 
@@ -277,7 +297,7 @@ public class Constants {
 
     public static final String COIN_ICON_2_ID = "coin_icon_2";
     public static final String COIN_ICON_2_RESOURCE = "coin_icon_2.png";
-    
+
     public static final String MY_CAR_ASSETS_ID = "my_car";
     public static final String OTHERCAR_1_1_ASSETS_ID = "other_car_1_1";
     public static final String OTHERCAR_1_2_ASSETS_ID = "other_car_1_2";
