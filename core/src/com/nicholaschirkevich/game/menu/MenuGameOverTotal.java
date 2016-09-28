@@ -589,45 +589,45 @@ public class MenuGameOverTotal extends Group implements UpdateCoinCountInterface
 
     }
 
-    private void setUpVkShare() {
-
-        float x = Constants.VK_BTTN_X_VISIBLE_SECOND_LINE, y = Constants.VK_BTTN_Y_VISIBLE_SECOND_LINE;
-        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
-        Image down = new Image(AssetsManager.getTextureRegion(Constants.BTTN_VK_PRESSED_ID).getTexture());
-        textButtonStyle.down = down.getDrawable();
-        textButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.BTTN_VK_PRESSED_ID).getTexture()).getDrawable();
-        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
-
-        vkBttn = new TextButton("   Share \n in VK", textButtonStyle);
-        vkBttn.getLabel().setFontScale(0.4f, 0.4f);
-        vkBttn.getLabelCell().padLeft(10f);
-
-
-        vkBttn.setBounds(x - down.getWidth() / 2, y - down.getHeight() / 2, down.getWidth(), down.getHeight());
-        vkBttn.addListener(new ClickListener() {
-
-                               @Override
-                               public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                                   vkSequenceButton.addAction(Actions.delay(0.3f));
-                                   vkSequenceButton.addAction(new Action() {
-                                       @Override
-                                       public boolean act(float delta) {
-                                           actionResolver.sendPostOnVk();
-                                           //actionResolver.showInviteBox();
-                                           return true;
-                                       }
-                                   });
-                                   vkSequenceButton.addAction(Actions.removeActor());
-                                   addAction(vkSequenceButton);
-
-                                   return true;
-                               }
-                           }
-        );
-
-        addActor(vkBttn);
-
-    }
+//    private void setUpVkShare() {
+//
+//        float x = Constants.VK_BTTN_X_VISIBLE_SECOND_LINE, y = Constants.VK_BTTN_Y_VISIBLE_SECOND_LINE;
+//        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
+//        Image down = new Image(AssetsManager.getTextureRegion(Constants.BTTN_VK_PRESSED_ID).getTexture());
+//        textButtonStyle.down = down.getDrawable();
+//        textButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.BTTN_VK_PRESSED_ID).getTexture()).getDrawable();
+//        textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
+//
+//        vkBttn = new TextButton("   Share \n in VK", textButtonStyle);
+//        vkBttn.getLabel().setFontScale(0.4f, 0.4f);
+//        vkBttn.getLabelCell().padLeft(10f);
+//
+//
+//        vkBttn.setBounds(x - down.getWidth() / 2, y - down.getHeight() / 2, down.getWidth(), down.getHeight());
+//        vkBttn.addListener(new ClickListener() {
+//
+//                               @Override
+//                               public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+//                                   vkSequenceButton.addAction(Actions.delay(0.3f));
+//                                   vkSequenceButton.addAction(new Action() {
+//                                       @Override
+//                                       public boolean act(float delta) {
+//                                           actionResolver.sendPostOnVk();
+//                                           //actionResolver.showInviteBox();
+//                                           return true;
+//                                       }
+//                                   });
+//                                   vkSequenceButton.addAction(Actions.removeActor());
+//                                   addAction(vkSequenceButton);
+//
+//                                   return true;
+//                               }
+//                           }
+//        );
+//
+//        addActor(vkBttn);
+//
+//    }
 
     private void setUpPlayOnline() {
 

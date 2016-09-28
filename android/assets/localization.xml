@@ -345,7 +345,7 @@
     <string><id> go_title_lbl </id><type>	Label</type><en>	Game over</en><ru>	Игра закончена </ru> </string>
     <string><id> go_score_lbl </id>	<type>Label </type>	<en>Score:</en><ru>Очки:</ru></string>
     <string><id> go_n_lbl </id><type>	Label</type>	<en>New	</en><ru>Новый  </ru></string>
-    <string><id>  go_r_lbl </id><type>	Label</type>	<en>record!</en><ru>	рекорд </ru> </string>
+    <string><id>  go_r_lbl </id><type>	Label</type>	<en>record!</en><ru>	рекорд! </ru> </string>
     <string><id>  go_bonus_lbl </id><type>	Label</type><en>	Get bonus</en><ru>	Бонус </ru> </string>
     <string><id>  go_win_lbl </id><type>	Label</type><en>	Win</en><ru>	Выиграй  </ru></string>
     <string><id>  go_prize_lbl </id><type>	Label</type><en>	a prize</en><ru>	приз </ru> </string>

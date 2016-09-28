@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
@@ -22,13 +23,24 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.facebook.share.ShareApi;
+import com.facebook.share.Sharer;
 import com.facebook.share.model.AppInviteContent;
+import com.facebook.share.model.ShareContent;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.model.ShareOpenGraphAction;
+import com.facebook.share.model.ShareOpenGraphContent;
+import com.facebook.share.model.ShareOpenGraphObject;
+import com.facebook.share.model.SharePhoto;
+import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.AppInviteDialog;
+import com.facebook.share.widget.ShareDialog;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
@@ -45,8 +57,10 @@ import com.nicholaschirkevich.game.activity.FriendsInviteActivity;
 import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.api.ServerApi;
 import com.nicholaschirkevich.game.application.Application;
+import com.nicholaschirkevich.game.entity.ImageByteEntity;
 import com.nicholaschirkevich.game.entity.LeaderboardEntity;
 import com.nicholaschirkevich.game.entity.VkUser;
+import com.nicholaschirkevich.game.interfaces.OnSharePost;
 import com.nicholaschirkevich.game.internet.InternetHelper;
 import com.nicholaschirkevich.game.listeners.BuyProduct;
 import com.nicholaschirkevich.game.listeners.OnGetHightscoreList;
@@ -89,6 +103,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
     private Tracker tracker;
 
+
     private SharedPreferences sPref;
     private InterstitialAd mInterstitialAdSaveMe, interstitialGetBonus;
     private ImageView defaultImage;
@@ -125,6 +140,9 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     //static final String ITEM_SKU = "com.example.sp";
 
     private String[] vkScope = new String[]{VKScope.WALL, VKScope.PHOTOS, VKScope.NOHTTPS, VKScope.PAGES};
+
+    private ShareDialog shareDialog;
+    private CallbackManager callbackManager;
 
 
     private void showPreviousPurchases() {
@@ -368,6 +386,25 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         startLoadSaveMeVideoInterstitial();
         startLoadGetBonusVideoInterstitial();
         gameRuners = new GameRuners(this);
+
+
+        shareDialog = new ShareDialog(this);
+        callbackManager = CallbackManager.Factory.create();
+        shareDialog.registerCallback(callbackManager, new
+
+                FacebookCallback<Sharer.Result>() {
+                    @Override
+                    public void onSuccess(Sharer.Result result) {
+                    }
+
+                    @Override
+                    public void onCancel() {
+                    }
+
+                    @Override
+                    public void onError(FacebookException error) {
+                    }
+                });
 
 
         return initializeForView(gameRuners);
@@ -945,7 +982,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
     @Override
     public void onVkLogin() {
-        onLoginListenerInterface.onLoginVk();
+        if (onLoginListenerInterface != null) onLoginListenerInterface.onLoginVk();
     }
 
 
@@ -989,9 +1026,85 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         showLogout();
     }
 
+    @Override
+    public void sendPostFb(ImageByteEntity imageByteEntity, final OnSharePost onSharePost) {
+        CallbackManager callbackManager;
+        LoginManager loginManager;
+//        FacebookSdk facebookSdk;
+//        ShareDialog dialog = new ShareDialog(this);
+//        ShareOpenGraphObject object = new ShareOpenGraphObject.Builder()
+//                .putString("og:type", "fitness.course")
+//                .putString("og:title", "Sample Course")
+//                .putString("og:description", "This is a sample course.")
+//                .putInt("fitness:duration:value", 100)
+//                .putString("fitness:duration:units", "s")
+//                .putInt("fitness:distance:value", 12)
+//                .putString("fitness:distance:units", "km")
+//                .putInt("fitness:speed:value", 5)
+//                .putString("fitness:speed:units", "m/s")
+//                .build();
+//        ShareOpenGraphAction action = new ShareOpenGraphAction.Builder()
+//                .setActionType("fitness.runs")
+//                .putObject("fitness:course", object)
+//                .build();
+//        ShareOpenGraphContent content = new ShareOpenGraphContent.Builder()
+//                .setPreviewPropertyName("fitness:course")
+//                .setAction(action)
+//                .build();
+//        dialog.show(content);
+
+        Bitmap bm2 = BitmapFactory.decodeFile(imageByteEntity.getFile().getPath());
+        Bitmap image = bm2;
+        SharePhoto photo = new SharePhoto.Builder()
+                .setBitmap(image)
+                .setCaption(getString(R.string.VkDialogLink))
+                .build();
+
+        SharePhotoContent content = new SharePhotoContent.Builder()
+                .addPhoto(photo)
+                .build();
+
+        ShareApi.share(content, new FacebookCallback<Sharer.Result>() {
+            @Override
+            public void onSuccess(Sharer.Result result) {
+
+                onSharePost.onShare();
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                onSharePost.onError();
+            }
+        });
+//        SharePhoto photo = new SharePhoto.Builder().setBitmap(bm2).build();
+//        SharePhotoContent content = new SharePhotoContent.Builder().addPhoto(photo).build();
+//        ShareDialog dialog = new ShareDialog(this);
+//        if (dialog.canShow(SharePhotoContent.class)){
+//            dialog.show(content);
+//        }
+//        else{
+//            Log.d("Activity", "you cannot share photos :(");
+//        }
+
+
+//        if (ShareDialog.canShow(ShareLinkContent.class)) {
+//            ShareLinkContent linkContent = new ShareLinkContent.Builder()
+//                    .setContentTitle("Hello Facebook")
+//                    .setContentDescription("The 'Hello Facebook' sample  showcases simple Facebook integration")
+//                    .setContentUrl(Uri.parse("http://developers.facebook.com/android"))
+//                    .build();
+//            shareDialog.show(linkContent);
+//        }
+    }
+
 
     @Override
-    public void sendPostOnVk() {
+    public void sendPostOnVk(ImageByteEntity imageByteEntity) {
 
         VKSdk.wakeUpSession(getActivity(), new VKCallback<VKSdk.LoginState>() {
             @Override
@@ -1017,7 +1130,11 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
             }
         });
 
-        Bitmap bm2 = BitmapFactory.decodeResource(getResources(), R.drawable.sr_logo);
+//        Bitmap bm2 = BitmapFactory.decodeResource(getResources(), R.drawable.sr_logo);
+
+        Bitmap bm2 = BitmapFactory.decodeFile(imageByteEntity.getFile().getPath());
+
+        imageByteEntity.getFile().toURI();
         final Bitmap b = bm2;
         VKPhotoArray photos = new VKPhotoArray();
         photos.add(new VKApiPhoto(getString(R.string.photo_id)));

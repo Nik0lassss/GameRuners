@@ -44,7 +44,7 @@
     <string name="fragment_admob_json_val_picture" translatable="false">picture</string>
     <string name="fragment_admob_json_val_data_picture" translatable="false">data</string>
     <string name="fragment_admob_json_val_url" translatable="false">url</string>
-    <string name="fragment_admob_sing_fb_public_profile_val" translatable="false">public_profile</string>
+    <string name="fragment_admob_sing_fb_public_profile_val" translatable="false">public_profile,publish_actions</string>
     <string name="fragment_admob_sing_fb_user_friends" translatable="false">user_friends</string>
     <string name="fragment_admob_vk_share_dialog_val" translatable="false">VK_SHARE_DIALOG</string>
     <string name="app_id_pub" translatable="false">ca-app-pub-3929550233974663/5014713038</string>

@@ -818,9 +818,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                 } else collisionCameraMoveLeft = true;
             }
         }
-        else {
-            camera.position.x = 160;
-        }
+
 
 
         for (PasserCar passerCar : passerCars) {
@@ -1708,10 +1706,12 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
 
         stage.draw();
         if (getScreenShot) {
+            camera.position.x = 158;
             int screenShotWidth =360;
             int screenShotHeight = 380;
             byte[] pixels = ScreenUtils.getFrameBufferPixels(60, 90, screenShotWidth, screenShotHeight, true);
-            stage.addActor(new NewRecordShareState(gsm, actionResolver, pixels, screenShotWidth, screenShotHeight));
+            hidePauseButton();
+            stage.addActor(new NewRecordShareState(gsm, actionResolver, pixels, screenShotWidth, screenShotHeight,(int)achives));
             getScreenShot = false;
         }
         sb.end();

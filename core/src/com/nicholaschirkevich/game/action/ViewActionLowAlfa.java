@@ -6,11 +6,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 /**
  * Created by Nikolas on 02.06.2016.
  */
-public class ViewActionAlfa extends Action {
+public class ViewActionLowAlfa extends Action {
     private Label textLabel;
     private float alfa = 1;
 
-    public ViewActionAlfa(Label label) {
+    public ViewActionLowAlfa(Label label) {
         this.textLabel = label;
     }
 

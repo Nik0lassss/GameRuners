@@ -1218,6 +1218,8 @@ public class Constants {
     public static final String LEADERBOARD_INVITE_TEXT = "leaderboard_invite_text";
     public static final String LEADERBOARD_LOGIN_FACEBOOK_TEXT = "leaderboard_login_facebook_text";
     public static final String LEADERBOARD_LOGIN_VK_TEXT = "leaderboard_login_vk_text";
+    public static final String GO_N_LBL = "go_n_lbl";
+    public static final String GO_R_LBL = "go_r_lbl";
 
 
 
