@@ -6,4 +6,6 @@ package com.nicholaschirkevich.game.listeners;
 public interface OnLoginListenerInterface {
     void onLoginFb();
     void onLoginVk();
+    void onLoginGoogle();
+    void onLoginGoogleError();
 }

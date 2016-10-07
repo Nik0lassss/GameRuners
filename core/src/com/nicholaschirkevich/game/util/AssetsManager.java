@@ -264,6 +264,11 @@ public class AssetsManager {
         texturesMap.put(Constants.BUTTON_BACK_PRSSD_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BUTTON_BACK_PRSSD_RESOURCE))));
         texturesMap.put(Constants.BUTTON_BACK_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BUTTON_BACK_RESOURCE))));
         texturesMap.put(Constants.CONE_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.CONE_RESOURCE))));
+        texturesMap.put(Constants.BUTTON_SOCIAL_GOOGLE_PRESSED_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BUTTON_SOCIAL_GOOGLE_PRESSED_RESOURCE))));
+        texturesMap.put(Constants.BUTTON_SOCIAL_GOOGLE_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BUTTON_SOCIAL_GOOGLE_RESOURCE))));
+        texturesMap.put(Constants.FOR_SAVE_ME_BUTTON_100_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.FOR_SAVE_ME_BUTTON_100_RESOURCE))));
+        texturesMap.put(Constants.BTTN_FACEBOOK_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BTTN_FACEBOOK_RESOURCE))));
+        texturesMap.put(Constants.BTTN_FACEBOOK_PRESSED_ID, new TextureRegion(new Texture(Gdx.files.internal(Constants.BTTN_FACEBOOK_PRESSED_RESOURCE))));
 
     //    texturesMap.put(Constants.SPEED_TEXT_ID, new TextureRegion(new Texture(Constants.SPEED_TEXT_RESOURCE)));
         texturesMap.put(Constants.SPEED_BAR_ID, new TextureRegion(new Texture(Constants.SPEED_BAR_RESOURCE)));

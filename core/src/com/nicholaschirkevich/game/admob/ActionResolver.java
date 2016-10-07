@@ -3,6 +3,7 @@ package com.nicholaschirkevich.game.admob;
 import com.nicholaschirkevich.game.entity.ImageByteEntity;
 import com.nicholaschirkevich.game.entity.LeaderboardEntity;
 import com.nicholaschirkevich.game.interfaces.OnSharePost;
+import com.nicholaschirkevich.game.interfaces.OnShareVkPost;
 import com.nicholaschirkevich.game.listeners.BuyProduct;
 import com.nicholaschirkevich.game.listeners.OnGetLidearBoards;
 import com.nicholaschirkevich.game.listeners.OnLoginListenerInterface;
@@ -39,7 +40,7 @@ public interface ActionResolver {
 
     void vkLogout();
 
-    void sendPostOnVk(ImageByteEntity imageByteEntity);
+    void sendPostOnVk(ImageByteEntity imageByteEntity,  OnShareVkPost onShareVkPost);
 
     boolean isVkLogin();
 
@@ -83,5 +84,7 @@ public interface ActionResolver {
     void showInviteFacebook();
 
     void onVkLogin();
+
+
 
 }

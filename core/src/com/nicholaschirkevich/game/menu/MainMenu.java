@@ -4,10 +4,7 @@ package com.nicholaschirkevich.game.menu;
  * Created by Nikolas on 20.04.2016.
  */
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -23,6 +20,7 @@ import com.nicholaschirkevich.game.GameRuners;
 import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
 import com.nicholaschirkevich.game.interfaces.UpdateCoinCountInterface;
+import com.nicholaschirkevich.game.listeners.OnLoginListenerInterface;
 import com.nicholaschirkevich.game.states.CarShopState;
 import com.nicholaschirkevich.game.states.CoinShopState;
 import com.nicholaschirkevich.game.states.GameStateManager;
@@ -52,6 +50,8 @@ public class MainMenu extends Group implements UpdateCoinCountInterface {
     private ActionResolver actionResolver;
     private ImageButton imageButton;
     private Label labelCoinCount;
+    private TextButton socialFbTextButton;
+    private TextButton socialVkTextButton;
 
 
     public MainMenu(ResumeButtonListener listener, GameStateManager gsm, ActionResolver actionResolver) {
@@ -106,6 +106,12 @@ public class MainMenu extends Group implements UpdateCoinCountInterface {
 
         setUpImageCoinCount();
         setUpCoinCountLabel();
+        if (!actionResolver.isSignedIn()) {
+            setUpSocialButton();
+        } else {
+            setUpVkSocialButton();
+            setUpFacebookSocialButton();
+        }
 
 
         setBounds(0, 0, GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2);
@@ -128,6 +134,162 @@ public class MainMenu extends Group implements UpdateCoinCountInterface {
     }
 
 //
+
+
+    private void setUpSocialButton() {
+        TextButton.TextButtonStyle socialTextButtonStyle = new TextButton.TextButtonStyle();
+        socialTextButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.BUTTON_SOCIAL_GOOGLE_ID).getTexture()).getDrawable();
+        socialTextButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.BUTTON_SOCIAL_GOOGLE_PRESSED_ID).getTexture()).getDrawable();
+        socialTextButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
+
+
+        Texture texture = AssetsManager.getTextureRegion(Constants.FOR_SAVE_ME_BUTTON_100_ID).getTexture();
+        texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        Image bonusImage = new Image(texture);
+        bonusImage.setPosition(105, 10);
+
+        final TextButton socialTextButton = new TextButton(GameManager.getStrings().get(Constants.MS_SIGN_IN_LBL), socialTextButtonStyle);
+        socialTextButton.addActor(bonusImage);
+        socialTextButton.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                super.touchDown(event, x, y, pointer, button);
+                actionResolver.signIn(new OnLoginListenerInterface() {
+                    @Override
+                    public void onLoginFb() {
+
+                    }
+
+                    @Override
+                    public void onLoginVk() {
+
+                    }
+
+                    @Override
+                    public void onLoginGoogle() {
+                        socialTextButton.remove();
+                        GameManager.addCoin(100);
+                        updateCoinCountView();
+                    }
+
+                    @Override
+                    public void onLoginGoogleError() {
+
+                    }
+                });
+                return true;
+            }
+        });
+        socialTextButton.padLeft(30f);
+        socialTextButton.getLabel().setFontScale(0.45f, 0.45f);
+        socialTextButton.setPosition(Constants.SOCIAL_BTTN_X_VISIBLE - socialTextButton.getWidth() / 2, 110);
+        addActor(socialTextButton);
+    }
+
+    private void setUpVkSocialButton() {
+        TextButton.TextButtonStyle socialTextButtonStyle = new TextButton.TextButtonStyle();
+        socialTextButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.BTTN_VK_ID).getTexture()).getDrawable();
+        socialTextButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.BTTN_VK_PRESSED_ID).getTexture()).getDrawable();
+        socialTextButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
+
+
+        Texture texture = AssetsManager.getTextureRegion(Constants.FOR_SAVE_ME_BUTTON_100_ID).getTexture();
+        texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        Image bonusImage = new Image(texture);
+        bonusImage.setPosition(105, 10);
+
+        socialVkTextButton = new TextButton(GameManager.getStrings().get(Constants.MS_SIGN_IN_LBL), socialTextButtonStyle);
+        socialVkTextButton.addActor(bonusImage);
+        socialVkTextButton.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                super.touchDown(event, x, y, pointer, button);
+                actionResolver.showVkLoginActivity(new OnLoginListenerInterface() {
+                    @Override
+                    public void onLoginFb() {
+
+                    }
+
+                    @Override
+                    public void onLoginVk() {
+                        socialFbTextButton.remove();
+                        socialVkTextButton.remove();
+                        GameManager.addCoin(100);
+                        updateCoinCountView();
+
+                    }
+
+                    @Override
+                    public void onLoginGoogle() {
+
+                    }
+
+                    @Override
+                    public void onLoginGoogleError() {
+
+                    }
+                });
+
+                return true;
+            }
+        });
+        socialVkTextButton.padLeft(30f);
+        socialVkTextButton.getLabel().setFontScale(0.45f, 0.45f);
+        socialVkTextButton.setPosition(Constants.SOCIAL_BTTN_X_VISIBLE - socialVkTextButton.getWidth() / 2, 110);
+        addActor(socialVkTextButton);
+    }
+
+    private void setUpFacebookSocialButton() {
+        TextButton.TextButtonStyle socialTextButtonStyle = new TextButton.TextButtonStyle();
+        socialTextButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.BTTN_FACEBOOK_ID).getTexture()).getDrawable();
+        socialTextButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.BTTN_FACEBOOK_PRESSED_ID).getTexture()).getDrawable();
+        socialTextButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
+
+
+        Texture texture = AssetsManager.getTextureRegion(Constants.FOR_SAVE_ME_BUTTON_100_ID).getTexture();
+        texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        Image bonusImage = new Image(texture);
+        bonusImage.setPosition(105, 10);
+
+        socialFbTextButton = new TextButton(GameManager.getStrings().get(Constants.MS_SIGN_IN_LBL), socialTextButtonStyle);
+        socialFbTextButton.addActor(bonusImage);
+        socialFbTextButton.addListener(new ClickListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                super.touchDown(event, x, y, pointer, button);
+                actionResolver.singInFb(new OnLoginListenerInterface() {
+                    @Override
+                    public void onLoginFb() {
+                        socialVkTextButton.remove();
+                        socialFbTextButton.remove();
+                        GameManager.addCoin(100);
+                        updateCoinCountView();
+                    }
+
+                    @Override
+                    public void onLoginVk() {
+
+                    }
+
+                    @Override
+                    public void onLoginGoogle() {
+
+                    }
+
+                    @Override
+                    public void onLoginGoogleError() {
+
+                    }
+                });
+
+                return true;
+            }
+        });
+        socialFbTextButton.padLeft(30f);
+        socialFbTextButton.getLabel().setFontScale(0.45f, 0.45f);
+        socialFbTextButton.setPosition(Constants.SOCIAL_BTTN_X_VISIBLE - socialFbTextButton.getWidth() / 2, 185);
+        addActor(socialFbTextButton);
+    }
 
     private void setUpBackgroung(boolean selected) {
         if (selected) {
@@ -213,7 +375,7 @@ public class MainMenu extends Group implements UpdateCoinCountInterface {
                     @Override
                     public boolean act(float delta) {
 
-                        getStage().addActor(new CoinShopState( gsm, actionResolver, groupView));
+                        getStage().addActor(new CoinShopState(gsm, actionResolver, groupView));
                         return true;
                     }
                 });
@@ -351,7 +513,7 @@ public class MainMenu extends Group implements UpdateCoinCountInterface {
         labelCoinCount.setText(String.valueOf(GameManager.getCoinCounter()));
         labelCoinCount.invalidate();
 
-        labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() -5, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
+        labelCoinCount.setBounds(imageButton.getX() - labelCoinCount.getPrefWidth() - 5, imageButton.getY(), labelCoinCount.getWidth(), labelCoinCount.getHeight());
 
     }
 }

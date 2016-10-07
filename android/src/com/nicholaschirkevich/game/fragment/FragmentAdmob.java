@@ -61,6 +61,7 @@ import com.nicholaschirkevich.game.entity.ImageByteEntity;
 import com.nicholaschirkevich.game.entity.LeaderboardEntity;
 import com.nicholaschirkevich.game.entity.VkUser;
 import com.nicholaschirkevich.game.interfaces.OnSharePost;
+import com.nicholaschirkevich.game.interfaces.OnShareVkPost;
 import com.nicholaschirkevich.game.internet.InternetHelper;
 import com.nicholaschirkevich.game.listeners.BuyProduct;
 import com.nicholaschirkevich.game.listeners.OnGetHightscoreList;
@@ -231,14 +232,19 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
         final GameHelper.GameHelperListener gameHelperListener = new GameHelper.GameHelperListener() {
             @Override
             public void onSignInFailed() {
+                if (onLoginListenerInterface != null)
+                    onLoginListenerInterface.onLoginGoogleError();
                 System.out.println("Sing in faild");
             }
 
             @Override
             public void onSignInSucceeded() {
                 System.out.println("Sing in success");
+                if (onLoginListenerInterface != null)
+                    onLoginListenerInterface.onLoginGoogle();
             }
         };
+
         gameHelper.setup(gameHelperListener);
 
         lastInternetState = isAvailibleInternet();
@@ -894,6 +900,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
     @Override
     public void signIn(OnLoginListenerInterface onLoginListenerInterface) {
+        this.onLoginListenerInterface = onLoginListenerInterface;
         try {
             runOnUiThread(new Runnable() {
                 @Override
@@ -1078,7 +1085,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
             @Override
             public void onError(FacebookException error) {
-                onSharePost.onError();
+                onSharePost.onError(error.getLocalizedMessage());
             }
         });
 //        SharePhoto photo = new SharePhoto.Builder().setBitmap(bm2).build();
@@ -1104,7 +1111,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
 
 
     @Override
-    public void sendPostOnVk(ImageByteEntity imageByteEntity) {
+    public void sendPostOnVk(ImageByteEntity imageByteEntity, final OnShareVkPost onShareVkPost) {
 
         VKSdk.wakeUpSession(getActivity(), new VKCallback<VKSdk.LoginState>() {
             @Override
@@ -1148,7 +1155,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
                 .setShareDialogListener(new VKShareDialog.VKShareDialogListener() {
                     @Override
                     public void onVkShareComplete(int postId) {
-
+                        onShareVkPost.onShareVk();
                     }
 
                     @Override
@@ -1164,6 +1171,7 @@ public class FragmentAdmob extends AndroidFragmentApplication implements ActionR
     }
 
     private void showLogin() {
+
         VKSdk.login(getActivity(), vkScope);
     }
 

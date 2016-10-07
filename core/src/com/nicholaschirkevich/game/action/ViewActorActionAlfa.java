@@ -31,10 +31,11 @@ public class ViewActorActionAlfa extends Action {
                 }
             });
 
+            System.out.println("act false");
             return false;
         } else
         {
-            group.remove();
+            System.out.println("act true");
             return true;
         }
 

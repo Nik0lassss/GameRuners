@@ -13,8 +13,10 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class NewRecordScreenshotTotal extends Actor {
     private ShapeRenderer shapeRenderer;
     private float mainRectX = 10, mainRectY = 80, mainRectWidth = 300, mainRectHeight = 410;
-    private float whiteRectX = mainRectX+4, whiteRectY = mainRectY+4, whiteRectWidth = mainRectWidth-8, whiteRectHeight = mainRectHeight-8;
-    private float imageBorderRectX = mainRectX+26, imageBorderRectY = mainRectY+91, imageBorderWidth = mainRectWidth-52, imageBorderRectHeight = mainRectHeight-122;
+    private float whiteRectX = mainRectX + 4, whiteRectY = mainRectY + 4, whiteRectWidth = mainRectWidth - 8, whiteRectHeight = mainRectHeight - 8;
+    private float imageBorderRectX = mainRectX + 26, imageBorderRectY = mainRectY + 91, imageBorderWidth = mainRectWidth - 52, imageBorderRectHeight = mainRectHeight - 122;
+
+
 
     public NewRecordScreenshotTotal() {
         shapeRenderer = new ShapeRenderer();
@@ -35,17 +37,17 @@ public class NewRecordScreenshotTotal extends Actor {
 //        shapeRenderer.end();
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Color.BLACK);
+        shapeRenderer.setColor(Color.BLACK.r, Color.BLACK.g, Color.BLACK.b, parentAlpha);
         shapeRenderer.rect(mainRectX, mainRectY, mainRectWidth, mainRectHeight);
         shapeRenderer.end();
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Color.WHITE);
+        shapeRenderer.setColor(Color.WHITE.r, Color.WHITE.g, Color.WHITE.b, parentAlpha);
         shapeRenderer.rect(whiteRectX, whiteRectY, whiteRectWidth, whiteRectHeight);
         shapeRenderer.end();
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Color.BLACK);
+        shapeRenderer.setColor(Color.BLACK.r, Color.BLACK.g, Color.BLACK.b, parentAlpha);
         shapeRenderer.rect(imageBorderRectX, imageBorderRectY, imageBorderWidth, imageBorderRectHeight);
         shapeRenderer.end();
 //        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);

@@ -107,6 +107,16 @@ public class LeaderboardMenu extends Group implements ResumeButtonListener, OnGe
         }
     }
 
+    @Override
+    public void onLoginGoogle() {
+
+    }
+
+    @Override
+    public void onLoginGoogleError() {
+
+    }
+
     class HighScoreItem extends Group {
         private TextButton inviteFriend;
         ScrollPanCustom pane1;

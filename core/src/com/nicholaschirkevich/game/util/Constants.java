@@ -163,6 +163,12 @@ public class Constants {
     public static final String BTTN_VK_PRESSED_ID = "button_vk_pressed";
     public static final String BTTN_VK_PRESSED_RESOURCE = "button_vk_pressed.png";
 
+
+    public static final String BTTN_FACEBOOK_ID = "button_facebook";
+    public static final String BTTN_FACEBOOK_RESOURCE = "button_facebook.png";
+    public static final String BTTN_FACEBOOK_PRESSED_ID = "button_facebook_pressed";
+    public static final String BTTN_FACEBOOK_PRESSED_RESOURCE = "button_facebook_pressed.png";
+
     public static final String CRASH_ATLAS_PATH = "crash_animation.txt";
     public static final String COIN_ATLAS_PATH = "coin.txt";
     public static final String COIN_SHADOW_ATLAS_PATH = "coin_shadow.txt";
@@ -546,6 +552,16 @@ public class Constants {
 
     public static final String PROGRESS_CIRCLE_ID = "progress_bar_circle";
     public static final String PROGRESS_CIRCLE_RESOURCE = "progress_bar_circle.png";
+
+
+    public static final String BUTTON_SOCIAL_GOOGLE_PRESSED_ID = "button_social_google_pressed";
+    public static final String BUTTON_SOCIAL_GOOGLE_PRESSED_RESOURCE = "button_social_google_pressed.png";
+
+    public static final String BUTTON_SOCIAL_GOOGLE_ID = "button_social_google";
+    public static final String BUTTON_SOCIAL_GOOGLE_RESOURCE = "button_social_google.png";
+
+    public static final String FOR_SAVE_ME_BUTTON_100_ID = "for_save_me_button_100";
+    public static final String FOR_SAVE_ME_BUTTON_100_RESOURCE = "for_save_me_button_100.png";
 
 
 
@@ -955,6 +971,7 @@ public class Constants {
     public static final float BACK_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 18f;
 
     public static final float RESUME_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
+    public static final float SOCIAL_BTTN_X_VISIBLE = GameRuners.WIDTH / 4;
     public static final float RESUME_BTTN_X_INVISIBLE = GameRuners.WIDTH / 4;
     public static final float RESUME_BTTN_Y_VISIBLE = GameRuners.HEIGHT / 12f - 30;
     public static final float RESUME_BTTN_Y_INVISIBLE = -200;
@@ -1220,6 +1237,9 @@ public class Constants {
     public static final String LEADERBOARD_LOGIN_VK_TEXT = "leaderboard_login_vk_text";
     public static final String GO_N_LBL = "go_n_lbl";
     public static final String GO_R_LBL = "go_r_lbl";
+    public static final String ERROR_FB_TRY = "error_fb_try";
+    public static final String ERROR_ALERT = "error_alert";
+    public static final String PUBLISH_SUCCESS = "error_alert";
 
 
 

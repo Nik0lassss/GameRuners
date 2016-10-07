@@ -25,6 +25,7 @@ import com.nicholaschirkevich.game.action.ViewActorActionAlfa;
 import com.nicholaschirkevich.game.admob.ActionResolver;
 import com.nicholaschirkevich.game.entity.ImageByteEntity;
 import com.nicholaschirkevich.game.interfaces.DialogMEssageCallback;
+import com.nicholaschirkevich.game.interfaces.OnShareVkPost;
 import com.nicholaschirkevich.game.interfaces.OnSharePost;
 import com.nicholaschirkevich.game.interfaces.ResumeButtonListener;
 import com.nicholaschirkevich.game.interfaces.UpdateCoinCountInterface;
@@ -42,7 +43,7 @@ import java.util.ArrayList;
 /**
  * Created by Колян on 14.09.2016.
  */
-public class NewRecordShareState extends Group implements UpdateCoinCountInterface, ResumeButtonListener, OnSharePost, DialogMEssageCallback {
+public class NewRecordShareState extends Group implements UpdateCoinCountInterface, ResumeButtonListener, OnSharePost, DialogMEssageCallback, OnShareVkPost {
     private Image progressBarImage;
     private float progressBarDelta = 0f;
     private GameStateManager gsm;
@@ -223,8 +224,11 @@ public class NewRecordShareState extends Group implements UpdateCoinCountInterfa
                 //background.setColor(color.r, color.g, color.b, 0.95f);
 
                 //actionResolver.sendPostOnVk(imageByteEntity);
-                addActor(new DialogMessage((DialogMEssageCallback) thisGroup));
+                if (actionResolver.isFacebookLogin())
+                    addActor(new DialogMessage((DialogMEssageCallback) thisGroup));
 
+                else if (actionResolver.isVkLogin())
+                    actionResolver.sendPostOnVk(imageByteEntity, (OnShareVkPost) thisGroup);
 
 //                actionResolver.sendPostOnVk(imageByteEntity);
 
@@ -319,20 +323,42 @@ public class NewRecordShareState extends Group implements UpdateCoinCountInterfa
 
     @Override
     public void onShare() {
-        if (toastMessage != null){
+        if (toastMessage != null) {
             SequenceAction sequenceAction = new SequenceAction();
             sequenceAction.addAction(Actions.delay(2f));
             sequenceAction.addAction(new ViewActorActionAlfa(toastMessage));
+            sequenceAction.addAction(new ViewActorActionAlfa(thisGroup));
+            sequenceAction.addAction(Actions.delay(0.2f));
+            sequenceAction.addAction(new Action() {
+                @Override
+                public boolean act(float delta) {
+                    toastMessage.remove();
+                    getStage().addActor(new MenuGameOver(gsm, (ResumeButtonListener) thisGroup, actionResolver));
+                    thisGroup.remove();
+                    return true;
+                }
+            });
             toastMessage.addAction(sequenceAction);
-            toastMessage.setText("Запись успешно опубликована!");
+            toastMessage.setText(GameManager.getStrings().get(Constants.PUBLISH_SUCCESS));
             toastMessage.disableProgressBar();
-        }
-        else {
-            toastMessage = new ToastMessage("Запись успешно опубликована!", actionResolver);
+        } else {
+            toastMessage = new ToastMessage(Constants.PUBLISH_SUCCESS, actionResolver);
 
             SequenceAction sequenceAction = new SequenceAction();
             sequenceAction.addAction(Actions.delay(2f));
             sequenceAction.addAction(new ViewActorActionAlfa(toastMessage));
+            sequenceAction.addAction(new ViewActorActionAlfa(thisGroup));
+            sequenceAction.addAction(Actions.delay(0.2f));
+            sequenceAction.addAction(new Action() {
+                @Override
+                public boolean act(float delta) {
+                    toastMessage.remove();
+                    getStage().addActor(new MenuGameOver(gsm, (ResumeButtonListener) thisGroup, actionResolver));
+                    thisGroup.remove();
+
+                    return true;
+                }
+            });
             Color color = background.getColor();
             background.setColor(color.r, color.g, color.b, 0.5f);
             toastMessage.disableProgressBar();
@@ -361,17 +387,18 @@ public class NewRecordShareState extends Group implements UpdateCoinCountInterfa
     }
 
     @Override
-    public void onError() {
-        if (toastMessage != null){
+    public void onError(String error) {
+        if (actionResolver.isAvailibleInternet()) {
+            actionResolver.sendPostFb(imageByteEntity, (OnSharePost) thisGroup);
+        } else if (toastMessage != null) {
             SequenceAction sequenceAction = new SequenceAction();
             sequenceAction.addAction(Actions.delay(2f));
             sequenceAction.addAction(new ViewActorActionAlfa(toastMessage));
             toastMessage.addAction(sequenceAction);
-            toastMessage.setText("Faile");
+            toastMessage.setText(GameManager.getStrings().get(Constants.ERROR_ALERT) + "\n" + GameManager.getStrings().get(Constants.ERROR_FB_TRY));
             toastMessage.disableProgressBar();
-        }
-        else {
-            toastMessage = new ToastMessage("Faile", actionResolver);
+        } else {
+            toastMessage = new ToastMessage(GameManager.getStrings().get(Constants.ERROR_ALERT) + "\n" + GameManager.getStrings().get(Constants.ERROR_FB_TRY), actionResolver);
             toastMessage.disableProgressBar();
             SequenceAction sequenceAction = new SequenceAction();
             sequenceAction.addAction(Actions.delay(2f));
@@ -403,19 +430,38 @@ public class NewRecordShareState extends Group implements UpdateCoinCountInterfa
     public void onYes() {
 
 
-//        toastMessage = new ToastMessage("Please Wait", actionResolver);
-//
-//        Color color = background.getColor();
-//        background.setColor(color.r, color.g, color.b, 0.5f);
-//
-//        addActor(toastMessage);
-//
-//
-//        actionResolver.sendPostFb(imageByteEntity, (OnSharePost) thisGroup);
+        toastMessage = new ToastMessage("Please Wait", actionResolver);
+
+        Color color = background.getColor();
+        background.setColor(color.r, color.g, color.b, 0.5f);
+
+        addActor(toastMessage);
+
+        actionResolver.sendPostFb(imageByteEntity, (OnSharePost) thisGroup);
     }
 
     @Override
     public void onNo() {
+
+    }
+
+    @Override
+    public void onShareVk() {
+        SequenceAction sequenceAction = new SequenceAction();
+        sequenceAction.addAction(new Action() {
+            @Override
+            public boolean act(float delta) {
+                getStage().addActor(new MenuGameOver(gsm, (ResumeButtonListener) thisGroup, actionResolver));
+                thisGroup.remove();
+
+                return true;
+            }
+        });
+        addAction(sequenceAction);
+    }
+
+    @Override
+    public void onErrorShareVk() {
 
     }
 }

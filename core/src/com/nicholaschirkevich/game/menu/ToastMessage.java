@@ -40,9 +40,16 @@ public class ToastMessage extends Group {
 
     public ToastMessage(String message, ActionResolver actionResolver) {
         messageLabel = new Label(message, AssetsManager.getUiSkin());
+
+        messageLabel.setWrap(true);
+        messageLabel.pack();
+
         messageLabel.setAlignment(Align.center);
-        messageLabel.setPosition(40, 260);
+        messageLabel.setPosition(40, 180);
         messageLabel.setFontScale(0.6f,0.6f);
+        messageLabel.setWidth(250);
+        messageLabel.setHeight(100);
+
         toastRectangle = new ToastMessageRectangle();
 
 
@@ -69,7 +76,7 @@ public class ToastMessage extends Group {
         progressBarImage.setScale(0.25f, 0.25f);
         progressBarImage.setOrigin(progressBarImage.getWidth() / 2, progressBarImage.getHeight() / 2);
         progressBarImage.setAlign(Align.center);
-        progressBarImage.setPosition(GameRuners.WIDTH / 4 - progressBarImage.getPrefWidth() / 2, GameRuners.HEIGHT / 4 - progressBarImage.getPrefHeight() / 2 - 80);
+        progressBarImage.setPosition(GameRuners.WIDTH / 4 - progressBarImage.getPrefWidth() / 2, GameRuners.HEIGHT / 4 - progressBarImage.getPrefHeight() / 2 - 90);
         group.addActor(progressBarImage);
         if (!actionResolver.isAvailibleInternet()) progressBarImage.setVisible(false);
     }

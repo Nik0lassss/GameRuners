@@ -45,6 +45,20 @@ public class GameManager {
     private static Date lastFreeCarPrize;
     private static VkUser vkUser;
 
+    public static int getAdMobCounter() {
+        return AdMobCounter;
+    }
+
+    public static boolean addAdMobCounter() {
+        AdMobCounter++;
+        if (AdMobCounter >= 3) {
+            AdMobCounter = 0;
+            return true;
+        } else return false;
+    }
+
+    private static int AdMobCounter = 0;
+
     private static boolean isFirstStartApp;
 
     private static int CarShopSize;
@@ -547,6 +561,12 @@ public class GameManager {
     }
 
 
+    public static void resetTopeed(int toGear) {
+        gear = 0;
+        toSpeed = gearShift.getSpeeds().get(toGear);
+        isCollision = false;
+    }
+
     public static void resetDtTime() {
         dtTime = 0;
     }
@@ -607,7 +627,7 @@ public class GameManager {
     }
 
     public static boolean isFirstStartApp() {
-        boolean isFirstStart = preferences.getBoolean(Constants.PREFERENCES_IS_FIRST_START,true);
+        boolean isFirstStart = preferences.getBoolean(Constants.PREFERENCES_IS_FIRST_START, true);
 //        if(isFirstStart) preferences.putBoolean(Constants.PREFERENCES_IS_FIRST_START, false);
         preferences.flush();
         return isFirstStart;

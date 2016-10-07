@@ -534,6 +534,8 @@
     <string><id>ac_name_text_5</id><type>	text</type><en>	Sprinter	</en><ru>Спринтер</ru> </string>
 
     <string><id> ac_push_1</id><type>	text</type><en>	Here's a new challenge for you! Fulfill the conditions and get a unique car!	</en><ru>Тебя ждёт новое испытание! Выполни условия и получи получи уникальный автомобиль!</ru> </string>
+    <string><id> error_fb_try</id><type>	text</type><en>	Please, try again </en><ru>Пожалуйста повторите попытку</ru> </string>
+    <string><id> publish_success</id><type>	text</type><en>  Post published successfully </en><ru>Запись успешно опубликована!</ru> </string>
 
 
 </strings>

@@ -44,7 +44,7 @@ public class MenuGameOverTotal extends Group implements UpdateCoinCountInterface
     private Texture speed_text;
 
     private Texture backButtonTextureDown, backButtonTextureUp;
-    private Image  backButtonImageDown, backButtonImageUp;
+    private Image backButtonImageDown, backButtonImageUp;
 
     private TextButton resumeButton, playOnline, prizeButton, vkBttn;
     private ImageButton carShop, coinShop, settingMenu, leaderBoard, leaderBoards;
@@ -175,7 +175,7 @@ public class MenuGameOverTotal extends Group implements UpdateCoinCountInterface
 
         if (GameManager.isNeedFreeCarPrize()) {
             //if (actionResolver.isGetBonusIntertitalLoad() && actionResolver.isGetBonusIntertatlLoaded()) {
-            if ( actionResolver.isGetBonusIntertatlLoaded()) {
+            if (actionResolver.isGetBonusIntertatlLoaded()) {
                 setGetBonus(Constants.THIRD_POSITION_BTTN_X_VISIBLE, Constants.THIRD_POSITION_BTTN_Y_VISIBLE);
                 if (GameManager.getMyCars().size() < GameManager.getCarShopSize()) {
                     setUpPrize(Constants.SECOND_POSITION_BTTN_X_VISIBLE, Constants.SECOND_POSITION_BTTN_Y_VISIBLE);
@@ -192,7 +192,7 @@ public class MenuGameOverTotal extends Group implements UpdateCoinCountInterface
         } else {
 
 //            if (actionResolver.isGetBonusIntertitalLoad() && actionResolver.isGetBonusIntertatlLoaded()) {
-            if ( actionResolver.isGetBonusIntertatlLoaded()) {
+            if (actionResolver.isGetBonusIntertatlLoaded() && GameManager.addAdMobCounter()) {
                 setGetBonus(Constants.THIRD_POSITION_BTTN_X_VISIBLE, Constants.THIRD_POSITION_BTTN_Y_VISIBLE);
                 if (GameManager.getMyCars().size() < GameManager.getCarShopSize()) {
                     setUpNextPrize(Constants.SECOND_POSITION_BTTN_X_VISIBLE, Constants.SECOND_POSITION_BTTN_Y_VISIBLE);
@@ -219,23 +219,22 @@ public class MenuGameOverTotal extends Group implements UpdateCoinCountInterface
 //        setUpCoinCountLabel();
         setUpLeaderBoard();
         setUpBackButton();
-       setUpAchiveCount();
+        setUpAchiveCount();
         setUpPlayButton();
         setBounds(0, 0, GameRuners.WIDTH / 2, GameRuners.HEIGHT / 2);
 
     }
 
 
-    public void setUpPlayButton()
-    {
+    public void setUpPlayButton() {
         TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle();
         textButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.BUTTON_PLAY_WITH_A_FRIEND_ID)).getDrawable();
         textButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.BUTTON_PLAY_WITH_A_FRIEND_ID)).getDrawable();
         textButtonStyle.font = AssetsManager.getUiSkin().getFont("default-font");
-       TextButton inviteFriend = new TextButton(GameManager.getStrings().get(Constants.MP_PLAY_BTN), textButtonStyle);
+        TextButton inviteFriend = new TextButton(GameManager.getStrings().get(Constants.MP_PLAY_BTN), textButtonStyle);
         inviteFriend.getLabel().setFontScale(0.5f, 0.5f);
         inviteFriend.setBounds(70, 5, 185, 47);
-        inviteFriend.addListener(new ClickListener(){
+        inviteFriend.addListener(new ClickListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 sequence.addAction(Actions.delay(0.3f));
@@ -301,7 +300,7 @@ public class MenuGameOverTotal extends Group implements UpdateCoinCountInterface
                     @Override
                     public boolean act(float delta) {
                         gsm.pop();
-                        gsm.push(new GameState(gsm,false,false,actionResolver));
+                        gsm.push(new GameState(gsm, false, false, actionResolver));
                         return true;
                     }
                 });
@@ -401,12 +400,16 @@ public class MenuGameOverTotal extends Group implements UpdateCoinCountInterface
             getNextPrize.addActor(coinCountLabel);
             getNextPrize.addActor(coinImage);
         } else {
-            Label coinCountLabel = new Label("0", AssetsManager.getUiSkin());
+            Label coinCountLabel = new Label("", AssetsManager.getUiSkin());
             coinCountLabel.setBounds(getX() + 90 - coinCountLabel.getWidth() / 2, getY() + 5, coinCountLabel.getWidth(), coinCountLabel.getHeight());
             coinCountLabel.setFontScale(0.6f, 0.6f);
 
+            getNextPrize.setText(GameManager.getStrings().get(Constants.GO_WIN_LBL) + "\n" + GameManager.getStrings().get(Constants.GO_PRIZE_LBL));
+            getNextPrize.padRight(45f);
             Image coinImage = new Image(AssetsManager.getAnimation(Constants.COIN_ASSETS_ID).getKeyFrames()[0]);
             coinImage.setBounds(getX() + 115, getY() + 10, coinImage.getWidth() - 3, coinImage.getHeight() - 3);
+            textButtonStyle.down = new Image(AssetsManager.getTextureRegion(Constants.BTTN_WIN_A_PRIZE_PRESSED_ID).getTexture()).getDrawable();
+            textButtonStyle.up = new Image(AssetsManager.getTextureRegion(Constants.BTTN_WIN_A_PRIZE_ID)).getDrawable();
             getNextPrize.addActor(coinCountLabel);
             getNextPrize.addActor(coinImage);
         }

@@ -683,4 +683,14 @@ public class MenuSetting extends Group implements UpdateCoinCountInterface, OnLo
 
 
     }
+
+    @Override
+    public void onLoginGoogle() {
+
+    }
+
+    @Override
+    public void onLoginGoogleError() {
+
+    }
 }

@@ -18,11 +18,11 @@ android {
     }
 
 
-
     defaultConfig {
         applicationId "com.nicholaschirkevich.game"
         minSdkVersion 15
         targetSdkVersion 24
+        multiDexEnabled true
     }
     buildTypes {
         debug {

@@ -820,7 +820,6 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         }
 
 
-
         for (PasserCar passerCar : passerCars) {
             if (((PasserCarDataType) passerCar.body.getUserData()).isContact()) {
                 if (passerCar.body.getAngularVelocity() < -ANGULAR_VELOCITY) {
@@ -1343,7 +1342,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                     gsm.set(new GameState(gsm, false, true, actionResolver));
                 } else {
                     // if (actionResolver != null && actionResolver.getAdmobStatus() && actionResolver.isIntertatlLoaded() && actionResolver.isSaveMeIntertitalLoad() && !isSavedMe && distacne > MAX_DISTANCE) {
-                    if (actionResolver != null && actionResolver.getAdmobStatus() && actionResolver.isIntertatlLoaded() && !isSavedMe && distacne > MAX_DISTANCE) {
+                    if (actionResolver != null && actionResolver.getAdmobStatus() && actionResolver.isIntertatlLoaded() && !isSavedMe && distacne > MAX_DISTANCE && GameManager.getGear() >= 2) {
                         {
                             isMyCarCollision = false;
                             isMyCarCollisionWithBlocks = false;
@@ -1354,9 +1353,12 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                     } else {
 
                         isMyCarCollision = false;
-                        //stage.addActor(new MenuGameOver(gsm, this, actionResolver));
+                        if (actionResolver.isFacebookLogin() || actionResolver.isVkLogin() && achives > GameManager.getBestAchives())
+                            getScreenShot = true;
+                        else
+                            stage.addActor(new MenuGameOver(gsm, this, actionResolver));
 
-                        getScreenShot = true;
+                        //getScreenShot = true;
                         labelAchives.setVisible(false);
                         labelCoinCount.setVisible(false);
                         imageButton.setVisible(false);
@@ -1383,14 +1385,15 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
                     gsm.set(new GameState(gsm, false, true, actionResolver));
                 } else {
                     // if (actionResolver.getAdmobStatus() && actionResolver.isIntertatlLoaded() && actionResolver.isSaveMeIntertitalLoad() && !isSavedMe && distacne > MAX_SAVE_ME_DISTANCE) {
-                    if (actionResolver != null && actionResolver.getAdmobStatus() && actionResolver.isIntertatlLoaded() && !isSavedMe && distacne > MAX_SAVE_ME_DISTANCE) {
+                    if (actionResolver != null && actionResolver.getAdmobStatus() && actionResolver.isIntertatlLoaded() && !isSavedMe && distacne > MAX_SAVE_ME_DISTANCE && GameManager.getGear() >= 2) {
                         isSavedMe = true;
                         stage.addActor(menuSaveMe);
                         ToastHelper.resetToasts();
                     } else {
                         ToastHelper.resetToasts();
-                        getScreenShot = true;
-                        //stage.addActor(new MenuGameOver(gsm, this, actionResolver));
+                        if (actionResolver.isFacebookLogin() || actionResolver.isFacebookLogin() && achives > GameManager.getBestAchives())
+                            getScreenShot = true;
+                        else stage.addActor(new MenuGameOver(gsm, this, actionResolver));
                         labelAchives.setVisible(false);
                         labelCoinCount.setVisible(false);
                         imageButton.setVisible(false);
@@ -1538,7 +1541,6 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         roadNew.draw(sb);
 
 //
-
 
 
         if (isAutoTurn || isZoomCarUpdate) {
@@ -1707,11 +1709,11 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         stage.draw();
         if (getScreenShot) {
             camera.position.x = 158;
-            int screenShotWidth =360;
+            int screenShotWidth = 360;
             int screenShotHeight = 380;
             byte[] pixels = ScreenUtils.getFrameBufferPixels(60, 90, screenShotWidth, screenShotHeight, true);
             hidePauseButton();
-            stage.addActor(new NewRecordShareState(gsm, actionResolver, pixels, screenShotWidth, screenShotHeight,(int)achives));
+            stage.addActor(new NewRecordShareState(gsm, actionResolver, pixels, screenShotWidth, screenShotHeight, (int) achives));
             getScreenShot = false;
         }
         sb.end();
@@ -1760,6 +1762,7 @@ public class GameState extends State implements OnSetCollisionCars, ResumeFromPa
         collisionCameraMove = false;
         cameraMoveTime = 0;
         GameManager.resetSpeed();
+        GameManager.resetTopeed(3);
         GameManager.setIsCollisionWithCar(false);
         GameManager.setIsCollision(false);
         GameManager.resetContactPoint();

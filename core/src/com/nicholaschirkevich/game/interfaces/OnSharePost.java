@@ -5,5 +5,5 @@ package com.nicholaschirkevich.game.interfaces;
  */
 public interface OnSharePost {
     void onShare();
-    void onError();
+    void onError(String error);
 }

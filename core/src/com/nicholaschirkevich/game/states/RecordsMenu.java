@@ -105,6 +105,16 @@ public class RecordsMenu extends Group implements ResumeButtonListener, OnGetLid
         }
     }
 
+    @Override
+    public void onLoginGoogle() {
+
+    }
+
+    @Override
+    public void onLoginGoogleError() {
+
+    }
+
     class HighScoreItem extends Group {
         private TextButton inviteFriend;
         ScrollPanCustom pane1;

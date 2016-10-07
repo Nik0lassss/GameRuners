@@ -56,6 +56,7 @@ public class DialogMessage extends Group {
         yesButton = new TextButton("YES", textButtonStyle);
         yesButton.getLabel().setFontScale(0.6f,0.6f);
         yesButton.setPosition(55, 165);
+
         noButton = new TextButton("NO", textButtonStyle);
         noButton.setPosition(205, 165);
         noButton.getLabel().setFontScale(0.6f,0.6f);
@@ -89,7 +90,7 @@ public class DialogMessage extends Group {
                     }
                 });
 
-                dialogMEssageCallback.onYes();
+                dialogMEssageCallback.onNo();
 
                 return true;
             }
